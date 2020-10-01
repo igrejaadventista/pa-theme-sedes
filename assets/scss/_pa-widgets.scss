@@ -100,6 +100,7 @@
 		font-size: 1.5rem;
 		border-left: none;
 		padding-left: 0;
+		font-weight: bold;
 	}
 
 	.fa-stack-2x {
@@ -215,5 +216,11 @@
 		span {
 			font-size: 1.2rem;
 		}
+	}
+}
+
+.pa-widget-revista {
+	.pa-glide-destaques {
+		background: #f7f8;
 	}
 }
