@@ -25,7 +25,6 @@
 								require(get_template_directory() . "/components/widgets/pa-videos.php");
 								require(get_template_directory() . "/components/widgets/pa-artigos.php");
 								require(get_template_directory() . "/components/widgets/pa-app.php");
-								
 
 								$tamanho = '2/3';
 								require(get_template_directory() . "/components/widgets/pa-videos.php");
@@ -33,7 +32,6 @@
 								require(get_template_directory() . "/components/widgets/pa-botoes.php");
 								require(get_template_directory() . "/components/widgets/pa-destaque-depto.php");
 							?>
-							
 						</div>
 					</div>
 				</div>

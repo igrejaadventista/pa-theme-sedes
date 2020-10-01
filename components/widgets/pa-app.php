@@ -1,4 +1,4 @@
-<div class="pa-widget col col-md-4 mb-5">
+<div class="pa-widget pa-widget-apps col col-md-4 mb-5">
 	<h2>App Adventista</h2>
 	<div class="pa-widget-apps rounded p-4 mt-4">
 		<span class="fa-stack fa-3x">

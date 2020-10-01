@@ -1,4 +1,4 @@
-<div class="pa-widget pa-destaques col col-md-4 mb-5">
+<div class="pa-widget pa-widget-destaques col col-md-4 mb-5">
 	<h2>Destaques</h2>
 	<div class="mt-4">
 		<div class="pa-glide-destaques">
