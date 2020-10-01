@@ -27,7 +27,7 @@ if ($tamanho == '1/3') {
 ?> 
 
  <div class="pa-widget pa-widget-feature col <?= $col_md ?> mb-5">
-	<h2>Videos</h2>
+	<h2>Widget - List - Videos</h2>
 	<div class="row row-cols-auto <?= $row_cols_md ?> mt-4">
 		<div class="col">
 			<div class="card mb-4 border-0">

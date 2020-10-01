@@ -14,7 +14,7 @@ if ($icon) {
 ?>
 
 <div class="pa-widget pa-widget-buttons <?= $class ?> col-12 col-md-4 mb-5">
-	<h2>Categorias</h2>
+	<h2>Widget - List - Buttons</h2>
 	<ul class="mt-4">
 		<li class="pa-widget-button h-25 mb-4">
 			<a href="#" class="d-block d-flex px-4 align-items-center rounded font-weight-bold">

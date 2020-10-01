@@ -1,5 +1,5 @@
 <div class="pa-widget col col-md-8 mb-5">
-	<h2>Últimas notícias</h2>
+	<h2>Widget - List - News</h2>
 
 	<div class="mt-4">
 		<div class="card mb-5 mb-xl-4 border-0">
