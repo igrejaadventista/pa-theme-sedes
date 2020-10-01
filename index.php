@@ -6,13 +6,13 @@
 		<div class="container">
 			<div class="row row-cols-auto">
 				<?php 
-					require(get_template_directory() . '/components/widgets/pa-destaque-depto.php');
-					require(get_template_directory() . '/components/widgets/pa-botoes.php');
+					require(get_template_directory() . '/components/widgets/pa-carousel-ministry.php');
+					require(get_template_directory() . '/components/widgets/pa-list-buttons.php');
 
 					$tamanho = '2/3';
-					require(get_template_directory() . '/components/widgets/pa-videos.php');
-					require(get_template_directory() . '/components/widgets/pa-destaque.php');
-					require(get_template_directory() . '/components/widgets/pa-downloads.php');
+					require(get_template_directory() . '/components/widgets/pa-list-videos.php');
+					require(get_template_directory() . '/components/widgets/pa-carousel-feature.php');
+					require(get_template_directory() . '/components/widgets/pa-list-downloads.php');
 
 				?>
 			</div>
