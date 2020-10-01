@@ -9,8 +9,8 @@
 					<div class="container">
 						<div class="row row-cols-auto">
 							<?php 
-								require(get_template_directory() . "/components/widgets/pa-noticias.php");
-								require(get_template_directory() . "/components/widgets/pa-destaque.php");
+								require(get_template_directory() . "/components/widgets/pa-list-news.php");
+								require(get_template_directory() . "/components/widgets/pa-carousel-feature.php");
 							?>
 						</div>
 					</div>
@@ -22,18 +22,18 @@
 						<div class="row row-cols-auto">
 							<?php 
 								$tamanho = '1/3';
-								require(get_template_directory() . "/components/widgets/pa-videos.php");
-								require(get_template_directory() . "/components/widgets/pa-artigos.php");
+								require(get_template_directory() . "/components/widgets/pa-list-videos.php");
+								require(get_template_directory() . "/components/widgets/pa-list-posts.php");
 								require(get_template_directory() . "/components/widgets/pa-app.php");
 
 								$tamanho = '2/3';
-								require(get_template_directory() . "/components/widgets/pa-videos.php");
-								require(get_template_directory() . "/components/widgets/pa-downloads.php");
+								require(get_template_directory() . "/components/widgets/pa-list-videos.php");
+								require(get_template_directory() . "/components/widgets/pa-list-downloads.php");
 
 								$icon = true;
-								require(get_template_directory() . "/components/widgets/pa-botoes.php");
-								require(get_template_directory() . "/components/widgets/pa-destaque-depto.php");
-								require(get_template_directory() . "/components/widgets/pa-slider-video.php");
+								require(get_template_directory() . "/components/widgets/pa-list-buttons.php");
+								require(get_template_directory() . "/components/widgets/pa-carousel-ministry.php");
+								require(get_template_directory() . "/components/widgets/pa-carousel-videos.php");
 
 							?>
 						</div>
