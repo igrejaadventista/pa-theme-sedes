@@ -30,7 +30,7 @@
 								require(get_template_directory() . "/components/widgets/pa-videos.php");
 								require(get_template_directory() . "/components/widgets/pa-downloads.php");
 								require(get_template_directory() . "/components/widgets/pa-botoes.php");
-								require(get_template_directory() . "/components/widgets/pa-destaque-depto.php");
+								require(get_template_directory() . "/components/widgets/pa-slider-video.php");
 							?>
 						</div>
 					</div>
