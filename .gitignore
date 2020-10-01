@@ -1,0 +1,10 @@
+.DS_Store
+.sass-cache
+.bundle
+Gemfile.lock
+*.zip
+node_modules
+style.css
+style.css.map
+yarn-error.log
+assets/js

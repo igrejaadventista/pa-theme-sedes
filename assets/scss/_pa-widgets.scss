@@ -1,0 +1,215 @@
+.pa-widget {
+	img {
+		width: 100%;
+		height: auto;
+	}
+
+	h2 {
+		color: var(--pa-color-default);
+		text-transform: uppercase;
+		font-size: 1.3rem;
+		font-weight: bold;
+		border-left: 3px solid var(--pa-color-default);
+		padding-left: 1.5rem;
+		display: block;
+	}
+
+	.pa-all-content {
+		display: table-cell;
+		color: var(--pa-color-default);
+		text-decoration: none;
+
+		&:after {
+			content: "\f105";
+			font-family: "Font Awesome 5 Free";
+			font-weight: 900;
+			font-size: 1rem;
+			color: var(--pa-color-default);
+			margin-left: 1rem;
+		}
+	}
+
+	.card:last-child {
+		margin-bottom: 1rem !important;
+	}
+
+	a {
+		color: inherit;
+		text-decoration: none;
+
+		.pa-img-tag {
+			font-size: 0.8rem;
+			padding: 2px 8px;
+			position: absolute;
+			background-color: var(--pa-color-default);
+			color: #fff;
+			bottom: 1.5rem;
+			left: 0;
+		}
+
+		.pa-tag {
+			color: var(--pa-color-default);
+			background-color: var(--pa-color-default-light);
+			font-size: 0.7rem;
+			padding: 1px 6px;
+		}
+	}
+
+	.pa-widget-apps {
+		background: #f7f8fa;
+
+		p {
+			color: var(--pa-color-gray03);
+		}
+
+		.pa-stores {
+			color: var(--pa-color-default);
+
+			.pa-store {
+				border: solid 1px var(--pa-color-default);
+
+				i {
+					font-size: 1.8rem;
+				}
+
+				p {
+					font-size: 0.8rem;
+					line-height: 1rem;
+					color: var(--pa-color-default);
+				}
+			}
+		}
+
+		.icon.fa-circle {
+			color: #004d99;
+		}
+	}
+}
+
+.pa-find-church {
+	background-image: image-url("bg-find-church-mask.png"),
+		linear-gradient(94.83deg, #003366 -3.92%, #4066b3 114.08%);
+	color: #fff;
+
+	h2,
+	h3,
+	h1 {
+		font-family: var(--pa-font-secondary);
+		color: #fff;
+		text-transform: none;
+		font-size: 1.5rem;
+		border-left: none;
+    	padding-left: 0;
+	}
+
+	.icon {
+		// color: rgba(255, 255, 255, 0.2);
+	}
+
+	.fa-stack-2x {
+		color: rgba(255, 255, 255, 0.2);
+	}
+
+	a {
+		color: #fff;
+		text-decoration: none;
+	}
+}
+
+.pa-feliz-7-play,
+.pa-destaques {
+	.pa-slider-header {
+		img {
+			height: auto;
+			width: 10.5rem;
+		}
+	}
+
+	.pa-slider-controle {
+		// background-color: #004d99;
+		color: var(--pa-color-default-light);
+		cursor: pointer;
+		position: relative;
+
+		.icon {
+			color: var(--pa-color-default);
+		}
+
+		.pa-slider-bullet {
+			font-size: 0.5rem;
+		}
+
+		.glide__bullet--active {
+			color: var(--pa-color-default);
+		}
+	}
+}
+
+.pa-widget-feature {
+	.figure-caption {
+		top: 0;
+		left: 0;
+
+		i.pa-play {
+			-webkit-transform: translate(-50%, -50%);
+			transform: translate(-50%, -50%);
+			top: 50%;
+			left: 50%;
+			font-size: 4rem;
+			color: rgba(255, 255, 255, 0.8);
+			text-shadow: 0 0 1rem rgba(0, 0, 0, 0.3);
+		}
+		span {
+			right: 8px;
+			bottom: 8px;
+			background: rgba(30, 46, 60, 0.76);
+			color: #fff;
+		}
+	}
+}
+
+.pa-widget-buttons {
+
+	.pa-widget-button {
+		
+		
+
+		a {
+			background: var(--pa-color-gray05);
+			// border-radius: .25rem!important;
+			font-size: 1.3rem;
+			
+			&:hover {
+				color: #fff;
+				background: var(--pa-color-default);
+			}
+		}
+
+		i {
+			font-size: 1.2rem;
+		}
+
+	}
+}
+
+.pa-destaques-deptos {
+
+	.glide__slide {
+		
+		a {
+			
+		}
+		figcaption {
+			bottom: 0;
+			left: 0;
+			color: #fff;
+			background: rgba(90, 90, 90, 0.25);
+			backdrop-filter: blur(5px);
+
+			.pa-tag {
+				background-color: rgba(255,255,255,0.2);
+				color: #fff;
+			}
+		}
+	}
+}

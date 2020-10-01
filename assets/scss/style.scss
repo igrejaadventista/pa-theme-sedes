@@ -1,0 +1,21 @@
+/*!
+Theme Name: PA - Thema Sedes (Parent)
+Theme URI: adventistas.org
+Description: Parent theme for adventistas.org website network.
+Author: WebDSA
+Version: 1.0
+
+
+*/
+
+@import "pa-variables";
+@import "pa-bootstrap-custom";
+@import "pa-header";
+@import "pa-menus.scss";
+@import "pa-parent";
+@import "pa-front-page";
+@import "pa-footer";
+@import "pa-widgets";
+
+@import "../node_modules/@glidejs/glide/src/assets/sass/glide.core";
+@import "../node_modules/@glidejs/glide/src/assets/sass/glide.theme";
