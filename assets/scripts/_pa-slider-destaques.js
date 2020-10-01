@@ -1,19 +1,30 @@
-/* Scripsts Slider Feliz7Play */
+/* Scripsts Slider Destaques */
 
 function pa_slider_destaques() {
-	var glide = new Glide(".pa-glide-destaques", {
-		type: "carousel",
-		perView: 1,
-	});
+	var select = ".pa-glide-destaques";
 
-	glide.mount();
+	var node = document.querySelector(select);
+	if (document.body.contains(node)) {
+		var glide = new Glide(select, {
+			type: "carousel",
+			perView: 1,
+		});
+
+		glide.mount();
+	}
 }
 
-function pa_slider_destaques_deptos() {
-	var glide = new Glide(".pa-destaque-deptos-sliders", {
-		type: "carousel",
-		perView: 1,
-	});
+/* Scripsts Slider Destaques Departamentos */
+function pa_slider_destaque_deptos() {
+	var select = ".pa-destaque-deptos-sliders";
 
-	glide.mount();
+	var node = document.querySelector(select);
+	if (document.body.contains(node)) {
+		var glide = new Glide(select, {
+			type: "carousel",
+			perView: 1,
+		});
+
+		glide.mount();
+	}
 }

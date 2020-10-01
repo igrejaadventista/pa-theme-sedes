@@ -1,11 +1,11 @@
-/* Scripsts Slider Feliz7Play */
+/* Scripsts Slider Videos */
 
 function pa_slider_destaques() {
 	var glide = new Glide(".pa-glide-videos", {
 		type: "carousel",
 		perView: 5,
 		startAt: 1,
-		gap: 38,
+		gap: 24,
 		hoverpause: true,
 		//autoplay: 2500,
 		breakpoints: {
