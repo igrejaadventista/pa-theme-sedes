@@ -24,6 +24,5 @@
 		<div class="pa-content-column flex-grow-1 d-block">
 			<?php 
 				require(get_template_directory() . '/components/menu/header.php'); 
-				require(get_template_directory() . '/components/front-page/slider.php'); 
 				
 			?>
