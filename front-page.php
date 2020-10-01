@@ -29,8 +29,12 @@
 								$tamanho = '2/3';
 								require(get_template_directory() . "/components/widgets/pa-videos.php");
 								require(get_template_directory() . "/components/widgets/pa-downloads.php");
+
+								$icon = true;
 								require(get_template_directory() . "/components/widgets/pa-botoes.php");
+								require(get_template_directory() . "/components/widgets/pa-destaque-depto.php");
 								require(get_template_directory() . "/components/widgets/pa-slider-video.php");
+
 							?>
 						</div>
 					</div>

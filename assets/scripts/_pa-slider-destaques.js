@@ -8,3 +8,12 @@ function pa_slider_destaques() {
 
 	glide.mount();
 }
+
+function pa_slider_destaques_deptos() {
+	var glide = new Glide(".pa-destaque-deptos-sliders", {
+		type: "carousel",
+		perView: 1,
+	});
+
+	glide.mount();
+}

@@ -1,13 +1,20 @@
-.pa-header {
+.pa-header-menu {
 	box-shadow: 3px 3px 5px rgba(0,0,0,0.2);
 	z-index: 9;
 	background-color: #fff;
+}
 
-	&.sticky-sm-top {
-		top: 0;
+.pa-header {
+	background-color: var(--pa-color-default-light);
+	color: #fff;
+	
+	.pa-tag {
+		background: rgba(255,255,255, 0.5);
+		text-transform: uppercase;
 	}
 
-	header {
-		height: 6rem;
+	h1 {
+		font-family: var(--pa-font-secondary);
+		font-size: 2.3rem;
 	}
 }

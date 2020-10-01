@@ -1,3 +1,7 @@
+.pa-menu-desktop {
+	height: 100px;
+}
+
 .pa-menu-global .nav {
 	a {
 		color: gray;
@@ -11,7 +15,13 @@
 		color: var(--pa-color-gray01);
 		font-size: 1.1rem;
 		font-family: var(--pa-font-secondary);
+		padding: .8rem 1rem;
+
+		&.pa-menu-active {
+			border-bottom: 4px solid var(--pa-color-default);
+		}
 	}
+
 	.dropdown-menu {
 		border: none;
 		border-top: 4px solid var(--pa-color-default);

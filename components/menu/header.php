@@ -1,6 +1,6 @@
-<section class="pa-header bg-ligh sticky-sm-top">
+<section class="pa-header-menu">
 	<header class="pa-menu-desktop container d-none d-xl-block">
-		<div class="row g-0 h-100 py-2">
+		<div class="row g-0 h-100">
 			<div class="col-auto d-flex align-items-center">
 				<a href="/" class=""><img src="<?= get_stylesheet_directory_uri() . "/assets/imgs/pt-br/logo-iasd.svg" ?>" alt="Igreja Adventista do Sétimo Dia" title="Igreja Adventista do Sétimo Dia" class="img-fluid"></a>
 			</div>
@@ -104,7 +104,7 @@
 							</ul>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="#">Sobre Nós</a>
+							<a class="pa-menu-active nav-link" href="#">Sobre Nós</a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link" href="#">Feliz7Play</a>

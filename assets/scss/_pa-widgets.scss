@@ -49,7 +49,7 @@
 
 		.pa-tag {
 			color: var(--pa-color-default);
-			background-color: var(--pa-color-default-light);
+			background-color: var(--pa-color-default-aux);
 			font-size: 0.7rem;
 			padding: 1px 6px;
 		}
@@ -95,11 +95,13 @@
 	h3,
 	h1 {
 		font-family: var(--pa-font-secondary);
+		color: #fff;
+		text-transform: none;
+		font-size: 1.5rem;
+		border-left: none;
+    	padding-left: 0;
 	}
 
-	.icon {
-		// color: rgba(255, 255, 255, 0.2);
-	}
 
 	.fa-stack-2x {
 		color: rgba(255, 255, 255, 0.2);
@@ -123,7 +125,7 @@
 
 .pa-slider-controle {
 	// background-color: #004d99;
-	color: var(--pa-color-default-light);
+	color: var(--pa-color-default-aux);
 	cursor: pointer;
 	position: relative;
 
@@ -166,7 +168,36 @@
 	}
 }
 
+.pa-widget-destaques-deptos {
+
+	.glide__slide {
+		
+		figcaption {
+			bottom: 0;
+			left: 0;
+			color: #fff;
+			background: rgba(90, 90, 90, 0.25);
+			backdrop-filter: blur(5px);
+
+			.pa-tag {
+				background-color: rgba(255,255,255,0.2);
+				color: #fff;
+			}
+		}
+	}
+}
+
+
 .pa-widget-buttons {
+	.pa-icon {
+		display: none;
+	}
+
+	&.pa-widget-buttons-icons {
+		.pa-icon {
+			display: inline-block;
+		}
+	}
 	.pa-widget-button {
 		a {
 			background: var(--pa-color-gray05);
