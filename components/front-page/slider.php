@@ -7,9 +7,9 @@
 				<div class="glide__slide" data-img-cell="<?= get_stylesheet_directory_uri()  . '/assets/imgs/slides/slider-mobile-1.png' ?>" style="background-image: url('<?= get_stylesheet_directory_uri()  . '/assets/imgs/slider-principal.png' ?>');">
 					<div class="container">
 						<div class="row align-items-end align-items-xl-center">
-							<div class="col col-xl-5 d-flex flex-column align-items-center align-items-xl-start justify-content-center mb-5 pb-5 mb-xl-0 pb-xl-0">
+							<div class="col col-xl-6 d-flex flex-column align-items-center align-items-xl-start justify-content-center mb-5 pb-5 mb-xl-0 pb-xl-0">
 								<small class="h6">LANÇAMENTO FELIZ7PLAY</small>
-								<h1 class="display-1 text-center text-xl-left my-2">INCERTEZAS</h1>
+								<h1 class="display-3 text-center text-xl-left my-2">Incertezas</h1>
 								<p class="pt-2 mb-3 pb-3 d-none d-xl-block">Alice, vive um momento de incertezas, sem saber lidar com a pressão e as expectativas que envolvem seu futuro.</p>
 								<button type="submit" class="btn btn-primary mt-2 align-self-xl-start ">ASSISTA GRÁTIS</button>
 							</div>
@@ -20,9 +20,9 @@
 				<div class="glide__slide" data-img-cell="<?= get_stylesheet_directory_uri()  . '/assets/imgs/slides/slider-mobile-2.png' ?>" style="background-image: url('<?= get_stylesheet_directory_uri()  . '/assets/imgs/slider-principal-2.png' ?>');">
 					<div class="container">
 						<div class="row align-items-end align-items-xl-center">
-							<div class="col col-xl-5 d-flex flex-column align-items-center align-items-xl-start justify-content-center mb-5 pb-5 mb-xl-0 pb-xl-0">
+							<div class="col col-xl-6 d-flex flex-column align-items-center align-items-xl-start justify-content-center mb-5 pb-5 mb-xl-0 pb-xl-0">
 								<small class="h6">ESCOLA SABATINA</small>
-								<h1 class="display-1 text-center text-xl-left my-2">PROJETO MANÁ</h1>
+								<h1 class="display-3 text-center text-xl-left my-2">Projeto Maná</h1>
 								<p class="pt-2 mb-3 pb-3 d-none d-xl-block">Está acontecendo o Mutirão para as assinaturas das lições da Escola Sabatina, não perca tempo e assine já a sua!</p>
 								<button type="submit" class="btn btn-primary mt-2 align-self-xl-start ">ASSISTA GRÁTIS</button>
 							</div>
@@ -33,9 +33,9 @@
 				<div class="glide__slide" data-img-cell="<?= get_stylesheet_directory_uri()  . '/assets/imgs/slides/slider-mobile-3.png' ?>" style="background-image: url('<?= get_stylesheet_directory_uri()  . '/assets/imgs/slider-principal-3.png' ?>');">
 					<div class="container">
 						<div class="row align-items-end align-items-xl-center">
-							<div class="col col-xl-5 d-flex flex-column align-items-center align-items-xl-start justify-content-center mb-5 pb-5 mb-xl-0 pb-xl-0">
+							<div class="col col-xl-6 d-flex flex-column align-items-center align-items-xl-start justify-content-center mb-5 pb-5 mb-xl-0 pb-xl-0">
 								<small class="h6">LANÇAMENTO 7CAST</small>
-								<h1 class="display-1 text-center text-xl-left my-2">PLATAFORMA DE PODCAST CRISTÃO</h1>
+								<h1 class="display-3 text-center text-xl-left my-2">Plataforma de podcast cristão</h1>
 								<p class="pt-2 mb-3 pb-3 d-none d-xl-block">Ouça o melhor conteúdo em áudio, com temas para todos os momentos.</p>
 								<button type="submit" class="btn btn-primary mt-2 align-self-xl-start ">ASSISTA GRÁTIS</button>
 							</div>
