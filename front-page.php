@@ -34,6 +34,7 @@
 								require(get_template_directory() . "/components/widgets/pa-list-buttons.php");
 								require(get_template_directory() . "/components/widgets/pa-carousel-ministry.php");
 								require(get_template_directory() . "/components/widgets/pa-carousel-videos.php");
+								require(get_template_directory() . "/components/widgets/pa-carousel-magazines.php");
 
 							?>
 						</div>

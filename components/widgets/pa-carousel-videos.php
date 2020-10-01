@@ -1,4 +1,4 @@
-<div class="pa-widget pa-widget-feature pa-slider-videos col-12 mb-5">
+<div class="pa-widget pa-w-carousel-videos col-12 mb-5">
 	<div class="pa-glide-videos">
 		<div class="pa-slider-controle d-flex align-items-center mb-4">
 			<h2 class="flex-grow-1">Widget - Carousel - Videos</h2>	

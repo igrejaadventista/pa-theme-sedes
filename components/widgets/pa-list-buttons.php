@@ -1,19 +1,19 @@
 <!-- 
 
 ATENÇÃO
-Caso queira mostrar os icones, inserir a classe CSS 'pa-widget-buttons-icons' no elemento pai 'pa-widget'
+Caso queira mostrar os icones, inserir a classe CSS 'pa-w-list-buttons-icons' no elemento pai 'pa-widget'
 
 -->
 
 <?php
 
 if ($icon) {
-	$class = "pa-widget-buttons-icons";
+	$class = "pa-w-list-buttons-icons";
 }
 
 ?>
 
-<div class="pa-widget pa-widget-buttons <?= $class ?> col-12 col-md-4 mb-5">
+<div class="pa-widget pa-w-list-buttons <?= $class ?> col-12 col-md-4 mb-5">
 	<h2>Widget - List - Buttons</h2>
 	<ul class="mt-4">
 		<li class="pa-widget-button h-25 mb-4">

@@ -1,4 +1,4 @@
-<div class="pa-widget pa-widget-destaques-deptos col col-md-8 mb-5">
+<div class="pa-widget pa-w-carousel-ministry col col-md-8 mb-5">
 	<h2>Widget - Carousel - Ministry</h2>
 	<div class="mt-4">
 		<div class="pa-destaque-deptos-sliders">

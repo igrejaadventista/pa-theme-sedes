@@ -1,4 +1,4 @@
-<div class="pa-widget col col-md-8 mb-5">
+<div class="pa-widget pa-w-list-news col col-md-8 mb-5">
 	<h2>Widget - List - News</h2>
 
 	<div class="mt-4">

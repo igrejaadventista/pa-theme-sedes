@@ -1,4 +1,4 @@
-<div class="pa-widget pa-widget-revista col col-md-4 mb-5">
+<div class="pa-widget pa-w-carousel-magazines col col-md-4 mb-5">
 	<h2>Revista</h2>
 	<div class="mt-4">
 		<div class="pa-glide-destaques d-flex align-items-center p-3">

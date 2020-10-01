@@ -1,4 +1,4 @@
-<div class="pa-widget pa-widget-artigos col col-md-4 mb-5">
+<div class="pa-widget pa-w-list-posts col col-md-4 mb-5">
 	<h2>Widget - List - Posts</h2>
 	<div class="mt-4">
 		<div class="card mb-2 mb-xl-4 border-0">

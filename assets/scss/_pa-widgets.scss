@@ -55,7 +55,7 @@
 		}
 	}
 
-	.pa-widget-apps {
+	.pa-w-apps {
 		background: #f7f8fa;
 
 		p {
@@ -113,7 +113,7 @@
 	}
 }
 
-.pa-feliz-7-play,
+.pa-w-feliz7play,
 .pa-destaques {
 	.pa-slider-header {
 		img {
@@ -142,7 +142,7 @@
 	}
 }
 
-.pa-widget-feature {
+.pa-w-list-videos {
 	.figure {
 		width: 100%;
 	}
@@ -168,7 +168,7 @@
 	}
 }
 
-.pa-widget-destaques-deptos {
+.pa-w-carousel-ministry {
 	.glide__slide {
 		figcaption {
 			bottom: 0;
@@ -185,12 +185,12 @@
 	}
 }
 
-.pa-widget-buttons {
+.pa-w-list-buttons {
 	.pa-icon {
 		display: none;
 	}
 
-	&.pa-widget-buttons-icons {
+	&.pa-w-list-buttons-icons {
 		.pa-icon {
 			display: inline-block;
 		}
@@ -219,7 +219,7 @@
 	}
 }
 
-.pa-widget-revista {
+.pa-w-carousel-magazines {
 	.pa-glide-destaques {
 		background: #f7f8;
 	}
