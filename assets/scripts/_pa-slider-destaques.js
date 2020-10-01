@@ -28,3 +28,18 @@ function pa_slider_destaque_deptos() {
 		glide.mount();
 	}
 }
+
+/* Scripsts Slider Destaques Departamentos */
+function pa_slider_magazines() {
+	var select = ".pa-slider-magazines";
+
+	var node = document.querySelector(select);
+	if (document.body.contains(node)) {
+		var glide = new Glide(select, {
+			type: "carousel",
+			perView: 1,
+		});
+
+		glide.mount();
+	}
+}
