@@ -18,7 +18,7 @@ function pa_slider_principal() {
 		perView: 1,
 		gap: 0,
 		animationDuration: 0,
-		autoplay: 5000,
+		// autoplay: 5000,
 	});
 
 	glide.mount();

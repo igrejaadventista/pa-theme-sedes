@@ -6,12 +6,14 @@
 .pa-content-column {
 	//max-width: 100%;
 	//max-width: calc(100vw - 14.28vw);
-	max-width: 100vw;
+	//max-width: 100vw;
 }
 
 .pa-sabbath-column {
 	background-color: var(--pa-color-default);
-	width: 14.28vw;
+	min-width: 14.28vw;
+	width: 100%;
+	max-width: 14.28vw;
 	z-index: 999999;
 
 	.pa-grid-logo {

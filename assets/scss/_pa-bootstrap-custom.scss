@@ -9,3 +9,8 @@
 .form-control {
 	text-transform: none;
 }
+
+.d-flex,
+.d-block {
+	min-width: 0;
+}

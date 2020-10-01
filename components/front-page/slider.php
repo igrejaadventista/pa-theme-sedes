@@ -1,7 +1,9 @@
-<section class="pa-slider-principal">
+<div class="pa-slider-principal">
+
 	<div class="pa-glide-principal">
 		<div class="glide__track" data-glide-el="track">
 			<div class="glide__slides">
+
 				<div class="glide__slide" data-img-cell="<?= get_stylesheet_directory_uri()  . '/assets/imgs/slides/slider-mobile-1.png' ?>" style="background-image: url('<?= get_stylesheet_directory_uri()  . '/assets/imgs/slider-principal.png' ?>');">
 					<div class="container">
 						<div class="row align-items-end align-items-xl-center">
@@ -50,4 +52,6 @@
 			</div>
 		</div>
 	</div>
-</section>
+													
+
+</div>

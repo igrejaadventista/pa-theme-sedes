@@ -1,6 +1,6 @@
-<section class="pa-header-menu bg-ligh">
-	<div class="pa-menu-desktop container d-none d-xl-block">
-		<div class="row g-0 h-100">
+<section class="pa-header bg-ligh sticky-sm-top">
+	<header class="pa-menu-desktop container d-none d-xl-block">
+		<div class="row g-0 h-100 py-2">
 			<div class="col-auto d-flex align-items-center">
 				<a href="/" class=""><img src="<?= get_stylesheet_directory_uri() . "/assets/imgs/pt-br/logo-iasd.svg" ?>" alt="Igreja Adventista do Sétimo Dia" title="Igreja Adventista do Sétimo Dia" class="img-fluid"></a>
 			</div>
@@ -23,10 +23,10 @@
 							<a class="nav-link" href="#">Downloads</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="#"><i class="fas fa-search mr-1"></i> Buscar</a>
+							<a class="nav-link" href="#">Buscar</a>
 						</li>
 						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false"><i class="fas fa-globe-americas mr-1"></i> PT</a>
+							<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">PT</a>
 							<ul class="dropdown-menu">
 								<li class="py-2"><a class="dropdown-item" href="#">PT</a></li>
 								<li class="py-2"><a class="dropdown-item" href="#">ES</a></li>
@@ -68,8 +68,8 @@
 								<li class="py-2"><a class="dropdown-item" title="Serviço Voluntário Adventista" href="https://www.adventistas.org/pt/voluntarios/">Serviço Voluntário Adventista</a></li>
 							</ul>
 						</li>
-						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">Sedes Regionais</a>
+						<li class="nav-item">
+						<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">Sedes Regionais</a>
 							<ul class="dropdown-menu pa-split-column-3 p-4">
 								<li class="py-2"><a class="dropdown-item" href="#">ASA</a></li>
 								<li class="py-2"><a class="dropdown-item" href="#">Associacão Ministerial</a></li>
@@ -104,7 +104,7 @@
 							</ul>
 						</li>
 						<li class="nav-item">
-							<a class="pa-menu-active nav-link" href="#">Sobre Nós</a>
+							<a class="nav-link" href="#">Sobre Nós</a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link" href="#">Feliz7Play</a>
@@ -113,10 +113,10 @@
 				</nav>
 			</div>
 		</div>
-	</div>
+	</header>
 
 	<!-- Header Mobile -->
-	<div class="pa-menu-mobile container-fluid d-xl-none">
+	<header class="pa-menu-mobile container-fluid d-xl-none">
 
 		<div class="row g-0 pt-4 pb-3">
 			<div class="col-6">
@@ -211,5 +211,5 @@
 				</ul>
 			</div>
 			<div class="mask"></div>
-	</div>
+	</header>
 </section>
