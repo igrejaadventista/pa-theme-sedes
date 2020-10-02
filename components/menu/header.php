@@ -78,8 +78,11 @@
 					<li><img src="<?= get_stylesheet_directory_uri() . "/assets/imgs/close.svg" ?>" alt="" onclick="pa_action_menu()">
 					</li>
 				</ul>
-
-				<ul class="menu_inf">
+				<?php 
+					$menu = wp_get_menu_array(get_default_menu('pa-menu-default'));
+					get_menu_father($menu);
+				?>
+				<!-- <ul class="menu_inf">
 					<li class="pa-dropdown">
 						<a href="#">Adventistas.org</a>
 						<div class="pa-sub-dropdown">
@@ -147,7 +150,7 @@
 					<li>
 						<a href="#">Oração</a>
 					</li>
-				</ul>
+				</ul> -->
 			</div>
 			<div class="mask"></div>
 	</header>

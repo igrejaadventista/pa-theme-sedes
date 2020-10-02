@@ -1,7 +1,7 @@
 <?php 
 
 require_once (dirname(__FILE__) . '/classes/controllers/PA_Menu_Walker.class.php');
-
+require_once (dirname(__FILE__) . '/classes/controllers/PA_Menu_Mobile.class.php');
 
 
 
