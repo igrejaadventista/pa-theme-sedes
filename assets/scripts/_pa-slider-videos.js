@@ -1,7 +1,6 @@
 /* Scripsts Slider Videos */
 
-function pa_slider_destaques() {
-
+function pa_slider_videos() {
 	var select = ".pa-glide-videos";
 
 	var node = document.querySelector(select);

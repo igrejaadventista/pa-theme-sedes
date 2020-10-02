@@ -7,5 +7,6 @@ function onload() {
 	pa_slider_destaque_deptos();
 	pa_slider_principal();
 	pa_slider_magazines();
+	pa_slider_videos();
 }
 document.addEventListener("DOMContentLoaded", onload, false);
