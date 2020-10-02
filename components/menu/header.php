@@ -34,83 +34,22 @@
 						</li>
 					</ul>
 				</nav>
-				<nav class="pa-menu-default">
-					<ul class="nav justify-content-end">
-						<li class="nav-item">
-							<a class="nav-link text-body" aria-current="page" href="#">Home</a>
-						</li>
-						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="true">Departamentos</a>
-							<ul class="dropdown-menu pa-split-column-3 p-4">
-								<li class="py-2"><a class="dropdown-item" title="AFAM" href="https://www.adventistas.org/pt/afam/">AFAM</a></li>
-								<li class="py-2"><a class="dropdown-item" title="Ação Solidária Adventista - ASA" href="https://www.adventistas.org/pt/asa/">ASA</a></li>
-								<li class="py-2"><a class="dropdown-item" title="Associação Ministerial" href="https://www.adventistas.org/pt/associacaoministerial/">Associação Ministerial</a></li>
-								<li class="py-2"><a class="dropdown-item" title="Aventureiros" href="https://www.adventistas.org/pt/aventureiros/">Aventureiros</a></li>
-								<li class="py-2"><a class="dropdown-item" title="Comunicação" href="https://www.adventistas.org/pt/comunicacao">Comunicação</a></li>
-								<li class="py-2"><a class="dropdown-item" title="Desbravadores" href="https://www.adventistas.org/pt/desbravadores">Desbravadores</a></li>
-								<li class="py-2"><a class="dropdown-item" title="Educação" href="https://www.adventistas.org/pt/educacao">Educação</a></li>
-								<li class="py-2"><a class="dropdown-item" title="Escola Sabatina" href="https://www.adventistas.org/pt/escolasabatina">Escola Sabatina</a></li>
-								<li class="py-2"><a class="dropdown-item" title="Espírito de Profecia" href="https://www.adventistas.org/pt/espiritodeprofecia/">Espírito de Profecia</a></li>
-								<li class="py-2"><a class="dropdown-item" title="Evangelismo" href="https://www.adventistas.org/pt/evangelismo">Evangelismo</a></li>
-								<li class="py-2"><a class="dropdown-item" title="Liberdade Religiosa" href="https://www.adventistas.org/pt/liberdadereligiosa">Liberdade Religiosa</a></li>
-								<li class="py-2"><a class="dropdown-item" title="Ministério da Criança" href="https://www.adventistas.org/pt/criancas/">Ministério da Criança</a></li>
-								<li class="py-2"><a class="dropdown-item" title="Ministério da Família" href="https://www.adventistas.org/pt/familia/">Ministério da Família</a></li>
-								<li class="py-2"><a class="dropdown-item" title="Ministério da Mulher" href="https://www.adventistas.org/pt/mulher/">Ministério da Mulher</a></li>
-								<li class="py-2"><a class="dropdown-item" title="Ministério da Música" href="https://www.adventistas.org/pt/musica">Ministério da Música</a></li>
-								<li class="py-2"><a class="dropdown-item" title="Ministério de Publicações" href="https://www.adventistas.org/pt/publicacoes/">Ministério de Publicações</a></li>
-								<li class="py-2"><a class="dropdown-item" title="Ministério de Surdos" href="http://surdos.adventistas.org/">Ministério de Surdos</a></li>
-								<li class="py-2"><a class="dropdown-item" title="Ministério do Adolescente" href="https://www.adventistas.org/pt/adolescentes/">Ministério do Adolescente</a></li>
-								<li class="py-2"><a class="dropdown-item" title="Ministério Jovem" href="https://www.adventistas.org/pt/jovens">Ministério Jovem</a></li>
-								<li class="py-2"><a class="dropdown-item" title="Ministério Pessoal" href="https://www.adventistas.org/pt/ministeriopessoal/">Ministério Pessoal</a></li>
-								<li class="py-2"><a class="dropdown-item" title="Missão Global" href="https://www.adventistas.org/pt/missaoglobal/">Missão Global</a></li>
-								<li class="py-2"><a class="dropdown-item" title="Mordomia Cristã" href="https://www.adventistas.org/pt/mordomiacrista/">Mordomia Cristã</a></li>
-								<li class="py-2"><a class="dropdown-item" title="Saúde" href="https://www.adventistas.org/pt/saude/">Saúde</a></li>
-								<li class="py-2"><a class="dropdown-item" title="Serviço Voluntário Adventista" href="https://www.adventistas.org/pt/voluntarios/">Serviço Voluntário Adventista</a></li>
-							</ul>
-						</li>
-						<li class="nav-item">
-						<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">Sedes Regionais</a>
-							<ul class="dropdown-menu pa-split-column-3 p-4">
-								<li class="py-2"><a class="dropdown-item" href="#">ASA</a></li>
-								<li class="py-2"><a class="dropdown-item" href="#">Associacão Ministerial</a></li>
-								<li class="py-2"><a class="dropdown-item" href="#">Aventureiros</a></li>
-								<li class="py-2"><a class="dropdown-item" href="#">Comunicação</a></li>
-								<li class="py-2"><a class="dropdown-item" href="#">Desbravadores</a></li>
-								<li class="py-2"><a class="dropdown-item" href="#">Educação</a></li>
-								<li class="py-2"><a class="dropdown-item" href="#">Escola Sabatina</a></li>
-								<li class="py-2"><a class="dropdown-item" href="#">Espírito de Profecia</a></li>
-								<li class="py-2"><a class="dropdown-item" href="#">Evangelismo</a></li>
-								<li class="py-2"><a class="dropdown-item" href="#">Liberdade Religiosa</a></li>
-								<li class="py-2"><a class="dropdown-item" href="#">ASA</a></li>
-								<li class="py-2"><a class="dropdown-item" href="#">Associacão Ministerial</a></li>
-								<li class="py-2"><a class="dropdown-item" href="#">Aventureiros</a></li>
-								<li class="py-2"><a class="dropdown-item" href="#">Comunicação</a></li>
-								<li class="py-2"><a class="dropdown-item" href="#">Desbravadores</a></li>
-								<li class="py-2"><a class="dropdown-item" href="#">Educação</a></li>
-								<li class="py-2"><a class="dropdown-item" href="#">Escola Sabatina</a></li>
-								<li class="py-2"><a class="dropdown-item" href="#">Espírito de Profecia</a></li>
-								<li class="py-2"><a class="dropdown-item" href="#">Evangelismo</a></li>
-								<li class="py-2"><a class="dropdown-item" href="#">Liberdade Religiosa</a></li>
-								<li class="py-2"><a class="dropdown-item" href="#">ASA</a></li>
-								<li class="py-2"><a class="dropdown-item" href="#">Associacão Ministerial</a></li>
-								<li class="py-2"><a class="dropdown-item" href="#">Aventureiros</a></li>
-								<li class="py-2"><a class="dropdown-item" href="#">Comunicação</a></li>
-								<li class="py-2"><a class="dropdown-item" href="#">Desbravadores</a></li>
-								<li class="py-2"><a class="dropdown-item" href="#">Educação</a></li>
-								<li class="py-2"><a class="dropdown-item" href="#">Escola Sabatina</a></li>
-								<li class="py-2"><a class="dropdown-item" href="#">Espírito de Profecia</a></li>
-								<li class="py-2"><a class="dropdown-item" href="#">Evangelismo</a></li>
-								<li class="py-2"><a class="dropdown-item" href="#">Liberdade Religiosa</a></li>
-							</ul>
-						</li>
-						<li class="nav-item">
-							<a class="pa-menu-active nav-link" href="#">Sobre Nós</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="#">Feliz7Play</a>
-						</li>
-					</ul>
-				</nav>
+
+				<?php
+					wp_nav_menu(
+						array (
+							'theme_location'	=> 'pa-menu-default',
+							'container_class'	=> 'pa-menu-default',
+							'container'			=> 'nav',
+							'container_id'		=> FALSE,
+							'menu_class'		=> 'nav justify-content-end', 
+							'menu_id'			=> FALSE,
+							'depth'				=> 0,
+							'walker'			=> new PA_Menu_Walker
+						)
+					);
+
+				?>
 			</div>
 		</div>
 	</header>
