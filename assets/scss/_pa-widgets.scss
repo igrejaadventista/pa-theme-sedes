@@ -56,8 +56,6 @@
 	}
 
 	.pa-w-apps {
-		background: #f7f8fa;
-
 		p {
 			color: var(--pa-color-gray03);
 		}
@@ -142,7 +140,8 @@
 	}
 }
 
-.pa-w-list-videos {
+.pa-w-list-videos,
+.pa-w-carousel-videos {
 	.figure {
 		width: 100%;
 	}
@@ -220,7 +219,19 @@
 }
 
 .pa-w-carousel-magazines {
-	.pa-glide-destaques {
-		background: #f7f8;
+	.pa-slider-controle {
+		color: var(--pa-color-default);
+		position: absolute;
+		transform: translateX(-50%) translateY(-50%) !important;
+	}
+
+	.pa-controle-left {
+		left: 0;
+		top: 50%;
+	}
+
+	.pa-controle-right {
+		left: 100%;
+		top: 50%;
 	}
 }
