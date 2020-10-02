@@ -9,7 +9,6 @@
 
 	<!-- <script src="https://cdn.jsdelivr.net/npm/@glidejs/glide"></script> -->
 	
-	<script src="<?= get_stylesheet_directory_uri() . '/assets/node_modules/@glidejs/glide/dist/glide.min.js'; ?>"></script>
 	<script src="<?= get_stylesheet_directory_uri() . '/assets/js/script.js'; ?>"></script>
 	<!-- Optional JavaScript -->
 	<!-- Popper.js first, then Bootstrap JS -->
