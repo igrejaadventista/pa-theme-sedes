@@ -1,7 +1,10 @@
-		<?php get_header(); ?>
-		<?php 
-			require(get_template_directory() . '/components/front-page/slider.php'); 
-		?>
+<?php
+	
+	/* Template name: Page - Front Page */
+
+	get_header(); 
+	require(get_template_directory() . '/components/front-page/slider.php'); 
+?>
 			<section class="pa-content pb-5">
 
 				<?php require(get_template_directory() . '/components/widgets/pa-find-church.php'); ?>

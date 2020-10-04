@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html <?php language_attributes(); ?>>
 
 <head>
 	<!-- Required meta tags -->
@@ -29,5 +29,4 @@
 		<div class="pa-content-column flex-grow-1 d-block">
 			<?php 
 				require(get_template_directory() . '/components/menu/header.php'); 
-				
 			?>
