@@ -5,9 +5,10 @@
 	<div class="pa-content py-5">
 		<div class="container">
 			<div class="row row-cols-auto">
-				<div class="col-12 col-md-8">
+				<article class="col-12 col-md-8">
 					<div class="pa-blog-feature">
-						<a href="">
+						<h2 class="mb-4">Destaque</h2>
+						<a href="" class="">
 							<figure class="figure position-relative m-xl-0">
 								<img src="https://picsum.photos/960/540.webp?random=1" class="figure-img img-fluid m-0 rounded" alt="...">
 								<figcaption class="figure-caption position-absolute w-100 p-3 rounded-bottom">
@@ -95,11 +96,20 @@
 								</div>
 							</a>
 						</div>
+
+						<div class="">
+							<div>16x9</div>
+						</div>
 					</div>
-				</div>
-				<div class="col-md-4 d-none d-xl-block">
-					<h2>widgets</h2>
-				</div>
+				</article>
+				<aside class="col-md-4 d-none d-xl-block">
+				<?php 
+					$icon = true;
+					require(get_template_directory() . '/components/widgets/pa-list-buttons.php');
+					require(get_template_directory() . '/components/widgets/pa-list-videos.php');
+					require(get_template_directory() . '/components/widgets/pa-list-downloads.php');	
+				?>
+				</aside>
 			</div>
 		</div>
 	</div>
