@@ -14,14 +14,18 @@ row-cols-md-1
 
 <?php 
 
-if ($tamanho == '1/3') {
-	$col_md = "col-md-4";
-	$row_cols_md = "row-cols-md-1";
-	$d_xl_block = "";
-} else if ($tamanho == '2/3') {
-	$col_md = "col-md-8";
-	$row_cols_md = "row-cols-md-2";
-	$d_xl_block = "d-xl-block";
+
+switch($tamanho){
+	case "2/3":
+		$col_md = "col-md-8";
+		$row_cols_md = "row-cols-md-2";
+		$d_xl_block = "d-xl-block";
+	break;
+	default:
+		$col_md = "col-md-4";
+		$row_cols_md = "row-cols-md-1";
+		$d_xl_block = "";
+	break;
 }
 
 ?> 

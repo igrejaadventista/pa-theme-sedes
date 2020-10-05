@@ -43,12 +43,31 @@
 
 .pa-content {
 	.pa-blog-feature {
+		figure {
+			width: 100%;
+			height: 100%;
+		}
+
 		@include pa-figure-overlay;
 	}
 
-	.pa-blog-itens {
-		h2 {
-			@include pa-h2-widget-title;
+	h2 {
+		@include pa-h2-widget-title;
+	}
+
+	.pa-blog-item {
+
+		a { 
+			color: inherit;
+			text-decoration: none;
+
+			@include pa-list-posts;
+		}
+	}
+
+	aside {
+		.pa-widget {
+			width: 100%;
 		}
 	}
 }
