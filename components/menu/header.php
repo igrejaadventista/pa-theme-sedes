@@ -79,8 +79,7 @@
 					</li>
 				</ul>
 				<?php 
-					$menu = wp_get_menu_array(get_default_menu('pa-menu-default'));
-					get_menu_father($menu);
+					new PA_Menu_Mobile('pa-menu-default');
 				?>
 				<!-- <ul class="menu_inf">
 					<li class="pa-dropdown">
