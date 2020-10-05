@@ -6,8 +6,8 @@ function pa_remove(e) {
 		for (var i = 0; i < acx.length; i++) {
 			if (acx[i].children[1] !== e.nextElementSibling) {
 				acx[i].classList.remove("active");
-				var panel = acx[i].children[1];
-				panel.style.maxHeight = null;
+				var painel = acx[i].children[1];
+				painel && (painel.style.maxHeight = null);
 			}
 		}
 	}
@@ -20,11 +20,11 @@ function pa_dropdown() {
 			pa_remove(this);
 			this.parentElement.classList.toggle("active");
 
-			var panel = this.nextElementSibling;
-			if (panel.style.maxHeight) {
-				panel.style.maxHeight = null;
+			var painel = this.nextElementSibling;
+			if (painel.style.maxHeight) {
+				painel.style.maxHeight = null;
 			} else {
-				panel.style.maxHeight = panel.scrollHeight + "px";
+				painel.style.maxHeight = painel.scrollHeight + "px";
 			}
 		});
 	}
