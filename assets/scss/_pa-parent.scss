@@ -51,4 +51,16 @@
 			@include pa-h2-widget-title;
 		}
 	}
+
+	.pa-blog-item {
+
+		a { 
+			color: inherit;
+			text-decoration: none;
+
+			@include pa-list-posts;
+		}
+			
+		
+	}
 }

@@ -28,3 +28,22 @@
 	padding-left: 1.5rem;
 	display: block;	
 }
+
+@mixin pa-list-posts {
+	.pa-img-tag {
+		font-size: 0.8rem;
+		padding: 2px 8px;
+		position: absolute;
+		background-color: var(--pa-color-default);
+		color: #fff;
+		bottom: 1.5rem;
+		left: 0;
+	}
+
+	.pa-tag {
+		color: var(--pa-color-default);
+		background-color: var(--pa-color-default-aux);
+		font-size: 0.7rem;
+		padding: 1px 6px;
+	}
+}
