@@ -10,6 +10,9 @@ require_once (dirname(__FILE__) . '/classes/controllers/PA_Menu_Mobile.class.php
  */
 function pa_theme_support() {
 	add_theme_support( 'title-tag' );
+	add_theme_support( 'post-thumbnails' );
+	add_theme_support( 'responsive-embeds' );
+	
 	remove_action('wp_head', 'wp_generator');
 
 	/*
@@ -26,6 +29,11 @@ function pa_theme_support() {
 	// Remove from TinyMCE
 	add_filter( 'tiny_mce_plugins', 'disable_emojis_tinymce' );
 
+	global $content_width;
+	if ( ! isset( $content_width ) ) {
+		$content_width = 856;
+	}
+
 }
 add_action( 'after_setup_theme', 'pa_theme_support' );
 
@@ -35,11 +43,20 @@ function wp_custom_menus() {
 }
 add_action( 'init', 'wp_custom_menus' );
 
+function add_responsive_class($content){
 
-// function add_additional_class_on_li($classes, $item, $args) {
-//     if(isset($args->add_li_class)) {
-//         $classes[] = $args->add_li_class;
-//     }
-//     return $classes;
-// }
-// add_filter('nav_menu_css_class', 'add_additional_class_on_li', 1, 3);
+	$content = mb_convert_encoding($content, 'HTML-ENTITIES', "UTF-8");
+	$document = new DOMDocument();
+	libxml_use_internal_errors(true);
+	$document->loadHTML(utf8_decode($content));
+
+	$imgs = $document->getElementsByTagName('img');
+	foreach ($imgs as $img) {
+	   $img->setAttribute('class','img-fluid');
+	}
+
+	$html = $document->saveHTML();
+	return $html;
+}
+
+add_filter ('the_content', 'add_responsive_class');

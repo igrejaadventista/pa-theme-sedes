@@ -47,3 +47,9 @@
 		padding: 1px 6px;
 	}
 }
+
+@mixin pa-wp-block-embed-caption {
+	font-style: normal !important;
+	color: var(--pa-color-gray03);
+	font-size: 0.85rem;
+}
