@@ -1,7 +1,13 @@
 <?php 
 get_header(); 
+
+
+global $post; 
 if(have_posts())
 		the_post();
+
+$next_post = get_next_post();
+$prev_post = get_previous_post();
 ?>
 	<?php 
 		require(get_template_directory() . '/components/parent/header.php'); 	
@@ -16,14 +22,10 @@ if(have_posts())
 						<div class="pa-post-meta">Por Maycon Santos | <?php the_date(); ?></div>
 						<hr class="my-4">
 						<div class="d-flex justify-content-between">
-							<div class="pa-share">
-								<ul class="list-inline">
-									<li class="list-inline-item">Compartilhar: </li>
-									<li class="list-inline-item"><a href=""><i class="fab fa-twitter"></i></a></li>
-									<li class="list-inline-item"><a href=""><i class="fab fa-facebook-f"></i></a></li>
-									<li class="list-inline-item"><a href=""><i class="fas fa-envelope"></i></a></li>
-									<li class="list-inline-item"><a href=""><i class="fab fa-whatsapp"></i></a></li>
-								</ul>
+							<div class="pa-share d-none d-xl-block">
+								<?php 
+									require(get_template_directory() . '/components/parts/share.php');
+								?>
 							</div>
 							<div class="">
 								<ul class="pa-accessibility list-inline">
@@ -35,23 +37,28 @@ if(have_posts())
 						</div>
 					</header>
 					<div class="pa-content">
-						<?php the_content('tste'); ?>
+						<?php the_content(); ?>
 					</div>
-					<footer>
-						<div class="pa-navigation d-flex justify-content-between">
-							<a href=""><i class="fas fa-arrow-left"></i> Artigo anterior</a>
-							<div class="pa-share">
-								<ul class="list-inline">
-									<li class="list-inline-item">Compartilhar: </li>
-									<li class="list-inline-item"><a href=""><i class="fab fa-twitter"></i></a></li>
-									<li class="list-inline-item"><a href=""><i class="fab fa-facebook-f"></i></a></li>
-									<li class="list-inline-item"><a href=""><i class="fas fa-envelope"></i></a></li>
-									<li class="list-inline-item"><a href=""><i class="fab fa-whatsapp"></i></a></li>
-								</ul>
+					<div class="pa-break d-block my-5 py-2"></div>
+					<footer class="">
+						<div class="pa-navigation row mt-4">
+							<div class="col-12 col-xl-6 order-xl-2 text-center mb-3">
+								<?php 
+									require(get_template_directory() . '/components/parts/share.php');
+								?>
 							</div>
-							<a href="">Próximo artigo <i class="fas fa-arrow-right"></i></a>
+							<div class="pa-post-prev col-6 col-xl-3 order-xl-1 text-left">
+								<a href=""><i class="fas fa-arrow-left"></i> Artigo anterior</a>
+							</div>
+							<div class="pa-post-next col-6 col-xl-3 order-xl-3 text-right">
+								<a href="">Próximo artigo <i class="fas fa-arrow-right"></i></a>
+							</div>
 						</div>
-						<div class="pa-comments">Comentários</div>
+						<?php 
+							if(comments_open()){ 
+								comments_template();
+							} 
+						?>
 					</footer>
 				</article>
 				<aside class="col-md-4 d-none d-xl-block">

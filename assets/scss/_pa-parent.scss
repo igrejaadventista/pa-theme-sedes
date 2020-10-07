@@ -167,4 +167,32 @@
 			color: var(--pa-color-gray03);
 		}
 	}
+
+	.pa-navigation {
+		.pa-post-prev {
+			i {
+				margin-right: 1rem;
+			}
+		}
+
+		.pa-post-next {
+			i {
+				margin-left: 1rem;
+			}
+		}
+		
+		a {
+			color: var(--pa-color-default-light);
+			text-decoration: none;
+
+			&:hover {
+				color: var(--pa-color-default);
+			}
+		}
+	}
+
+	.pa-break {
+		background: image-url("break.svg") center no-repeat;
+	}
+
 }
