@@ -4,8 +4,6 @@ require_once (dirname(__FILE__) . '/classes/controllers/PA_Menu_Walker.class.php
 require_once (dirname(__FILE__) . '/classes/controllers/PA_Menu_Mobile.class.php');
 require_once (dirname(__FILE__) . '/classes/controllers/PA_Image_Check.php');
 
-
-
 /**
  * Customize the theme
  */
@@ -39,12 +37,12 @@ function pa_theme_support() {
 add_action( 'after_setup_theme', 'pa_theme_support' );
 
 
-function wp_custom_menus() {
+function pa_wp_custom_menus() {
 	register_nav_menu('pa-menu-default', __( 'PA - Menu - Default' ));
 }
-add_action( 'init', 'wp_custom_menus' );
+add_action( 'init', 'pa_wp_custom_menus' );
 
-function add_responsive_class($content){
+function pa_add_responsive_class($content){
 
 	$content = mb_convert_encoding($content, 'HTML-ENTITIES', "UTF-8");
 	$document = new DOMDocument();
@@ -59,5 +57,4 @@ function add_responsive_class($content){
 	$html = $document->saveHTML();
 	return $html;
 }
-
-add_filter ('the_content', 'add_responsive_class');
+add_filter ('the_content', 'pa_add_responsive_class');
