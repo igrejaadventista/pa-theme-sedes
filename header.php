@@ -6,12 +6,6 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<!-- Bootstrap CSS -->
-	<link rel="stylesheet" href="<?= get_stylesheet_directory_uri() . "/assets/node_modules/bootstrap/dist/css/bootstrap.min.css"?>">
-	<link rel="stylesheet" href="<?= get_stylesheet_directory_uri() . "/style.css"?>" >
-	<script src="https://kit.fontawesome.com/c992dc3e78.js" crossorigin="anonymous"></script>
-	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
-
 	<?php wp_head(); ?>
 
 	<style>
