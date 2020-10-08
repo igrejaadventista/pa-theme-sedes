@@ -14,7 +14,7 @@
 	if(!is_home() || !is_front_page()){ 
 
 ?>
-<section class="pa-breadcrumb">
+<!-- <section class="pa-breadcrumb">
 	<div class="container">
 		<div class="row">
 			<div class="col">
@@ -26,5 +26,5 @@
 			</div>
 		</div>
 	</div>
-</section>
+</section> -->
 <?php } ?>

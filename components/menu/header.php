@@ -2,7 +2,7 @@
 	<header class="pa-menu-desktop container d-none d-xl-block">
 		<div class="row g-0 h-100">
 			<div class="col-auto d-flex align-items-center">
-				<a href="/" class=""><img src="<?= get_stylesheet_directory_uri() . "/assets/imgs/pt-br/logo-iasd.svg" ?>" alt="Igreja Adventista do Sétimo Dia" title="Igreja Adventista do Sétimo Dia" class="img-fluid"></a>
+				<a href="/" class=""><img src="<?= get_template_directory_uri() . "/assets/imgs/pt-br/logo-iasd.svg" ?>" alt="Igreja Adventista do Sétimo Dia" title="Igreja Adventista do Sétimo Dia" class="img-fluid"></a>
 			</div>
 			<div class="col d-flex flex-column justify-content-between">
 				<nav class="pa-menu-global ">
@@ -59,7 +59,7 @@
 
 		<div class="row g-0 pt-4 pb-3">
 			<div class="col-6">
-				<img src="<?= get_stylesheet_directory_uri() . "/assets/imgs/pt-br/logo-iasd.svg" ?>" alt="Igreja Adventista" class="img-fluid">
+				<img src="<?= get_template_directory_uri() . "/assets/imgs/pt-br/logo-iasd.svg" ?>" alt="Igreja Adventista" class="img-fluid">
 			</div>
 			<div class="col d-flex flex-row-reverse align-items-center">
 				<i class="fa fa-bars fa-2x" aria-hidden="true" onclick="pa_action_menu()" ></i>
@@ -75,81 +75,12 @@
 							</ul>
 						</div>
 					</li>
-					<li><img src="<?= get_stylesheet_directory_uri() . "/assets/imgs/close.svg" ?>" alt="" onclick="pa_action_menu()">
+					<li><img src="<?= get_template_directory_uri() . "/assets/imgs/close.svg" ?>" alt="" onclick="pa_action_menu()">
 					</li>
 				</ul>
 				<?php 
 					new PA_Menu_Mobile('pa-menu-default');
 				?>
-				<!-- <ul class="menu_inf">
-					<li class="pa-dropdown">
-						<a href="#">Adventistas.org</a>
-						<div class="pa-sub-dropdown">
-							<ul>
-								<li><a href="#">Institucional</a></li>
-								<li><a href="#">Notícias</a></li>
-								<li><a href="#">Vídeos</a></li>
-								<li><a href="#">Downloads</a></li>
-								<li><a href="#">Apps</a></li>
-							</ul>
-						</div>
-					</li>
-
-					<li>
-						<a href="#">Home</a>
-					</li>
-					<li class="pa-dropdown">
-						<a href="#">Departamentos</a>
-						<div class="pa-sub-dropdown">
-							<ul>
-								<li><a href="#">Aventureiro</a></li>
-								<li><a href="#">Desbravador</a></li>
-								<li><a href="#">Escola Sabatina</a></li>
-							</ul>
-						</div>
-					</li>
-					<li class="pa-dropdown">
-						<a href="#">Sedes regionais</a>
-						<div class="pa-sub-dropdown">
-							<ul>
-								<li><a href="#">União Argentina</a></li>
-								<li><a href="#">União Boliviana</a></li>
-								<li><a href="#">União Central Brasileira</a></li>
-								<li><a href="#">União Centro-Oeste Brasileira</a></li>
-								<li><a href="#">União Chilena</a></li>
-								<li><a href="#">União Ecuatoriana</a></li>
-								<li><a href="#">União Leste Brasileira</a></li>
-								<li><a href="#">União Nordeste Brasileira</a></li>
-								<li><a href="#">União Noroeste Brasileira</a></li>
-								<li><a href="#">União Norte Brasileira</a></li>
-								<li><a href="#">União Paraguaya</a></li>
-								<li><a href="#">União Peruana do Norte</a></li>
-								<li><a href="#">União Peruana do Sul</a></li>
-								<li><a href="#">União Sudeste Brasileira</a></li>
-								<li><a href="#">União Sul Brasileira</a></li>
-								<li><a href="#">União Uruguaya</a></li>
-							</ul>
-						</div>
-					</li>
-					<li class="pa-dropdown">
-						<a href="#">Sobre Nós</a>
-						<div class="pa-sub-dropdown">
-							<ul>
-								<li><a href="#">Os Adventistas</a></li>
-								<li><a href="#">Nossas Crenças</a></li>
-								<li><a href="#">Missão & Serviço</a></li>
-								<li><a href="#">Organização</a></li>
-							</ul>
-						</div>
-
-					</li>
-					<li>
-						<a href="#">Feliz 7 Play</a>
-					</li>
-					<li>
-						<a href="#">Oração</a>
-					</li>
-				</ul> -->
 			</div>
 			<div class="mask"></div>
 	</header>

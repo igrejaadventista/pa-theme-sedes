@@ -4,7 +4,7 @@
 		<div class="glide__track" data-glide-el="track">
 			<div class="glide__slides">
 
-				<div class="glide__slide" data-img-cell="<?= get_stylesheet_directory_uri()  . '/assets/imgs/slides/slider-mobile-1.png' ?>" style="background-image: url('<?= get_stylesheet_directory_uri()  . '/assets/imgs/slider-principal.png' ?>');">
+				<div class="glide__slide" data-img-cell="<?= get_template_directory_uri()  . '/assets/imgs/slides/slider-mobile-1.png' ?>" style="background-image: url('<?= get_template_directory_uri()  . '/assets/imgs/slider-principal.png' ?>');">
 					<div class="container">
 						<div class="row align-items-end align-items-xl-center">
 							<div class="col col-xl-6 d-flex flex-column align-items-center align-items-xl-start justify-content-center mb-5 pb-5 mb-xl-0 pb-xl-0">
@@ -17,7 +17,7 @@
 					</div>
 				</div>
 
-				<div class="glide__slide" data-img-cell="<?= get_stylesheet_directory_uri()  . '/assets/imgs/slides/slider-mobile-2.png' ?>" style="background-image: url('<?= get_stylesheet_directory_uri()  . '/assets/imgs/slider-principal-2.png' ?>');">
+				<div class="glide__slide" data-img-cell="<?= get_template_directory_uri()  . '/assets/imgs/slides/slider-mobile-2.png' ?>" style="background-image: url('<?= get_template_directory_uri()  . '/assets/imgs/slider-principal-2.png' ?>');">
 					<div class="container">
 						<div class="row align-items-end align-items-xl-center">
 							<div class="col col-xl-6 d-flex flex-column align-items-center align-items-xl-start justify-content-center mb-5 pb-5 mb-xl-0 pb-xl-0">
@@ -30,7 +30,7 @@
 					</div>
 				</div>
 
-				<div class="glide__slide" data-img-cell="<?= get_stylesheet_directory_uri()  . '/assets/imgs/slides/slider-mobile-3.png' ?>" style="background-image: url('<?= get_stylesheet_directory_uri()  . '/assets/imgs/slider-principal-3.png' ?>');">
+				<div class="glide__slide" data-img-cell="<?= get_template_directory_uri()  . '/assets/imgs/slides/slider-mobile-3.png' ?>" style="background-image: url('<?= get_template_directory_uri()  . '/assets/imgs/slider-principal-3.png' ?>');">
 					<div class="container">
 						<div class="row align-items-end align-items-xl-center">
 							<div class="col col-xl-6 d-flex flex-column align-items-center align-items-xl-start justify-content-center mb-5 pb-5 mb-xl-0 pb-xl-0">
