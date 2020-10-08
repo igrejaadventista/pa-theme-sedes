@@ -6,46 +6,54 @@
 				<div class="glide__slides">
 					<div class="glide__slide">
 						<a href="">
-							<figure class="figure position-relative m-xl-0">
-								<img src="https://picsum.photos/960/540.webp?random=1" class="figure-img img-fluid m-0 rounded" alt="...">
-								<figcaption class="figure-caption position-absolute w-100 p-3 rounded-bottom">
-									<span class="pa-tag rounded-sm mb-2">Revista - PDF</span>
-									<h3 class="h4 pt-2">Ação Jovem - Segundo trimestre 2020</h3>
-								</figcaption>
-							</figure>
+							<div class="ratio ratio-16x9">	
+								<figure class="figure m-xl-0">
+									<img src="https://picsum.photos/960/540.webp?random=1" class="figure-img img-fluid m-0 rounded" alt="...">
+									<figcaption class="figure-caption position-absolute w-100 p-3 rounded-bottom">
+										<span class="pa-tag rounded-sm mb-2">Revista - PDF</span>
+										<h3 class="h4 pt-2">Ação Jovem - Segundo trimestre 2020</h3>
+									</figcaption>
+								</figure>
+							</div>
 						</a>
 					</div>
 					<div class="glide__slide">
 						<a href="">
-							<figure class="figure position-relative m-xl-0">
+						<div class="ratio ratio-16x9">	
+						<figure class="figure m-xl-0">
 								<img src="https://picsum.photos/960/540.webp?random=2" class="figure-img img-fluid m-0 rounded" alt="...">
 								<figcaption class="figure-caption position-absolute w-100 p-3 rounded-bottom">
 									<span class="pa-tag rounded-sm mb-2">Revista - PDF</span>
 									<h3 class="h4 pt-2">Semana Jovem 2020</h3>
 								</figcaption>
 							</figure>
+							</div>
 						</a>
 					</div>
 					<div class="glide__slide">
 						<a href="">
-							<figure class="figure position-relative m-xl-0">
+						<div class="ratio ratio-16x9">	
+						<figure class="figure m-xl-0">
 								<img src="https://picsum.photos/960/540.webp?random=3" class="figure-img img-fluid m-0 rounded" alt="...">
 								<figcaption class="figure-caption position-absolute w-100 p-3 rounded-bottom">
 									<span class="pa-tag rounded-sm mb-2">Revista - PDF</span>
 									<h3 class="h4 pt-2">Missão Calebe 2020</h3>
 								</figcaption>
 							</figure>
+							</div>
 						</a>
 					</div>
 					<div class="glide__slide">
 						<a href="">
-							<figure class="figure position-relative m-xl-0">
+						<div class="ratio ratio-16x9">	
+						<figure class="figure m-xl-0">
 								<img src="https://picsum.photos/960/540.webp?random=4" class="figure-img img-fluid m-0 rounded" alt="...">
 								<figcaption class="figure-caption position-absolute w-100 p-3 rounded-bottom">
 									<span class="pa-tag rounded-sm mb-2">Revista - PDF</span>
 									<h3 class="h4 pt-2">Universitários</h3>
 								</figcaption>
 							</figure>
+							</div>
 						</a>
 					</div>
 				</div>
