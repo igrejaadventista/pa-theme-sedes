@@ -3,6 +3,7 @@
 require_once (dirname(__FILE__) . '/classes/controllers/PA_Menu_Walker.class.php');
 require_once (dirname(__FILE__) . '/classes/controllers/PA_Menu_Mobile.class.php');
 require_once (dirname(__FILE__) . '/classes/controllers/PA_Image_Check.php');
+require_once (dirname(__FILE__) . '/classes/controllers/PA_Loop_Archive.php');
 
 /**
  * Customize the theme
