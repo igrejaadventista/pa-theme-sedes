@@ -4,6 +4,7 @@ function pa_blog_feature($args){
 
 	$firstPosts = array();
 	$query = new WP_Query($args);
+	$count = $query->post_count;
 	if ($query->have_posts()):  while($query->have_posts()): $query->the_post(); array_push($firstPosts, get_the_ID()); ?>
 		
 		<div class="pa-blog-feature">
@@ -23,7 +24,8 @@ function pa_blog_feature($args){
 
 		<?php endwhile; wp_reset_postdata(); endif;  
 
-		return $firstPosts;
+	
+		return array('post_list' => $firstPosts, 'post_count' => $count);
 	 }
 
 
@@ -31,6 +33,12 @@ function pa_blog_itens($args){
 
 	$firstPosts = array();
 	$query = new WP_Query($args);
+
+	// echo "Cont -> " . $query->post_count;
+	// echo "</br>";
+	// echo "Posts per page -> " . $query->post_count;
+	//$count = intval($args["posts_per_page"]) - $query->post_count;
+	$count = $query->post_count;
 	if ($query->have_posts()):  while($query->have_posts()): $query->the_post(); array_push($firstPosts, get_the_ID()); ?>
 
 		<div class="pa-blog-item mb-5 mb-xl-4 border-0">
@@ -63,6 +71,6 @@ function pa_blog_itens($args){
 
 		<?php endwhile; wp_reset_postdata(); endif;
 
-		return $firstPosts;
+		return array('post_list' => $firstPosts, 'post_count' => $count);
 
 }

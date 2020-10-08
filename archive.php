@@ -12,8 +12,11 @@
 					$paged = get_query_var('paged');
 					$stickys = get_option('sticky_posts');
 					$category = get_queried_object();
+					$showposts = get_option('posts_per_page');
 
 					if($paged < 1){
+
+						// Argumentos para o loop de destaque que busca preferencialmnte a primeira postagem fixa da categoria, caso não exista um post fixo nessa categoria ele vai pega no lugar um post mais recente.
 						$args = array(
 							'post_type'      => 'post',
 							'cat'            =>  $category->term_id,
@@ -22,7 +25,12 @@
 							'ignore_sticky_posts' => 1,
 							);
 						
-						$firstPosts = pa_blog_feature($args);
+						// Função que monta o HTML especifico da area de destaque archive.
+						// - Retorna dois parametos:
+						// -- "post_list" Array com os IDs que foi renderizado no loop
+						// -- "post_count" Número de itens que foi renderizado no loop 
+						$post_return = pa_blog_feature($args);
+						$showposts = $showposts - $post_return['post_count'];
 
 					}
 
@@ -32,30 +40,46 @@
 						<h2 class="mb-4">Últimas Postagens</h2>
 
 						<?php 
-						
-						 if(!empty(array_diff($stickys, $firstPosts))){
+
+							// Verifica se existe mais posts fixos a serem renderizados				
+						 	if(!empty(array_diff($stickys, $post_return['post_list']))){
 
 								$args = array(
 									'post_type'     => 'post',
 									'cat'           =>  $category->term_id,
-									'post__in'  	=> array_diff($stickys, $firstPosts),
-									'post__not_in' 	=>  $firstPosts,
+									'post__in'  	=> array_diff($stickys, $post_return['post_list']),
+									'post__not_in' 	=>  $post_return['post_list'],
 									'ignore_sticky_posts' => 1,
-									'paged' => $paged 
+									'paged' => $paged,
+									'posts_per_page' => $showposts,
 									);
-
-								$firstPosts = pa_blog_itens($args);
+								
+								// Função que monta o HTML da lista de post archive.
+								// - Retorna dois parametos:
+								// -- "post_list" Array com os IDs que foi renderizado no loop
+								// -- "post_count" Número de itens que foi renderizado no loop
+								$post_return = pa_blog_itens($args);
+								
+								//Atualiza a variavel para o número restante de posts que ainda podem ser renderizado
+								$showposts = $showposts - $post_return['post_count'];
 
 							}
-				
 
+						
+				
+							// Argumentos para o loop padrão que não traz os posts fixos
 							$args = array(
 								'post_type'     => 'post',
 								'cat'           =>  $category->term_id,
-								'post__not_in' 	=>  (!empty($stickys) ? $stickys : $firstPosts),
-								'paged' => $paged 
+								'post__not_in' 	=>  (!empty($stickys) ? $stickys : $post_return['post_list']),
+								'paged' => $paged,
+								'posts_per_page' => $showposts
 								);
 
+							// Função que monta o HTML da lista de post archive.
+							// - Retorna dois parametos:
+							// -- "post_list" Array com os IDs que foi renderizado no loop
+							// -- "post_count" Número de itens que foi renderizado no loop
 							pa_blog_itens($args);
 							
 						?>

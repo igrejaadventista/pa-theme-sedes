@@ -78,3 +78,18 @@ function pa_register_assets() {
 
 }
 add_action( 'wp_enqueue_scripts', 'pa_register_assets' );
+
+
+//Função auxiliar para imprimir no console o print_r.
+function pconsole($var) {
+
+	$s = json_encode($var);
+	echo "<script>console.log(". $s . ");</script>";
+	return;
+}
+// Função auxiliar para imprimir no console o echo.
+function cconsole($var) {
+
+	echo "<script>console.log('" . $var . "');</script>";
+	return;
+}
