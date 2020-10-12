@@ -1,7 +1,7 @@
 <div class="pa-widget pa-w-carousel-videos col-12 mb-5">
 	<div class="pa-glide-videos">
 		<div class="pa-slider-controle d-flex align-items-center mb-4">
-			<h2 class="flex-grow-1">Widget - Carousel - Videos</h2>	
+			<h2 class="flex-grow-1"><?php echo $title ? $title : 'Widget - Carousel - Videos'; ?></h2>	
 			<div class="d-none d-xl-block" data-glide-el="controls">
 				<span class="fa-stack" data-glide-dir="<">
 					<i class="fas fa-circle fa-stack-2x"></i>

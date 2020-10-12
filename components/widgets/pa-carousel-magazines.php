@@ -1,5 +1,5 @@
 <div class="pa-widget pa-w-carousel-magazines col col-md-4 mb-5">
-	<h2>Revista</h2>
+	<h2><?php echo $title ? $title : 'PA - Carousel - Magazines'; ?></h2>
 	<div class="mt-4 p-4 bg-light">
 		<div class="position-relative p-4">
 			<div class="pa-slider-magazines d-flex align-items-center ">

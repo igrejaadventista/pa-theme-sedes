@@ -31,7 +31,7 @@ switch($tamanho){
 ?> 
 
  <div class="pa-widget pa-w-list-videos col <?= $col_md ?> mb-5">
-	<h2>Widget - List - Videos</h2>
+	<h2><?php echo $title ? $title : 'Widget - List - Videos'; ?></h2>
 	<div class="row row-cols-auto <?= $row_cols_md ?> mt-4">
 		<div class="col">
 			<div class="card mb-4 border-0">

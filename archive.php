@@ -106,10 +106,9 @@
 				</article>
 				<aside class="col-md-4 d-none d-xl-block">
 				<?php 
-					$icon = true;
-					require(get_template_directory() . '/components/widgets/pa-list-buttons.php');
-					require(get_template_directory() . '/components/widgets/pa-list-videos.php');
-					require(get_template_directory() . '/components/widgets/pa-list-downloads.php');	
+					if ( is_active_sidebar( 'archive' ) ) {
+						dynamic_sidebar( 'archive');
+						}
 				?>
 				</aside>
 			</div>

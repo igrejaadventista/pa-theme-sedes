@@ -63,10 +63,9 @@ $prev_post = get_previous_post();
 				</article>
 				<aside class="col-md-4 d-none d-xl-block">
 				<?php 
-					$icon = true;
-					require(get_template_directory() . '/components/widgets/pa-list-buttons.php');
-					require(get_template_directory() . '/components/widgets/pa-list-videos.php');
-					require(get_template_directory() . '/components/widgets/pa-list-downloads.php');	
+					if ( is_active_sidebar( 'single' ) ) {
+						dynamic_sidebar( 'single');
+						}
 				?>
 				</aside>
 			</div>

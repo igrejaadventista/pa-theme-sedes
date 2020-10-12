@@ -5,11 +5,7 @@
 	<div class="pa-widgets pt-5">
 		<div class="container">
 			<div class="row row-cols-auto">
-				<?php 
-					if ( is_active_sidebar( 'index' ) ) {
-						dynamic_sidebar( 'index');
-						}
-				?>
+				<h1>404</h1>
 			</div>
 		</div>
 	</div>

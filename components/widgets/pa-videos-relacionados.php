@@ -1,5 +1,5 @@
 <div class="pa-widget pa-w-list-posts col col-md-8 mb-5">
-	<h2>Widget - Relacionados - Videos</h2>
+	<h2><?php echo $title ? $title : 'Widget - Relacionados - Videos'; ?></h2>
 	<div class="row mt-4">
 
 		<?php for($i = 1; $i <= $n_intes; $i++){ ?>

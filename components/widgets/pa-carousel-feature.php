@@ -1,5 +1,5 @@
 <div class="pa-widget pa-w-carousel-feature col col-md-4 mb-5">
-	<h2>Widget - Carousel - Feature</h2>
+	<h2><?php echo $title ? $title : 'Widget - Carousel - Feature'; ?></h2>
 	<div class="mt-4">
 		<div class="pa-glide-destaques">
 			<div class="glide__track" data-glide-el="track">

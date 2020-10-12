@@ -1,5 +1,5 @@
 <div class="pa-widget pa-w-list-downloads col col-md-4 mb-5">
-	<h2>Widget - List - Downloads</h2>
+	<h2><?php echo $title ? $title : 'Widget - List - Downloads'; ?></h2>
 	<div class="mt-4">
 		<div class="card mb-2 mb-xl-4 border-0">
 			<a href="">

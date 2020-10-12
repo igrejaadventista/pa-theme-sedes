@@ -1,5 +1,5 @@
 <div class="pa-widget pa-w-apps col col-md-4 mb-5">
-	<h2>Widget - APPs</h2>
+	<h2><?php echo $title ? $title : 'Widget - APPs'; ?></h2>
 	<div class="pa-w-apps rounded p-4 mt-4 bg-light">
 		<span class="fa-stack fa-3x">
 			<i class="icon fas fa-circle fa-stack-2x"></i>
