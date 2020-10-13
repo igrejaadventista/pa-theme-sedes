@@ -57,7 +57,7 @@
 	<!-- Header Mobile -->
 	<header class="pa-menu-mobile container-fluid d-xl-none">
 
-		<div class="row g-0 pt-4 pb-3">
+		<div class="row g-0 pt-3 pb-3">
 			<div class="col-6">
 				<img src="<?= get_template_directory_uri() . "/assets/imgs/pt-br/logo-iasd.svg" ?>" alt="Igreja Adventista" class="img-fluid">
 			</div>

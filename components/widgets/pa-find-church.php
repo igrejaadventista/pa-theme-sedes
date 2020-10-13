@@ -1,3 +1,7 @@
+		
+		</div>
+	</div>
+</div>
 <div class="pa-widgets pa-find-church">
 	<div class="container">
 		<div class="pa-widget pa-w-findchurch mb-5">
@@ -47,3 +51,6 @@
 		</div>
 	</div>
 </div>
+<div class="pa-widgets">
+	<div class="container">
+		<div class="row row-cols-auto">
