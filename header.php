@@ -18,7 +18,7 @@
 	</style>
 </head>
 
-<body <?php body_class(); ?>>
+<body <?= body_class(); ?>>
 	<div class="pa-creation-grid d-flex">
 		<div class="pa-content-column flex-grow-1 d-block">
 			<?php 

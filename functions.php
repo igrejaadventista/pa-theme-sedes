@@ -74,14 +74,14 @@ function pa_register_assets() {
 	wp_enqueue_style( 'pa-theme-sedes-print', get_template_directory_uri() . '/print.css', null );
 
 	wp_enqueue_script( 'fontawesome-js', 'https://kit.fontawesome.com/c992dc3e78.js', array(), false, false );
-	wp_enqueue_script( 'fontawesome-js', get_template_directory_uri() . '/assets/js/script.js', array(), false, true );
-
-
-	//
-
+	wp_enqueue_script( 'scrips', get_template_directory_uri() . '/assets/js/script.js', array(), false, true );
 }
 add_action( 'wp_enqueue_scripts', 'pa_register_assets' );
 
+function pa_register_assets_admin() {
+	wp_enqueue_script( 'scrips', get_template_directory_uri() . '/assets/script_admin.js', array(), false, true );
+}
+add_action( 'admin_enqueue_scripts', 'pa_register_assets_admin' );
 
 //Função auxiliar para imprimir no console o print_r.
 function pconsole($var) {
