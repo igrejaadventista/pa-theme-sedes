@@ -12,7 +12,7 @@ class PA_Menu_Mobile {
 		echo "</ul>";
 	}
 
-	function getMenuArray($current_menu) {
+	static function getMenuArray($current_menu) {
 
 		$menu_array = wp_get_nav_menu_items($current_menu);
 	
@@ -49,13 +49,13 @@ class PA_Menu_Mobile {
 	
 	}
 	
-	function getDefaultMenu($wp_menu){
+	static function getDefaultMenu($wp_menu){
 		$menuLocations = get_nav_menu_locations();
 		$menuID = $menuLocations[$wp_menu];
 		return $menuID;
 	}
 	
-	function getMenuChild($child){
+	static function getMenuChild($child){
 		if (!empty($child)) {
 			echo '<div class="pa-sub-dropdown"><ul>';
 			foreach($child as $m2){
@@ -65,7 +65,7 @@ class PA_Menu_Mobile {
 		}
 	}
 	
-	function getMenuGlobal(){
+	static function getMenuGlobal(){
 		echo '<li class="pa-dropdown">
 		<a href="#">Adventistas.org</a>
 		<div class="pa-sub-dropdown">
