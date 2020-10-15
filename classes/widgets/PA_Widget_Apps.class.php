@@ -22,7 +22,7 @@ class WPDocs_New_Widget extends WP_Widget {
  
     public function form( $instance ) {
 		
-		$title = ! empty( $instance['title'] ) ? $instance['title'] : esc_html__( 'New title', 'text_domain' );
+		$title = ! empty( $instance['title'] ) ? $instance['title'] : esc_html__( 'Novo widget', 'text_domain' );
 		?>
 		<p>
 			<label for="<?= esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php esc_attr_e( 'Title:', 'text_domain' ); ?></label> 

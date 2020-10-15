@@ -2,7 +2,7 @@
 
 class PA_Register_Sidebars {
 
-	public function __construct(){
+	static public function Init(){
 		// Page - Front Page
 		register_sidebar( array(
 			'name'	=> __('Front Page', 'pa_iasd'),
@@ -44,4 +44,4 @@ class PA_Register_Sidebars {
 		) );
 	}
 }
-add_action('widgets_init', new PA_Register_Sidebars(), 1);
+add_action('widgets_init', array('PA_Register_Sidebars', 'Init'));

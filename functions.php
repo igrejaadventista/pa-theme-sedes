@@ -30,7 +30,7 @@ function pa_theme_support() {
 	remove_filter( 'wp_mail', 'wp_staticize_emoji_for_email' );
 	
 	// Remove from TinyMCE
-	add_filter( 'tiny_mce_plugins', 'disable_emojis_tinymce' );
+	// add_filter( 'tiny_mce_plugins', 'disable_emojis_tinymce' );
 
 	global $content_width;
 	if ( ! isset( $content_width ) ) {
@@ -51,7 +51,9 @@ function pa_add_responsive_class($content){
 	$content = mb_convert_encoding($content, 'HTML-ENTITIES', "UTF-8");
 	$document = new DOMDocument();
 	libxml_use_internal_errors(true);
-	$document->loadHTML(utf8_decode($content));
+	if ($content){
+		$document->loadHTML(utf8_decode($content));
+	}
 
 	$imgs = $document->getElementsByTagName('img');
 	foreach ($imgs as $img) {
