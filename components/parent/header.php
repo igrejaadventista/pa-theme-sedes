@@ -2,8 +2,10 @@
 	<header class="container">
 		<div class="row">
 			<div class="col py-5">
-				<span class="pa-tag rounded-sm px-3 py-1 d-table-cell">Divisão Sul-Americana</span>
-				<h1 class="mt-2">Ministério Jovem</h1>
+			<?php if (!is_home() || !is_front_page()){ ?>
+				<span class="pa-tag rounded-sm px-3 py-1 d-table-cell"><?php new PA_Header_Title('tag'); ?></span>
+			<?php }?>
+				<h1 class="mt-2"><?php new PA_Header_Title('title'); ?></h1>
 			</div>
 		</div>
 	</header>

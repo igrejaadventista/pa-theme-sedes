@@ -15,6 +15,7 @@ class PA_Menu_Walker extends Walker_Nav_Menu
 	}
 
 	public function start_el( &$output, $item, $depth = 0, $args = array(), $id = 0 ) {
+		$args = (object) $args;
 		$indent = ( $depth ) ? str_repeat( "\t", $depth ) : '';
 
 		$class_names = $value = '';
