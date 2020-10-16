@@ -15,7 +15,7 @@ row-cols-md-1
 <?php 
 
 
-switch($tamanho){
+switch($size){
 	case "2/3":
 		$col_md = "col-md-8";
 		$row_cols_md = "row-cols-md-2";
