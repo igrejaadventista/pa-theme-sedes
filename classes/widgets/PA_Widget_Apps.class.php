@@ -7,7 +7,7 @@ class WPDocs_New_Widget extends WP_Widget {
  
     function widget( $args, $instance ) {
 		$title = $instance['title'];
-		$size = $instance['widget-size'];
+		$size = isset($instance['widget-size']) ? $instance['widget-size'] : '' ;
 		require(get_template_directory() . '/components/widgets/'. $instance['widget-file']);
 	}
  

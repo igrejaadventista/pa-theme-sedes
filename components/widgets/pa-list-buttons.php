@@ -7,9 +7,7 @@ Caso queira mostrar os icones, inserir a classe CSS 'pa-w-list-buttons-icons' no
 
 <?php
 
-if ($icon) {
-	$class = "pa-w-list-buttons-icons";
-}
+$class = isset($icon) ? $icon : '' ;
 
 ?>
 
