@@ -1,3 +1,11 @@
+.row-cols-auto {
+	margin-bottom: -3rem;
+}
+
+.row-cols-auto > .pa-widget {
+	margin-bottom: 3rem;
+}
+
 .pa-creation-grid {
 	max-width: 100vw;
 	min-height: 100vh;

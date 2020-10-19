@@ -1,12 +1,14 @@
+		
 		</div>
 	</div>
 </div>
-<div class="pa-widgets pa-w-feliz7play bg-light">
+
+<div class="pa-widgets pa-w-feliz7play bg-light mt-5">
 	<div class="container ">
-	<div class="pa-widget pa-w-feliz7play mb-5 py-4">
+	<div class="pa-widget pa-w-feliz7play py-4">
 			<div class="pa-slider-header mb-4">
 				<div class="d-flex justify-content-between align-items-center">
-					<img src="<?= get_stylesheet_directory_uri() . "/assets/imgs/f7p-logo.svg" ?>" alt="Feliz7Play" title="Feliz7Play" class="img-fluid">
+					<img src="<?= get_template_directory_uri() . "/assets/imgs/f7p-logo.svg" ?>" alt="Feliz7Play" title="Feliz7Play" class="img-fluid">
 					<a href=""class="btn btn-primary">Assista Grátis</a>
 				</div>
 			</div>
