@@ -40,7 +40,7 @@ $prev_post = get_previous_post();
 						<?php the_content(); ?>
 					</div>
 					<div class="pa-break d-block my-5 py-2"></div>
-					<footer class="">
+					<footer class="mb-5">
 						<div class="pa-navigation row mt-4">
 							<div class="col-12 col-xl-6 order-xl-2 text-center mb-3">
 								<?php 

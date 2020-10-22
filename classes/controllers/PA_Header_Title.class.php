@@ -22,6 +22,8 @@ class PA_Header_Title {
 			$post_type_obj = get_post_type_object( get_post_type() );
 			$post_type_name = apply_filters('post_type_archive_title', $post_type_obj->labels->singular_name );
 			echo $post_type_name;
+		} elseif ( is_singular('post') ){
+			echo "Blog";
 		} elseif (is_page()){
 			the_title();
 		}
