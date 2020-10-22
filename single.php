@@ -29,8 +29,8 @@ $prev_post = get_previous_post();
 							</div>
 							<div class="">
 								<ul class="pa-accessibility list-inline">
-									<li class="pa-text-dec list-inline-item"><a href="">-A</a></li>
-									<li class="pa-text-inc list-inline-item"><a href="">+A</a></li>
+									<li class="pa-text-dec list-inline-item"><a href="#" onclick="pa_diminui_texto(event)" >-A</a></li>
+									<li class="pa-text-inc list-inline-item"><a href="#" onclick="pa_aumenta_texto(event)" >+A</a></li>
 									<li class="pa-text-listen list-inline-item"><a href="" class="rounded p-2"><i class="fas fa-volume-up"></i> Ouvir Texto</a></li>
 								</ul>
 							</div>
