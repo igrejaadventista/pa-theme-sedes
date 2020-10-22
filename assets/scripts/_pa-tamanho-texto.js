@@ -1,6 +1,6 @@
 function pa_aumenta_texto(event) {
 	event.preventDefault();
-	const content = document.querySelector(".pa-content");
+	var content = document.querySelector(".pa-content");
 	if (!content.style.fontSize) {
 		content.style.fontSize = "110%";
 	} else {
@@ -11,7 +11,7 @@ function pa_aumenta_texto(event) {
 
 function pa_diminui_texto(event) {
 	event.preventDefault();
-	const content = document.querySelector(".pa-content");
+	var content = document.querySelector(".pa-content");
 	if (!content.style.fontSize) {
 		content.style.fontSize = "90%";
 	} else {
