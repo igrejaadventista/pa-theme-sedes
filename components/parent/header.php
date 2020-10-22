@@ -13,7 +13,7 @@
 <?php 
 
 	// Se NÃO for home ou front-page, mostra o breadcrumb
-	if(!is_home() || !is_front_page()){ 
+	if(is_home() && !is_front_page()){ 
 
 ?>
 <!-- <section class="pa-breadcrumb">
