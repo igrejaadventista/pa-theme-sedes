@@ -5,9 +5,11 @@
 			<a href="">
 				<div class="row">
 					<div class="col-4">
-						<figure class="figure position-relative m-xl-0">
-							<img src="https://picsum.photos/480/300.webp?random=1" class="figure-img img-fluid rounded m-0" alt="...">
-						</figure>	
+						<div class="ratio ratio-16x9">	
+							<figure class="figure m-xl-0">
+								<img src="https://picsum.photos/480/300.webp?random=1" class="figure-img img-fluid rounded m-0" alt="...">
+							</figure>	
+						</div>
 					</div>
 					<div class="col-8">
 						<div class="card-body p-0">
@@ -23,9 +25,11 @@
 			<a href="">
 				<div class="row">
 					<div class="col-4">
-						<figure class="figure position-relative m-xl-0">
-							<img src="https://picsum.photos/480/300.webp?random=2" class="figure-img img-fluid rounded m-0" alt="...">
-						</figure>	
+						<div class="ratio ratio-16x9">	
+							<figure class="figure m-xl-0">
+								<img src="https://picsum.photos/480/300.webp?random=2" class="figure-img img-fluid rounded m-0" alt="...">
+							</figure>	
+						</div>
 					</div>
 					<div class="col-8">
 						<div class="card-body p-0">
@@ -41,9 +45,11 @@
 			<a href="">
 				<div class="row">
 					<div class="col-4">
-						<figure class="figure position-relative m-xl-0">
-							<img src="https://picsum.photos/480/300.webp?random=3" class="figure-img img-fluid rounded m-0" alt="...">
-						</figure>	
+						<div class="ratio ratio-16x9">	
+							<figure class="figure m-xl-0">
+								<img src="https://picsum.photos/480/300.webp?random=3" class="figure-img img-fluid rounded m-0" alt="...">
+							</figure>	
+						</div>
 					</div>
 					<div class="col-8">
 						<div class="card-body p-0">
@@ -59,9 +65,11 @@
 			<a href="">
 				<div class="row">
 					<div class="col-4">
-						<figure class="figure position-relative m-xl-0">
-							<img src="https://picsum.photos/480/300.webp?random=4" class="figure-img img-fluid rounded m-0" alt="...">
-						</figure>	
+						<div class="ratio ratio-16x9">	
+							<figure class="figure m-xl-0">
+								<img src="https://picsum.photos/480/300.webp?random=4" class="figure-img img-fluid rounded m-0" alt="...">
+							</figure>	
+						</div>
 					</div>
 					<div class="col-8">
 						<div class="card-body p-0">
@@ -77,9 +85,11 @@
 			<a href="">
 				<div class="row">
 					<div class="col-4">
-						<figure class="figure position-relative m-xl-0">
-							<img src="https://picsum.photos/480/300.webp?random=5" class="figure-img img-fluid rounded m-0" alt="...">
-						</figure>	
+						<div class="ratio ratio-16x9">	
+							<figure class="figure m-xl-0">
+								<img src="https://picsum.photos/480/300.webp?random=5" class="figure-img img-fluid rounded m-0" alt="...">
+							</figure>	
+						</div>
 					</div>
 					<div class="col-8">
 						<div class="card-body p-0">

@@ -2,9 +2,9 @@
 		</div>
 	</div>
 </div>
-<div class="pa-widgets pa-find-church">
+<div class="pa-widgets pa-find-church mb-5 mt-5">
 	<div class="container">
-		<div class="pa-widget pa-w-findchurch mb-5">
+		<div class="pa-widget pa-w-findchurch">
 			<div class="row py-5 px-3 px-xl-5">
 				<div class="col-md-5 text-center text-xl-left">
 					<h1>Encontre uma igreja</h1>
