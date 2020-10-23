@@ -46,7 +46,7 @@
 	border-color: var(--pa-color-default-light) !important;
 }
 
-.pa-content-container,
+.pa-content-container, 
 .pa-content {
 	.pa-blog-feature {
 		figure {
@@ -86,7 +86,7 @@
 		}
 
 		hr {
-			color: var(--pa-color-default-aux);
+			color: var(--pa-color-gray03);
 		}
 
 		.pa-post-meta {
@@ -108,26 +108,24 @@
 	}
 
 	.pa-accessibility {
-		.pa-text-listen {
+
+		
+		li {
 			margin-left: 0.5rem;
 
 			a {
-				border: 1px solid var(--pa-color-default-aux);
+				color: var(--pa-color-default);
+				text-decoration: none;
+				padding: 0 0.8rem;
+
+				i {
+					padding-right: 0.4rem;
+				}
 
 				&:hover {
 					background-color: var(--pa-color-default-light);
 					color: #fff;
 				}
-			}
-		}
-
-		a {
-			color: var(--pa-color-default);
-			text-decoration: none;
-			padding: 0 0.8rem;
-
-			i {
-				padding-right: 0.4rem;
 			}
 		}
 	}

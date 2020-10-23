@@ -20,7 +20,7 @@ $prev_post = get_previous_post();
 						<h1 class="font-weight-bold mb-3"><?php single_post_title(); ?></h1>
 						<h2 class="mb-3"><?php the_excerpt(); ?></h3>
 						<div class="pa-post-meta">Por Maycon Santos | <?php the_date(); ?></div>
-						<hr class="my-4">
+						<hr class="my-45">
 						<div class="d-flex justify-content-between">
 							<div class="pa-share d-none d-xl-block">
 								<?php 
@@ -29,8 +29,8 @@ $prev_post = get_previous_post();
 							</div>
 							<div class="">
 								<ul class="pa-accessibility list-inline">
-									<li class="pa-text-dec list-inline-item"><a href="#" onclick="pa_diminui_texto(event)" >-A</a></li>
-									<li class="pa-text-inc list-inline-item"><a href="#" onclick="pa_aumenta_texto(event)" >+A</a></li>
+									<li class="pa-text-dec list-inline-item"><a href="#" class="rounded p-2" onclick="pa_diminui_texto(event)" >-A</a></li>
+									<li class="pa-text-inc list-inline-item"><a href="#" class="rounded p-2" onclick="pa_aumenta_texto(event)" >+A</a></li>
 									<li class="pa-text-listen list-inline-item"><a href="" class="rounded p-2"><i class="fas fa-volume-up"></i> Ouvir Texto</a></li>
 								</ul>
 							</div>
