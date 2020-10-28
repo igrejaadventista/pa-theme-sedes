@@ -19,8 +19,10 @@ $prev_post = get_previous_post();
 					<header class="mb-4">
 						<h1 class="font-weight-bold mb-3"><?php single_post_title(); ?></h1>
 						<h2 class="mb-3"><?php the_excerpt(); ?></h3>
-						<div class="pa-post-meta">Por Maycon Santos | <?php the_date(); ?></div>
+						<div class="pa-post-meta">Por <?= get_the_author(); ?> | <?php the_date(); ?></div>
+
 						<hr class="my-45">
+		
 						<div class="d-flex justify-content-between">
 							<div class="pa-share d-none d-xl-block">
 								<?php 
@@ -31,7 +33,7 @@ $prev_post = get_previous_post();
 								<ul class="pa-accessibility list-inline">
 									<li class="pa-text-dec list-inline-item"><a href="#" class="rounded p-2" onclick="pa_diminui_texto(event)" >-A</a></li>
 									<li class="pa-text-inc list-inline-item"><a href="#" class="rounded p-2" onclick="pa_aumenta_texto(event)" >+A</a></li>
-									<li class="pa-text-listen list-inline-item"><a href="" class="rounded p-2"><i class="fas fa-volume-up"></i> Ouvir Texto</a></li>
+									<li class="pa-text-listen list-inline-item"><a href="#" class="rounded p-2" onclick="pa_play(event, this)"><i class="fas fa-volume-up"></i> Ouvir Texto</a><audio id="pa-accessibility-player" src="<?= get_post_meta( get_the_ID(), 'amazon_polly_audio_link_location', true) ?>" controls></audio></li>
 								</ul>
 							</div>
 						</div>
@@ -48,10 +50,10 @@ $prev_post = get_previous_post();
 								?>
 							</div>
 							<div class="pa-post-prev col-6 col-xl-3 order-xl-1 text-left">
-								<a href=""><i class="fas fa-arrow-left"></i> Artigo anterior</a>
+								<a href=""><i class="fas fa-arrow-left"></i>Artigo anterior</a>
 							</div>
 							<div class="pa-post-next col-6 col-xl-3 order-xl-3 text-right">
-								<a href="">Próximo artigo <i class="fas fa-arrow-right"></i></a>
+								<a href="">Próximo artigo<i class="fas fa-arrow-right"></i></a>
 							</div>
 						</div>
 						<?php 
