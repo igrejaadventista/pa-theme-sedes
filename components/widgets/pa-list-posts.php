@@ -11,7 +11,7 @@
 					</div>
 					<div class="col-6">
 						<div class="card-body p-0">
-							<h3 class="card-title h6">Voluntários avançam na missão mesmo em meio à pandemia</h3>
+							<h3 class="card-title h6">xxx Voluntários avançam na missão mesmo em meio à pandemia</h3>
 						</div>
 					</div>
 				</div>

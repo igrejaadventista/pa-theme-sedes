@@ -46,6 +46,27 @@
 	border-color: var(--pa-color-default-light) !important;
 }
 
+.pa-truncating-1 {
+	overflow: hidden;
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+}
+
+.pa-truncating-2 {
+	overflow: hidden;
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+}
+
+.pa-truncating-3 {
+	overflow: hidden;
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+}
+
 .pa-content-container,
 .pa-content {
 	.pa-blog-feature {

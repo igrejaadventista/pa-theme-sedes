@@ -15,7 +15,7 @@
 						<div class="card-body p-0">
 							<span class="pa-tag text-uppercase mr-1 rounded">PDF</span>
 							<span class="pa-tag text-uppercase rounded">300Mb</span>
-							<h3 class="card-title h6 m-0 pa-truncate">Audiolivro: O Poder da Esperança</h3>
+							<h3 class="card-title h6 m-0 pa-truncating-1">Audiolivro: O Poder da Esperança</h3>
 						</div>
 					</div>
 				</div>
@@ -35,7 +35,7 @@
 						<div class="card-body p-0">
 							<span class="pa-tag text-uppercase mr-1 rounded">PSD</span>
 							<span class="pa-tag text-uppercase rounded">300Mb</span>
-							<h3 class="card-title h6 m-0 pa-truncate">Imagens do Livro O Poder da Esperança</h3>
+							<h3 class="card-title h6 m-0 pa-truncating-1">Imagens do Livro O Poder da Esperança</h3>
 						</div>
 					</div>
 				</div>
@@ -55,7 +55,7 @@
 						<div class="card-body p-0">
 							<span class="pa-tag text-uppercase mr-1 rounded">JPG</span>
 							<span class="pa-tag text-uppercase rounded">300Mb</span>
-							<h3 class="card-title h6 m-0 pa-truncate">Banners Redes Sociais – Impacto Esperança Impacto Esperança Impacto Esperança</h3>
+							<h3 class="card-title h6 m-0 pa-truncating-1">Banners Redes Sociais – Impacto Esperança Impacto Esperança Impacto Esperança</h3>
 						</div>
 					</div>
 				</div>
@@ -75,7 +75,7 @@
 						<div class="card-body p-0">
 							<span class="pa-tag text-uppercase mr-1 rounded">AI</span>
 							<span class="pa-tag text-uppercase rounded">300Mb</span>
-							<h3 class="card-title h6 m-0 pa-truncate">Camiseta: Impacto Esperança 2018</h3>
+							<h3 class="card-title h6 m-0 pa-truncating-1">Camiseta: Impacto Esperança 2018</h3>
 						</div>
 					</div>
 				</div>
@@ -95,7 +95,7 @@
 						<div class="card-body p-0">
 							<span class="pa-tag text-uppercase mr-1 rounded">AI</span>
 							<span class="pa-tag text-uppercase rounded">300Mb</span>
-							<h3 class="card-title h6 m-0 pa-truncate">Outdoors: Impacto Esperança 2018</h3>
+							<h3 class="card-title h6 m-0 pa-truncating-1">Outdoors: Impacto Esperança 2018</h3>
 						</div>
 					</div>
 				</div>

@@ -61,7 +61,7 @@ class PA_Theme_Helpers {
 	}
 	
 	function registerAssetsAdmin() {
-		wp_enqueue_script( 'scripts-admin', get_template_directory_uri() . '/assets/script_admin.js', array(), false, true );
+		wp_enqueue_script( 'scripts-admin', get_template_directory_uri() . '/assets/scripts/script_admin.js', array(), false, true );
 	}
 	
 }

@@ -9,5 +9,6 @@ function onload() {
 	pa_slider_magazines();
 	pa_slider_videos();
 	pa_img_error();
+	pa_truncate();
 }
 document.addEventListener("DOMContentLoaded", onload, false);

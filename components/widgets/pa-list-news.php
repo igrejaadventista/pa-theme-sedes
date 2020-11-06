@@ -14,8 +14,8 @@
 					<div class="col-12 col-md-7">
 						<div class="card-body p-0">
 							<span class="pa-tag text-uppercase d-none d-xl-table-cell rounded">Notícia</span>
-							<h3 class="card-title font-weight-bold h5 mt-xl-2">Voluntários avançam na missão mesmo em meio à pandemia</h3>
-							<p class="card-text">Programa oficial da Igreja Adventista está há 13 anos na América do Sul e oferece oportunidades de serviço voluntário em diversos países do mundo.</p>
+							<h3 class="card-title font-weight-bold h5 mt-xl-2 pa-truncating-2">Voluntários avançam na missão mesmo em meio à pandemia</h3>
+							<p class="card-text pa-truncating-3">Programa oficial da Igreja Adventista está há 13 anos na América do Sul e oferece oportunidades de serviço voluntário em diversos países do mundo.</p>
 						</div>
 					</div>
 				</div>
@@ -34,8 +34,8 @@
 					<div class="col-12 col-md-7">
 						<div class="card-body p-0">
 							<span class="pa-tag text-uppercase d-none d-xl-table-cell rounded">Esportes</span>
-							<h3 class="card-title font-weight-bold h5 mt-xl-2">Voluntários avançam na missão mesmo em meio à pandemia</h3>
-							<p class="card-text">Programa oficial da Igreja Adventista está há 13 anos na América do Sul e oferece oportunidades de serviço voluntário em diversos países do mundo.</p>
+							<h3 class="card-title font-weight-bold h5 mt-xl-2 pa-truncating-2">Voluntários avançam na missão mesmo em meio à pandemia</h3>
+							<p class="card-text pa-truncating-3">Programa oficial da Igreja Adventista está há 13 anos na América do Sul e oferece oportunidades de serviço voluntário em diversos países do mundo.</p>
 						</div>
 					</div>
 				</div>
@@ -54,8 +54,8 @@
 				<div class="col-12 col-md-7">
 					<div class="card-body p-0">
 						<span class="pa-tag text-uppercase d-none d-xl-table-cell rounded">Notícia</span>
-						<h3 class="card-title font-weight-bold h5 mt-xl-2">Voluntários avançam na missão mesmo em meio à pandemia</h3>
-						<p class="card-text">Programa oficial da Igreja Adventista está há 13 anos na América do Sul e oferece oportunidades de serviço voluntário em diversos países do mundo.</p>
+						<h3 class="card-title font-weight-bold h5 mt-xl-2 pa-truncating-2">Voluntários avançam na missão mesmo em meio à pandemia</h3>
+						<p class="card-text pa-truncating-3">Programa oficial da Igreja Adventista está há 13 anos na América do Sul e oferece oportunidades de serviço voluntário em diversos países do mundo.</p>
 					</div>
 				</div>
 			</div>

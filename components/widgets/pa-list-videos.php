@@ -45,8 +45,8 @@ switch($size){
 							</div>
 						</figure>
 					</div>
-					<div class="card-body p-0">
-						<h3 class="card-text h5 font-weight-bold pa-truncate">Desbravadores celebram Dia Mundial no modelo drive-inDia Mundial no modelo drive-in</h3>
+					<div class="card-body p-0 mt-4">
+						<h3 class="card-text h5 font-weight-bold pa-truncate pa-truncate">Desbravadores celebram Dia Mundial no modelo drive-inDia Mundial no modelo drive-in</h3>
 						<p class="card-text d-none <?= $d_xl_block ?>">Cards support a wide variety of content, including images, text, list groups, links, and more. Below are examples of what’s supported.</p>
 					</div>
 					

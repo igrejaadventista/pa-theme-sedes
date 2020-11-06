@@ -10,3 +10,15 @@ function pa_img_error() {
 
 	return true;
 }
+
+function pa_truncate() {
+	var itens = document.querySelectorAll(".pa-truncate");
+
+	itens.forEach(function (item) {
+		var css = window.getComputedStyle(item);
+
+		var fontSize = css.getPropertyValue("font-size");
+		var lineHeight = css.getPropertyValue("line-height");
+		console.log(lineHeight);
+	});
+}
