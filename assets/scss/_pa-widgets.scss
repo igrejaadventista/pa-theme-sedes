@@ -7,7 +7,6 @@
 	h2 {
 		@include pa-h2-widget-title;
 	}
-	
 
 	.pa-all-content {
 		display: table-cell;
@@ -41,10 +40,10 @@
 		}
 
 		.pa-stores {
-			color: var(--pa-color-default);
+			color: var(--pa-color-gray01);
 
 			.pa-store {
-				border: solid 1px var(--pa-color-default);
+				border: solid 1px var(--pa-color-gray01);
 
 				i {
 					font-size: 1.8rem;
@@ -53,7 +52,7 @@
 				p {
 					font-size: 0.8rem;
 					line-height: 1rem;
-					color: var(--pa-color-default);
+					color: var(--pa-color-gray01);
 				}
 			}
 		}
@@ -148,11 +147,8 @@
 }
 
 .pa-w-carousel-ministry {
-
 	.glide__slide {
 		@include pa-figure-overlay;
-
-		
 	}
 }
 

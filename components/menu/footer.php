@@ -1,4 +1,4 @@
-<section class="pa-footer pt-5">
+<section class="pa-footer pt-5 mt-5">
 	<div class="container">
 		<footer class="row">
 			<div class="col d-flex flex-column justify-content-xl-between">

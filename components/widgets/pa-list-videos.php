@@ -46,7 +46,7 @@ switch($size){
 						</figure>
 					</div>
 					<div class="card-body p-0 mt-4">
-						<h3 class="card-text h5 font-weight-bold pa-truncate pa-truncate">Desbravadores celebram Dia Mundial no modelo drive-inDia Mundial no modelo drive-in</h3>
+						<h3 class="card-text h5 font-weight-bold pa-truncating-1">Desbravadores celebram Dia Mundial no modelo drive-inDia Mundial no modelo drive-in</h3>
 						<p class="card-text d-none <?= $d_xl_block ?>">Cards support a wide variety of content, including images, text, list groups, links, and more. Below are examples of what’s supported.</p>
 					</div>
 					
@@ -69,7 +69,7 @@ switch($size){
 						</div>
 						<div class="col">
 							<div class="card-body p-0">
-								<h3 class="card-title h6">Voluntários avançam na missão mesmo em meio à pandemia</h3>
+								<h3 class="card-title h6 pa-truncating-3">Voluntários avançam na missão mesmo em meio à pandemia, programa oficial da Igreja Adventista está há 13 anos na América do Sul e oferece oportunidades de serviço voluntário em diversos países do mundo</h3>
 							</div>
 						</div>
 					</div>
@@ -90,7 +90,7 @@ switch($size){
 						</div>
 						<div class="col">
 							<div class="card-body p-0">
-								<h3 class="card-title h6">Voluntários avançam na missão mesmo em meio à pandemia</h3>
+								<h3 class="card-title h6 pa-truncating-3">Voluntários avançam na missão mesmo em meio à pandemia</h3>
 							</div>
 						</div>
 					</div>
@@ -111,7 +111,7 @@ switch($size){
 						</div>
 						<div class="col">
 							<div class="card-body p-0">
-								<h3 class="card-title h6">Voluntários avançam na missão mesmo em meio à pandemia</h3>
+								<h3 class="card-title h6 pa-truncating-3">Voluntários avançam na missão mesmo em meio à pandemia, voluntários avançam na missão mesmo em meio à pandemia</h3>
 							</div>
 						</div>
 					</div>

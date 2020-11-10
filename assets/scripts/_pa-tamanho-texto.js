@@ -4,13 +4,15 @@ function pa_aumenta_texto(event) {
 
 	var listArray = Array.from(content);
 
+	console.log(listArray);
+
 	listArray.forEach(function (element) {
 		var item = window.getComputedStyle(element);
 
 		var fontSize = item.getPropertyValue("font-size");
 		var lineHeight = item.getPropertyValue("line-height");
 
-		// console.log(fontSize + " - " + lineHeight);
+		console.log(fontSize + " - " + lineHeight);
 
 		fontSize = parseInt(fontSize.replace("px", ""));
 		lineHeight = parseInt(lineHeight.replace("px", ""));

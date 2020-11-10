@@ -15,7 +15,7 @@
 		color: var(--pa-color-gray01);
 		font-size: 1.1rem;
 		font-family: var(--pa-font-secondary);
-		padding: .8rem 1rem;
+		padding: 0.8rem 1rem;
 
 		&.pa-menu-active {
 			border-bottom: 4px solid var(--pa-color-default);
@@ -23,12 +23,12 @@
 	}
 
 	.dropdown-menu {
-		border: none;
+		//border: none;
 		border-top: 4px solid var(--pa-color-default);
 
 		li {
-			padding-top: .5rem!important;
-    		padding-bottom: .5rem!important;
+			padding-top: 0.5rem !important;
+			padding-bottom: 0.5rem !important;
 		}
 
 		a {
@@ -44,7 +44,8 @@
 			background-color: transparent;
 			border: 0;
 
-			&:hover, &:focus {
+			&:hover,
+			&:focus {
 				color: var(--pa-color-default) !important;
 				background: none;
 			}

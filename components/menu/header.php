@@ -48,7 +48,6 @@
 							'walker'			=> new PA_Menu_Walker
 						)
 					);
-
 				?>
 			</div>
 		</div>
