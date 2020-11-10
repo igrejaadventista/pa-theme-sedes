@@ -7,7 +7,7 @@
  * @see    https://wordpress.stackexchange.com/q/14037/
  * @author fuxia
  */
-class PA_Menu_Walker extends Walker_Nav_Menu
+class PaMenuWalker extends Walker_Nav_Menu
 {
     public function start_lvl( &$output, $depth = 0, $args = array() ) {
 		$indent = str_repeat( "\t", $depth );
@@ -27,9 +27,10 @@ class PA_Menu_Walker extends Walker_Nav_Menu
 		$class_names = join( ' ', apply_filters( 'nav_menu_css_class', array_filter( $classes ), $item, $args ) );
 
 		/*if the current item has children, append the dropdown class*/
-		if ( $args->has_children )
+		if ( $args->has_children ){
 			$class_names .= ' dropdown';
-
+		}
+		
 		/*if there aren't any class names, don't show class attribute*/
 		$class_names = $class_names ? ' class="nav-item ' . esc_attr( $class_names ) . '"' : '';
 
@@ -82,14 +83,15 @@ class PA_Menu_Walker extends Walker_Nav_Menu
 
 	
 	public function display_element( $element, &$children_elements, $max_depth, $depth, $args, &$output ) {
-		if ( ! $element )
-			return;
+		if ( ! $element ) {
+			return false;
+		}
 
 		$id_field = $this->db_fields['id'];
 
-		if ( is_object( $args[0] ) )
+		if ( is_object( $args[0] ) ){
 			$args[0]->has_children = ! empty( $children_elements[ $element->$id_field ] );
-
+		}
 		parent::display_element( $element, $children_elements, $max_depth, $depth, $args, $output );
 	}
 }

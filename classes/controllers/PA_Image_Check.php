@@ -19,9 +19,12 @@ function misha_pagination( $query ) {
 		'prev_text' => '«', // «
 		'next_text' => '»' // »
 	);
- 
-	if( $args['total'] <= 1 ) // do not return anything if there are not enough posts
-		return;
+
+	// do not return anything if there are not enough posts
+	if( $args['total'] <= 1 ){
+		return false;
+	} 
+		
  
 	return '<div class="navigation">
 		<span class="pages">Page ' . $args['current'] . ' of ' . $args['total'] . '</span>'

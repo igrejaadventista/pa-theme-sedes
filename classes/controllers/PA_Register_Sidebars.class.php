@@ -1,6 +1,6 @@
 <?php 
 
-class PA_Register_Sidebars {
+class PaRegisterSidebars {
 	public function __construct(){
 		add_action('widgets_init', [$this, 'registerSidebars']);
 	}
@@ -48,4 +48,4 @@ class PA_Register_Sidebars {
 	}
 }
 
-new PA_Register_Sidebars();
+$PaRegisterSidebars = new PaRegisterSidebars();

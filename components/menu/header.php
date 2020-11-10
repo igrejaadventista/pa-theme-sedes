@@ -45,7 +45,7 @@
 							'menu_class'		=> 'nav justify-content-end', 
 							'menu_id'			=> FALSE,
 							'depth'				=> 0,
-							'walker'			=> new PA_Menu_Walker
+							'walker'			=> new PaMenuWalker
 						)
 					);
 
@@ -79,7 +79,7 @@
 					</li>
 				</ul>
 				<?php 
-					new PA_Menu_Mobile('pa-menu-default');
+					$PA_Menu_Mobile = new PaMenuMobile('pa-menu-default');
 				?>
 			</div>
 			<div class="mask"></div>

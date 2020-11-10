@@ -1,6 +1,6 @@
 <?php 
 
-class PA_ACF_Helpers {
+class PaAcfHelpers {
 
 	public function __construct(){
 		add_filter('acf/settings/save_json', [$this, 'acfSaveJson']);
@@ -31,4 +31,4 @@ class PA_ACF_Helpers {
 		return true;
 	}
 }
-new PA_ACF_Helpers();
+$PaAcfHelpers = new PaAcfHelpers();

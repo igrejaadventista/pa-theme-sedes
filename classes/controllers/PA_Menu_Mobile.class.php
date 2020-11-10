@@ -1,5 +1,5 @@
 <?php 
-class PA_Menu_Mobile {
+class PaMenuMobile {
 	function __construct($menu){
 		$menu = self::getMenuArray(self::getDefaultMenu($menu));
 		echo '<ul class="menu_inf">';
@@ -51,8 +51,7 @@ class PA_Menu_Mobile {
 	
 	static function getDefaultMenu($wp_menu){
 		$menuLocations = get_nav_menu_locations();
-		$menuID = $menuLocations[$wp_menu];
-		return $menuID;
+		return $menuLocations[$wp_menu];
 	}
 	
 	static function getMenuChild($child){

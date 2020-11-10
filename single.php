@@ -3,9 +3,9 @@ get_header();
 
 
 global $post; 
-if(have_posts())
-		the_post();
-
+if(have_posts()){
+	the_post();
+}
 $next_post = get_next_post();
 $prev_post = get_previous_post();
 ?>
