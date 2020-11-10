@@ -250,3 +250,12 @@ div.ativo ~ .mask {
 		}
 	}
 }
+
+.pa-go-back-top {
+	a {
+		background-color: var(--pa-color-default-aux);
+		color: var(--pa-color-default) !important;
+		text-transform: initial;
+		font-weight: 100;
+	}
+}
