@@ -46,8 +46,7 @@ function add_responsive_class($content){
 	   $img->setAttribute('class','img-fluid');
 	}
 
-	$html = $document->saveHTML();
-	return $html;
+	return $document->saveHTML();
 }
 
 add_filter('the_content', 'add_responsive_class');

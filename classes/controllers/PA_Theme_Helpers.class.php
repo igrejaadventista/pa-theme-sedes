@@ -1,6 +1,6 @@
 <?php 
 
-class PA_Theme_Helpers {
+class PaThemeHelpers {
 
 	public function __construct(){
 		add_action( 'after_setup_theme', [$this, 'themeSupport'] );
@@ -43,11 +43,10 @@ class PA_Theme_Helpers {
 
 		$imgs = $document->getElementsByTagName('img');
 		foreach ($imgs as $img) {
-		$img->setAttribute('class','img-fluid');
+			$img->setAttribute('class','img-fluid');
 		}
 
-		$html = $document->saveHTML();
-		return $html;
+		return $document->saveHTML();
 	}
 
 	function registerAssets() {
@@ -65,4 +64,4 @@ class PA_Theme_Helpers {
 	}
 	
 }
-new PA_Theme_Helpers();
+$PaThemeHelpers = new PaThemeHelpers();

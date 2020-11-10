@@ -3,9 +3,9 @@
 		<div class="row">
 			<div class="col py-5">
 			<?php if (!is_home() || !is_front_page()){ ?>
-				<span class="pa-tag rounded-sm px-3 py-1 d-table-cell"><?php new PA_Header_Title('tag'); ?></span>
+				<span class="pa-tag rounded-sm px-3 py-1 d-table-cell"><?php $PA_Header_Title = new PaHeaderTitle('tag'); ?></span>
 			<?php }?>
-				<h1 class="mt-2"><?php new PA_Header_Title('title'); ?></h1>
+				<h1 class="mt-2"><?php $PA_Header_Title = new PaHeaderTitle('title'); ?></h1>
 			</div>
 		</div>
 	</header>

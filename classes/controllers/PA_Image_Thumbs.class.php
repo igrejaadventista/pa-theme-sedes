@@ -1,6 +1,6 @@
 <?php 
 
-class PA_Image_Thumbs {
+class PaImageThumbs {
 	public function __construct(){
 		add_action('after_setup_theme', [$this, 'createThumbs' ]);
 	}
@@ -9,5 +9,5 @@ class PA_Image_Thumbs {
 		add_image_size( 'lider-thumb', 250, 250, true );
 	}
 }
-new PA_Image_Thumbs();
+$PaImageThumbs = new PaImageThumbs();
 

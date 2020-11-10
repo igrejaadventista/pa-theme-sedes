@@ -14,18 +14,14 @@ row-cols-md-1
 
 <?php 
 
-
-switch($size){
-	case "2/3":
-		$col_md = "col-md-8";
-		$row_cols_md = "row-cols-md-2";
-		$d_xl_block = "d-xl-block";
-	break;
-	default:
-		$col_md = "col-md-4";
+if ( $size == "2/3" ){
+	$col_md = "col-md-8";
+	$row_cols_md = "row-cols-md-2";
+	$d_xl_block = "d-xl-block";
+} else {
+	$col_md = "col-md-4";
 		$row_cols_md = "row-cols-md-1";
 		$d_xl_block = "";
-	break;
 }
 
 ?> 
