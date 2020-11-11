@@ -41,6 +41,11 @@
 
 						<?php 
 
+
+							// Verifica se a variavel $post_return existe, caso não atribui um array vasio.
+							// - Isso é necessário pois a etapa anterior onde é tirada a váriavel com o restante dos posts fixos, é processada apenas na primeira página da archive.  
+							$post_return = isset($post_return) ? $post_return : []; 
+
 							// Verifica se existe mais posts fixos a serem renderizados				
 						 	if(!empty(array_diff($stickys, $post_return['post_list']))){
 
@@ -83,25 +88,6 @@
 							pa_blog_itens($args);
 							
 						?>
-
-			
-						<!-- <nav class="mt-5" aria-label="Page navigation example">
-							<ul class="pagination justify-content-center">
-								<li class="page-item">
-									<a class="page-link" href="<?= esc_url(get_previous_posts_page_link()); ?>" aria-label="Previous">
-										<span aria-hidden="true">&laquo;</span>
-									</a>
-								</li>
-								
-								<li class="page-item">
-									<a class="page-link" href="<?= esc_url(get_next_posts_page_link()); ?>" aria-label="Next">
-										<span aria-hidden="true">&raquo;</span>
-									</a>
-								</li>
-							</ul>
-						</nav> -->
-
-						<?php cconsole(get_next_posts_link(__('Próximo artigo<i class="fas fa-arrow-right"></i>'))); ?>
 
 					</div>
 

@@ -24,7 +24,6 @@ function pa_blog_feature($args){
 
 		<?php endwhile; wp_reset_postdata(); endif;  
 
-	
 		return array('post_list' => $firstPosts, 'post_count' => $count);
 	 }
 
