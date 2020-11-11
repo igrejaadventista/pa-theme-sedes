@@ -34,3 +34,13 @@ function pa_action_menu() {
 	var menu = document.querySelector("#pa_menu");
 	menu.classList.toggle("ativo");
 }
+
+function pa_number_of_columns_menu() {
+	var itens = document.querySelectorAll(".dropdown-menu");
+
+	itens.forEach(function (item) {
+		if (item.childElementCount >= 10) {
+			item.classList.add("pa-split-column-2");
+		}
+	});
+}

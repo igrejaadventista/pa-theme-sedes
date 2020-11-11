@@ -91,10 +91,6 @@
 			<div class="col mb-5 mt-3 text-center pa-go-back-top d-xl-none">
 				<a href="#topo" class="btn btn-sm"><i class="fas fa-arrow-up mr-2"></i>Voltar para o topo</a>
 			</div>
-
-			
-			
-
 		</footer>
 	</div>
 </section>

@@ -36,7 +36,7 @@
 
 					?>
 
-					<div class="pa-blog-itens mt-5">
+					<div class="pa-blog-itens my-5">
 						<h2 class="mb-4">Últimas Postagens</h2>
 
 						<?php 
@@ -85,7 +85,7 @@
 						?>
 
 			
-						<nav class="mt-5" aria-label="Page navigation example">
+						<!-- <nav class="mt-5" aria-label="Page navigation example">
 							<ul class="pagination justify-content-center">
 								<li class="page-item">
 									<a class="page-link" href="<?= esc_url(get_previous_posts_page_link()); ?>" aria-label="Previous">
@@ -99,9 +99,22 @@
 									</a>
 								</li>
 							</ul>
-						</nav>
+						</nav> -->
 
-				</div>
+						<?php cconsole(get_next_posts_link(__('Próximo artigo<i class="fas fa-arrow-right"></i>'))); ?>
+
+					</div>
+
+					<div class="pa-navigation row pt-5">
+						
+						<div class="pa-post-prev col-6 order-xl-1 text-left">
+							<!-- <a href="<?= esc_url(get_previous_posts_page_link()); ?>"><i class="fas fa-arrow-left"></i>Artigo anterior</a> -->
+							<?= get_previous_posts_link(__('<i class="fas fa-arrow-left"></i>Página anterior')) ?>
+						</div>
+						<div class="pa-post-next col-6 order-xl-3 text-right">
+							<?= get_next_posts_link(__('Próxima página<i class="fas fa-arrow-right"></i>')) ?>
+						</div>
+					</div>
 
 				</article>
 				<aside class="col-md-4 d-none d-xl-block">

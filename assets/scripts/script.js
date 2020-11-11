@@ -10,5 +10,6 @@ function onload() {
 	pa_slider_videos();
 	pa_img_error();
 	pa_truncate();
+	pa_number_of_columns_menu();
 }
 document.addEventListener("DOMContentLoaded", onload, false);
