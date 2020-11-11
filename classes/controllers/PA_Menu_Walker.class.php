@@ -10,17 +10,13 @@
 class PaMenuWalker extends Walker_Nav_Menu
 {
     public function start_lvl( &$output, $depth = 0, $args = array() ) {
-
-		//pconsole($children_elements);
 		
 		$indent = str_repeat( "\t", $depth );
-		
-		$output .= "\n$indent<ul role=\"menu\" class=\" dropdown-menu p-4\">\n";
+		$output .= "\n$indent<ul role=\"menu\" class=\" dropdown-menu pa-split-column-2 p-4\">\n";
 	}
 
 	public function start_el( &$output, $item, $depth = 0, $args = array(), $id = 0 ) {
 		$args = (object) $args;
-		
 		$indent = ( $depth ) ? str_repeat( "\t", $depth ) : '';
 
 		$class_names = $value = '';
@@ -92,14 +88,11 @@ class PaMenuWalker extends Walker_Nav_Menu
 			return false;
 		}
 
-
 		$id_field = $this->db_fields['id'];
 
 		if ( is_object( $args[0] ) ){
-			$args[0]->has_children = !empty( $children_elements[ $element->$id_field ] );
+			$args[0]->has_children = ! empty( $children_elements[ $element->$id_field ] );
 		}
-
-		//pconsole($args[0]);
 		parent::display_element( $element, $children_elements, $max_depth, $depth, $args, $output );
 	}
 }
