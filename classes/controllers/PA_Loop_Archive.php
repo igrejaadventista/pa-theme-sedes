@@ -39,7 +39,12 @@ function pa_blog_itens($args){
 	// echo "Posts per page -> " . $query->post_count;
 	//$count = intval($args["posts_per_page"]) - $query->post_count;
 	$count = $query->post_count;
-	if ($query->have_posts()):  while($query->have_posts()): $query->the_post(); array_push($firstPosts, get_the_ID()); ?>
+	if ($query->have_posts()):  while($query->have_posts()): $query->the_post(); array_push($firstPosts, get_the_ID()); 
+	
+	$categories = get_the_category();
+	$format = get_post_format() ? : 'Notícia';
+	
+	?>
 
 		<div class="pa-blog-item mb-5 mb-xl-4 border-0">
 			<a href="<?= the_permalink(); ?>">
@@ -51,7 +56,7 @@ function pa_blog_itens($args){
 							<div class="ratio ratio-16x9">
 								<figure class="figure m-xl-0">
 									<img src="<?= check_immg(get_the_ID(), 'full'); ?>" class="figure-img img-fluid rounded m-0 h-100 w-100" alt="...">
-									<figcaption class="pa-img-tag figure-caption text-uppercase rounded-right">Bíblia</figcaption>
+									<figcaption class="pa-img-tag figure-caption text-uppercase rounded-right"><?= esc_html( $categories[0]->name ); ?></figcaption>
 								</figure>	
 							</div>
 						</div>
@@ -60,7 +65,7 @@ function pa_blog_itens($args){
 
 					<div class="col ">
 						<div class="card-body p-0 <?= has_post_thumbnail() ?: 'pl-4 py-4 border-left border-5 pa-border'?>">
-							<span class="pa-tag text-uppercase d-none d-xl-table-cell rounded">Notícia</span>
+							<span class="pa-tag text-uppercase d-none d-xl-table-cell rounded"><?= $format; ?></span>
 							<h3 class="font-weight-bold h5 mt-xl-2"><?= the_title_attribute() . ' - ' . get_the_ID() ?></h3>
 							<p class="d-none d-xl-block"><?= wp_trim_words(get_the_excerpt(), 30)  ?></p>
 						</div>

@@ -106,14 +106,7 @@
 					</div>
 
 					<div class="pa-navigation row pt-5">
-						
-						<div class="pa-post-prev col-6 order-xl-1 text-left">
-							<!-- <a href="<?= esc_url(get_previous_posts_page_link()); ?>"><i class="fas fa-arrow-left"></i>Artigo anterior</a> -->
-							<?= get_previous_posts_link(__('<i class="fas fa-arrow-left"></i>Página anterior')) ?>
-						</div>
-						<div class="pa-post-next col-6 order-xl-3 text-right">
-							<?= get_next_posts_link(__('Próxima página<i class="fas fa-arrow-right"></i>')) ?>
-						</div>
+						<?php $PaPagination = new PaPagination(); ?>
 					</div>
 
 				</article>
