@@ -41,6 +41,11 @@
 
 						<?php 
 
+
+							// Verifica se a variavel $post_return existe, caso não atribui um array vasio.
+							// - Isso é necessário pois a etapa anterior onde é tirada a váriavel com o restante dos posts fixos, é processada apenas na primeira página da archive.  
+							$post_return = isset($post_return) ? $post_return : []; 
+
 							// Verifica se existe mais posts fixos a serem renderizados				
 						 	if(!empty(array_diff($stickys, $post_return['post_list']))){
 
