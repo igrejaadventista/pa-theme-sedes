@@ -13,6 +13,7 @@ class PaThemeHelpers {
 		add_theme_support( 'title-tag' );
 		add_theme_support( 'post-thumbnails' );
 		add_theme_support( 'responsive-embeds' );
+		add_theme_support( 'post-formats', array( 'gallery', 'video', 'audio') );
 		
 		remove_action('wp_head', 'wp_generator');
 		remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
@@ -22,6 +23,8 @@ class PaThemeHelpers {
 		remove_filter( 'the_content_feed', 'wp_staticize_emoji' );
 		remove_filter( 'comment_text_rss', 'wp_staticize_emoji' );	
 		remove_filter( 'wp_mail', 'wp_staticize_emoji_for_email' );
+
+		
 		
 		// Remove from TinyMCE
 		// add_filter( 'tiny_mce_plugins', 'disable_emojis_tinymce' );
