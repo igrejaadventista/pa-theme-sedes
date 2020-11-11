@@ -43,17 +43,17 @@
 
 
 							// Verifica se a variavel $post_return existe, caso não atribui um array vasio.
-							// - Isso é necessário pois a etapa anterior onde é tirada a váriavel com o restante dos posts fixos, é processada apenas na primeira página da archive.  
-							$post_return = isset($post_return) ? $post_return : []; 
+							// - Isso é necessário pois a etapa anterior onde é tirada apu váriavel com o restante dos posts fixos, é processada apenas na primeira página da archive.  
+							$stickys_restante = isset($post_return) ? $post_return['post_list'] : []; 
 
 							// Verifica se existe mais posts fixos a serem renderizados				
-						 	if(!empty(array_diff($stickys, $post_return['post_list']))){
+						 	if(!empty(array_diff($stickys, $stickys_restante))){
 
 								$args = array(
 									'post_type'     => 'post',
 									'cat'           =>  $category->term_id,
-									'post__in'  	=> array_diff($stickys, $post_return['post_list']),
-									'post__not_in' 	=>  $post_return['post_list'],
+									'post__in'  	=> array_diff($stickys, $stickys_restante),
+									'post__not_in' 	=>  $stickys_restante,
 									'ignore_sticky_posts' => 1,
 									'paged' => $paged,
 									'posts_per_page' => $showposts,
