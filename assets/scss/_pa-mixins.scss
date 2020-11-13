@@ -29,10 +29,15 @@
 	display: block;	
 }
 
+@mixin pa-tag {
+	font-size: 0.7rem;
+	padding: 2px 6px;
+}
+
 @mixin pa-list-posts {
 	.pa-img-tag {
-		font-size: 0.8rem;
-		padding: 2px 8px;
+		@include pa-tag;
+		
 		position: absolute;
 		background-color: var(--pa-color-default);
 		color: #fff;
@@ -40,11 +45,13 @@
 		left: 0;
 	}
 
+	@include pa-split-li;
+
 	.pa-tag {
 		color: var(--pa-color-default);
 		background-color: var(--pa-color-default-aux);
-		font-size: 0.7rem;
-		padding: 1px 6px;
+
+		@include pa-tag;
 	}
 }
 

@@ -43,7 +43,7 @@ $prev_post = get_previous_post();
 					</div>
 					<div class="pa-break d-block my-5 py-2"></div>
 					<footer class="mb-5">
-						<div class="pa-navigation row mt-4">
+						<div class="pa-post-navigation row mt-4">
 							<div class="col-12 col-xl-6 order-xl-2 text-center mb-3">
 								<?php 
 									require(get_template_directory() . '/components/parts/share.php');

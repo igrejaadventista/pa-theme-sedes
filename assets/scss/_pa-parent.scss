@@ -46,24 +46,31 @@
 	border-color: var(--pa-color-default-light) !important;
 }
 
-.pa-truncating-1 {
+.pa-truncate-1 {
 	overflow: hidden;
-	display: -webkit-box;
+	display: -webkit-box !important;
 	-webkit-line-clamp: 2;
 	-webkit-box-orient: vertical;
 }
 
-.pa-truncating-2 {
+.pa-truncate-2 {
 	overflow: hidden;
-	display: -webkit-box;
+	display: -webkit-box !important;
 	-webkit-line-clamp: 2;
 	-webkit-box-orient: vertical;
 }
 
-.pa-truncating-3 {
+.pa-truncate-3 {
 	overflow: hidden;
-	display: -webkit-box;
+	display: -webkit-box !important;
 	-webkit-line-clamp: 3;
+	-webkit-box-orient: vertical;
+}
+
+.pa-truncate-4 {
+	overflow: hidden;
+	display: -webkit-box !important;
+	-webkit-line-clamp: 4;
 	-webkit-box-orient: vertical;
 }
 
@@ -89,6 +96,13 @@
 
 			@include pa-list-posts;
 		}
+
+		.card-body {
+			p {
+				color: var(--pa-color-gray03);
+			}
+		}
+
 	}
 
 	aside {
@@ -133,7 +147,7 @@
 			margin-left: 0.5rem;
 
 			a {
-				color: var(--pa-color-default);
+				color: var(--pa-color-default-light);
 				text-decoration: none;
 				padding: 0 0.8rem;
 
@@ -195,7 +209,46 @@
 		}
 	}
 
-	.pa-navigation {
+	.pa-pg-numbers {
+		li {
+			display: inline-block;
+
+			a {
+				text-decoration: none;
+				color: var(--pa-color-default-aux);
+				border-radius: 50%;
+				margin: 0 0.5rem;
+				height: 1.7rem;
+				width: 1.7rem;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+
+
+				&:hover {
+					background-color: var(--pa-color-default-light);
+					color: #fff;
+				}
+			}
+
+			&:last-child, &:first-child {
+				a {
+					color: var(--pa-color-default-light);
+
+					&:hover {
+						color: #fff;
+					}
+				}
+			}
+
+			&.active a{
+				background-color: var(--pa-color-default-light);
+				color: #fff; 
+			}
+		}
+	}
+
+	.pa-post-navigation {
 		.pa-post-prev {
 			i {
 				margin-right: 1rem;

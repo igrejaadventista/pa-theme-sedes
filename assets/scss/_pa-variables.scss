@@ -17,8 +17,3 @@
 	--bs-font-sans-serif: var(--pa-font-default);
 	--bs-font-monospace: var(--pa-font-secondary);
 }
-
-html {
-	// Essa propriedade serve para fazer a rolagem suave dos links ancoras, tais como o botão de: Voltar ao topo
-	scroll-behavior: smooth;
-}
