@@ -275,3 +275,10 @@
 		background: image-url("break.svg") center no-repeat;
 	}
 }
+
+.pa-404 {
+	h1, h2{
+		font-family: var(--pa-font-secondary);
+		color: var(--pa-color-default);
+	}
+}
