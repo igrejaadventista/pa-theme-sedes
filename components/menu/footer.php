@@ -4,24 +4,36 @@
 			<div class="col d-flex flex-column justify-content-xl-between">
 				<div class="d-flex flex-column align-items-center align-items-xl-start px-5 px-xl-0">
 					<div class="pa-brand">
-						<a href="/" title="Igreja Adventista do Sétimo Dia"><img src="<?= get_template_directory_uri() . "/assets/imgs/pt-br/logo-iasd-vertical.svg" ?>" alt="Igreja Adventista do Sétimo Dia" title="Igreja Adventista do Sétimo Dia" class="img-fluid"></a>
-						<span class="d-block mt-4">Divisão Sul-Americana</span>
+						<a href="/" title="<?php _e('Igreja Adventista do Sétimo Dia', 'iasd'); ?>"><img src="<?= get_template_directory_uri() . "/assets/imgs/pt-br/logo-iasd-vertical.svg" ?>" alt="<?php _e('Igreja Adventista do Sétimo Dia', 'iasd'); ?>" title="<?php _e('Igreja Adventista do Sétimo Dia', 'iasd'); ?>" class="img-fluid"></a>
+						<?php if (get_field('ct_headquarter', 'option')) {?><span class="d-block mt-4"><?= (get_term_by('id', get_field('ct_headquarter', 'option'), 'xtt-pa-owner'))->name;  ?></span><?php } ?>
 					</div>
 					<hr class="mt-4 mb-4">
 					<div class="pa-contact">
-						<span class="pa-adress d-block text-center text-xl-left lh-lg">Av. L3 Sul, SGAS 611 |<br class="d-none d-xl-block"/> Conj. D, Parte C | <br class="d-none d-xl-block"/>Asa Sul, CEP 70200-710 | <br class="d-none d-xl-block"/>Brasília/DF - Brasil</span>
-						<span class="pa-telephone d-block text-center text-xl-left mt-4">(61) 3701-1818</span>
+						<!-- <span class="pa-adress d-block text-center text-xl-left lh-lg">Av. L3 Sul, SGAS 611 |<br class="d-none d-xl-block"/> Conj. D, Parte C | <br class="d-none d-xl-block"/>Asa Sul, CEP 70200-710 | <br class="d-none d-xl-block"/>Brasília/DF - Brasil</span> -->
+						<?php if (get_field('ct_adress', 'option')) {?><span class="pa-adress d-block text-center text-xl-left lh-lg"><?= get_field('ct_adress', 'option')?></span><?php } ?>
+						<?php if (get_field('ct_telephone', 'option')) {?><span class="pa-telephone d-block text-center text-xl-left mt-4"><?= get_field('ct_telephone', 'option')?></span><?php } ?>
 					</div>
 				</div>
+				<?php 
+
+				if (
+					(get_field('sn_facebook', 'option')) || 
+					(get_field('sn_twitter', 'option')) || 
+					(get_field('sn_youtube', 'option')) || 
+					(get_field('sn_instagram', 'option'))
+					){
+				?>
 				<div class="pa-social-network align-items-end d-none d-xl-block">
-					<span>Nossas redes sociais</span>
+					<span><?php _e('Nossas redes sociais', 'iasd'); ?></span>
 					<div class="icons mt-3">
-						<a href="/"><i class="fab fa-facebook-f mr-4"></i></a>
-						<a href="/"><i class="fab fa-twitter mr-4"></i></a>
-						<a href="/"><i class="fab fa-youtube mr-4"></i></a>
-						<a href="/"><i class="fas fa-rss"></i></a>
+						<?php if (get_field('sn_facebook', 'option')) {?><a href="<?= get_field('sn_facebook', 'option') ?>" title="Facebook"><i class="fab fa-facebook-f mr-4"></i></a><?php } ?>
+						<?php if (get_field('sn_twitter', 'option')) {?><a href="<?= get_field('sn_twitter', 'option') ?>" title="Twitter"><i class="fab fa-twitter mr-4"></i></a><?php } ?>
+						<?php if (get_field('sn_youtube', 'option')) {?><a href="<?= get_field('sn_youtube', 'option') ?>" title="Youtube"><i class="fab fa-youtube mr-4"></i></a><?php } ?>
+						<?php if (get_field('sn_instagram', 'option')) {?><a href="<?= get_field('sn_instagram', 'option') ?>" title="Instagram"><i class="fab fa-instagram-square"></i></a><?php } ?>
 					</div>
 				</div>
+
+				<?php } ?>
 			</div>
 			<div class="col-9 d-none d-xl-block">
 				<div class="pa-about-us pb-4 mb-4">
@@ -85,11 +97,11 @@
 				</div>
 			</div>
 			<div class="pa-copyright mt-5 py-2 d-flex flex-xl-row justify-content-xl-between flex-column align-items-center">
-				<span class="py-2">Igreja Adventista do Sétimo Dia</span>
-				<span class="py-2"> Coryright © 2013-2020</span>
+				<span class="py-2"><?php _e('Igreja Adventista do Sétimo Dia', 'iasd'); ?></span>
+				<span class="py-2">Coryright © 2013-2021</span>
 			</div>
 			<div class="col mb-5 mt-3 text-center pa-go-back-top d-xl-none">
-				<a href="#topo" class="btn btn-sm"><i class="fas fa-arrow-up mr-2"></i>Voltar para o topo</a>
+				<a href="#topo" class="btn btn-sm"><i class="fas fa-arrow-up mr-2"></i><?php _e('Voltar para o topo', 'iasd'); ?></a>
 			</div>
 
 			
