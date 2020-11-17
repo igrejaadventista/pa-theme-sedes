@@ -213,23 +213,7 @@
 		li {
 			display: inline-block;
 
-			a {
-				text-decoration: none;
-				color: var(--pa-color-default-aux);
-				border-radius: 50%;
-				margin: 0 0.5rem;
-				height: 1.7rem;
-				width: 1.7rem;
-				display: flex;
-				align-items: center;
-				justify-content: center;
-
-
-				&:hover {
-					background-color: var(--pa-color-default-light);
-					color: #fff;
-				}
-			}
+			@include pa-numbers;
 
 			&:last-child, &:first-child {
 				a {

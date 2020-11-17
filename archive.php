@@ -1,4 +1,7 @@
-<?php get_header(); ?>
+<?php 
+	get_header(); 
+	global $wp_query;
+?>
 	<?php 
 		require(get_template_directory() . '/components/parent/header.php'); 
 	?>

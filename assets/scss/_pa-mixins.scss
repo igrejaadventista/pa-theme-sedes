@@ -60,3 +60,24 @@
 	color: var(--pa-color-gray03);
 	font-size: 0.85rem;
 }
+
+@mixin pa-numbers {
+	a, .gsc-cursor-page {
+		text-decoration: none;
+		color: var(--pa-color-default-aux);
+		border-radius: 50%;
+		margin: 0 0.5rem;
+		height: 1.7rem;
+		width: 1.7rem;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+
+
+		&:hover {
+			background-color: var(--pa-color-default-light);
+			color: #fff;
+			text-decoration: none !important;
+		}
+	}
+}
