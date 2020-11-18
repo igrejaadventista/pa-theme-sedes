@@ -15,6 +15,7 @@
 		.pa-tag {
 			background-color: rgba(255, 255, 255, 0.2);
 			color: #fff;
+			padding: 2px 6px;
 		}
 	}
 }
@@ -26,7 +27,7 @@
 	font-weight: bold;
 	border-left: 3px solid var(--pa-color-default);
 	padding-left: 1.5rem;
-	display: block;	
+	display: block;
 }
 
 @mixin pa-tag {
@@ -37,7 +38,7 @@
 @mixin pa-list-posts {
 	.pa-img-tag {
 		@include pa-tag;
-		
+
 		position: absolute;
 		background-color: var(--pa-color-default);
 		color: #fff;
@@ -62,7 +63,8 @@
 }
 
 @mixin pa-numbers {
-	a, .gsc-cursor-page {
+	a,
+	.gsc-cursor-page {
 		text-decoration: none;
 		color: var(--pa-color-default-aux);
 		border-radius: 50%;
@@ -72,7 +74,6 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-
 
 		&:hover {
 			background-color: var(--pa-color-default-light);

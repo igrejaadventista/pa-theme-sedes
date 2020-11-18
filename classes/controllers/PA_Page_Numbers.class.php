@@ -31,11 +31,11 @@ class PaPageNumbers {
 			$links[] = $paged + 1;
 		}
 	 
-		echo '<ul class="list-inline d-flex justify-content-center">' . "\n";
+		echo '<ul class="d-flex justify-content-around justify-content-sm-center">' . "\n";
 	 
 		/** Previous Post Link */
 		if ( get_previous_posts_link() )
-			printf( '<li class="pa-post-prev list-inline-item m-0">%s</li>' . "\n", get_previous_posts_link('<i class="fas fa-arrow-left"></i>') );
+			printf( '<li class="pa-post-prev m-0">%s</li>' . "\n", get_previous_posts_link('<i class="fas fa-arrow-left"></i>') );
 	 
 		/** Link to first page, plus ellipses if necessary */
 		if ( ! in_array( 1, $links ) ) {
@@ -65,7 +65,7 @@ class PaPageNumbers {
 	 
 		/** Next Post Link */
 		if ( get_next_posts_link() )
-			printf( '<li class="pa-post-next list-inline-item">%s</li>' . "\n", get_next_posts_link('<i class="fas fa-arrow-right"></i>') );
+			printf( '<li class="pa-post-next align-self-end">%s</li>' . "\n", get_next_posts_link('<i class="fas fa-arrow-right"></i>') );
 	 
 		echo '</ul>' . "\n";
 	 

@@ -13,7 +13,7 @@ function pa_blog_feature($args){
 					<figure class="figure m-xl-0 w-100">
 						<img src="<?= check_immg(get_the_ID(), 'full'); ?>" class="figure-img img-fluid m-0 rounded w-100 h-100" alt="...">
 						<figcaption class="figure-caption position-absolute w-100 p-3 rounded-bottom">
-							<span class="pa-tag rounded-sm mb-2 d-none d-md-table-cell"><?= $format; ?></span>
+							<span class="pa-tag rounded-sm mb-2 d-none d-md-table-cell px-2"><?= $format; ?></span>
 							<h3 class="h5 pt-2 pa-truncate-2"><?= get_the_title(); ?></h3>
 						</figcaption>
 					</figure>
