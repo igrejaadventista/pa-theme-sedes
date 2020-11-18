@@ -15,6 +15,11 @@ body {
 	color: #fff !important;
 }
 
+.btn-primary {
+	background: var(--pa-color-default);
+	border: none;
+}
+
 .form-control {
 	text-transform: none;
 }

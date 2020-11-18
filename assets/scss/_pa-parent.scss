@@ -265,4 +265,17 @@
 		font-family: var(--pa-font-secondary);
 		color: var(--pa-color-default);
 	}
+
+	h1 {
+		font-weight: bold;
+	}
+
+	.form-label {
+		color: var(--pa-color-default);
+		font-weight: bold;
+	}
+
+	p {
+		color: var(--pa-color-gray03);
+	}
 }
