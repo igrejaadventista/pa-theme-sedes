@@ -207,6 +207,12 @@
 			font-weight: bold;
 			color: var(--pa-color-gray03);
 		}
+
+		figcaption {
+			font-size: .9rem;
+			color: var(--pa-color-gray03);
+			margin-top: 0;
+		}
 	}
 
 	.pa-pg-numbers {
