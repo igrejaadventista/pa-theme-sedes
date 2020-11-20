@@ -15,7 +15,7 @@
 						<form class="pt-4 pt-xl-3 d-flex flex-column align-items-stretch">
 							<div class="mb-3">
 								<label for="pa-search-input" class="form-label mb-4"><?php _e('Deseja fazer uma nova busca?', 'iasd'); ?></label>
-								<input type="email" class="form-control" id="pa-search-input" aria-describedby="searchInput" placeholder="<?php _e('Pesquisar no Portal Adventista', 'iasd'); ?>">
+								<input type="text" class="form-control" id="pa-search-input" aria-describedby="searchInput" placeholder="<?php _e('Pesquisar no Portal Adventista', 'iasd'); ?>">
 							</div>
 							<button type="submit" class="btn btn-primary align-self-xl-start "><?php _e('Pesquisar', 'iasd'); ?></button>
 						</form>

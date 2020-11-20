@@ -34,10 +34,10 @@
             "taxonomy": "xtt-pa-owner",
             "field_type": "select",
             "allow_null": 0,
-            "add_term": 1,
+            "add_term": 0,
             "save_terms": 0,
             "load_terms": 0,
-            "return_format": "id",
+            "return_format": "object",
             "multiple": 0
         },
         {
@@ -176,5 +176,5 @@
     "hide_on_screen": "",
     "active": true,
     "description": "",
-    "modified": 1605534143
+    "modified": 1605871402
 }
