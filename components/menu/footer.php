@@ -1,11 +1,15 @@
+<?php
+	$campo = get_info_sedes();
+?>
+
 <section class="pa-footer pt-5 mt-5">
 	<div class="container">
 		<footer class="row">
 			<div class="col d-flex flex-column justify-content-xl-between">
 				<div class="d-flex flex-column align-items-center align-items-xl-start px-5 px-xl-0">
 					<div class="pa-brand">
-						<a href="/" title="<?php _e('Igreja Adventista do Sétimo Dia', 'iasd'); ?>"><img src="<?= get_template_directory_uri() . "/assets/imgs/pt-br/logo-iasd-vertical.svg" ?>" alt="<?php _e('Igreja Adventista do Sétimo Dia', 'iasd'); ?>" title="<?php _e('Igreja Adventista do Sétimo Dia', 'iasd'); ?>" class="img-fluid"></a>
-						<?php if (get_field('ct_headquarter', 'option')) {?><span class="d-block mt-4"><?= (get_term_by('id', get_field('ct_headquarter', 'option'), 'xtt-pa-owner'))->name;  ?></span><?php } ?>
+						<a href="/" title="<?= $campo->name ?>"><img src="<?= get_template_directory_uri() . "/assets/sedes/" . $campo->slug . "/pt-br/logo-iasd.svg" ?>" alt="<?= $campo->name ?>" title="<?= $campo->name ?>" class="img-fluid"></a>
+						<span class="d-block mt-4"><?= $campo->name ?></span>
 					</div>
 					<hr class="mt-4 mb-4">
 					<div class="pa-contact">

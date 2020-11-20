@@ -1,8 +1,12 @@
+<?php
+	$campo = get_info_sedes();
+?>
+
 <section class="pa-header-menu" id="topo">
 	<header class="pa-menu-desktop container d-none d-xl-block">
 		<div class="row g-0 h-100">
 			<div class="col-auto d-flex align-items-center">
-				<a href="<?php echo get_home_url(); ?>" class=""><img src="<?= get_template_directory_uri() . "/assets/imgs/pt-br/logo-iasd.svg" ?>" alt="<?php _e('Igreja Adventista do Sétimo Dia', 'iasd'); ?>" title="<?php _e('Igreja Adventista do Sétimo Dia', 'iasd'); ?>" class="img-fluid"></a>
+				<a href="<?= get_home_url(); ?>" class=""><img src="<?= get_template_directory_uri() . "/assets/sedes/" . $campo->slug . "/pt-br/logo-iasd.svg" ?>" alt="<?= $campo->name ?>" title="<?= $campo->name ?>" class="img-fluid"></a>
 			</div>
 			<div class="col d-flex flex-column justify-content-between">
 				<nav class="pa-menu-global ">
@@ -32,7 +36,7 @@
 								<li class="py-2"><a class="dropdown-item" href="#">ES</a></li>
 							</ul>
 						</li>
-					</ul>
+					</ul>              
 				</nav>
 
 				<?php
@@ -58,7 +62,7 @@
 
 		<div class="row g-0 pt-3 pb-3">
 			<div class="col-6">
-				<img src="<?= get_template_directory_uri() . "/assets/imgs/pt-br/logo-iasd.svg" ?>" alt="<?php _e('Igreja Adventista do Sétimo Dia', 'iasd'); ?>" title="<?php _e('Igreja Adventista do Sétimo Dia', 'iasd'); ?>" class="img-fluid">
+				<img src="<?= get_template_directory_uri() . "/assets/sedes/" . $campo->slug . "/pt-br/logo-iasd.svg" ?>" alt="<?= $campo->name ?>" title="<?= $campo->name ?>" class="img-fluid">
 			</div>
 			<div class="col d-flex flex-row-reverse align-items-center">
 				<i class="fa fa-bars fa-2x" aria-hidden="true" onclick="pa_action_menu()" ></i>
