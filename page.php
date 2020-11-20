@@ -43,16 +43,10 @@ $prev_post = get_previous_post();
 					<div class="pa-break d-block my-5 py-2"></div>
 					<footer class="mb-5">
 						<div class="pa-post-navigation row mt-4">
-							<div class="col-12 col-xl-6 order-xl-2 text-center mb-3">
+							<div class="col text-center mb-3">
 								<?php 
 									require(get_template_directory() . '/components/parts/share.php');
 								?>
-							</div>
-							<div class="pa-post-prev col-6 col-xl-3 order-xl-1 text-left">
-								<a href=""><i class="fas fa-arrow-left"></i>Artigo anterior</a>
-							</div>
-							<div class="pa-post-next col-6 col-xl-3 order-xl-3 text-right">
-								<a href="">Próximo artigo<i class="fas fa-arrow-right"></i></a>
 							</div>
 						</div>
 						<?php 
@@ -74,3 +68,4 @@ $prev_post = get_previous_post();
 	</div>
 
 <?php get_footer();?>
+						
