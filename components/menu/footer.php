@@ -1,6 +1,12 @@
 <?php
 	$campo = get_info_sedes();
-	
+	$lang = get_info_lang();
+	$adress = get_info_adress();
+	$telephone = get_info_telephone();
+	$facebook = get_info_facebook();
+	$twitter = get_info_twitter();
+	$youtube = get_info_youtube();
+	$instagram = get_info_instagram();
 ?>
 
 <section class="pa-footer pt-5 mt-5">
@@ -9,32 +15,23 @@
 			<div class="col d-flex flex-column justify-content-xl-between">
 				<div class="d-flex flex-column align-items-center align-items-xl-start px-5 px-xl-0">
 					<div class="pa-brand">
-						<a href="/" title="<?= $campo->name ?>"><img src="<?= get_template_directory_uri() . "/assets/sedes/" . $campo->slug . "/pt-br/logo-iasd-vertical.svg" ?>" alt="<?= $campo->name ?>" title="<?= $campo->name ?>" class="img-fluid"></a>
+						<a href="/" title="<?= $campo->name ?>"><img src="<?= get_template_directory_uri() . "/assets/sedes/" . $campo->slug . "/" . $lang . "/logo-iasd-vertical.svg" ?>" alt="<?= $campo->name ?>" title="<?= $campo->name ?>" class="img-fluidd"></a>
 						<span class="d-block mt-4"><?= $campo->name ?></span>
 					</div>
 					<hr class="mt-4 mb-4">
 					<div class="pa-contact">
-						<!-- <span class="pa-adress d-block text-center text-xl-left lh-lg">Av. L3 Sul, SGAS 611 |<br class="d-none d-xl-block"/> Conj. D, Parte C | <br class="d-none d-xl-block"/>Asa Sul, CEP 70200-710 | <br class="d-none d-xl-block"/>Brasília/DF - Brasil</span> -->
-						<?php if (get_field('ct_adress', 'option')) {?><span class="pa-adress d-block text-center text-xl-left lh-lg"><?= get_field('ct_adress', 'option')?></span><?php } ?>
-						<?php if (get_field('ct_telephone', 'option')) {?><span class="pa-telephone d-block text-center text-xl-left mt-4"><?= get_field('ct_telephone', 'option')?></span><?php } ?>
+						<?php if ($adress) {?><span class="pa-adress d-block text-center text-xl-left lh-lg"><?= $adress ?></span><?php } ?>
+						<?php if ($telephone) {?><span class="pa-telephone d-block text-center text-xl-left mt-4"><?= $telephone ?></span><?php } ?>
 					</div>
 				</div>
-				<?php 
-
-				if (
-					(get_field('sn_facebook', 'option')) || 
-					(get_field('sn_twitter', 'option')) || 
-					(get_field('sn_youtube', 'option')) || 
-					(get_field('sn_instagram', 'option'))
-					){
-				?>
+				<?php if ($facebook || $twitter || $youtube || $instagram){ ?>
 				<div class="pa-social-network align-items-end d-none d-xl-block">
 					<span><?php _e('Nossas redes sociais', 'iasd'); ?></span>
 					<div class="icons mt-3">
-						<?php if (get_field('sn_facebook', 'option')) {?><a href="<?= get_field('sn_facebook', 'option') ?>" title="Facebook"><i class="fab fa-facebook-f mr-4"></i></a><?php } ?>
-						<?php if (get_field('sn_twitter', 'option')) {?><a href="<?= get_field('sn_twitter', 'option') ?>" title="Twitter"><i class="fab fa-twitter mr-4"></i></a><?php } ?>
-						<?php if (get_field('sn_youtube', 'option')) {?><a href="<?= get_field('sn_youtube', 'option') ?>" title="Youtube"><i class="fab fa-youtube mr-4"></i></a><?php } ?>
-						<?php if (get_field('sn_instagram', 'option')) {?><a href="<?= get_field('sn_instagram', 'option') ?>" title="Instagram"><i class="fab fa-instagram-square"></i></a><?php } ?>
+						<?php if ($facebook) {?><a href="<?= $facebook ?>" title="Facebook"><i class="fab fa-facebook-f mr-4"></i></a><?php } ?>
+						<?php if ($twitter) {?><a href="<?= $twitter ?>" title="Twitter"><i class="fab fa-twitter mr-4"></i></a><?php } ?>
+						<?php if ($youtube) {?><a href="<?= $youtube ?>" title="Youtube"><i class="fab fa-youtube mr-4"></i></a><?php } ?>
+						<?php if ($instagram) {?><a href="<?= $instagram ?>" title="Instagram"><i class="fab fa-instagram-square"></i></a><?php } ?>
 					</div>
 				</div>
 
@@ -103,7 +100,7 @@
 			</div>
 			<div class="pa-copyright mt-5 py-2 d-flex flex-xl-row justify-content-xl-between flex-column align-items-center">
 				<span class="py-2"><?php _e('Igreja Adventista do Sétimo Dia', 'iasd'); ?></span>
-				<span class="py-2">Coryright © 2013-2021</span>
+				<span class="py-2">Coryright © 2013-<?= date("Y") ?></span>
 			</div>
 			<div class="col mb-5 mt-3 text-center pa-go-back-top d-xl-none">
 				<a href="#topo" class="btn btn-sm"><i class="fas fa-arrow-up mr-2"></i><?php _e('Voltar para o topo', 'iasd'); ?></a>

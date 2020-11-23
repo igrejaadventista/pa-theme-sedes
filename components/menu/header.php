@@ -1,12 +1,13 @@
 <?php
 	$campo = get_info_sedes();
+	$lang = get_info_lang();
 ?>
 
 <section class="pa-header-menu" id="topo">
 	<header class="pa-menu-desktop container d-none d-xl-block">
 		<div class="row g-0 h-100">
 			<div class="col-auto d-flex align-items-center">
-				<a href="<?= get_home_url(); ?>" class=""><img src="<?= get_template_directory_uri() . "/assets/sedes/" . $campo->slug . "/pt-br/logo-iasd.svg" ?>" alt="<?= $campo->name ?>" title="<?= $campo->name ?>" class="img-fluid"></a>
+				<a href="<?= get_home_url(); ?>" class=""><img src="<?= get_template_directory_uri() . "/assets/sedes/" . $campo->slug . "/" . $lang . "/logo-iasd.svg" ?>" alt="<?= $campo->name ?>" title="<?= $campo->name ?>" class="img-fluid"></a>
 			</div>
 			<div class="col d-flex flex-column justify-content-between">
 				<nav class="pa-menu-global ">
