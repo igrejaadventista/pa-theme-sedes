@@ -6,10 +6,12 @@
 			<a href="">
 				<div class="row">
 					<div class="col-12 col-md-5">
-					<figure class="figure position-relative m-xl-0">
-						<img src="https://picsum.photos/480/270.webp?random=1" class="figure-img img-fluid rounded m-0" alt="...">
-						<figcaption class="pa-img-tag figure-caption text-uppercase rounded-right">Bíblia</figcaption>
-					</figure>	
+					<div class="ratio ratio-16x9">
+						<figure class="figure m-xl-0">
+							<img src="https://picsum.photos/480/270.webp?random=1" class="figure-img img-fluid rounded m-0" alt="...">
+							<figcaption class="pa-img-tag figure-caption text-uppercase rounded-right">Bíblia</figcaption>
+						</figure>	
+					</div>
 					</div>
 					<div class="col-12 col-md-7">
 						<div class="card-body p-0">
@@ -26,10 +28,12 @@
 			<a href="">
 				<div class="row">
 					<div class="col-12 col-md-5">
-						<figure class="figure position-relative m-xl-0">
-							<img src="https://picsum.photos/480/270.webp?random=2" class="figure-img img-fluid rounded m-0" alt="...">
-							<figcaption class="pa-img-tag figure-caption text-uppercase rounded-right">Mundo</figcaption>
-						</figure>	
+						<div class="ratio ratio-16x9">
+							<figure class="figure m-xl-0">
+								<img src="https://picsum.photos/480/270.webp?random=2" class="figure-img img-fluid rounded m-0" alt="...">
+								<figcaption class="pa-img-tag figure-caption text-uppercase rounded-right">Mundo</figcaption>
+							</figure>	
+						</div>
 					</div>
 					<div class="col-12 col-md-7">
 						<div class="card-body p-0">
@@ -46,10 +50,12 @@
 			<a href="">
 			<div class="row">
 				<div class="col-12 col-md-5">
-				<figure class="figure position-relative m-xl-0">
-					<img src="https://picsum.photos/480/270.webp?random=3" class="figure-img img-fluid rounded m-0" alt="...">
-					<figcaption class="pa-img-tag figure-caption text-uppercase rounded-right">Religião</figcaption>
-				</figure>	
+				<div class="ratio ratio-16x9">
+					<figure class="figure m-xl-0">
+						<img src="https://picsum.photos/480/270.webp?random=3" class="figure-img img-fluid rounded m-0" alt="...">
+						<figcaption class="pa-img-tag figure-caption text-uppercase rounded-right">Religião</figcaption>
+					</figure>	
+				</div>
 				</div>
 				<div class="col-12 col-md-7">
 					<div class="card-body p-0">

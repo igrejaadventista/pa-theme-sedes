@@ -18,75 +18,91 @@
 		<div class="glide__track" data-glide-el="track">
 			<div class="glide__slides">
 				<div class="glide__slide">
-					<figure class="figure position-relative">
-						<img src="https://picsum.photos/222/125.webp?random=1" class="figure-img img-fluid  rounded m-0" alt="...">
-						<div class="figure-caption position-absolute w-100 h-100 d-block">
-							<span class="pa-video-time position-absolute px-2 rounded-sm"><i class="far fa-clock mr-1"></i> 3:40</span>
-						</div>
-					</figure>
+					<div class="ratio ratio-16x9">
+						<figure class="figure">
+							<img src="https://picsum.photos/222/125.webp?random=1" class="figure-img img-fluid  rounded m-0" alt="...">
+							<div class="figure-caption position-absolute w-100 h-100 d-block">
+								<span class="pa-video-time position-absolute px-2 rounded-sm"><i class="far fa-clock mr-1"></i> 3:40</span>
+							</div>
+						</figure>
+					</div>
 					<h3 class="card-title font-weight-bold h6">Teaser - Incertezas | Filme</h3>
 				</div>
 				<div class="glide__slide">
-					<figure class="figure position-relative">
-						<img src="https://picsum.photos/222/125.webp?random=2" class="figure-img img-fluid  rounded m-0" alt="...">
-						<div class="figure-caption position-absolute w-100 h-100 d-block">
-							<span class="pa-video-time position-absolute px-2 rounded-sm"><i class="far fa-clock mr-1"></i> 3:40</span>
-						</div>
-					</figure>
+					<div class="ratio ratio-16x9">
+						<figure class="figure">
+							<img src="https://picsum.photos/222/125.webp?random=2" class="figure-img img-fluid  rounded m-0" alt="...">
+							<div class="figure-caption position-absolute w-100 h-100 d-block">
+								<span class="pa-video-time position-absolute px-2 rounded-sm"><i class="far fa-clock mr-1"></i> 3:40</span>
+							</div>
+						</figure>
+					</div>
 					<h3 class="card-title font-weight-bold h6">Teaser - Incertezas | Filme</h3>
 				</div>
 				<div class="glide__slide">
-					<figure class="figure position-relative">
-						<img src="https://picsum.photos/222/125.webp?random=3" class="figure-img img-fluid  rounded m-0" alt="...">
-						<div class="figure-caption position-absolute w-100 h-100 d-block">
-							<span class="pa-video-time position-absolute px-2 rounded-sm"><i class="far fa-clock mr-1"></i> 3:40</span>
-						</div>
-					</figure>
+					<div class="ratio ratio-16x9">
+						<figure class="figure">
+							<img src="https://picsum.photos/222/125.webp?random=3" class="figure-img img-fluid  rounded m-0" alt="...">
+							<div class="figure-caption position-absolute w-100 h-100 d-block">
+								<span class="pa-video-time position-absolute px-2 rounded-sm"><i class="far fa-clock mr-1"></i> 3:40</span>
+							</div>
+						</figure>
+					</div>
 					<h3 class="card-title font-weight-bold h6">Transforme crises em bênçãos - Mensagem</h3>
 				</div>
 				<div class="glide__slide">
-					<figure class="figure position-relative">
-						<img src="https://picsum.photos/222/125.webp?random=4" class="figure-img img-fluid  rounded m-0" alt="...">
-						<div class="figure-caption position-absolute w-100 h-100 d-block">
-							<span class="pa-video-time position-absolute px-2 rounded-sm"><i class="far fa-clock mr-1"></i> 3:40</span>
-						</div>
-					</figure>
+					<div class="ratio ratio-16x9">
+						<figure class="figure">
+							<img src="https://picsum.photos/222/125.webp?random=4" class="figure-img img-fluid  rounded m-0" alt="...">
+							<div class="figure-caption position-absolute w-100 h-100 d-block">
+								<span class="pa-video-time position-absolute px-2 rounded-sm"><i class="far fa-clock mr-1"></i> 3:40</span>
+							</div>
+						</figure>
+					</div>
 					<h3 class="card-title font-weight-bold h6">Esperança em meio à escuridão | Pastor Hélio </h3>
 				</div>
 				<div class="glide__slide">
-					<figure class="figure position-relative">
-						<img src="https://picsum.photos/222/125.webp?random=5" class="figure-img img-fluid  rounded m-0" alt="...">
-						<div class="figure-caption position-absolute w-100 h-100 d-block">
-							<span class="pa-video-time position-absolute px-2 rounded-sm"><i class="far fa-clock mr-1"></i> 3:40</span>
-						</div>
-					</figure>
+					<div class="ratio ratio-16x9">
+						<figure class="figure">
+							<img src="https://picsum.photos/222/125.webp?random=5" class="figure-img img-fluid  rounded m-0" alt="...">
+							<div class="figure-caption position-absolute w-100 h-100 d-block">
+								<span class="pa-video-time position-absolute px-2 rounded-sm"><i class="far fa-clock mr-1"></i> 3:40</span>
+							</div>
+						</figure>
+					</div>
 					<h3 class="card-title font-weight-bold h6">Ouvir, apoiar e salvar | Marli Peyer</h3>
 				</div>
 				<div class="glide__slide">
-					<figure class="figure position-relative">
-						<img src="https://picsum.photos/222/125.webp?random=6" class="figure-img img-fluid  rounded m-0" alt="...">
-						<div class="figure-caption position-absolute w-100 h-100 d-block">
-							<span class="pa-video-time position-absolute px-2 rounded-sm"><i class="far fa-clock mr-1"></i> 3:40</span>
-						</div>
-					</figure>
+					<div class="ratio ratio-16x9">
+						<figure class="figure">
+							<img src="https://picsum.photos/222/125.webp?random=6" class="figure-img img-fluid  rounded m-0" alt="...">
+							<div class="figure-caption position-absolute w-100 h-100 d-block">
+								<span class="pa-video-time position-absolute px-2 rounded-sm"><i class="far fa-clock mr-1"></i> 3:40</span>
+							</div>
+						</figure>
+					</div>
 					<h3 class="card-title font-weight-bold h6">Ouvir, apoiar e salvar | Marli Peyer</h3>
 				</div>
 				<div class="glide__slide">
-					<figure class="figure position-relative">
-						<img src="https://picsum.photos/222/125.webp?random=7" class="figure-img img-fluid  rounded m-0" alt="...">
-						<div class="figure-caption position-absolute w-100 h-100 d-block">
-							<span class="pa-video-time position-absolute px-2 rounded-sm"><i class="far fa-clock mr-1"></i> 3:40</span>
-						</div>
-					</figure>
+					<div class="ratio ratio-16x9">
+						<figure class="figure">
+							<img src="https://picsum.photos/222/125.webp?random=7" class="figure-img img-fluid  rounded m-0" alt="...">
+							<div class="figure-caption position-absolute w-100 h-100 d-block">
+								<span class="pa-video-time position-absolute px-2 rounded-sm"><i class="far fa-clock mr-1"></i> 3:40</span>
+							</div>
+						</figure>
+					</div>
 					<h3 class="card-title font-weight-bold h6">Escola Sabatina Especial | Live Distrito de Laranjeiras</h3>
 				</div>
 				<div class="glide__slide">
-					<figure class="figure position-relative">
-						<img src="https://picsum.photos/222/125.webp?random=8" class="figure-img img-fluid  rounded m-0" alt="...">
-						<div class="figure-caption position-absolute w-100 h-100 d-block">
-							<span class="pa-video-time position-absolute px-2 rounded-sm"><i class="far fa-clock mr-1"></i> 3:40</span>
-						</div>
-					</figure>
+					<div class="ratio ratio-16x9">
+						<figure class="figure">
+							<img src="https://picsum.photos/222/125.webp?random=8" class="figure-img img-fluid  rounded m-0" alt="...">
+							<div class="figure-caption position-absolute w-100 h-100 d-block">
+								<span class="pa-video-time position-absolute px-2 rounded-sm"><i class="far fa-clock mr-1"></i> 3:40</span>
+							</div>
+						</figure>
+					</div>
 					<h3 class="card-title font-weight-bold h6">Aniversário Escola Sabatina</h3>
 				</div>				
 			</div>

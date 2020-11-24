@@ -96,13 +96,13 @@ if ( $size == "2/3" ){
 				<a href="">
 					<div class="row">
 						<div class="col">
-						<div class="ratio ratio-16x9">
-							<figure class="figure m-xl-0">
-								<img src="https://picsum.photos/480/270.webp?random=5" class="figure-img img-fluid rounded m-0" alt="...">
-								<div class="figure-caption position-absolute w-100 h-100 d-block">
-									<span class="pa-video-time position-absolute px-2 rounded-sm"><i class="far fa-clock mr-1"></i> 3:40</span>
-								</div>
-							</figure>	
+							<div class="ratio ratio-16x9">
+								<figure class="figure m-xl-0">
+									<img src="https://picsum.photos/480/270.webp?random=5" class="figure-img img-fluid rounded m-0" alt="...">
+									<div class="figure-caption position-absolute w-100 h-100 d-block">
+										<span class="pa-video-time position-absolute px-2 rounded-sm"><i class="far fa-clock mr-1"></i> 3:40</span>
+									</div>
+								</figure>	
 							</div>
 						</div>
 						<div class="col">
