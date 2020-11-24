@@ -63,7 +63,7 @@
 
 		<div class="row g-0 pt-3 pb-3">
 			<div class="col-6">
-				<img src="<?= get_template_directory_uri() . "/assets/sedes/" . $campo->slug . "/pt-br/logo-iasd.svg" ?>" alt="<?= $campo->name ?>" title="<?= $campo->name ?>" class="img-fluid">
+				<img src="<?= get_template_directory_uri() . "/assets/sedes/" . $campo->slug . "/". $lang . "/logo-iasd.svg" ?>" alt="<?= $campo->name ?>" title="<?= $campo->name ?>" class="img-fluid">
 			</div>
 			<div class="col d-flex flex-row-reverse align-items-center">
 				<i class="fa fa-bars fa-2x" aria-hidden="true" onclick="pa_action_menu()" ></i>
