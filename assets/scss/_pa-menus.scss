@@ -1,5 +1,11 @@
 .pa-menu-desktop {
 	height: 100px;
+
+	a {
+		img {
+			height: -webkit-fill-available;
+		}
+	}
 }
 
 .pa-menu-global .nav {

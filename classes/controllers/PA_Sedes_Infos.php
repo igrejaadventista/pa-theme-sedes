@@ -111,5 +111,7 @@ function get_info_lang(){
 		$lang = get_locale();
 	}
 
+	$lang = substr($lang, 0,2);
+
 	return $lang;
 }

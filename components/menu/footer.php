@@ -15,7 +15,7 @@
 			<div class="col d-flex flex-column justify-content-xl-between">
 				<div class="d-flex flex-column align-items-center align-items-xl-start px-5 px-xl-0">
 					<div class="pa-brand">
-						<a href="/" title="<?= $campo->name ?>"><img src="<?= get_template_directory_uri() . "/assets/sedes/" . $campo->slug . "/" . $lang . "/logo-iasd-vertical.svg" ?>" alt="<?= $campo->name ?>" title="<?= $campo->name ?>" class="img-fluidd"></a>
+						<a href="/" title="<?= $campo->name ?>"><img src="<?= get_template_directory_uri() . "/assets/sedes/" . $lang . "/logo-iasd-vertical.svg" ?>" alt="<?= $campo->name ?>" title="<?= $campo->name ?>" class="img-fluid"></a>
 						<span class="d-block mt-4"><?= $campo->name ?></span>
 					</div>
 					<hr class="mt-4 mb-4">
