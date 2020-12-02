@@ -9,27 +9,34 @@ class PAServiceTaxonomy
 
     function PA_Registre_Taxonomy()
     {
-        $labels = array(
-            'name'              => _x('Sedes Proprietárias', 'nome da taxonomia'),
-            'singular_name'     => _x('Sede Proprietária', 'nome da taxonomia no singular'),
-            'search_items'      => __('Procurar Sedes Proprietárias'),
-            'all_items'         => __('Todas as Sedes'),
-            'parent_item'       => __('Subse'),
-            'parent_item_colon' => __('Parent Course:'),
-            'edit_item'         => __('Editar Sede Proprietária'),
-            'update_item'       => __('Editar Sede Proprietária'),
-            'add_new_item'      => __('Add Nova Sede Proprietária'),
-            'new_item_name'     => __('Nova Sede Proprietária'),
-            'menu_name'         => __('Sedes Proprietárias'),
-        );
-        $args   = array(
-            'hierarchical'      => true, // make it hierarchical (like categories)
-            'labels'            => $labels,
-            'show_ui'           => true,
-            'show_admin_column' => true,
-            'query_var'         => true,
-            'rewrite'           => ['slug' => 'xtt-pa-owner'],
-        );
+
+        /**
+         * 
+         * Register taxonomys 
+         * 
+         */
+
+        // $labels = array(
+        //     'name'              => _x('Sedes Proprietárias', 'nome da taxonomia'),
+        //     'singular_name'     => _x('Sede Proprietária', 'nome da taxonomia no singular'),
+        //     'search_items'      => __('Procurar Sedes Proprietárias'),
+        //     'all_items'         => __('Todas as Sedes'),
+        //     'parent_item'       => __('Subse'),
+        //     'parent_item_colon' => __('Parent Course:'),
+        //     'edit_item'         => __('Editar Sede Proprietária'),
+        //     'update_item'       => __('Editar Sede Proprietária'),
+        //     'add_new_item'      => __('Add Nova Sede Proprietária'),
+        //     'new_item_name'     => __('Nova Sede Proprietária'),
+        //     'menu_name'         => __('Sedes Proprietárias'),
+        // );
+        // $args   = array(
+        //     'hierarchical'      => true, // make it hierarchical (like categories)
+        //     'labels'            => $labels,
+        //     'show_ui'           => true,
+        //     'show_admin_column' => true,
+        //     'query_var'         => true,
+        //     'rewrite'           => ['slug' => 'xtt-pa-owner'],
+        // );
         register_taxonomy('xtt-pa-owner', ['post'], $args);
     }
 }
