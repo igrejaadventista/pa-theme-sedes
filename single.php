@@ -8,6 +8,7 @@ if(have_posts()){
 }
 $next_post = get_next_post();
 $prev_post = get_previous_post();
+
 ?>
 	<?php 
 		require(get_template_directory() . '/components/parent/header.php'); 	
@@ -33,7 +34,7 @@ $prev_post = get_previous_post();
 								<ul class="pa-accessibility list-inline">
 									<li class="pa-text-dec list-inline-item"><a href="#" class="rounded p-2" onclick="pa_diminui_texto(event)" >-A</a></li>
 									<li class="pa-text-inc list-inline-item"><a href="#" class="rounded p-2" onclick="pa_aumenta_texto(event)" >+A</a></li>
-									<li class="pa-text-listen list-inline-item"><a href="#" class="rounded p-2" onclick="pa_play(event, this)"><i class="fas fa-volume-up"></i> Ouvir Texto</a><audio id="pa-accessibility-player" src="<?= get_post_meta( get_the_ID(), 'amazon_polly_audio_link_location', true) ?>" controls></audio></li>
+									<?php if(get_post_meta(get_the_ID(), 'amazon_polly_enable', true)){ ?><li class="pa-text-listen list-inline-item"><a href="#" class="rounded p-2" onclick="pa_play(event, this)"><i class="fas fa-volume-up"></i> Ouvir Texto</a><audio id="pa-accessibility-player" src="<?= get_post_meta( get_the_ID(), 'amazon_polly_audio_link_location', true) ?>" controls></audio></li><?php } ?>
 								</ul>
 							</div>
 						</div>
