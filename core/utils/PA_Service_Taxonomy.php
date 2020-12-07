@@ -1,5 +1,8 @@
 <?php
 
+require_once(dirname(__FILE__) . '/PA_RestAPI_Tax.php');
+
+
 class PAServiceTaxonomy
 {
     static function getTaxonomies()
@@ -10,11 +13,18 @@ class PAServiceTaxonomy
     function PA_Registre_Taxonomy()
     {
 
+
         /**
          * 
          * Register taxonomys 
          * 
          */
+
+        $restAPIService = new PARestAPITax();
+        $resultService = $restAPIService->CallAPI('GET', 'xtt-pa-owner?per_page=100');
+
+        // print_r();
+        // print_r($restAPIService->CallAPI('GET', 'xtt-pa-owner?per_page=100'));
 
         // $labels = array(
         //     'name'              => _x('Sedes Proprietárias', 'nome da taxonomia'),
@@ -37,6 +47,6 @@ class PAServiceTaxonomy
         //     'query_var'         => true,
         //     'rewrite'           => ['slug' => 'xtt-pa-owner'],
         // );
-        register_taxonomy('xtt-pa-owner', ['post'], $args);
+        // register_taxonomy('xtt-pa-owner', ['post'], $args);
     }
 }
