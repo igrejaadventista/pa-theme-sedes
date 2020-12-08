@@ -4,6 +4,7 @@ require_once(dirname(__FILE__) . '/utils/PA_Service_Taxonomy.php');
 require_once(dirname(__FILE__) . '/utils/PA_Schedule_Custom.php');
 require_once(dirname(__FILE__) . '/utils/PA_RestAPI_Tax.php');
 require_once(dirname(__FILE__) . '/utils/PA_Ui_Configurations.php');
+require_once(dirname(__FILE__) . '/utils/PA_Service_Slider_Home.php');
 
 /**
  * 
@@ -81,7 +82,7 @@ class PACoreInstall
     register_taxonomy('xtt-pa-colecoes', ['post'], $argsOwners);
 
 
-    
+
     // Install routine to create or update taxonomies
     if (!wp_next_scheduled('Service_Taxonomy_Schedule')) {
       wp_schedule_event(time(), '20min', 'Service_Taxonomy_Schedule');
