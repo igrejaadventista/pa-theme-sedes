@@ -1,6 +1,7 @@
 <?php
 
-require_once(dirname(__FILE__) . '/PA_Sync_Taxonomy.php');
+require_once(dirname(__FILE__) . '/utils/PA_Service_Taxonomy.php');
+require_once(dirname(__FILE__) . '/utils/PA_Schedule_Custom.php');
 require_once(dirname(__FILE__) . '/utils/PA_RestAPI_Tax.php');
 
 /**
@@ -24,11 +25,17 @@ class PACoreInstall
 
     function installRoutines()
     {
+
         // Install routine to create or update taxonomies
-        if (!wp_next_scheduled('PARoutineTaxonomies')) {
-            wp_schedule_event(time(), '20min', 'PARoutineTaxonomies');
+        if (!wp_next_scheduled('Service_Taxonomy_Schedule')) {
+            wp_schedule_event(time(), '20min', 'Service_Taxonomy_Schedule');
         }
 
+        /**
+         * 
+         * SEDES PROPRIETÁRIAS
+         * 
+         */
 
         //Configure at instance wordpress
         $labels = array(
@@ -36,7 +43,7 @@ class PACoreInstall
             'singular_name'     => _x('Sede Proprietária', 'nome da taxonomia no singular'),
             'search_items'      => __('Procurar Sedes Proprietárias'),
             'all_items'         => __('Todas as Sedes'),
-            'parent_item'       => __('Subsede proprietária'),
+            'parent_item'       => __('Sede proprietária pai'),
             'parent_item_colon' => __('Sede proprientária pai'),
             'edit_item'         => __('Editar Sede Proprietária'),
             'update_item'       => __('Atualizar Sede Proprietária'),
@@ -53,36 +60,6 @@ class PACoreInstall
             'rewrite'           => ['slug' => 'xtt-pa-owner'],
         );
         register_taxonomy('xtt-pa-owner', ['post'], $args);
-
-
-        /***
-         * 
-         * TODO:
-         * Tests
-         * 
-         */
-
-        // $restAPIService = new PARestAPITax();
-        // $resultService = $restAPIService->CallAPI('GET', 'xtt-pa-owner?per_page=100');
-
-        // echo '<br><br><br><br><br><br><br><br><br>';
-
-        // foreach ($resultService as $result) {
-
-
-        //     wp_insert_term(
-        //         $result->name, // the term 
-        //         'xtt-pa-owner', // the taxonomy
-        //         array(
-        //             'term_id' => $result->id,
-        //             'description' => $result->description,
-        //             'slug' => $result->slug,
-        //             'parent' => $result->parent  // get numeric term id
-        //         )
-        //     );
-        // }
-
-        
     }
 }
 
