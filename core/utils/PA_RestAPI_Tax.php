@@ -7,7 +7,7 @@ class PARestAPITax
 {
   function CallAPI($method, $route, $data = false)
   {
-    $baseURL = 'https://tax.adventistas.org/pt/wp-json/wp/v2/';
+    $baseURL = get_option('PA_Taxonomy_Host') . '/wp-json/wp/v2/';
     $curl = curl_init();
 
     switch ($method) {
