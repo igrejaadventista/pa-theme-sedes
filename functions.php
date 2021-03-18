@@ -1,5 +1,10 @@
 <?php 
 
+use \Blocks\PACarouselFeature\PACarouselFeature;
+
+if(file_exists($composer = __DIR__. '/vendor/autoload.php'))
+	require_once $composer;
+
 require_once (dirname(__FILE__) . '/classes/controllers/PA_Theme_Helpers.class.php');
 require_once (dirname(__FILE__) . '/classes/controllers/PA_ACF_Helpers.class.php');
 require_once (dirname(__FILE__) . '/classes/controllers/PA_Menu_Walker.class.php');
@@ -88,3 +93,11 @@ function Register_Owner() {
 }
 
 add_action( 'init', 'Register_Owner', 0 );
+
+add_filter('acf_gutenblocks/blocks', function(array $blocks): array {
+    $new_blocks = [
+        PACarouselFeature::class,
+    ];
+
+    return array_merge($blocks, $new_blocks);
+});
