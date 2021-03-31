@@ -20,17 +20,17 @@
 					</div>
 					<hr class="mt-4 mb-4">
 					<div class="pa-contact">
-						<?php if ($adress) {?><span class="pa-adress d-block text-center text-xl-left lh-lg"><?= $adress ?></span><?php } ?>
-						<?php if ($telephone) {?><span class="pa-telephone d-block text-center text-xl-left mt-4"><?= $telephone ?></span><?php } ?>
+						<?php if ($adress) {?><span class="pa-adress d-block text-center text-md-start lh-lg"><?= $adress ?></span><?php } ?>
+						<?php if ($telephone) {?><span class="pa-telephone d-block text-center text-md-start mt-4"><?= $telephone ?></span><?php } ?>
 					</div>
 				</div>
 				<?php if ($facebook || $twitter || $youtube || $instagram){ ?>
 				<div class="pa-social-network align-items-end d-none d-xl-block">
 					<span><?php _e('Nossas redes sociais', 'iasd'); ?></span>
 					<div class="icons mt-3">
-						<?php if ($facebook) {?><a href="<?= $facebook ?>" title="Facebook"><i class="fab fa-facebook-f mr-4"></i></a><?php } ?>
-						<?php if ($twitter) {?><a href="<?= $twitter ?>" title="Twitter"><i class="fab fa-twitter mr-4"></i></a><?php } ?>
-						<?php if ($youtube) {?><a href="<?= $youtube ?>" title="Youtube"><i class="fab fa-youtube mr-4"></i></a><?php } ?>
+						<?php if ($facebook) {?><a href="<?= $facebook ?>" title="Facebook"><i class="fab fa-facebook-f me-4"></i></a><?php } ?>
+						<?php if ($twitter) {?><a href="<?= $twitter ?>" title="Twitter"><i class="fab fa-twitter me-4"></i></a><?php } ?>
+						<?php if ($youtube) {?><a href="<?= $youtube ?>" title="Youtube"><i class="fab fa-youtube me-4"></i></a><?php } ?>
 						<?php if ($instagram) {?><a href="<?= $instagram ?>" title="Instagram"><i class="fab fa-instagram-square"></i></a><?php } ?>
 					</div>
 				</div>
@@ -103,7 +103,7 @@
 				<span class="py-2">Coryright © 2013-<?= date("Y") ?></span>
 			</div>
 			<div class="col mb-5 mt-3 text-center pa-go-back-top d-xl-none">
-				<a href="#topo" class="btn btn-sm"><i class="fas fa-arrow-up mr-2"></i><?php _e('Voltar para o topo', 'iasd'); ?></a>
+				<a href="#topo" class="btn btn-sm"><i class="fas fa-arrow-up me-2"></i><?php _e('Voltar para o topo', 'iasd'); ?></a>
 			</div>
 
 			

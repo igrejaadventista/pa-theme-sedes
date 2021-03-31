@@ -16,7 +16,7 @@
 					<div class="col-12 col-md-7">
 						<div class="card-body p-0">
 							<span class="pa-tag text-uppercase d-none d-xl-table-cell rounded">Notícia</span>
-							<h3 class="card-title font-weight-bold h5 mt-xl-2 pa-truncate-2">Voluntários avançam na missão mesmo em meio à pandemia</h3>
+							<h3 class="card-title fw-bold h5 mt-xl-2 pa-truncate-2">Voluntários avançam na missão mesmo em meio à pandemia</h3>
 							<p class="card-text pa-truncate-3">Programa oficial da Igreja Adventista está há 13 anos na América do Sul e oferece oportunidades de serviço voluntário em diversos países do mundo.</p>
 						</div>
 					</div>
@@ -38,7 +38,7 @@
 					<div class="col-12 col-md-7">
 						<div class="card-body p-0">
 							<span class="pa-tag text-uppercase d-none d-xl-table-cell rounded">Esportes</span>
-							<h3 class="card-title font-weight-bold h5 mt-xl-2 pa-truncate-2">Voluntários avançam na missão mesmo em meio à pandemia</h3>
+							<h3 class="card-title fw-bold h5 mt-xl-2 pa-truncate-2">Voluntários avançam na missão mesmo em meio à pandemia</h3>
 							<p class="card-text pa-truncate-3">Programa oficial da Igreja Adventista está há 13 anos na América do Sul e oferece oportunidades de serviço voluntário em diversos países do mundo.</p>
 						</div>
 					</div>
@@ -60,7 +60,7 @@
 				<div class="col-12 col-md-7">
 					<div class="card-body p-0">
 						<span class="pa-tag text-uppercase d-none d-xl-table-cell rounded">Notícia</span>
-						<h3 class="card-title font-weight-bold h5 mt-xl-2 pa-truncate-2">Voluntários avançam na missão mesmo em meio à pandemia</h3>
+						<h3 class="card-title fw-bold h5 mt-xl-2 pa-truncate-2">Voluntários avançam na missão mesmo em meio à pandemia</h3>
 						<p class="card-text pa-truncate-3">Programa oficial da Igreja Adventista está há 13 anos na América do Sul e oferece oportunidades de serviço voluntário em diversos países do mundo.</p>
 					</div>
 				</div>

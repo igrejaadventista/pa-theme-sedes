@@ -7,7 +7,7 @@
 						<img src="<?= get_template_directory_uri() . "/assets/imgs/404.svg" ?>" alt="<?php _e('Desculpe-nos, página não encontrada.', 'iasd'); ?>" title="<?php _e('Desculpe-nos, página não encontrada.', 'iasd'); ?>" class="img-fluid">
 					</div>
 				</div>
-				<div class="col-12 col-md-6 text-center text-md-left">
+				<div class="col-12 col-md-6 text-center text-md-start">
 					<div class="px-5 pt-5 pt-md-0 ">
 						<h1 class="fw-bold">Erro 404</h1>
 						<h2 class="fw-bold"><?php _e('Desculpe-nos, página não encontrada :(', 'iasd'); ?></h2>
