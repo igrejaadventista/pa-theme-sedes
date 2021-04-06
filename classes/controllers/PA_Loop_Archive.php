@@ -56,7 +56,7 @@ function pa_blog_itens($args){
 					<div class="col">
 						<div class="card-body p-0 <?= has_post_thumbnail() ?: 'pl-4 py-4 border-left border-5 pa-border'?>">
 							<span class="pa-tag text-uppercase d-none d-xl-table-cell rounded"><?= $format; ?></span>
-							<h3 class="font-weight-bold h6 mt-xl-2 pa-truncate-4"><?= get_the_title(); ?></h3>
+							<h3 class="fw-bold h6 mt-xl-2 pa-truncate-4"><?= get_the_title(); ?></h3>
 							<p class="d-none d-xl-block"><?= wp_trim_words(get_the_excerpt(), 30)  ?></p>
 						</div>
 					</div>
