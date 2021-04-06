@@ -4,7 +4,10 @@
 	"autoload": {
 		"psr-4": {
 			"Blocks\\": "Blocks/"
-		}
+		},
+        "files": [
+            "Blocks/Blocks.php"
+        ]
 	},
     "require": {
         "fiskhandlarn/blade": "^0.6.0",

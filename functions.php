@@ -1,7 +1,5 @@
 <?php 
 
-use \Blocks\PACarouselFeature\PACarouselFeature;
-
 if(file_exists($composer = __DIR__. '/vendor/autoload.php'))
 	require_once $composer;
 
@@ -93,41 +91,3 @@ function Register_Owner() {
 }
 
 add_action( 'init', 'Register_Owner', 0 );
-
-if (!\function_exists('block')) {
-    /**
-     * Render blade templates.
-     *
-     * @param string $view
-     * @param array $data
-     * @param bool $data
-     *
-     * @return string
-     */
-    function block(string $view, array $data = [], bool $echo = false): string {
-        return blade($view, $data, $echo);
-    }
-}
-
-add_filter('acf_gutenblocks/blocks', function(array $blocks): array {
-    $new_blocks = [
-        PACarouselFeature::class,
-    ];
-
-    return array_merge($blocks, $new_blocks);
-});
-
-add_filter('acf_gutenblocks/blade_engine_callable', function(string $callable): string {
-    return 'block';
-});
-
-add_filter('blade/view/paths', function ($paths) {
-    $paths = (array) $paths;
-    $paths[0] = get_template_directory();
-
-    return $paths;
-});
-
-add_filter('acf_gutenblocks/render_block_frontend_path', function(string $path): string {
-    return str_replace('.blade.php', '', strstr($path, 'Blocks'));
-});
