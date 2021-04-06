@@ -6,7 +6,7 @@
 	<div class="container">
 		<div class="pa-widget pa-w-findchurch">
 			<div class="row py-5 px-3 px-xl-5">
-				<div class="col-md-5 text-center text-xl-left">
+				<div class="col-md-5 text-center text-md-start">
 					<h1>Encontre uma igreja</h1>
 					<p>28385 Igrejas Adventistas estão localizadas na Divisão Sul-Americana.</p>
 					<form class="pt-4 pt-xl-3 d-flex flex-column align-items-stretch">
@@ -27,7 +27,7 @@
 							</span>
 						</div>	
 						
-						<div class="ml-4">
+						<div class="ms-4">
 							<h2>Para seu Sábado</h2>
 							<p>Materiais que complementam seu momento de adoração.</p>
 						</div>
@@ -40,7 +40,7 @@
 								<i class="icon fas fa-bible fa-stack-1x fa-inverse"></i>
 							</span>
 						</div>			
-						<div class="ml-4">
+						<div class="ms-4">
 							<h2>Escola Sabatina</h2>
 							<p>Materiais de auxílio trimestral.</p>
 						</div>

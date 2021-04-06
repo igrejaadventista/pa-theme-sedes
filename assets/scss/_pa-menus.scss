@@ -82,7 +82,7 @@ div.menu {
 div.ativo {
 	width: 75%;
 	opacity: 1;
-	box-shadow: 0px 0px 15px #000000;
+	box-shadow: 0px 0px 30px #00000026;
 }
 
 div.ativo ~ .mask {
@@ -90,9 +90,9 @@ div.ativo ~ .mask {
 	height: 100vh;
 	left: 0;
 	top: 0;
-	background-color: rgba(0, 0, 0, 0.4);
+	background-color: rgba(0, 0, 0, 0.5);
 	transition: all 0.3s ease;
-	backdrop-filter: blur(3px);
+	backdrop-filter: blur(5px);
 	position: fixed;
 	z-index: 9;
 }
