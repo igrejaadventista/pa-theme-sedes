@@ -2,9 +2,19 @@
 
 namespace Blocks\PACarouselFeature;
 
-use Itineris\AcfGutenblocks\AbstractBlock;
+use Itineris\AcfGutenblocks\AbstractBladeBlock;
 
-class PACarouselFeature extends AbstractBlock {
+use WordPlate\Acf\FieldGroup;
+use WordPlate\Acf\Fields\Accordion;
+use WordPlate\Acf\Location;
+
+use WordPlate\Acf\Fields\Image;
+use WordPlate\Acf\Fields\Link;
+use WordPlate\Acf\Fields\Repeater;
+use WordPlate\Acf\Fields\Text;
+use WordPlate\Acf\Fields\Textarea;
+
+class PACarouselFeature extends AbstractBladeBlock {
 
     public function __construct() {
         parent::__construct([
@@ -17,26 +27,28 @@ class PACarouselFeature extends AbstractBlock {
     }
 
 	protected function registerFields(): array {
-		return [
-			'key' => 'group_carousel_feature',
+		return (new FieldGroup([
+			'title' => $this->title,
 			'fields' => [
-				[
-					'key' => 'carousel_feature_title',
-					'name' => 'carousel_feature_title',
-					'label' => 'Título',
-					'type' => 'text'
-				],
+				Text::make('Título', 'carousel_feature_title'),
+				Accordion::make('<span class="dashicons dashicons-admin-page"></span> Slides', 'carousel_feature_slides_accordion'),
+                Repeater::make('', 'carousel_feature_slides')
+                    ->fields([
+                        Image::make('Thumbnail', 'thumbnail'),
+                        Text::make('Título', 'title'),
+                        Textarea::make('Resumo', 'excerpt'),
+                        Link::make('Link', 'link')
+                    ])
+                    ->min(1)
+                    ->max(4)
+                    ->buttonLabel('Adicionar slide')
+                    ->collapsed('title')
+                    ->layout('block')
 			],
 			'location' => [
-				[
-					[
-						'param' => 'block',
-						'operator' => '==',
-						'value' => 'acf/p-a-carousel-feature'
-					]
-				],
-			]
-		];
+				Location::if('block', 'acf/p-a-carousel-feature')
+			],
+		]))->toArray();
 	}
 
     /**
@@ -44,7 +56,8 @@ class PACarouselFeature extends AbstractBlock {
      */
     public function with(): array {
         return [
-            'title' => get_field('carousel_feature_title'),
+            'title'  => field('carousel_feature_title'),
+			'slides' => field('carousel_feature_slides'),
         ];
     }
 }
