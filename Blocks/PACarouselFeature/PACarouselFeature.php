@@ -90,7 +90,7 @@ class PACarouselFeature extends Block {
 					$thumbnail = \get_post_thumbnail_id($post->ID);
 					$slide = [
 						'title' => $post->post_title,
-						'exerpt' => $post->post_excerpt,
+						'excerpt' => \get_the_excerpt($post->ID),
 						'link' => [
 							'url' => \get_permalink($post->ID),
 							'target' => '_self',
