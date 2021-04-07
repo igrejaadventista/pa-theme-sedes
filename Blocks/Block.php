@@ -8,7 +8,7 @@ use WordPlate\Acf\FieldGroup;
 use WordPlate\Acf\Location;
 
 /**
- * Blocks Register blocks and manage settings
+ * Block Base block class
  */
 class Block extends AbstractBladeBlock {
 

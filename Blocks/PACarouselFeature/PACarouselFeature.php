@@ -5,10 +5,11 @@ namespace Blocks\PACarouselFeature;
 use Blocks\Block;
 use Blocks\Fields\Source;
 
+use WordPlate\Acf\ConditionalLogic;
 use WordPlate\Acf\Fields\Accordion;
-
 use WordPlate\Acf\Fields\Image;
 use WordPlate\Acf\Fields\Link;
+use WordPlate\Acf\Fields\Relationship;
 use WordPlate\Acf\Fields\Repeater;
 use WordPlate\Acf\Fields\Text;
 use WordPlate\Acf\Fields\Textarea;
@@ -43,8 +44,17 @@ class PACarouselFeature extends Block {
 			[
 				Source::make(),
 				Text::make('Título', 'title'),
+				
 				Accordion::make('<span class="dashicons dashicons-admin-page"></span> Slides', 'slides_accordion'),
-                Repeater::make('', 'slides')
+				
+				Relationship::make('', 'slides')
+					->min(1)
+                    ->max(4)
+					->conditionalLogic([
+						ConditionalLogic::if('source')->equals('local')
+					]),
+                
+				Repeater::make('', 'custom_slides')
                     ->fields([
                         Image::make('Thumbnail', 'thumbnail'),
                         Text::make('Título', 'title'),
@@ -56,6 +66,9 @@ class PACarouselFeature extends Block {
                     ->buttonLabel('Adicionar slide')
                     ->collapsed('title')
                     ->layout('block')
+					->conditionalLogic([
+						ConditionalLogic::if('source')->equals('custom')
+					]),
 			];
 	}
 	    
@@ -65,9 +78,40 @@ class PACarouselFeature extends Block {
      * @return array
      */
     public function with(): array {
+		$slides = [];
+
+		if(field('source') == 'custom'):
+			$slides = field('custom_slides');
+		else:
+			$posts = field('slides');
+
+			if(!empty($posts)):
+				foreach($posts as $post):
+					$thumbnail = \get_post_thumbnail_id($post->ID);
+					$slide = [
+						'title' => $post->post_title,
+						'exerpt' => $post->post_excerpt,
+						'link' => [
+							'url' => \get_permalink($post->ID),
+							'target' => '_self',
+						],
+					];
+
+					if(!empty($thumbnail)):
+						$slide['thumbnail'] = [
+							'url' => \wp_get_attachment_url($thumbnail),
+							'alt' => \get_post_meta($thumbnail, '_wp_attachment_image_alt', true),
+						];
+					endif;
+
+					$slides[] = $slide;
+				endforeach;
+			endif;
+		endif;
+
         return [
             'title'  => field('title'),
-			'slides' => field('slides'),
+			'slides' => $slides,
         ];
     }
 }

@@ -1,4 +1,4 @@
-@empty(!$slides)
+@notempty($slides)
 	<div class="pa-widget pa-w-carousel-feature col col-md-4 mb-5">
 		<h2>{{ $title ?? 'Widget - Carousel - Feature' }}</h2>
 		<div class="mt-4">
@@ -6,24 +6,24 @@
 				<div class="glide__track" data-glide-el="track">
 					<div class="glide__slides">
 						@foreach($slides as $slide)
-							<div class="glide__slide">
-								@empty(!$slide['thumbnail'])
+							<div class="glide__slide position-relative">
+								@notempty($slide['thumbnail'])
 									<img class="rounded img-fluid" src="{{ $slide['thumbnail']['url'] }}" alt="{{ $slide['thumbnail']['alt'] ?: 'Imagem do slide ' . $loop->iteration }}" />	
-								@endempty
+								@endnotempty
 								
-								@empty(!$slide['title'])
+								@notempty($slide['title'])
 									<h3 class="card-title font-weight-bold h5 mt-4 pa-truncate-1">{!! $slide['title'] !!}</h3>	
-								@endempty
+								@endnotempty
 								
-								@empty(!$slide['excerpt'])
+								@notempty($slide['excerpt'])
 									<p class="card-text pa-truncate-2">{!! $slide['excerpt'] !!}</p>
-								@endempty
+								@endnotempty
 
-								@empty(!$slide['link'])
+								@notempty($slide['link'])
 									<a href="{{ $slide['link']['url'] }}" target="{{ $slide['link']['target'] ?: '_self' }}" class="stretched-link">
 										<span class="visually-hidden">{!! $slide['title'] ?: 'Link do slide' . $loop->iteration !!}</span>
 									</a>
-								@endempty
+								@endnotempty
 							</div>
 						@endforeach
 					</div>
@@ -52,4 +52,4 @@
 			</div>
 		</div>
 	</div>
-@endempty
+@endnotempty

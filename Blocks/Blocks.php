@@ -15,6 +15,8 @@ class Blocks {
 		\add_filter('acf_gutenblocks/blade_engine_callable', [$this, 'bladeEngineCallable']);
 		
 		\add_filter('blade/view/paths', [$this, 'bladeViewPaths']);
+		
+		require_once('Directives.php');
     }
 	
 	/**
