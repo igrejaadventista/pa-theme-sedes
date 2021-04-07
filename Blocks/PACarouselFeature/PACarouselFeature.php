@@ -2,11 +2,10 @@
 
 namespace Blocks\PACarouselFeature;
 
-use Itineris\AcfGutenblocks\AbstractBladeBlock;
+use Blocks\Block;
+use Blocks\Fields\Source;
 
-use WordPlate\Acf\FieldGroup;
 use WordPlate\Acf\Fields\Accordion;
-use WordPlate\Acf\Location;
 
 use WordPlate\Acf\Fields\Image;
 use WordPlate\Acf\Fields\Link;
@@ -17,7 +16,7 @@ use WordPlate\Acf\Fields\Textarea;
 /**
  * PACarouselFeature Carousel feature block
  */
-class PACarouselFeature extends AbstractBladeBlock {
+class PACarouselFeature extends Block {
 
     public function __construct() {
 		// Set block settings
@@ -35,17 +34,17 @@ class PACarouselFeature extends AbstractBladeBlock {
     }
 	
 	/**
-	 * registerFields Register ACF fields with WordPlate/Acf lib
+	 * setFields Register ACF fields with WordPlate/Acf lib
 	 *
 	 * @return array Fields array
 	 */
-	protected function registerFields(): array {
-		return (new FieldGroup([
-			'title' => $this->title,
-			'fields' => [
-				Text::make('Título', 'carousel_feature_title'),
-				Accordion::make('<span class="dashicons dashicons-admin-page"></span> Slides', 'carousel_feature_slides_accordion'),
-                Repeater::make('', 'carousel_feature_slides')
+	protected function setFields(): array {
+		return 
+			[
+				Source::make(),
+				Text::make('Título', 'title'),
+				Accordion::make('<span class="dashicons dashicons-admin-page"></span> Slides', 'slides_accordion'),
+                Repeater::make('', 'slides')
                     ->fields([
                         Image::make('Thumbnail', 'thumbnail'),
                         Text::make('Título', 'title'),
@@ -57,11 +56,7 @@ class PACarouselFeature extends AbstractBladeBlock {
                     ->buttonLabel('Adicionar slide')
                     ->collapsed('title')
                     ->layout('block')
-			],
-			'location' => [
-				Location::if('block', 'acf/p-a-carousel-feature') // Set fields on this block
-			],
-		]))->toArray();
+			];
 	}
 	    
     /**
@@ -71,8 +66,8 @@ class PACarouselFeature extends AbstractBladeBlock {
      */
     public function with(): array {
         return [
-            'title'  => field('carousel_feature_title'),
-			'slides' => field('carousel_feature_slides'),
+            'title'  => field('title'),
+			'slides' => field('slides'),
         ];
     }
 }
