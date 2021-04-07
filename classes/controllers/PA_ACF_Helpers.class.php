@@ -6,8 +6,6 @@ class PaAcfHelpers {
 		add_filter('acf/settings/save_json', [$this, 'acfSaveJson']);
 		add_filter('acf/settings/load_json', [$this, 'acfLoadJson']);
 
-		include_once(get_template_directory() . '/acf/acf.php' );
-
 		add_filter('acf/settings/url', [$this, 'acfSettingsUrl']);
 		add_filter('acf/settings/show_admin', [$this, 'acfShowAdmin']);
 		add_action('acf/init', [$this, 'registerThemeSettings']);

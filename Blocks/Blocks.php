@@ -10,11 +10,11 @@ use \Blocks\PACarouselFeature\PACarouselFeature;
 class Blocks {
 
 	public function __construct() {
-        add_filter('acf_gutenblocks/blocks', [$this, 'registerBlocks']);
-		add_filter('acf_gutenblocks/render_block_frontend_path', [$this, 'blocksFrontendPath']);
-		add_filter('acf_gutenblocks/blade_engine_callable', [$this, 'bladeEngineCallable']);
+        \add_filter('acf_gutenblocks/blocks', [$this, 'registerBlocks']);
+		\add_filter('acf_gutenblocks/render_block_frontend_path', [$this, 'blocksFrontendPath']);
+		\add_filter('acf_gutenblocks/blade_engine_callable', [$this, 'bladeEngineCallable']);
 		
-		add_filter('blade/view/paths', [$this, 'bladeViewPaths']);
+		\add_filter('blade/view/paths', [$this, 'bladeViewPaths']);
     }
 	
 	/**
@@ -77,5 +77,3 @@ if(!\function_exists('block')) {
         return blade($view, $data, false);
     }
 }
-
-new Blocks;
