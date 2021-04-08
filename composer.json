@@ -1,5 +1,16 @@
 {
     "name": "igrejaadventista/pa-theme-sedes",
-    "type": "wordpress-theme"
+    "type": "wordpress-theme",
+	"autoload": {
+		"psr-4": {
+			"Blocks\\": "Blocks/"
+		},
+        "files": [
+            "Blocks/Blocks.php"
+        ]
+	},
+    "require": {
+        "fiskhandlarn/blade": "^0.6.0",
+        "wordplate/acf": "^9.1"
+    }
 }
-  

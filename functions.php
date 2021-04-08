@@ -1,5 +1,12 @@
 <?php 
 
+use Blocks\Blocks;
+
+if(file_exists($composer = __DIR__. '/vendor/autoload.php'))
+	require_once $composer;
+
+new Blocks;
+
 require_once (dirname(__FILE__) . '/classes/controllers/PA_Theme_Helpers.class.php');
 require_once (dirname(__FILE__) . '/classes/controllers/PA_ACF_Helpers.class.php');
 require_once (dirname(__FILE__) . '/classes/controllers/PA_Menu_Walker.class.php');
