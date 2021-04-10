@@ -15,6 +15,8 @@ class Blocks {
 		\add_filter('acf_gutenblocks/blade_engine_callable', [$this, 'bladeEngineCallable']);
 		
 		\add_filter('blade/view/paths', [$this, 'bladeViewPaths']);
+
+		\add_action('acf/include_field_types', 	array($this, 'registerPlugins'));
 		
 		require_once('Directives.php');
     }
@@ -62,6 +64,10 @@ class Blocks {
 	public function bladeViewPaths(): string {
 		// Set theme base path
 		return \get_template_directory();
+	}
+
+	public function registerPlugins() {
+		include_once('Plugins/RemoteData/RemoteData.php');
 	}
 
 }
