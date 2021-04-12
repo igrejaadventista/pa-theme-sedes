@@ -57,6 +57,13 @@ if(!class_exists('RemoteData')):
                 'error'	=> __('Error! Please enter a higher value', 'acf-rest'),
             );
 
+            /**
+             * Admin Scripts
+             */
+            \add_action('admin_enqueue_scripts', function() {
+                \wp_enqueue_script('acf-remote-fields.js', get_template_directory_uri() . '/Blocks/Plugins/RemoteData/Assets/remote-fields.js', ['jquery'], null, true);
+            });
+
             // do not delete!
             parent::__construct();
         }
@@ -104,8 +111,21 @@ if(!class_exists('RemoteData')):
 
 			$field['limit'] = empty($field['limit']) ? '' : $field['limit'];
 
+			// acf_render_field_setting($field, array(
+			// 	'label'			=> 'teste',
+			// 	'instructions'	=> '',
+			// 	'type'			=> 'text',
+			// 	'name'			=> 'teste',
+			// 	'default_value'			=> 0,
+			// 	// 'wrapper' => [
+			// 	// 	'style' => 'display: none;'
+			// 	// ],
+			// ));
+
+			acf_hidden_input(array('type' => 'hidden', 'name' => $field['prefix'] . '[sticky]', 'value' => '0'));
+			
 			acf_render_field_setting($field, array(
-				'label'			=> __('Count','acf'),
+				'label'			=> __('Count', 'acf-rest'),
 				'instructions'	=> '',
 				'type'			=> 'number',
 				'name'			=> 'limit',
@@ -113,7 +133,28 @@ if(!class_exists('RemoteData')):
 				'step'			=> 1,
 			));
 
-            $this->render_enpoint_field($field);
+            $choices = [];
+            foreach($field['fields'] as $value)
+                $choices[$value] = $value;
+
+            acf_render_field_setting($field, array(
+                'label'			=> __('Fields', 'acf-rest'),
+                'instructions'	=> '',
+                'type'			=> 'select',
+                'name'			=> 'fields',
+                'choices'		=> $choices,
+                'multiple'		=> 1,
+                'ui'			=> 1,
+                'allow_null'	=> 0,
+                'placeholder'	=> __("All user roles",'acf'),
+            ));
+
+            acf_render_field_setting($field, array(
+                'label' => __('Endpoint', 'acf-rest'),
+                'instructions' => __('Choose the endpoint from which the choices for the rest dropdown will be retrieved', 'acf-rest'),
+                'type' => 'text',
+                'name' => 'endpoint'
+            ));
         }
 
         /*
@@ -130,22 +171,34 @@ if(!class_exists('RemoteData')):
         *  @return	n/a
         */
         function render_field($field) {
-            $url = $field['endpoint'] . (empty($field['limit']) ? '' : '?per_page=' . $field['limit']);
+            $url = $field['endpoint'];
+            $url .= (empty($field['limit']) ? '' : '?per_page=' . $field['limit']);
+            $url .= (empty($field['limit']) ? '?' : '&') . '_fields=';
+
+			if(!empty($field['fields'])):
+				foreach($field['fields'] as $_field)
+					$url .= "{$_field},";
+			endif;
+
+            if(!is_array($field['fields']) || is_array($field['fields']) && !in_array('id', $field['fields']))
+                $url .= "id,";
+            if(!is_array($field['fields']) || is_array($field['fields']) && !in_array('title', $field['fields']))
+                $url .= "title,";
+
+            $url = rtrim($url, ',');
 
             $response = \wp_remote_get($url);
             $response_code = \wp_remote_retrieve_response_code($response);
+            $responseData = \wp_remote_retrieve_body($response);
 
+			$options = [];
             if($this->responseSuccess($response_code))
-                $options = json_decode(\wp_remote_retrieve_body($response), true);
-
-			// var_dump($options);
+                $options = json_decode($responseData, true);
 
 			// div attributes
 			$atts = array(
 				'id'				=> $field['id'],
 				'class'				=> "acf-remote-data acf-relationship {$field['class']}",
-				// 'data-min'			=> $field['min'],
-				// 'data-max'			=> $field['max'],
 				'data-s'			=> '',
 				'data-paged'		=> 1,
 			);
@@ -154,14 +207,15 @@ if(!class_exists('RemoteData')):
 
 			<div <?php acf_esc_attr_e($atts); ?>>
 
-			<?php acf_hidden_input( array('name' => $field['name'], 'value' => '') ); ?>
+			<?php acf_hidden_input(array('name' => $field['name'] . "[data]", 'value' => $responseData)); ?>
+			<?php acf_hidden_input(array('name' => $field['name'] . "[sticky]", 'value' => $field['sticky'])); ?>
 
 			<div class="filters -f2">
 				<div class="filter -search">
 					<?php acf_text_input( array('placeholder' => __("Search...",'acf'), 'data-filter' => 's') ); ?>
 				</div>	
 				<div class="filter -limit">
-					<?php acf_text_input(array('name' => $field['name'] . "['limit']", 'value' => $field['limit'], 'type' => 'number', 'step' => 1, 'min' => 0)); ?>
+					<?php acf_text_input(array('name' => $field['name'] . "[limit]", 'value' => $field['limit'], 'type' => 'number', 'step' => 1, 'min' => 0)); ?>
 				</div>
 			</div>
 
@@ -173,7 +227,9 @@ if(!class_exists('RemoteData')):
 					<ul class="acf-bl list values-list">
 						<?php foreach($options as $option): ?>
 							<li>
-								<?php acf_hidden_input( array('name' => $field['name'].'[]', 'value' => $option['id']) ); ?>
+								<?php 
+                                // acf_hidden_input(array('name' => $field['name'].'[]', 'value' => $option['id'])); 
+                                ?>
 								<span data-id="<?php echo esc_attr($option['id']); ?>" class="acf-rel-item">
 									<?php echo acf_esc_html($option['title']['rendered']); ?>
 									<a href="#" class="acf-icon -pin small dark" data-name="remove_item"></a>
@@ -187,28 +243,17 @@ if(!class_exists('RemoteData')):
         }
 
         /**
-         * Renders the field that accepts the endpoint from which the options of the select will be retrieved
-         *
-         * @param $field
-         */
-        private function render_enpoint_field($field)
-        {
-            acf_render_field_setting($field, array(
-                'label' => __('Endpoint', 'acf-rest'),
-                'instructions' => __('Choose the endpoint from which the choices for the rest dropdown will be retrieved', 'acf-rest'),
-                'type' => 'text',
-                'name' => 'endpoint'
-            ));
-        }
-
-        /**
          * @param $response_code
          * @return bool
          */
-        private function responseSuccess($response_code)
-        {
+        private function responseSuccess($response_code) {
             return $response_code === 200;
         }
+
+        public function load_value($value, $post_id, $field) {
+            return json_decode($value['data'], true);
+        }
+
     }
 
     // initialize
