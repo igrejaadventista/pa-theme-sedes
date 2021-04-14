@@ -3,7 +3,13 @@
 }
 
 .acf-remote-data .selection .values .values-list {
+	display: flex;
+	flex-direction: column;
 	padding: 0;
+}
+
+.acf-remote-data .list .acf-rel-item {
+	width: 100%;
 }
 
 .acf-remote-data .list .acf-rel-item:hover {
@@ -19,4 +25,13 @@
 .acf-remote-data .filters .filter.-limit input {
 	border-left: #ccd0d4 solid 1px;
 	padding-left: 10px;
+}
+
+.acf-remote-data .list li {
+    display: flex;
+	order: 0;
+}
+
+.acf-remote-data .list li.-sticky .acf-icon {
+    display: block;
 }

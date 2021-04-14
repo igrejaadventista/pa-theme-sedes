@@ -8,6 +8,7 @@ if(have_posts()){
 }
 $next_post = get_next_post();
 $prev_post = get_previous_post();
+var_dump(field('new'));
 ?>
 	<?php 
 		require(get_template_directory() . '/components/parent/header.php'); 	

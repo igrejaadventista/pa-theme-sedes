@@ -26,40 +26,16 @@ if(!class_exists('RemoteData')):
         *  @return	n/a
         */
         function __construct() {
-
-            /*
-            *  name (string) Single word, no spaces. Underscores allowed
-            */
+			// name (string) Single word, no spaces. Underscores allowed
             $this->name = 'remote_data';
-
-            /*
-            *  label (string) Multiple words, can include spaces, visible when selecting a field type
-            */
+			// label (string) Multiple words, can include spaces, visible when selecting a field type
             $this->label = __('Remote data', 'acf-rest');
-
-            /*
-            *  category (string) basic | content | choice | relational | jquery | layout | CUSTOM GROUP NAME
-            */
+            // category (string) basic | content | choice | relational | jquery | layout | CUSTOM GROUP NAME
             $this->category = 'choice';
+            // defaults (array) Array of default settings which are merged into the field object. These are used later in settings
+            $this->defaults = array('endpoint' => '');
 
-            /*
-            *  defaults (array) Array of default settings which are merged into the field object. These are used later in settings
-            */
-            $this->defaults = array(
-                'endpoint'	=> '',
-            );
-
-            /*
-            *  l10n (array) Array of strings that are used in JavaScript. This allows JS strings to be translated in PHP and loaded via:
-            *  var message = acf._e('rest', 'error');
-            */
-            $this->l10n = array(
-                'error'	=> __('Error! Please enter a higher value', 'acf-rest'),
-            );
-
-            /**
-             * Admin Scripts
-             */
+            // Admin Scripts
             \add_action('admin_enqueue_scripts', function() {
                 \wp_enqueue_script('acf-remote-fields.js', get_template_directory_uri() . '/Blocks/Plugins/RemoteData/Assets/remote-fields.js', ['jquery'], null, true);
             });
@@ -80,9 +56,9 @@ if(!class_exists('RemoteData')):
 		*  @param	$post_id (int)
 		*  @return	$post_id (int)
 		*/
-		
 		function input_admin_enqueue_scripts() {
 			\wp_enqueue_style('acf-remote-data-css', get_template_directory_uri() . '/Blocks/Plugins/RemoteData/Assets/remote-data.css', false);
+			\wp_enqueue_script('acf-remote-data.js', get_template_directory_uri() . '/Blocks/Plugins/RemoteData/Assets/remote-data.js', ['jquery'], null, true);
 		}
 
 
@@ -134,8 +110,10 @@ if(!class_exists('RemoteData')):
 			));
 
             $choices = [];
-            foreach($field['fields'] as $value)
-                $choices[$value] = $value;
+			if(!empty($field['fields'])):
+				foreach($field['fields'] as $value)
+					$choices[$value] = $value;
+			endif;
 
             acf_render_field_setting($field, array(
                 'label'			=> __('Fields', 'acf-rest'),
@@ -171,29 +149,39 @@ if(!class_exists('RemoteData')):
         *  @return	n/a
         */
         function render_field($field) {
-            $url = $field['endpoint'];
-            $url .= (empty($field['limit']) ? '' : '?per_page=' . $field['limit']);
-            $url .= (empty($field['limit']) ? '?' : '&') . '_fields=';
+			$values = get_field($field['key']);
+			$options = [];
+			$url = $field['endpoint'];
+			$queryArgs = [
+				'_fields' => 'id,title',
+			];
 
-			if(!empty($field['fields'])):
-				foreach($field['fields'] as $_field)
-					$url .= "{$_field},";
+			$sticky = isset($values['sticky']) ? $values['sticky'] : 0;
+            $stickyItems = explode(',', $sticky);
+
+			if(!empty($field['fields']))
+				$queryArgs['_fields'] .= ',' . implode(',', $field['fields']);
+
+			if(!empty($sticky)):
+				$response = \wp_remote_get(\add_query_arg(array_merge($queryArgs, ['include' => $sticky]), $url));
+				$responseCode = \wp_remote_retrieve_response_code($response);
+				$responseData = \wp_remote_retrieve_body($response);
+
+				if($this->responseSuccess($responseCode))
+					$options = json_decode($responseData, true);
 			endif;
 
-            if(!is_array($field['fields']) || is_array($field['fields']) && !in_array('id', $field['fields']))
-                $url .= "id,";
-            if(!is_array($field['fields']) || is_array($field['fields']) && !in_array('title', $field['fields']))
-                $url .= "title,";
+			if(!empty($limit = isset($values['limit']) ? $values['limit'] : $field['limit']))
+				$queryArgs['per_page'] =  count($stickyItems) < $limit ? $limit - count($stickyItems) : $limit;
 
-            $url = rtrim($url, ',');
-
-            $response = \wp_remote_get($url);
-            $response_code = \wp_remote_retrieve_response_code($response);
+            $response = \wp_remote_get(\add_query_arg(array_merge($queryArgs, ['exclude' => $sticky]), $url));
+            $responseCode = \wp_remote_retrieve_response_code($response);
             $responseData = \wp_remote_retrieve_body($response);
 
-			$options = [];
-            if($this->responseSuccess($response_code))
-                $options = json_decode($responseData, true);
+            if($this->responseSuccess($responseCode))
+                $options = array_merge($options, json_decode($responseData, true));
+
+            // $options = $this->orderItems($options, $stickyItems);
 
 			// div attributes
 			$atts = array(
@@ -208,36 +196,40 @@ if(!class_exists('RemoteData')):
 			<div <?php acf_esc_attr_e($atts); ?>>
 
 			<?php acf_hidden_input(array('name' => $field['name'] . "[data]", 'value' => $responseData)); ?>
-			<?php acf_hidden_input(array('name' => $field['name'] . "[sticky]", 'value' => $field['sticky'])); ?>
+			<?php acf_hidden_input(array('name' => $field['name'] . "[sticky]", 'value' => $sticky, 'data-sticky' => '')); ?>
 
 			<div class="filters -f2">
 				<div class="filter -search">
 					<?php acf_text_input( array('placeholder' => __("Search...",'acf'), 'data-filter' => 's') ); ?>
 				</div>	
 				<div class="filter -limit">
-					<?php acf_text_input(array('name' => $field['name'] . "[limit]", 'value' => $field['limit'], 'type' => 'number', 'step' => 1, 'min' => 0)); ?>
+					<?php acf_text_input(array('name' => $field['name'] . "[limit]", 'value' => $limit, 'type' => 'number', 'step' => 1, 'min' => 0)); ?>
 				</div>
 			</div>
 
 			<div class="selection">
-				<!-- <div class="choices">
-					<ul class="acf-bl list choices-list"></ul>
-				</div> -->
 				<div class="values">
 					<ul class="acf-bl list values-list">
-						<?php foreach($options as $option): ?>
-							<li>
-								<?php 
-                                // acf_hidden_input(array('name' => $field['name'].'[]', 'value' => $option['id'])); 
-                                ?>
-								<span data-id="<?php echo esc_attr($option['id']); ?>" class="acf-rel-item">
-									<?php echo acf_esc_html($option['title']['rendered']); ?>
-									<a href="#" class="acf-icon -pin small dark" data-name="remove_item"></a>
-								</span>
-							</li>
-						<?php endforeach; ?>
+						<?php 
+                            $index = 0;
+                            foreach($options as $option): 
+                                $attrs = '';
+                                if(in_array($option['id'], $stickyItems))
+                                    $attrs = 'class="-sticky" style="order: -' . (count($stickyItems) - $index)  . ';"';
+                        ?>
+                                <li <?= $attrs ?>>
+                                    <span data-id="<?php echo esc_attr($option['id']); ?>" class="acf-rel-item">
+                                        <?php echo acf_esc_html($option['title']['rendered']); ?>
+                                        <a href="#" class="acf-icon -pin small dark acf-js-tooltip" data-action="sticky" title="Fixar/Desafixar item"></a>
+                                    </span>
+                                </li>
+						<?php 
+                                $index++;
+                            endforeach; 
+						?>
 					</ul>
 				</div>
+			</div>
 			</div>
             <?php
         }
@@ -250,9 +242,36 @@ if(!class_exists('RemoteData')):
             return $response_code === 200;
         }
 
-        public function load_value($value, $post_id, $field) {
-            return json_decode($value['data'], true);
-        }
+        // public function load_value($value, $post_id, $field) {
+        //     return json_decode($value['data'], true);
+        // }
+
+        // function update_field( $field ) {
+        //     return $field;
+        // }
+
+        // private function orderItems($items, $sticky) {
+        //     $orderedItems = [];
+
+        //     if(empty($items) || empty($sticky))
+        //         return $orderedItems;    
+
+        //     foreach($sticky as $stickyItem):
+        //         foreach($items as $item):
+        //             if($stickyItem == $item['id']):
+        //                 $orderedItems[] = $item;
+        //                 break;
+        //             endif;
+        //         endforeach;
+        //     endforeach;
+
+        //     foreach($items as $item):
+        //         if(!in_array($item['id'], $sticky))
+        //             $orderedItems[] = $item;
+        //     endforeach;
+
+        //     return $orderedItems;
+        // } 
 
     }
 
