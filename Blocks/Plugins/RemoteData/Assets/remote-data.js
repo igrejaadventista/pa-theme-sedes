@@ -2,11 +2,11 @@
 	var Field = acf.Field.extend({
 		type: 'remote_data',
 		events: {
-			'keypress [data-filter]': 				'onKeypressFilter',
-			'change [data-filter]': 				'onChangeFilter',
-			'keyup [data-filter]': 					'onChangeFilter',
-			'click .choices-list .acf-rel-item': 	'onClickAdd',
+			// 'keypress [data-filter]': 				'onKeypressFilter',
+			// 'change [data-filter]': 				'onChangeFilter',
+			// 'keyup [data-filter]': 					'onChangeFilter',
 			'click [data-action="sticky"]': 		'onClickSticky',
+			'click [data-action="refresh"]': 		'fetch',
 		},
 		
 		$control: function() {
@@ -16,17 +16,29 @@
 		$stickyInput: function() {
 			return this.$control().find('[data-sticky]');
 		},
-		
-		$list: function(list) {
-			return this.$('.' + list + '-list');
+
+		$limitInput: function() {
+			return this.$control().find('[data-limit]');
+		},
+
+		$valuesInput: function() {
+			return this.$control().find('[data-values]');
 		},
 		
-		$listItems: function(list) {
-			return this.$list(list).find('.acf-rel-item');
+		$list: function() {
+			return this.$('.values-list');
+		},
+
+		stickyItems: function() {
+			return this.$stickyInput().val().split(',');
 		},
 		
-		$listItem: function(list, id) {
-			return this.$list(list).find('.acf-rel-item[data-id="' + id + '"]');
+		$listItems: function() {
+			return this.$list().find('.acf-rel-item');
+		},
+		
+		$listItem: function(id) {
+			return this.$list().find('.acf-rel-item[data-id="' + id + '"]');
 		},
 
 		order: function() {
@@ -34,12 +46,7 @@
 
 			this.$control().find('li').each(function() {
 				var itemOrder = $(this).css('order');
-
-				console.log(itemOrder);
-
 				index = itemOrder < index ? itemOrder : index;
-
-				console.log(index);
 			});
 
 			return index - 1;
@@ -91,7 +98,7 @@
 				this.$list('choices').scrollTop(0);
 				
 				// Fetch choices.
-				// this.fetch();
+				this.fetch();
 			}));
 			
 			// Bind "interacted with".
@@ -221,160 +228,111 @@
 		//     this.set('timeout', timeout);
 		// },
 		
-		// getAjaxData: function(){
+		getAjaxData: function() {
+			// load data based on element attributes
+			var ajaxData = this.$control().data();
+
+			for(var name in ajaxData)
+				ajaxData[name] = this.get(name);
 			
-		// 	// load data based on element attributes
-		// 	var ajaxData = this.$control().data();
-		// 	for( var name in ajaxData ) {
-		// 		ajaxData[ name ] = this.get( name );
-		// 	}
+			// extra
+			ajaxData.action = 'acf/fields/remote_data/query';
+			ajaxData.field_key = this.get('key');
+			ajaxData.sticky = this.$stickyInput().val();
+			ajaxData.limit = this.$limitInput().val();
 			
-		// 	// extra
-		// 	ajaxData.action = 'acf/fields/relationship/query';
-		// 	ajaxData.field_key = this.get('key');
+			// Filter.
+			ajaxData = acf.applyFilters('remote_data_ajax_data', ajaxData, this);
 			
-		// 	// Filter.
-		// 	ajaxData = acf.applyFilters( 'relationship_ajax_data', ajaxData, this );
-			
-		// 	// return
-		// 	return ajaxData;
-		// },
+			// return
+			return ajaxData;
+		},
 		
-		// fetch: function(){
+		fetch: function() {
+			// abort XHR if this field is already loading AJAX data
+			var xhr = this.get('xhr');
+			if(xhr)
+				xhr.abort();
 			
-		// 	// abort XHR if this field is already loading AJAX data
-		// 	var xhr = this.get('xhr');
-		// 	if( xhr ) {
-		// 		xhr.abort();
-		// 	}
+			// add to this.o
+			var ajaxData = this.getAjaxData();
 			
-		// 	// add to this.o
-		// 	var ajaxData = this.getAjaxData();
+			// clear html if is new query
+			var $list = this.$list();
+			$list.html('');
 			
-		// 	// clear html if is new query
-		// 	var $choiceslist = this.$list( 'choices' );
-		// 	if( ajaxData.paged == 1 ) {
-		// 		$choiceslist.html('');
-		// 	}
+			// loading
+			var $loading = $('<li class="-loading"><i class="acf-loading"></i> ' + acf.__('Loading') + '</li>');
+			$list.append($loading);
+			this.set('loading', true);
 			
-		// 	// loading
-		// 	var $loading = $('<li><i class="acf-loading"></i> ' + acf.__('Loading') + '</li>');
-		// 	$choiceslist.append($loading);
-		// 	this.set('loading', true);
+			// callback
+			var onComplete = function() {
+				this.set('loading', false);
+				$loading.remove();
+			};
 			
-		// 	// callback
-		// 	var onComplete = function(){
-		// 		this.set('loading', false);
-		// 		$loading.remove();
-		// 	};
-			
-		// 	var onSuccess = function( json ){
-				
-		// 		// no results
-		// 		if( !json || !json.results || !json.results.length ) {
-					
-		// 			// prevent pagination
-		// 			this.set('more', false);
-				
-		// 			// add message
-		// 			if( this.get('paged') == 1 ) {
-		// 				this.$list('choices').append('<li>' + acf.__('No matches found') + '</li>');
-		// 			}
+			var onSuccess = function(json) {
+				// no results
+				if(!json || !json.results || !json.results.length) {
+					// add message
+					this.$list().append('<li>' + acf.__('No matches found') + '</li>');
 	
-		// 			// return
-		// 			return;
-		// 		}
+					// return
+					return;
+				}
+
+				// get new results
+				var html = this.walkChoices(json.results);
+				var $html = $(html);
 				
-		// 		// set more (allows pagination scroll)
-		// 		this.set('more', json.more );
-				
-		// 		// get new results
-		// 		var html = this.walkChoices(json.results);
-		// 		var $html = $( html );
-				
-		// 		// apply .disabled to left li's
-		// 		var val = this.val();
-		// 		if( val && val.length ) {
-		// 			val.map(function( id ){
-		// 				$html.find('.acf-rel-item[data-id="' + id + '"]').addClass('disabled');
-		// 			});
-		// 		}
-				
-		// 		// append
-		// 		$choiceslist.append( $html );
-				
-		// 		// merge together groups
-		// 		var $prevLabel = false;
-		// 		var $prevList = false;
-					
-		// 		$choiceslist.find('.acf-rel-label').each(function(){
-					
-		// 			var $label = $(this);
-		// 			var $list = $label.siblings('ul');
-					
-		// 			if( $prevLabel && $prevLabel.text() == $label.text() ) {
-		// 				$prevList.append( $list.children() );
-		// 				$(this).parent().remove();
-		// 				return;
-		// 			}
-					
-		// 			// update vars
-		// 			$prevLabel = $label;
-		// 			$prevList = $list;
-		// 		});
-		// 	};
+				// append
+				$list.append($html);
+				this.$valuesInput().val(json.data);
+			};
 			
-		// 	// get results
-		//     var xhr = $.ajax({
-		//     	url:		acf.get('ajaxurl'),
-		// 		dataType:	'json',
-		// 		type:		'post',
-		// 		data:		acf.prepareForAjax(ajaxData),
-		// 		context:	this,
-		// 		success:	onSuccess,
-		// 		complete:	onComplete
-		// 	});
+			// get results
+		    var xhr = $.ajax({
+		    	url:		acf.get('ajaxurl'),
+				dataType:	'json',
+				type:		'post',
+				data:		acf.prepareForAjax(ajaxData),
+				context:	this,
+				success:	onSuccess,
+				complete:	onComplete,
+			});
 			
-		// 	// set
-		// 	this.set('xhr', xhr);
-		// },
+			// set
+			this.set('xhr', xhr);
+		},
 		
-		// walkChoices: function( data ){
+		walkChoices: function(data) {
+			var stickyItems = this.stickyItems();
+
+			// walker
+			var walk = function(data) {
+				// vars
+				var html = '';
+				
+				// is array
+				if($.isArray(data))
+					data.map(function(item) { html += walk(item); });
+				// is item
+				else if($.isPlainObject(data)) {
+					var attrs = '';
+
+					if(stickyItems.includes(data.id.toString()))
+						attrs = ' class="-sticky"';
+
+					html += '<li' + attrs + '><span class="acf-rel-item" data-id="' + acf.escAttr(data.id) + '"><a href="#" class="acf-icon -pin small dark acf-js-tooltip" data-action="sticky" title="Fixar/Desafixar item"></a>' + acf.escHtml(data.title.rendered) + '</span></li>';
+				}
+				
+				// return
+				return html;
+			};
 			
-		// 	// walker
-		// 	var walk = function( data ){
-				
-		// 		// vars
-		// 		var html = '';
-				
-		// 		// is array
-		// 		if( $.isArray(data) ) {
-		// 			data.map(function(item){
-		// 				html += walk( item );
-		// 			});
-					
-		// 		// is item
-		// 		} else if( $.isPlainObject(data) ) {
-					
-		// 			// group
-		// 			if( data.children !== undefined ) {
-						
-		// 				html += '<li><span class="acf-rel-label">' + acf.escHtml( data.text ) + '</span><ul class="acf-bl">';
-		// 				html += walk( data.children );
-		// 				html += '</ul></li>';
-					
-		// 			// single
-		// 			} else {
-		// 				html += '<li><span class="acf-rel-item" data-id="' + acf.escAttr( data.id ) + '">' + acf.escHtml( data.text ) + '</span></li>';
-		// 			}
-		// 		}
-				
-		// 		// return
-		// 		return html;
-		// 	};
-			
-		// 	return walk( data );
-		// }
+			return walk(data);
+		}
 		
 	});
 	

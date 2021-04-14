@@ -9,6 +9,7 @@
 }
 
 .acf-remote-data .list .acf-rel-item {
+	padding-left: 35px;
 	width: 100%;
 }
 
@@ -22,8 +23,15 @@
     content: "\f109";
 }
 
-.acf-remote-data .filters .filter.-limit input {
+.acf-remote-data .filters .filter.-limit label {
+	align-items: center;
 	border-left: #ccd0d4 solid 1px;
+	color: #72777c;
+	display: flex;
+	padding-left: 10px;
+}
+
+.acf-remote-data .filters .filter.-limit input {
 	padding-left: 10px;
 }
 
@@ -32,6 +40,35 @@
 	order: 0;
 }
 
-.acf-remote-data .list li.-sticky .acf-icon {
-    display: block;
+.acf-remote-data .list .-loading {
+    position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%);
+}
+
+.acf-remote-data .list .acf-loading {
+	margin-right: 8px;
+}
+
+.acf-remote-data .selection .values .acf-icon {
+	display: block;
+	left: 7px !important;
+	opacity: 0.1;
+	right: unset !important;
+}
+
+.acf-remote-data .list li.-sticky .acf-rel-item {
+	font-weight: bold;
+}
+
+.acf-remote-data .list li.-sticky .acf-icon,
+.acf-remote-data .list .acf-rel-item:hover .acf-icon {
+    opacity: 1;
+}
+
+.acf-remote-data .button-update {
+	bottom: 103%;
+	position: absolute;
+	right: 0;
 }
