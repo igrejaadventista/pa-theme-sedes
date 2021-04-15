@@ -157,7 +157,7 @@ if(!class_exists('RemoteData')):
 				<div class="filter -limit">
 					<label>
 						<span class="acf-js-tooltip" title="Quantidade de itens a ser exibido. De 1 a 100">Quantidade</span>
-						<?php acf_text_input(array('name' => $field['name'] . "[limit]", 'value' => isset($values['limit']) ? $values['limit'] : $field['limit'], 'type' => 'number', 'step' => 1, 'min' => 1, 'max' => 100, 'data-limit' => '')); ?>
+						<?php acf_text_input(array('name' => $field['name'] . "[limit]", 'value' => isset($values['limit']) ? $values['limit'] : $field['limit'], 'type' => 'number', 'step' => 1, 'min' => 1, 'max' => 100, 'data-limit' => '', 'data-filter' => 'limit')); ?>
 					</label>
 				</div>
 

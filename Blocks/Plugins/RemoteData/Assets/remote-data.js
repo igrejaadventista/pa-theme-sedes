@@ -2,9 +2,9 @@
 	var Field = acf.Field.extend({
 		type: 'remote_data',
 		events: {
-			// 'keypress [data-filter]': 				'onKeypressFilter',
-			// 'change [data-filter]': 				'onChangeFilter',
-			// 'keyup [data-filter]': 					'onChangeFilter',
+			'keypress [data-filter]': 				'onKeypressFilter',
+			'change [data-filter]': 				'onChangeFilter',
+			'keyup [data-filter]': 					'onChangeFilter',
 			'click [data-action="sticky"]': 		'onClickSticky',
 			'click [data-action="refresh"]': 		'fetch',
 		},
@@ -80,20 +80,11 @@
 		// },
 		
 		initialize: function() {
+			this.set('limit', this.$limitInput().val());
+			this.set('sticky', this.$stickyInput().val());
+
 			// Delay initialization until "interacted with" or "in view".
 			var delayed = this.proxy(acf.once(function() {
-				
-				// Add sortable.
-				// this.$list('values').sortable({
-				// 	items:					'li',
-				// 	forceHelperSize:		true,
-				// 	forcePlaceholderSize:	true,
-				// 	scroll:					true,
-				// 	update:	this.proxy(function() {
-				// 		this.$input().trigger('change');
-				// 	})
-				// });
-				
 				// Avoid browser remembering old scroll position.
 				this.$list('choices').scrollTop(0);
 				
@@ -109,40 +100,27 @@
 			acf.onceInView(this.$el, delayed);
 		},
 		
-		// onKeypressFilter: function( e, $el ){
-			
-		// 	// don't submit form
-		// 	if( e.which == 13 ) {
-		// 		e.preventDefault();
-		// 	}
-		// },
+		onKeypressFilter: function(e, $el) {
+			// don't submit form
+			if(e.which == 13)
+				e.preventDefault();
+		},
 		
-		// onChangeFilter: function( e, $el ){
-			
-		// 	// vars
-		// 	var val = $el.val();
-		// 	var filter = $el.data('filter');
+		onChangeFilter: function(e, $el) {
+			// vars
+			var val = $el.val();
+			var filter = $el.data('filter');
 				
-		// 	// Bail early if filter has not changed
-		// 	if( this.get(filter) === val ) {
-		// 		return;
-		// 	}
+			// Bail early if filter has not changed
+			if(this.get(filter) === val)
+				return;
 			
-		// 	// update attr
-		// 	this.set(filter, val);
-			
-		// 	// reset paged
-		// 	this.set('paged', 1);
-			
-		//     // fetch
-		//     if( $el.is('select') ) {
-		// 		this.fetch();
-			
-		// 	// search must go through timeout
-		//     } else {
-		// 	    this.maybeFetch();
-		//     }
-		// },
+			// update attr
+			this.set(filter, val);
+
+			// search must go through timeout
+			this.maybeFetch(filter);
+		},
 		
 		// onClickAdd: function( e, $el ){
 			
@@ -195,38 +173,29 @@
 			if(this.$stickyInput().val() == 0)
 				this.$stickyInput().val('');
 
-			if(sticky) {
-				$li.css('order', this.order());
+			$li.css('order', sticky ? this.order() : 0);
+
+			if(sticky)
 				this.$stickyInput().val(`${id},${this.$stickyInput().val()}`);
-			}
-			else {
-				$li.css('order', 0);
+			else
 				this.$stickyInput().val(this.$stickyInput().val().replace(`${id},`, ''));
-			}
 
 			this.$stickyInput().val(this.$stickyInput().val().replace(/(\s*,?\s*)*$/, ''));
-			
-			// // show choice
-			// this.$listItem('choices', id).removeClass('disabled');
-			
-			// // trigger change
-			// this.$input().trigger('change');
+			this.set('sticky', this.$stickyInput().val());
 		},
 		
-		// maybeFetch: function(){
+		maybeFetch: function(filter) {	
+			// vars
+			var timeout = this.get('timeout');
 			
-		// 	// vars
-		// 	var timeout = this.get('timeout');
+			// abort timeout
+			if(timeout)
+				clearTimeout(timeout);
 			
-		// 	// abort timeout
-		// 	if( timeout ) {
-		// 		clearTimeout( timeout );
-		// 	}
-			
-		//     // fetch
-		//     timeout = this.setTimeout(this.fetch, 300);
-		//     this.set('timeout', timeout);
-		// },
+		    // fetch
+		    timeout = this.setTimeout(filter == 's' ? this.search : this.fetch, 300);
+		    this.set('timeout', timeout);
+		},
 		
 		getAjaxData: function() {
 			// load data based on element attributes
@@ -238,8 +207,8 @@
 			// extra
 			ajaxData.action = 'acf/fields/remote_data/query';
 			ajaxData.field_key = this.get('key');
-			ajaxData.sticky = this.$stickyInput().val();
-			ajaxData.limit = this.$limitInput().val();
+			ajaxData.sticky = this.get('sticky');
+			ajaxData.limit = this.get('limit');
 			
 			// Filter.
 			ajaxData = acf.applyFilters('remote_data_ajax_data', ajaxData, this);
@@ -249,6 +218,82 @@
 		},
 		
 		fetch: function() {
+			// abort XHR if this field is already loading AJAX data
+			var xhr = this.get('xhr');
+			if(xhr)
+				xhr.abort();
+			
+			// add to this.o
+			var ajaxData = this.getAjaxData();
+			
+			// clear html if is new query
+			var $list = this.$list();
+			$list.html('');
+			
+			// loading
+			var $loading = $('<li class="-loading"><i class="acf-loading"></i> ' + acf.__('Loading') + '</li>');
+			$list.append($loading);
+			this.set('loading', true);
+			
+			// callback
+			var onComplete = function() {
+				this.set('loading', false);
+				$loading.remove();
+			};
+			
+			var onSuccess = function(json) {
+				// no results
+				if(!json || !json.results || !json.results.length) {
+					// add message
+					this.$list().append('<li>' + acf.__('No matches found') + '</li>');
+	
+					// return
+					return;
+				}
+
+				// get new results
+				var html = this.walkChoices(json.results);
+				var $html = $(html);
+				
+				// append
+				$list.append($html);
+				this.$valuesInput().val(json.data);
+			};
+			
+			// get results
+		    var xhr = $.ajax({
+		    	url:		acf.get('ajaxurl'),
+				dataType:	'json',
+				type:		'post',
+				data:		acf.prepareForAjax(ajaxData),
+				context:	this,
+				success:	onSuccess,
+				complete:	onComplete,
+			});
+			
+			// set
+			this.set('xhr', xhr);
+		},
+
+		getSearchData: function() {
+			// load data based on element attributes
+			var ajaxData = this.$control().data();
+
+			for(var name in ajaxData)
+				ajaxData[name] = this.get(name);
+			
+			// extra
+			ajaxData.action = 'acf/fields/remote_data/search';
+			ajaxData.field_key = this.get('key');
+			
+			// Filter.
+			ajaxData = acf.applyFilters('remote_data_search_data', ajaxData, this);
+			
+			// return
+			return ajaxData;
+		},
+
+		search: function() {
 			// abort XHR if this field is already loading AJAX data
 			var xhr = this.get('xhr');
 			if(xhr)
