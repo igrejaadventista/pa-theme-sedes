@@ -1,5 +1,7 @@
 {
     "name": "igrejaadventista/pa-theme-sedes",
-    "type": "wordpress-theme"
+    "type": "wordpress-theme",
+    "require": {
+        "wordplate/acf": "^9.1"
+    }
 }
-  
