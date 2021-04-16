@@ -25,7 +25,8 @@ class PaAcfSiteSettings {
 
     function createAcfFields(){
         register_extended_field_group([
-            'title' => 'Cookie',
+            'title' => 'Site settings',
+            'style' => 'default',
             'fields' => [
                 Tab::make('Contact'),
                     Taxonomy::make('Headquarter', 'ct_headquarter')
