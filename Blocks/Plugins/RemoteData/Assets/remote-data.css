@@ -1,19 +1,43 @@
-.acf-remote-data .selection .values {
+.acf-relationship .selection {
+	display: flex;
+}
+
+.acf-remote-data .selection .choices {
+	overflow: hidden;
+	transition: all 0.3s ease-in-out;
+	width: 0;
+}
+
+.acf-remote-data .selection .values,
+.acf-remote-data .selection .choices.active,
+.acf-remote-data .selection .choices .acf-rel-item {
 	width: 100%;
 }
 
-.acf-remote-data .selection .values .values-list {
+.acf-remote-data .selection .values .values-list,
+.acf-remote-data .selection .values .sticky-list,
+.acf-remote-data .selection .choices .choices-list {
 	display: flex;
 	flex-direction: column;
+	overflow-x: hidden;
 	padding: 0;
 }
 
-.acf-remote-data .list .acf-rel-item {
+.acf-remote-data .selection .values .sticky-list {
+	height: auto;
+}
+
+.acf-remote-data .selection .values .sticky-list:empty {
+	padding: 0;
+}
+
+.acf-remote-data .values-list .acf-rel-item,
+.acf-remote-data .sticky-list .acf-rel-item  {
 	padding-left: 35px;
 	width: 100%;
 }
 
-.acf-remote-data .list .acf-rel-item:hover {
+.acf-remote-data .values-list .acf-rel-item:hover {
 	background: #E4EEFF;
 	color: inherit;
 	cursor: default;
@@ -21,6 +45,27 @@
 
 .acf-icon.-pin::before {
     content: "\f109";
+}
+
+.acf-remote-data .filters .filter {
+	position: relative;
+}
+
+.acf-remote-data .filters .filter .acf-loading,
+.acf-remote-data .filters .filter .button-clear {
+	opacity: 0;
+	pointer-events: none;
+	position: absolute;
+	right: 6px;
+	top: 50%;
+	transform: translateY(-50%);
+	transition: all 0.3s ease-in-out;
+}
+
+.acf-remote-data .filters .filter .acf-loading.active,
+.acf-remote-data .filters .filter .button-clear.active {
+	opacity: 1;
+	pointer-events: all;
 }
 
 .acf-remote-data .filters .filter.-limit label {
@@ -55,6 +100,7 @@
 	display: block;
 	left: 7px !important;
 	opacity: 0.1;
+	position: absolute;
 	right: unset !important;
 }
 

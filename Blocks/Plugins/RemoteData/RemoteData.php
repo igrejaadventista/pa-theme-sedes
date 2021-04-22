@@ -38,6 +38,9 @@ if(!class_exists('RemoteData')):
             add_action('wp_ajax_acf/fields/remote_data/query',			array($this, 'ajax_query'));
 		    add_action('wp_ajax_nopriv_acf/fields/remote_data/query',	array($this, 'ajax_query'));
 
+			add_action('wp_ajax_acf/fields/remote_data/search',			array($this, 'ajax_search'));
+		    add_action('wp_ajax_nopriv_acf/fields/remote_data/search',	array($this, 'ajax_search'));
+
             // Admin Scripts
             \add_action('admin_enqueue_scripts', function() {
                 \wp_enqueue_script('acf-remote-fields.js', get_template_directory_uri() . '/Blocks/Plugins/RemoteData/Assets/remote-fields.js', ['jquery'], null, true);
@@ -153,6 +156,8 @@ if(!class_exists('RemoteData')):
 			<div class="filters -f2">
 				<div class="filter -search">
 					<?php acf_text_input( array('placeholder' => __("Search...",'acf'), 'data-filter' => 's') ); ?>
+					<i class="acf-loading"></i>
+					<a href="#" class="button-clear acf-icon -cancel acf-js-tooltip" data-action="clear" title="Limpar"></a>
 				</div>	
 				<div class="filter -limit">
 					<label>
@@ -165,10 +170,12 @@ if(!class_exists('RemoteData')):
 			</div>
 
 			<div class="selection">
+				<div class="choices">
+					<ul class="acf-bl list choices-list"></ul>
+				</div>
 				<div class="values">
-					<ul class="acf-bl list values-list">
-						
-					</ul>
+					<ul class="acf-bl list sticky-list"></ul>
+					<ul class="acf-bl list values-list"></ul>
 				</div>
 			</div>
 			</div>
@@ -273,6 +280,87 @@ if(!class_exists('RemoteData')):
 				if($this->responseSuccess($responseCode))
 					$results = array_merge($results, json_decode($responseData, true));
 			endif;
+			
+			// vars
+			$response = array(
+				'results'	=> $results,
+				'data'		=> json_encode($results),
+			);
+			
+			// return
+			return $response;	
+		}
+
+		/*
+		*  ajax_query
+		*
+		*  description
+		*
+		*  @type	function
+		*  @date	24/10/13
+		*  @since	5.0.0
+		*
+		*  @param	$post_id (int)
+		*  @return	$post_id (int)
+		*/
+		
+		function ajax_search() {
+			// validate
+			if(!acf_verify_ajax()) 
+				die();
+			
+			// get choices
+			$response = $this->get_ajax_search($_POST);
+			
+			// return
+			acf_send_ajax_results($response);	
+		}
+
+		/*
+		*  get_ajax_query
+		*
+		*  This function will return an array of data formatted for use in a select2 AJAX response
+		*
+		*  @type	function
+		*  @date	15/10/2014
+		*  @since	5.0.9
+		*
+		*  @param	$options (array)
+		*  @return	(array)
+		*/
+		
+		function get_ajax_search($options = array()) {
+			// defaults
+			$options = wp_parse_args($options, array(
+				'endpoint'		=> '',
+				'field_key'		=> '',
+				's'				=> '',
+			));
+			
+			// load field
+			$field = acf_get_field($options['field_key']);
+			if(!$field) 
+				return false;
+			
+			$results = [];
+			$url = $field['endpoint'];
+			$queryArgs = ['_fields' => 'id,title'];
+			$queryArgs['per_page'] = 100;
+	
+			if(!empty($field['fields']))
+				$queryArgs['_fields'] .= ',' . implode(',', $field['fields']);
+
+			// search
+			if(!empty($options['s']))
+				// strip slashes (search may be integer)
+				$queryArgs['search'] = wp_unslash(strval($options['s']));
+
+			$response = \wp_remote_get(\add_query_arg($queryArgs, $url));
+			$responseCode = \wp_remote_retrieve_response_code($response);
+			$responseData = \wp_remote_retrieve_body($response);
+
+			if($this->responseSuccess($responseCode))
+				$results = array_merge($results, json_decode($responseData, true));
 			
 			// vars
 			$response = array(

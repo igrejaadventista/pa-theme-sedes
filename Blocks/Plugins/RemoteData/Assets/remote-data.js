@@ -6,6 +6,8 @@
 			'change [data-filter]': 				'onChangeFilter',
 			'keyup [data-filter]': 					'onChangeFilter',
 			'click [data-action="sticky"]': 		'onClickSticky',
+			'click [data-action="clear"]': 			'onClickClear',
+			'click .choices-list .acf-rel-item': 	'onClickAdd',
 			'click [data-action="refresh"]': 		'fetch',
 		},
 		
@@ -17,6 +19,10 @@
 			return this.$control().find('[data-sticky]');
 		},
 
+		$searchInput: function() {
+			return this.$control().find('[data-filter="s"]');
+		},
+
 		$limitInput: function() {
 			return this.$control().find('[data-limit]');
 		},
@@ -24,7 +30,23 @@
 		$valuesInput: function() {
 			return this.$control().find('[data-values]');
 		},
+
+		$buttonClear: function() {
+			return this.$control().find('.button-clear');
+		},
 		
+		$choices: function() {
+			return this.$('.choices');
+		},
+
+		$choicesList: function() {
+			return this.$choices().find('.choices-list');
+		},
+
+		$stickyList: function() {
+			return this.$('.sticky-list');
+		},
+
 		$list: function() {
 			return this.$('.values-list');
 		},
@@ -39,6 +61,10 @@
 		
 		$listItem: function(id) {
 			return this.$list().find('.acf-rel-item[data-id="' + id + '"]');
+		},
+
+		$searchLoading: function() {
+			return this.$control().find('.-search .acf-loading');
 		},
 
 		order: function() {
@@ -82,6 +108,18 @@
 		initialize: function() {
 			this.set('limit', this.$limitInput().val());
 			this.set('sticky', this.$stickyInput().val());
+			this.$searchInput().val('');
+
+			// Add sortable.
+			this.$stickyList().sortable({
+				items:					'li',
+				forceHelperSize:		true,
+				forcePlaceholderSize:	true,
+				scroll:					true,
+				// update:	this.proxy(function(){
+				// 	this.$input().trigger('change');
+				// })
+			});
 
 			// Delay initialization until "interacted with" or "in view".
 			var delayed = this.proxy(acf.once(function() {
@@ -122,42 +160,6 @@
 			this.maybeFetch(filter);
 		},
 		
-		// onClickAdd: function( e, $el ){
-			
-		// 	// vars
-		// 	var val = this.val();
-		// 	var max = parseInt( this.get('max') );
-			
-		// 	// can be added?
-		// 	if( $el.hasClass('disabled') ) {
-		// 		return false;
-		// 	}
-			
-		// 	// validate
-		// 	if( max > 0 && val && val.length >= max ) {
-				
-		// 		// add notice
-		// 		this.showNotice({
-		// 			text: acf.__('Maximum values reached ( {max} values )').replace('{max}', max),
-		// 			type: 'warning'
-		// 		});
-		// 		return false;
-		// 	}
-			
-		// 	// disable
-		// 	$el.addClass('disabled');
-			
-		// 	// add
-		// 	var html = this.newValue({
-		// 		id: $el.data('id'),
-		// 		text: $el.html()
-		// 	});
-		// 	this.$list('values').append( html )
-			
-		// 	// trigger change
-		// 	this.$input().trigger('change');
-		// },
-		
 		onClickSticky: function(e, $el) {
 			// Prevent default here because generic handler wont be triggered.
 			e.preventDefault();
@@ -173,10 +175,13 @@
 			if(this.$stickyInput().val() == 0)
 				this.$stickyInput().val('');
 
-			$li.css('order', sticky ? this.order() : 0);
+			// $li.css('order', sticky ? this.order() : 0);
 
-			if(sticky)
+			if(sticky) {
 				this.$stickyInput().val(`${id},${this.$stickyInput().val()}`);
+				console.log(this.$stickyList());
+				this.$stickyList().append($li);
+			}
 			else
 				this.$stickyInput().val(this.$stickyInput().val().replace(`${id},`, ''));
 
@@ -300,40 +305,41 @@
 				xhr.abort();
 			
 			// add to this.o
-			var ajaxData = this.getAjaxData();
+			var ajaxData = this.getSearchData();
 			
 			// clear html if is new query
-			var $list = this.$list();
+			var $list = this.$choicesList();
 			$list.html('');
 			
 			// loading
-			var $loading = $('<li class="-loading"><i class="acf-loading"></i> ' + acf.__('Loading') + '</li>');
-			$list.append($loading);
+			this.$searchLoading().addClass('active');
+			this.$buttonClear().removeClass('active');
 			this.set('loading', true);
 			
 			// callback
 			var onComplete = function() {
 				this.set('loading', false);
-				$loading.remove();
+				this.$searchLoading().removeClass('active');
+				this.$choices().addClass('active');
+				this.$buttonClear().addClass('active');
 			};
 			
 			var onSuccess = function(json) {
 				// no results
 				if(!json || !json.results || !json.results.length) {
 					// add message
-					this.$list().append('<li>' + acf.__('No matches found') + '</li>');
+					this.$choicesList().append('<li>' + acf.__('No matches found') + '</li>');
 	
 					// return
 					return;
 				}
 
 				// get new results
-				var html = this.walkChoices(json.results);
+				var html = this.walkChoices(json.results, false);
 				var $html = $(html);
 				
 				// append
 				$list.append($html);
-				this.$valuesInput().val(json.data);
 			};
 			
 			// get results
@@ -351,7 +357,7 @@
 			this.set('xhr', xhr);
 		},
 		
-		walkChoices: function(data) {
+		walkChoices: function(data, sticky = true) {
 			var stickyItems = this.stickyItems();
 
 			// walker
@@ -369,7 +375,10 @@
 					if(stickyItems.includes(data.id.toString()))
 						attrs = ' class="-sticky"';
 
-					html += '<li' + attrs + '><span class="acf-rel-item" data-id="' + acf.escAttr(data.id) + '"><a href="#" class="acf-icon -pin small dark acf-js-tooltip" data-action="sticky" title="Fixar/Desafixar item"></a>' + acf.escHtml(data.title.rendered) + '</span></li>';
+					html += '<li' + attrs + '><span class="acf-rel-item" data-id="' + acf.escAttr(data.id) + '">';
+					if(sticky)
+						html += '<a href="#" class="acf-icon -pin small dark acf-js-tooltip" data-action="sticky" title="Fixar/Desafixar item"></a>'
+					html += acf.escHtml(data.title.rendered) + '</span></li>';
 				}
 				
 				// return
@@ -377,7 +386,58 @@
 			};
 			
 			return walk(data);
-		}
+		},
+
+		onClickClear: function() {
+			this.$searchInput().val('');
+			this.$choices().removeClass('active');
+			this.$buttonClear().removeClass('active');
+		},
+
+		onClickAdd: function(e, $el) {
+			// vars
+			var val = this.val();
+			
+			// can be added?
+			if($el.hasClass('disabled'))
+				return false;
+			
+			// validate
+			// if(max > 0 && val && val.length >= max) {
+				// add notice
+				// this.showNotice({
+				// 	text: acf.__('Maximum values reached ( {max} values )'),
+				// 	type: 'warning'
+				// });
+				// return false;
+			// }
+			
+			// disable
+			$el.addClass('disabled');
+			
+			// add
+			var html = this.newValue({
+				id: $el.data('id'),
+				text: $el.html()
+			});
+			this.$list().append(html);
+
+			html.find('.acf-icon').trigger('click');
+			
+			// // trigger change
+			// this.$input().trigger('change');
+		},
+
+		newValue: function(props) {
+			return $([
+			'<li>',
+				'<input type="hidden" name="' + this.getInputName() + '[]" value="' + props.id + '" />',
+				'<span data-id="' + props.id + '" class="acf-rel-item">' + props.text,
+					'<a href="#" class="acf-icon -pin small dark acf-js-tooltip" data-action="sticky" title="Fixar/Desafixar item"></a>',
+				'</span>',
+			'</li>'
+			].join(''));
+		},
 		
 	});
 	
