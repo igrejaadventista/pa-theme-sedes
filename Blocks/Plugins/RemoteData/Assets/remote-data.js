@@ -7,7 +7,7 @@
 			'keyup [data-filter]': 					'onChangeFilter',
 			'click [data-action="sticky"]': 		'onClickSticky',
 			'click [data-action="clear"]': 			'onClickClear',
-			'click .choices-list .acf-rel-item': 	'onClickAdd',
+			'click .choices-list li': 				'onClickAdd',
 			'click [data-action="refresh"]': 		'fetch',
 		},
 		
@@ -144,11 +144,13 @@
 		
 		onChangeFilter: function(e, $el) {
 			// vars
-			var val = $el.val();
+			var val = $el.val().trim();
 			var filter = $el.data('filter');
+
+			console.log(this.get(filter));
 				
 			// Bail early if filter has not changed
-			if(this.get(filter) === val)
+			if(this.get(filter) === val || val == '')
 				return;
 			
 			// update attr
@@ -165,24 +167,20 @@
 			// vars
 			var $span = $el.parent();
 			var $li = $span.parent();
-			// var id = $li.data('id');
 			var sticky = $li.parent().get(0) == this.$list().get(0);
 
 			if(this.$stickyInput().val() == 0)
 				this.$stickyInput().val('');
 
-			// if(sticky)
-			// 	this.$stickyInput().val(`${this.$stickyInput().val()},${id}`);
-			// else
-			// 	this.$stickyInput().val(this.$stickyInput().val().replace(`${id}`, ''));
-
-			$li.appendTo(sticky ? this.$stickyList() : this.$list());
-				
-			// this.$stickyInput().val(this.$stickyInput().val().replace(/(^\,+|\,+$)/mg, ''));
-			// this.set('sticky', this.$stickyInput().val());
-
-			this.sortList();
-			this.sortValues();
+			if(sticky) {
+				$li.appendTo(this.$stickyList());
+				this.sortValues();
+			}
+			else {
+				$li.remove();
+				this.sortValues();
+				this.fetch();
+			}
 		},
 		
 		maybeFetch: function(filter) {	
@@ -288,6 +286,9 @@
 			// extra
 			ajaxData.action = 'acf/fields/remote_data/search';
 			ajaxData.field_key = this.get('key');
+			ajaxData.exclude = [];
+
+			this.$list().find('li').each((_, element) => ajaxData.exclude.push(element.dataset.id));
 			
 			// Filter.
 			ajaxData = acf.applyFilters('remote_data_search_data', ajaxData, this);
@@ -334,10 +335,10 @@
 
 				// get new results
 				var html = this.walkChoices(json.results, false);
-				var $html = $(html);
 				
 				// append
-				$list.append($html);
+				$list.append(html.list);
+				this.set('results', json.results);
 			};
 			
 			// get results
@@ -385,25 +386,28 @@
 			this.$searchInput().val('');
 			this.$choices().removeClass('active');
 			this.$buttonClear().removeClass('active');
+			this.set('s', '');
+
+			setTimeout(() => this.$choicesList().html(''), 400);
 		},
 
-		onClickAdd: function(e, $el) {
-			// vars
-			var val = this.val();
-			
+		onClickAdd: function(e, $el) {		
 			// can be added?
 			if($el.hasClass('disabled'))
 				return false;
+
+			var limit = this.get('limit');
 			
 			// validate
-			// if(max > 0 && val && val.length >= max) {
+			if(this.stickyItems().length == limit) {
 				// add notice
-				// this.showNotice({
-				// 	text: acf.__('Maximum values reached ( {max} values )'),
-				// 	type: 'warning'
-				// });
-				// return false;
-			// }
+				this.showNotice({
+					text: `Limite máximo de ${limit} ite${limit == 1 ? 'm' : 'ns' } alcançado`,
+					type: 'warning'
+				});
+
+				return false;
+			}
 			
 			// disable
 			$el.addClass('disabled');
@@ -411,20 +415,18 @@
 			// add
 			var html = this.newValue({
 				id: $el.data('id'),
-				text: $el.html()
+				date: $el.data('date'),
+				text: $el.find('.acf-rel-item').html(),
 			});
-			this.$list().append(html);
 
-			html.find('.acf-icon').trigger('click');
-			
-			// // trigger change
-			// this.$input().trigger('change');
+			this.$stickyList().append(html);
+			this.sortValues();
+			this.fetch();
 		},
 
 		newValue: function(props) {
 			return $([
-			'<li data-id="' + props.id + '">',
-				'<input type="hidden" name="' + this.getInputName() + '[]" value="' + props.id + '" />',
+			'<li data-id="' + props.id + '" data-date="' + props.date + '" data-from-search>',
 				'<span class="acf-rel-item">' + props.text,
 					'<a href="#" class="acf-icon -pin small dark acf-js-tooltip" data-action="sticky" title="Fixar/Desafixar item"></a>',
 				'</span>',
@@ -440,16 +442,24 @@
 		},
 
 		sortValues: function() {
+			var results = this.get('results');
 			var values = JSON.parse(this.$valuesInput().val());
 			var sortedValues = [];
 
 			this.$stickyInput().val('');
 
 			this.$stickyList().find('li').each((_, element) => {
-				var elementValue = values.find(value => value.id == element.dataset.id);
+				var elementValue;
 
-				sortedValues.push(elementValue);
-				this.$stickyInput().val(`${this.$stickyInput().val()},${elementValue.id}`);
+				if(typeof element.dataset.fromSearch != 'undefined')
+					elementValue = results.find(value => value.id == element.dataset.id);
+				else
+					elementValue = values.find(value => value.id == element.dataset.id);
+
+				if(elementValue) {
+					sortedValues.push(elementValue);
+					this.$stickyInput().val(`${this.$stickyInput().val()},${elementValue.id}`);
+				}
 			});
 
 			this.$list().find('li').each((_, element) => sortedValues.push(values.find(value => value.id == element.dataset.id)));

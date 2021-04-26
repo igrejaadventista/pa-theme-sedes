@@ -344,8 +344,18 @@ if(!class_exists('RemoteData')):
 			
 			$results = [];
 			$url = $field['endpoint'];
-			$queryArgs = ['_fields' => 'id,title'];
-			$queryArgs['per_page'] = 100;
+			$queryArgs = ['_fields' => 'id,title,date'];
+
+			$sticky = isset($options['sticky']) ? $options['sticky'] : 0;
+
+			if(!empty($sticky) || isset($options['exclude'])):
+				$queryArgs['exclude'] = [];
+
+				if(isset($options['exclude']))
+					$queryArgs['exclude'] = array_merge($queryArgs['exclude'], $options['exclude']);
+				if(!empty($sticky))
+					$queryArgs['exclude'] = array_merge($queryArgs['exclude'], explode(',', $sticky));
+			endif;
 	
 			if(!empty($field['fields']))
 				$queryArgs['_fields'] .= ',' . implode(',', $field['fields']);

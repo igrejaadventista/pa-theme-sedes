@@ -23,6 +23,10 @@
 	padding: 0;
 }
 
+.acf-remote-data .selection .choices .choices-list {
+	height: auto;
+}
+
 .acf-remote-data .selection .values .sticky-list {
 	border-bottom: #ccd0d4 solid 1px;
 	height: auto;
@@ -118,4 +122,18 @@
 	bottom: 103%;
 	position: absolute;
 	right: 0;
+}
+
+.acf-field-remote-data .acf-notice {
+	left: 0;
+	padding: 7px 40px 7px 12px;
+	position: absolute;
+	right: 0;
+	top: 0;
+	z-index: 1;
+}
+
+.acf-field-remote-data .acf-notice .acf-notice-dismiss {
+	top: 50%;
+	transform: translateY(-50%);
 }
