@@ -190,9 +190,9 @@ if(!class_exists('RemoteData')):
             return $response_code === 200;
         }
 
-        public function load_value($value, $post_id, $field) {
-            return json_decode($value['data'], true);
-        }
+        // public function load_value($value, $post_id, $field) {
+        //     return json_decode($value['data'], true);
+        // }
 
         /*
 		*  ajax_query
@@ -248,7 +248,7 @@ if(!class_exists('RemoteData')):
 			
 			$results = [];
 			$url = $field['endpoint'];
-			$queryArgs = ['_fields' => 'id,title'];
+			$queryArgs = ['_fields' => 'id,title,date'];
 	
 			$sticky = isset($options['sticky']) ? $options['sticky'] : 0;
 			$stickyItems = !empty($sticky) ? explode(',', $sticky) : [];
@@ -273,7 +273,7 @@ if(!class_exists('RemoteData')):
 			if($limit > count($stickyItems)):
 				$queryArgs['per_page'] =  count($stickyItems) <= $limit ? $limit - count($stickyItems) : $limit;
 
-				$response = \wp_remote_get(\add_query_arg(array_merge($queryArgs, ['exclude' => $sticky]), $url));
+				$response = \wp_remote_get(\add_query_arg(array_merge($queryArgs, ['exclude' => $sticky, 'orderby' => 'date']), $url));
 				$responseCode = \wp_remote_retrieve_response_code($response);
 				$responseData = \wp_remote_retrieve_body($response);
 

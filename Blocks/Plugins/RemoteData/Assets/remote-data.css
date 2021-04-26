@@ -24,6 +24,7 @@
 }
 
 .acf-remote-data .selection .values .sticky-list {
+	border-bottom: #ccd0d4 solid 1px;
 	height: auto;
 }
 
@@ -104,11 +105,11 @@
 	right: unset !important;
 }
 
-.acf-remote-data .list li.-sticky .acf-rel-item {
+.acf-remote-data .selection .values .sticky-list .acf-rel-item {
 	font-weight: bold;
 }
 
-.acf-remote-data .list li.-sticky .acf-icon,
+.acf-remote-data .selection .values .sticky-list .acf-icon,
 .acf-remote-data .list .acf-rel-item:hover .acf-icon {
     opacity: 1;
 }

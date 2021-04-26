@@ -116,9 +116,7 @@
 				forceHelperSize:		true,
 				forcePlaceholderSize:	true,
 				scroll:					true,
-				// update:	this.proxy(function(){
-				// 	this.$input().trigger('change');
-				// })
+				update:	this.proxy(() => this.sortValues())
 			});
 
 			// Delay initialization until "interacted with" or "in view".
@@ -167,26 +165,24 @@
 			// vars
 			var $span = $el.parent();
 			var $li = $span.parent();
-			var id = $span.data('id');
-			var sticky = !$li.hasClass('-sticky');
-			
-			$li.toggleClass('-sticky', sticky);
+			// var id = $li.data('id');
+			var sticky = $li.parent().get(0) == this.$list().get(0);
 
 			if(this.$stickyInput().val() == 0)
 				this.$stickyInput().val('');
 
-			// $li.css('order', sticky ? this.order() : 0);
+			// if(sticky)
+			// 	this.$stickyInput().val(`${this.$stickyInput().val()},${id}`);
+			// else
+			// 	this.$stickyInput().val(this.$stickyInput().val().replace(`${id}`, ''));
 
-			if(sticky) {
-				this.$stickyInput().val(`${id},${this.$stickyInput().val()}`);
-				console.log(this.$stickyList());
-				this.$stickyList().append($li);
-			}
-			else
-				this.$stickyInput().val(this.$stickyInput().val().replace(`${id},`, ''));
+			$li.appendTo(sticky ? this.$stickyList() : this.$list());
+				
+			// this.$stickyInput().val(this.$stickyInput().val().replace(/(^\,+|\,+$)/mg, ''));
+			// this.set('sticky', this.$stickyInput().val());
 
-			this.$stickyInput().val(this.$stickyInput().val().replace(/(\s*,?\s*)*$/, ''));
-			this.set('sticky', this.$stickyInput().val());
+			this.sortList();
+			this.sortValues();
 		},
 		
 		maybeFetch: function(filter) {	
@@ -258,11 +254,13 @@
 
 				// get new results
 				var html = this.walkChoices(json.results);
-				var $html = $(html);
 				
 				// append
-				$list.append($html);
+				this.$stickyList().html('');
+				this.$stickyList().append(html.stickyList);
+				$list.append(html.list);
 				this.$valuesInput().val(json.data);
+				this.sortList();
 			};
 			
 			// get results
@@ -358,34 +356,29 @@
 		},
 		
 		walkChoices: function(data, sticky = true) {
+			// vars
 			var stickyItems = this.stickyItems();
-
-			// walker
-			var walk = function(data) {
-				// vars
-				var html = '';
-				
-				// is array
-				if($.isArray(data))
-					data.map(function(item) { html += walk(item); });
-				// is item
-				else if($.isPlainObject(data)) {
-					var attrs = '';
-
-					if(stickyItems.includes(data.id.toString()))
-						attrs = ' class="-sticky"';
-
-					html += '<li' + attrs + '><span class="acf-rel-item" data-id="' + acf.escAttr(data.id) + '">';
-					if(sticky)
-						html += '<a href="#" class="acf-icon -pin small dark acf-js-tooltip" data-action="sticky" title="Fixar/Desafixar item"></a>'
-					html += acf.escHtml(data.title.rendered) + '</span></li>';
-				}
-				
-				// return
-				return html;
-			};
+			var list = '';
+			var stickyList = '';
 			
-			return walk(data);
+			data.forEach(element => {
+				var content = '<li data-id="' + acf.escAttr(element.id) + '" data-date="' + acf.escAttr(element.date) + '"><span class="acf-rel-item">';
+
+				if(sticky)
+					content += '<a href="#" class="acf-icon -pin small dark acf-js-tooltip" data-action="sticky" title="Fixar/Desafixar item"></a>';
+
+				content += acf.escHtml(element.title.rendered) + '</span></li>';
+
+				if(stickyItems.includes(element.id.toString()))
+					stickyList += content;
+				else
+					list += content;
+			});
+			
+			return {
+				list: list,
+				stickyList: stickyList,
+			};
 		},
 
 		onClickClear: function() {
@@ -430,13 +423,40 @@
 
 		newValue: function(props) {
 			return $([
-			'<li>',
+			'<li data-id="' + props.id + '">',
 				'<input type="hidden" name="' + this.getInputName() + '[]" value="' + props.id + '" />',
-				'<span data-id="' + props.id + '" class="acf-rel-item">' + props.text,
+				'<span class="acf-rel-item">' + props.text,
 					'<a href="#" class="acf-icon -pin small dark acf-js-tooltip" data-action="sticky" title="Fixar/Desafixar item"></a>',
 				'</span>',
 			'</li>'
 			].join(''));
+		},
+
+		sortList: function() {
+			this.$list().find('li').sort(function(a, b) {
+				return new Date(b.dataset.date) - new Date(a.dataset.date);
+			})
+			.appendTo(this.$list());
+		},
+
+		sortValues: function() {
+			var values = JSON.parse(this.$valuesInput().val());
+			var sortedValues = [];
+
+			this.$stickyInput().val('');
+
+			this.$stickyList().find('li').each((_, element) => {
+				var elementValue = values.find(value => value.id == element.dataset.id);
+
+				sortedValues.push(elementValue);
+				this.$stickyInput().val(`${this.$stickyInput().val()},${elementValue.id}`);
+			});
+
+			this.$list().find('li').each((_, element) => sortedValues.push(values.find(value => value.id == element.dataset.id)));
+
+			this.$valuesInput().val(JSON.stringify(sortedValues));
+			this.$stickyInput().val(this.$stickyInput().val().replace(/(^\,+|\,+$)/mg, ''));
+			this.set('sticky', this.$stickyInput().val());
 		},
 		
 	});
