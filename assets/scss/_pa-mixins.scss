@@ -15,6 +15,7 @@
 		.pa-tag {
 			background-color: rgba(255, 255, 255, 0.2);
 			color: #fff;
+			@include pa-tag;
 		}
 	}
 }
@@ -26,13 +27,18 @@
 	font-weight: bold;
 	border-left: 3px solid var(--pa-color-default);
 	padding-left: 1.5rem;
-	display: block;	
+	display: block;
+}
+
+@mixin pa-tag {
+	font-size: 0.7rem;
+	padding: 2px 6px;
 }
 
 @mixin pa-list-posts {
 	.pa-img-tag {
-		font-size: 0.8rem;
-		padding: 2px 8px;
+		@include pa-tag;
+
 		position: absolute;
 		background-color: var(--pa-color-default);
 		color: #fff;
@@ -40,11 +46,13 @@
 		left: 0;
 	}
 
+	@include pa-split-li;
+
 	.pa-tag {
 		color: var(--pa-color-default);
 		background-color: var(--pa-color-default-aux);
-		font-size: 0.7rem;
-		padding: 1px 6px;
+
+		@include pa-tag;
 	}
 }
 
@@ -52,4 +60,25 @@
 	font-style: normal !important;
 	color: var(--pa-color-gray03);
 	font-size: 0.85rem;
+}
+
+@mixin pa-numbers {
+	a,
+	.gsc-cursor-page {
+		text-decoration: none;
+		color: var(--pa-color-default-aux);
+		border-radius: 50%;
+		margin: 0 0.5rem;
+		height: 1.7rem;
+		width: 1.7rem;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+
+		&:hover {
+			background-color: var(--pa-color-default-light);
+			color: #fff;
+			text-decoration: none !important;
+		}
+	}
 }

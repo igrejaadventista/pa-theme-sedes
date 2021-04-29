@@ -8,6 +8,7 @@ if(have_posts()){
 }
 $next_post = get_next_post();
 $prev_post = get_previous_post();
+
 ?>
 	<?php 
 		require(get_template_directory() . '/components/parent/header.php'); 	
@@ -17,7 +18,7 @@ $prev_post = get_previous_post();
 			<div class="row row-cols-auto">
 				<article class="col-12 col-md-8">
 					<header class="mb-4">
-						<h1 class="font-weight-bold mb-3"><?php single_post_title(); ?></h1>
+						<h1 class="fw-bold mb-3"><?php single_post_title(); ?></h1>
 						<h2 class="mb-3"><?php the_excerpt(); ?></h3>
 						<div class="pa-post-meta">Por <?= get_the_author(); ?> | <?php the_date(); ?></div>
 
@@ -33,7 +34,7 @@ $prev_post = get_previous_post();
 								<ul class="pa-accessibility list-inline">
 									<li class="pa-text-dec list-inline-item"><a href="#" class="rounded p-2" onclick="pa_diminui_texto(event)" >-A</a></li>
 									<li class="pa-text-inc list-inline-item"><a href="#" class="rounded p-2" onclick="pa_aumenta_texto(event)" >+A</a></li>
-									<li class="pa-text-listen list-inline-item"><a href="#" class="rounded p-2" onclick="pa_play(event, this)"><i class="fas fa-volume-up"></i> Ouvir Texto</a><audio id="pa-accessibility-player" src="<?= get_post_meta( get_the_ID(), 'amazon_polly_audio_link_location', true) ?>" controls></audio></li>
+									<?php if(get_post_meta(get_the_ID(), 'amazon_polly_enable', true)){ ?><li class="pa-text-listen list-inline-item"><a href="#" class="rounded p-2" onclick="pa_play(event, this)"><i class="fas fa-volume-up"></i> Ouvir Texto</a><audio id="pa-accessibility-player" src="<?= get_post_meta( get_the_ID(), 'amazon_polly_audio_link_location', true) ?>" controls></audio></li><?php } ?>
 								</ul>
 							</div>
 						</div>
@@ -43,7 +44,7 @@ $prev_post = get_previous_post();
 					</div>
 					<div class="pa-break d-block my-5 py-2"></div>
 					<footer class="mb-5">
-						<div class="pa-navigation row mt-4">
+						<div class="pa-post-navigation row mt-4">
 							<div class="col-12 col-xl-6 order-xl-2 text-center mb-3">
 								<?php 
 									require(get_template_directory() . '/components/parts/share.php');

@@ -1,3 +1,8 @@
+html {
+	// Essa propriedade serve para fazer a rolagem suave dos links ancoras, tais como o botão de: Voltar ao topo
+	scroll-behavior: smooth;
+}
+
 body {
 	color: var(--pa-color-gray01);
 }
@@ -8,6 +13,11 @@ body {
 	padding: 0.7rem 1.4rem;
 	text-transform: uppercase;
 	color: #fff !important;
+}
+
+.btn-primary {
+	background: var(--pa-color-default);
+	border: none;
 }
 
 .form-control {

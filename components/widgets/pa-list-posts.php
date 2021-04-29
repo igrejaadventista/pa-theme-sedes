@@ -5,25 +5,11 @@
 			<a href="">
 				<div class="row">
 					<div class="col-6">
-						<figure class="figure position-relative m-xl-0">
-							<img src="https://picsum.photos/480/270.webp?random=1" class="figure-img img-fluid rounded m-0" alt="...">
-						</figure>	
-					</div>
-					<div class="col-6">
-						<div class="card-body p-0">
-							<h3 class="card-title h6">xxx Voluntários avançam na missão mesmo em meio à pandemia</h3>
+						<div class="ratio ratio-16x9">
+							<figure class="figure m-xl-0">
+								<img src="https://picsum.photos/480/270.webp?random=1" class="figure-img img-fluid rounded m-0" alt="...">
+							</figure>	
 						</div>
-					</div>
-				</div>
-			</a>
-		</div>
-		<div class="card mb-2 mb-xl-4 border-0">
-			<a href="">
-				<div class="row">
-					<div class="col-6">
-						<figure class="figure position-relative m-xl-0">
-							<img src="https://picsum.photos/480/270.webp?random=2" class="figure-img img-fluid rounded m-0" alt="...">
-						</figure>	
 					</div>
 					<div class="col-6">
 						<div class="card-body p-0">
@@ -37,9 +23,11 @@
 			<a href="">
 				<div class="row">
 					<div class="col-6">
-						<figure class="figure position-relative m-xl-0">
-							<img src="https://picsum.photos/480/270.webp?random=3" class="figure-img img-fluid rounded m-0" alt="...">
-						</figure>	
+						<div class="ratio ratio-16x9">
+							<figure class="figure m-xl-0">
+								<img src="https://picsum.photos/480/270.webp?random=2" class="figure-img img-fluid rounded m-0" alt="...">
+							</figure>	
+						</div>
 					</div>
 					<div class="col-6">
 						<div class="card-body p-0">
@@ -53,9 +41,11 @@
 			<a href="">
 				<div class="row">
 					<div class="col-6">
-						<figure class="figure position-relative m-xl-0">
-							<img src="https://picsum.photos/480/270.webp?random=4" class="figure-img img-fluid rounded m-0" alt="...">
-						</figure>	
+						<div class="ratio ratio-16x9">
+							<figure class="figure m-xl-0">
+								<img src="https://picsum.photos/480/270.webp?random=3" class="figure-img img-fluid rounded m-0" alt="...">
+							</figure>	
+						</div>
 					</div>
 					<div class="col-6">
 						<div class="card-body p-0">
@@ -69,9 +59,29 @@
 			<a href="">
 				<div class="row">
 					<div class="col-6">
-						<figure class="figure position-relative m-xl-0">
-							<img src="https://picsum.photos/480/270.webp?random=5" class="figure-img img-fluid rounded m-0" alt="...">
-						</figure>	
+						<div class="ratio ratio-16x9">
+							<figure class="figure m-xl-0">
+								<img src="https://picsum.photos/480/270.webp?random=4" class="figure-img img-fluid rounded m-0" alt="...">
+							</figure>	
+						</div>
+					</div>
+					<div class="col-6">
+						<div class="card-body p-0">
+							<h3 class="card-title h6">Voluntários avançam na missão mesmo em meio à pandemia</h3>
+						</div>
+					</div>
+				</div>
+			</a>
+		</div>
+		<div class="card mb-2 mb-xl-4 border-0">
+			<a href="">
+				<div class="row">
+					<div class="col-6">
+						<div class="ratio ratio-16x9">
+							<figure class="figure m-xl-0">
+								<img src="https://picsum.photos/480/270.webp?random=5" class="figure-img img-fluid rounded m-0" alt="...">
+							</figure>	
+						</div>
 					</div>
 					<div class="col-6">
 						<div class="card-body p-0">

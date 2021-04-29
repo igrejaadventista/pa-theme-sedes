@@ -37,12 +37,12 @@ if ( $size == "2/3" ){
 							<img src="https://picsum.photos/480/270.webp?random=20" class="figure-img img-fluid rounded m-0" alt="...">
 							<div class="figure-caption position-absolute w-100 h-100 d-block">
 								<i class="pa-play far fa-play-circle position-absolute"></i>
-								<span class="pa-video-time position-absolute px-2 rounded-sm"><i class="far fa-clock mr-1"></i> 3:40</span>
+								<span class="pa-video-time position-absolute px-2 rounded-sm"><i class="far fa-clock me-1"></i> 3:40</span>
 							</div>
 						</figure>
 					</div>
 					<div class="card-body p-0 mt-4">
-						<h3 class="card-text h5 font-weight-bold pa-truncating-1">Desbravadores celebram Dia Mundial no modelo drive-inDia Mundial no modelo drive-in</h3>
+						<h3 class="card-text h5 fw-bold pa-truncate-1">Desbravadores celebram Dia Mundial no modelo drive-inDia Mundial no modelo drive-in</h3>
 						<p class="card-text d-none <?= $d_xl_block ?>">Cards support a wide variety of content, including images, text, list groups, links, and more. Below are examples of what’s supported.</p>
 					</div>
 					
@@ -58,14 +58,14 @@ if ( $size == "2/3" ){
 								<figure class="figure m-xl-0">
 									<img src="https://picsum.photos/480/270.webp?random=2" class="figure-img img-fluid rounded m-0" alt="...">
 									<div class="figure-caption position-absolute w-100 h-100 d-block">
-										<span class="pa-video-time position-absolute px-2 rounded-sm"><i class="far fa-clock mr-1"></i> 3:40</span>
+										<span class="pa-video-time position-absolute px-2 rounded-sm"><i class="far fa-clock me-1"></i> 3:40</span>
 									</div>
 								</figure>
 							</div>	
 						</div>
 						<div class="col">
 							<div class="card-body p-0">
-								<h3 class="card-title h6 pa-truncating-3">Voluntários avançam na missão mesmo em meio à pandemia, programa oficial da Igreja Adventista está há 13 anos na América do Sul e oferece oportunidades de serviço voluntário em diversos países do mundo</h3>
+								<h3 class="card-title h6 pa-truncate-3">Voluntários avançam na missão mesmo em meio à pandemia, programa oficial da Igreja Adventista está há 13 anos na América do Sul e oferece oportunidades de serviço voluntário em diversos países do mundo</h3>
 							</div>
 						</div>
 					</div>
@@ -79,14 +79,14 @@ if ( $size == "2/3" ){
 								<figure class="figure m-xl-0">
 									<img src="https://picsum.photos/480/270.webp?random=3" class="figure-img img-fluid rounded m-0" alt="...">
 									<div class="figure-caption position-absolute w-100 h-100 d-block">
-										<span class="pa-video-time position-absolute px-2 rounded-sm"><i class="far fa-clock mr-1"></i> 3:40</span>
+										<span class="pa-video-time position-absolute px-2 rounded-sm"><i class="far fa-clock me-1"></i> 3:40</span>
 									</div>
 								</figure>	
 							</div>
 						</div>
 						<div class="col">
 							<div class="card-body p-0">
-								<h3 class="card-title h6 pa-truncating-3">Voluntários avançam na missão mesmo em meio à pandemia</h3>
+								<h3 class="card-title h6 pa-truncate-3">Voluntários avançam na missão mesmo em meio à pandemia</h3>
 							</div>
 						</div>
 					</div>
@@ -96,18 +96,18 @@ if ( $size == "2/3" ){
 				<a href="">
 					<div class="row">
 						<div class="col">
-						<div class="ratio ratio-16x9">
-							<figure class="figure m-xl-0">
-								<img src="https://picsum.photos/480/270.webp?random=5" class="figure-img img-fluid rounded m-0" alt="...">
-								<div class="figure-caption position-absolute w-100 h-100 d-block">
-									<span class="pa-video-time position-absolute px-2 rounded-sm"><i class="far fa-clock mr-1"></i> 3:40</span>
-								</div>
-							</figure>	
+							<div class="ratio ratio-16x9">
+								<figure class="figure m-xl-0">
+									<img src="https://picsum.photos/480/270.webp?random=5" class="figure-img img-fluid rounded m-0" alt="...">
+									<div class="figure-caption position-absolute w-100 h-100 d-block">
+										<span class="pa-video-time position-absolute px-2 rounded-sm"><i class="far fa-clock me-1"></i> 3:40</span>
+									</div>
+								</figure>	
 							</div>
 						</div>
 						<div class="col">
 							<div class="card-body p-0">
-								<h3 class="card-title h6 pa-truncating-3">Voluntários avançam na missão mesmo em meio à pandemia, voluntários avançam na missão mesmo em meio à pandemia</h3>
+								<h3 class="card-title h6 pa-truncate-3">Voluntários avançam na missão mesmo em meio à pandemia, voluntários avançam na missão mesmo em meio à pandemia</h3>
 							</div>
 						</div>
 					</div>

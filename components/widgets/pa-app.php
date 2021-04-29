@@ -13,13 +13,13 @@
 			<div class="col-12 col-md-6 my-2">
 				<div class="pa-store d-flex align-items-center justify-content-center rounded py-2 px-3">
 					<i class="fab fa-apple"></i>
-					<span class="font-weight-bolder ml-2">Apple Store</span>
+					<span class="fw-bolder ms-2">Apple Store</span>
 				</div>
 			</div>
 			<div class="col-12 my-2 col-md-6">
 				<div class="pa-store d-flex align-items-center justify-content-center rounded py-2 px-3 ">
 					<i class="fab fa-google-play"></i>
-					<span class="font-weight-bolder ml-2">Google Play</span>
+					<span class="fw-bolder ms-2">Google Play</span>
 				</div>
 			</div>
 		</div>
