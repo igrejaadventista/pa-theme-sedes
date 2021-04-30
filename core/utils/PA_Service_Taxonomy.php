@@ -4,7 +4,7 @@ require_once(dirname(__FILE__) . '/PA_RestAPI_Tax.php');
 require_once(dirname(__FILE__) . '/PA_Functions.php');
 
 
-const TAXS_PA = ['xtt-pa-owner', 'xtt-pa-colecoes'];
+const TAXS_PA = ['xtt-pa-owner', 'xtt-pa-colecoes', 'xtt-pa-editorias', 'xtt-pa-departamentos', 'xtt-pa-projetos', 'xtt-pa-sedes' ];
 
 function Service_Taxonomy()
 {

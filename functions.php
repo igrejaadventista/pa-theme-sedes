@@ -57,39 +57,3 @@ function add_responsive_class($content){
 }
 
 add_filter('the_content', 'add_responsive_class');
-
-
-
-function Register_Owner() {
-	$labels = array(
-		'name'                => __( 'Sedes Proprietárias', 'iasd'),
-		'singular_name'       => __( 'Sede Proprietária', 'iasd'),
-		'search_items'        => __( 'Buscar Sede', 'iasd'),
-		'all_items'           => __( 'Todas Sedes', 'iasd'),
-		'parent_item'         => __( 'Sede', 'iasd'),
-		'parent_item_colon'   => __( 'Sede', 'iasd'),
-		'edit_item'           => __( 'Editar Sede', 'iasd' ),
-		'update_item'         => __( 'Atualizar Sede', 'iasd'),
-		'add_new_item'        => __( 'Adicionar Nova Sede', 'iasd'),
-		'new_item_name'       => __( 'Nome do Sede', 'iasd'),
-		'menu_name'           => __( 'Sede Proprietária', 'iasd')
-	);
-
-	$args = array(
-		'hierarchical'        => true,
-		'labels'              => $labels,
-		'show_ui'             => true,
-		'show_admin_column'   => false,
-		'query_var'           => true,
-		'show_in_rest'        => true,
-		'rewrite'             => array( 'slug' => __('proprietario', 'iasd') ),
-		'public'              => false,
-		// 'capabilities'        => TaxonomyPermissions()
-	);
-
-	$post_types = 'post';
-
-	register_taxonomy( 'xtt-pa-owner', $post_types, $args );
-}
-
-add_action( 'init', 'Register_Owner', 0 );

@@ -30,7 +30,7 @@ class PaAcfSiteSettings {
             'fields' => [
                 Tab::make('Contact'),
                     Taxonomy::make('Headquarter', 'ct_headquarter')
-                        ->taxonomy('xtt-pa-owner')
+                        ->taxonomy('xtt-pa-sedes')
                         ->appearance('select') // checkbox, multi_select, radio or select
                         ->addTerm(false) // Allow new terms to be created whilst editing (true or false)
                         ->returnFormat('object'), // object or id (default)
