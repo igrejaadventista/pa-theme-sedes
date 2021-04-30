@@ -186,17 +186,46 @@ if(!class_exists('RemoteData')):
 					</label>
 				</div>
 
-				<div class="filter -taxonomies">
-					<button type="button" aria-expanded="false" class="components-button components-panel__body-toggle">
-						Filtros
-						<svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="components-panel__arrow" role="img" aria-hidden="true" focusable="false"><path d="M17.5 11.6L12 16l-5.5-4.4.9-1.2L12 14l4.5-3.6 1 1.2z"></path></svg>
-					</button>
-				</div>
+				<?php if(!empty($field['taxonomies'])): ?>
+					<div class="filter -taxonomies">
+						<button type="button" aria-expanded="false" class="components-button components-panel__body-toggle">
+							Filtros
+							<svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="components-panel__arrow" role="img" aria-hidden="true" focusable="false"><path d="M17.5 11.6L12 16l-5.5-4.4.9-1.2L12 14l4.5-3.6 1 1.2z"></path></svg>
+						</button>
+					</div>
+				<?php endif; ?>
 
 				<a href="#" class="button-update acf-icon -sync dark acf-js-tooltip" data-action="refresh" title="Atualizar"></a>
 			</div>
 
-			<div class="taxonomies-selection">
+			<?php 
+				if(!empty($field['taxonomies'])):
+					$taxonomies = [];
+
+					foreach($field['taxonomies'] as $tax):
+						$taxonomy = get_taxonomy($tax);
+
+						if(empty($taxonomy))
+							continue;
+
+						$taxonomies[$tax] = [];
+						$taxonomies[$tax]['label'] = $taxonomy->label;
+						$taxonomies[$tax]['terms'] = [];
+
+						$terms = get_terms(array(
+							'taxonomy' 	 => $tax,
+							'hide_empty' => false,
+						));
+
+						if(is_wp_error($terms))
+							continue;
+
+						foreach($terms as $term)
+							$taxonomies[$tax]['terms'][$term->slug] = $term->name;
+					endforeach;
+			?>
+
+			<div class="taxonomies-selection" data-taxonomies='<?= json_encode($taxonomies) ?>'>
 				<div class="taxonomy-row" style="display: none;">
 					<label>
 						<span class="acf-js-tooltip" title="Quantidade de itens a ser exibido. De 1 a 100">Taxonomia</span>
@@ -214,24 +243,9 @@ if(!class_exists('RemoteData')):
 				<div class="add-container">
 					<a href="#" class="acf-icon -plus dark acf-js-tooltip" data-action="add-taxonomy" title="Adicionar taxonomia"></a>
 				</div>
-
-				<?php 
-				
-				acf_render_field(array(
-					'label'			=> __('Taxonomias', 'acf-rest'),
-					'instructions'	=> 'Defina quais taxonomias estarão disponíveis nos filtros',
-					'type'			=> 'taxonomy',
-					'name'			=> 'terms',
-					// 'choices'		=> $choices,
-					'appearance'	=> 'multi-select',
-					'taxonomy'		=> ['xtt-pa-owner'],
-					'multiple'		=> 1,
-					'ui'			=> 1,
-					'allow_null'	=> 0,
-					'placeholder'	=> __('Selecione as taxonomias', 'acf-rest'),
-				));
-				?>
 			</div>
+
+			<?php endif; ?>
 
 			<div class="selection">
 				<div class="choices">

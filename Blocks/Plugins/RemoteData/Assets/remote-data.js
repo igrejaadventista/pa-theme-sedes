@@ -74,6 +74,10 @@
 			return this.$control().find('.taxonomies-selection');
 		},
 
+		taxonomies: function() {
+			return this.$control().find('.taxonomies-selection').data('taxonomies');
+		},
+
 		$taxonomyRow: function() {
 			return this.$control().find('.taxonomy-row').first();
 		},
@@ -130,8 +134,6 @@
 			// vars
 			var val = $el.val().trim();
 			var filter = $el.data('filter');
-
-			console.log(this.get(filter));
 				
 			// Bail early if filter has not changed
 			if(this.get(filter) === val || val == '')
@@ -411,6 +413,7 @@
 		onClickToggleTaxonomies: function(e, $el) {		
 			$el.toggleClass('active')
 			this.$taxonomiesSelection().slideToggle();
+			console.log(this.taxonomies());
 		},
 
 		newValue: function(props) {
