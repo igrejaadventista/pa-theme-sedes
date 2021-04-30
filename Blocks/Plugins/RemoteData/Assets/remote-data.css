@@ -73,6 +73,17 @@
 	pointer-events: all;
 }
 
+.acf-remote-data .filters .filter.-search {
+	flex: 1 0 0%;
+	width: 100%;
+}
+
+.acf-remote-data .filters .filter.-taxonomies,
+.acf-remote-data .filters .filter.-limit {
+	flex: 0 0 auto;
+	width: auto;
+}
+
 .acf-remote-data .filters .filter.-limit label {
 	align-items: center;
 	border-left: #ccd0d4 solid 1px;
@@ -136,4 +147,55 @@
 .acf-field-remote-data .acf-notice .acf-notice-dismiss {
 	top: 50%;
 	transform: translateY(-50%);
+}
+
+.acf-field-remote-data .components-panel__body-toggle.components-button {
+	border-left: #ccd0d4 solid 1px;
+	color: #72777c;
+	padding: 3px 0 3px 12px;
+	width: auto;
+}
+
+.acf-field-remote-data .components-panel__body-toggle.components-button:focus {
+	box-shadow: none;
+}
+
+.acf-field-remote-data .components-panel__body-toggle.components-button .components-panel__arrow {
+	margin-left: 6px;
+	position: relative;
+	right: unset;
+	transform: none;
+	transition: all 0.3s ease-in-out;
+}
+
+.acf-field-remote-data .components-panel__body-toggle.components-button.active .components-panel__arrow {
+	transform: rotate(180deg) translateY(-2px);
+}
+
+.acf-field-remote-data .filters {
+	display: flex;
+}
+
+.acf-field-remote-data .taxonomies-selection {
+	display: none;
+	padding: 10px;
+}
+
+.acf-field-remote-data .taxonomies-selection .add-container,
+.acf-field-remote-data .taxonomies-selection .taxonomy-row {
+	align-items: flex-end;
+	display: flex;
+	justify-content: center;
+}
+
+.acf-field-remote-data .taxonomies-selection .taxonomy-row {
+	margin-bottom: 16px;
+}
+
+.acf-field-remote-data .taxonomies-selection .taxonomy-row > * {
+	margin: 0 4px;
+}
+
+.acf-field-remote-data .taxonomies-selection .taxonomy-row label {
+	width: 40%;
 }

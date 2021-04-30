@@ -35,11 +35,11 @@ if(!class_exists('RemoteData')):
             // defaults (array) Array of default settings which are merged into the field object. These are used later in settings
             $this->defaults = array('endpoint' => '');
 
-            add_action('wp_ajax_acf/fields/remote_data/query',			array($this, 'ajax_query'));
-		    add_action('wp_ajax_nopriv_acf/fields/remote_data/query',	array($this, 'ajax_query'));
+            add_action('wp_ajax_acf/fields/remote_data/query',				array($this, 'ajax_query'));
+		    add_action('wp_ajax_nopriv_acf/fields/remote_data/query',		array($this, 'ajax_query'));
 
-			add_action('wp_ajax_acf/fields/remote_data/search',			array($this, 'ajax_search'));
-		    add_action('wp_ajax_nopriv_acf/fields/remote_data/search',	array($this, 'ajax_search'));
+			add_action('wp_ajax_acf/fields/remote_data/search',				array($this, 'ajax_search'));
+		    add_action('wp_ajax_nopriv_acf/fields/remote_data/search',		array($this, 'ajax_search'));
 
             // Admin Scripts
             \add_action('admin_enqueue_scripts', function() {
@@ -84,6 +84,15 @@ if(!class_exists('RemoteData')):
 			$field['limit'] = empty($field['limit']) ? '' : $field['limit'];
 
 			acf_hidden_input(array('type' => 'hidden', 'name' => $field['prefix'] . '[sticky]', 'value' => '0'));
+
+			acf_render_field_setting($field, array(
+                'label'		   => __('Endpoint', 'acf-rest'),
+                'instructions' => __('Defina o endpoint de onde as informações serão buscadas', 'acf-rest'),
+                'type' 		   => 'url',
+                'name' 		   => 'endpoint',
+				'placeholder'  => 'https://website.com/wp-json/wp/v2/posts',
+				'required'	   => 1,
+            ));
 			
 			acf_render_field_setting($field, array(
 				'label'			=> __('Quantidade', 'acf-rest'),
@@ -93,6 +102,7 @@ if(!class_exists('RemoteData')):
 				'min'			=> 1,
 				'max'			=> 100,
 				'step'			=> 1,
+				'required'	    => 1,
 			));
 
             $choices = [];
@@ -113,12 +123,22 @@ if(!class_exists('RemoteData')):
                 'placeholder'	=> __('Digite os nomes dos campos', 'acf-rest'),
             ));
 
-            acf_render_field_setting($field, array(
-                'label'		   => __('Endpoint', 'acf-rest'),
-                'instructions' => __('Defina o endpoint de onde as informações serão buscadas', 'acf-rest'),
-                'type' 		   => 'url',
-                'name' 		   => 'endpoint',
-				'placeholder'  => 'https://website.com/wp-json/wp/v2/posts'
+			$taxonomies = get_taxonomies(['_builtin' => false], 'objects');
+			$choices = [];
+
+			foreach($taxonomies as $taxonomy)
+				$choices[$taxonomy->name] = $taxonomy->label;
+
+			acf_render_field_setting($field, array(
+                'label'			=> __('Taxonomias', 'acf-rest'),
+                'instructions'	=> 'Defina quais taxonomias estarão disponíveis nos filtros',
+                'type'			=> 'select',
+                'name'			=> 'taxonomies',
+                'choices'		=> $choices,
+                'multiple'		=> 1,
+                'ui'			=> 1,
+                'allow_null'	=> 0,
+                'placeholder'	=> __('Selecione as taxonomias', 'acf-rest'),
             ));
         }
 
@@ -153,7 +173,7 @@ if(!class_exists('RemoteData')):
 			<?php acf_hidden_input(array('name' => $field['name'] . "[data]", 'value' => isset($values['data']) ? $values['data'] : '', 'data-values' => '')); ?>
 			<?php acf_hidden_input(array('name' => $field['name'] . "[sticky]", 'value' => isset($values['sticky']) ? $values['sticky'] : 0, 'data-sticky' => '')); ?>
 
-			<div class="filters -f2">
+			<div class="filters -f3">
 				<div class="filter -search">
 					<?php acf_text_input( array('placeholder' => __("Search...",'acf'), 'data-filter' => 's') ); ?>
 					<i class="acf-loading"></i>
@@ -166,7 +186,51 @@ if(!class_exists('RemoteData')):
 					</label>
 				</div>
 
+				<div class="filter -taxonomies">
+					<button type="button" aria-expanded="false" class="components-button components-panel__body-toggle">
+						Filtros
+						<svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="components-panel__arrow" role="img" aria-hidden="true" focusable="false"><path d="M17.5 11.6L12 16l-5.5-4.4.9-1.2L12 14l4.5-3.6 1 1.2z"></path></svg>
+					</button>
+				</div>
+
 				<a href="#" class="button-update acf-icon -sync dark acf-js-tooltip" data-action="refresh" title="Atualizar"></a>
+			</div>
+
+			<div class="taxonomies-selection">
+				<div class="taxonomy-row" style="display: none;">
+					<label>
+						<span class="acf-js-tooltip" title="Quantidade de itens a ser exibido. De 1 a 100">Taxonomia</span>
+						<?php acf_select_input(); ?>
+					</label>
+
+					<label>
+						<span class="acf-js-tooltip" title="Quantidade de itens a ser exibido. De 1 a 100">Termos</span>
+						<?php acf_select_input(); ?>
+					</label>
+
+					<a href="#" class="acf-icon -minus remove-location-rule acf-js-tooltip" data-action="remove-taxonomy" title="Remover taxonomia"></a>
+				</div>
+
+				<div class="add-container">
+					<a href="#" class="acf-icon -plus dark acf-js-tooltip" data-action="add-taxonomy" title="Adicionar taxonomia"></a>
+				</div>
+
+				<?php 
+				
+				acf_render_field(array(
+					'label'			=> __('Taxonomias', 'acf-rest'),
+					'instructions'	=> 'Defina quais taxonomias estarão disponíveis nos filtros',
+					'type'			=> 'taxonomy',
+					'name'			=> 'terms',
+					// 'choices'		=> $choices,
+					'appearance'	=> 'multi-select',
+					'taxonomy'		=> ['xtt-pa-owner'],
+					'multiple'		=> 1,
+					'ui'			=> 1,
+					'allow_null'	=> 0,
+					'placeholder'	=> __('Selecione as taxonomias', 'acf-rest'),
+				));
+				?>
 			</div>
 
 			<div class="selection">

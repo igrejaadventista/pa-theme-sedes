@@ -2,13 +2,16 @@
 	var Field = acf.Field.extend({
 		type: 'remote_data',
 		events: {
-			'keypress [data-filter]': 				'onKeypressFilter',
-			'change [data-filter]': 				'onChangeFilter',
-			'keyup [data-filter]': 					'onChangeFilter',
-			'click [data-action="sticky"]': 		'onClickSticky',
-			'click [data-action="clear"]': 			'onClickClear',
-			'click .choices-list li': 				'onClickAdd',
-			'click [data-action="refresh"]': 		'fetch',
+			'keypress [data-filter]': 				 'onKeypressFilter',
+			'change [data-filter]': 				 'onChangeFilter',
+			'keyup [data-filter]': 					 'onChangeFilter',
+			'click [data-action="sticky"]': 		 'onClickSticky',
+			'click [data-action="clear"]': 			 'onClickClear',
+			'click .choices-list li': 				 'onClickAdd',
+			'click .-taxonomies button': 			 'onClickToggleTaxonomies',
+			'click [data-action="refresh"]': 		 'fetch',
+			'click [data-action="add-taxonomy"]': 	 'onClickAddTaxonomy',
+			'click [data-action="remove-taxonomy"]': 'onClickRemoveTaxonomy',
 		},
 		
 		$control: function() {
@@ -67,6 +70,14 @@
 			return this.$control().find('.-search .acf-loading');
 		},
 
+		$taxonomiesSelection: function() {
+			return this.$control().find('.taxonomies-selection');
+		},
+
+		$taxonomyRow: function() {
+			return this.$control().find('.taxonomy-row').first();
+		},
+
 		order: function() {
 			var index = 0;
 
@@ -77,33 +88,6 @@
 
 			return index - 1;
 		},
-		
-		// getValue: function(){
-		// 	var val = [];
-		// 	this.$listItems('values').each(function(){
-		// 		val.push( $(this).data('id') );
-		// 	});
-		// 	return val.length ? val : false;
-		// },
-		
-		// newChoice: function( props ){
-		// 	return [
-		// 	'<li>',
-		// 		'<span data-id="' + props.id + '" class="acf-rel-item">' + props.text + '</span>',
-		// 	'</li>'
-		// 	].join('');
-		// },
-		
-		// newValue: function( props ){
-		// 	return [
-		// 	'<li>',
-		// 		'<input type="hidden" name="' + this.getInputName() + '[]" value="' + props.id + '" />',
-		// 		'<span data-id="' + props.id + '" class="acf-rel-item">' + props.text,
-		// 			'<a href="#" class="acf-icon -minus small dark" data-name="remove_item"></a>',
-		// 		'</span>',
-		// 	'</li>'
-		// 	].join('');
-		// },
 		
 		initialize: function() {
 			this.set('limit', this.$limitInput().val());
@@ -424,6 +408,11 @@
 			this.fetch();
 		},
 
+		onClickToggleTaxonomies: function(e, $el) {		
+			$el.toggleClass('active')
+			this.$taxonomiesSelection().slideToggle();
+		},
+
 		newValue: function(props) {
 			return $([
 			'<li data-id="' + props.id + '" data-date="' + props.date + '" data-from-search>',
@@ -467,6 +456,17 @@
 			this.$valuesInput().val(JSON.stringify(sortedValues));
 			this.$stickyInput().val(this.$stickyInput().val().replace(/(^\,+|\,+$)/mg, ''));
 			this.set('sticky', this.$stickyInput().val());
+		},
+
+		onClickAddTaxonomy: function(e, $el) {		
+			var $row = this.$taxonomyRow().clone();
+			
+			$row.insertBefore($el.parent());
+			$row.slideDown();
+		},
+
+		onClickRemoveTaxonomy: function(e, $el) {		
+			$el.parent().slideUp(() => $el.parent().remove());
 		},
 		
 	});
