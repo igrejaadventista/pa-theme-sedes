@@ -7,6 +7,7 @@ class PaThemeHelpers {
 		add_filter( 'the_content', [$this, 'addResponsiveCssClass'] );
 		add_action( 'wp_enqueue_scripts', [$this, 'registerAssets'] );
 		add_action( 'admin_enqueue_scripts', [$this, 'registerAssetsAdmin'] );
+		add_action( 'init', [$this, 'unregisterTaxonomy'] );
 	}
 
 	function themeSupport() {
@@ -32,6 +33,16 @@ class PaThemeHelpers {
 		global $content_width;
 		if ( ! isset( $content_width ) ) {
 			$content_width = 856;
+		}
+	}
+
+	function unregisterTaxonomy() {
+		global $wp_taxonomies;
+		$taxonomy = array('category', 'post_tag');
+		foreach ($taxonomy as &$value) {
+			if ( taxonomy_exists($value) ){
+				unset( $wp_taxonomies[$value] );
+			}
 		}
 	}
 

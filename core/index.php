@@ -1,0 +1,8 @@
+<?php
+
+/**
+ * 
+ * 
+ * GOOD SAFETY PRACTICES
+ * 
+ */
