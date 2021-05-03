@@ -471,7 +471,7 @@
 			var $selectTerms = $row.find('[data-terms]');
 
 			if($selectTaxonomy.length) {
-				$selectTaxonomy.attr('name', `acf[${this.get('key')}][taxonomy][${this.$taxonomyRow().length - 2}]`);
+				$selectTaxonomy.attr('name', `acf[${this.get('key')}][taxonomies][${this.$taxonomyRow().length - 2}]`);
 				$selectTerms.attr('name', `acf[${this.get('key')}][terms][${this.$taxonomyRow().length - 2}][]`);
 
 				$.each(this.taxonomies(), function (key, value) {
@@ -510,7 +510,7 @@
 					var $selectTerms = $row.find('[data-terms]');
 
 					if($selectTaxonomy.length)
-						$selectTaxonomy.attr('name', `acf[${this.get('key')}][taxonomy][${index}]`);
+						$selectTaxonomy.attr('name', `acf[${this.get('key')}][taxonomies][${index}]`);
 					if($selectTerms.length)
 						$selectTerms.attr('name', `acf[${this.get('key')}][terms][${index}][]`);
 				});

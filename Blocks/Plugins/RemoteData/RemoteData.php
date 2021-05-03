@@ -242,23 +242,25 @@ if(!class_exists('RemoteData')):
 
 				<?php 
 					if(!empty($values['taxonomies'])): 
-						foreach($values['taxonomies'] as $taxonomy):
-				?>
+						$choicesTaxonomies = [];
+						foreach($taxonomies as $key => $value)
+							$choicesTaxonomies[$key] = $value['label'];
 
+						foreach($values['taxonomies'] as $key => $taxonomy):
+				?>
 							<div class="taxonomy-row">
 								<label>
 									<span class="acf-js-tooltip" title="Quantidade de itens a ser exibido. De 1 a 100">Taxonomia</span>
-									<?php acf_select_input(array('data-taxonomy' => '')); ?>
+									<?php acf_select_input(array('data-taxonomy' => '', 'choices' => $choicesTaxonomies, 'value' => $taxonomy, 'name' => 'acf[' . $field['id'] . '][taxonomies][' . $key . ']')); ?>
 								</label>
 
 								<label>
 									<span class="acf-js-tooltip" title="Quantidade de itens a ser exibido. De 1 a 100">Termos</span>
-									<?php acf_select_input(array('placeholder' => 'Selecione os termos desejados', 'data-terms' => '', 'multiple' => '')); ?>
+									<?php acf_select_input(array('placeholder' => 'Selecione os termos desejados', 'choices' => $taxonomies[$taxonomy]['terms'], 'name' => 'acf[' . $field['id'] . '][terms][' . $key . ']', 'data-terms' => '', 'multiple' => '')); ?>
 								</label>
 
 								<a href="#" class="acf-icon -minus remove-taxonomy-filter acf-js-tooltip" data-action="remove-taxonomy" title="Remover taxonomia"></a>
 							</div>
-				
 				<?php 
 						endforeach;
 					endif;
