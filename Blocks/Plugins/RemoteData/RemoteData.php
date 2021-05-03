@@ -229,16 +229,40 @@ if(!class_exists('RemoteData')):
 				<div class="taxonomy-row" style="display: none;">
 					<label>
 						<span class="acf-js-tooltip" title="Quantidade de itens a ser exibido. De 1 a 100">Taxonomia</span>
-						<?php acf_select_input(); ?>
+						<?php acf_select_input(array('data-taxonomy' => '')); ?>
 					</label>
 
 					<label>
 						<span class="acf-js-tooltip" title="Quantidade de itens a ser exibido. De 1 a 100">Termos</span>
-						<?php acf_select_input(); ?>
+						<?php acf_select_input(array('placeholder' => 'Selecione os termos desejados', 'data-terms' => '', 'multiple' => '')); ?>
 					</label>
 
-					<a href="#" class="acf-icon -minus remove-location-rule acf-js-tooltip" data-action="remove-taxonomy" title="Remover taxonomia"></a>
+					<a href="#" class="acf-icon -minus remove-taxonomy-filter acf-js-tooltip" data-action="remove-taxonomy" title="Remover taxonomia"></a>
 				</div>
+
+				<?php 
+					if(!empty($values['taxonomies'])): 
+						foreach($values['taxonomies'] as $taxonomy):
+				?>
+
+							<div class="taxonomy-row">
+								<label>
+									<span class="acf-js-tooltip" title="Quantidade de itens a ser exibido. De 1 a 100">Taxonomia</span>
+									<?php acf_select_input(array('data-taxonomy' => '')); ?>
+								</label>
+
+								<label>
+									<span class="acf-js-tooltip" title="Quantidade de itens a ser exibido. De 1 a 100">Termos</span>
+									<?php acf_select_input(array('placeholder' => 'Selecione os termos desejados', 'data-terms' => '', 'multiple' => '')); ?>
+								</label>
+
+								<a href="#" class="acf-icon -minus remove-taxonomy-filter acf-js-tooltip" data-action="remove-taxonomy" title="Remover taxonomia"></a>
+							</div>
+				
+				<?php 
+						endforeach;
+					endif;
+				?>
 
 				<div class="add-container">
 					<a href="#" class="acf-icon -plus dark acf-js-tooltip" data-action="add-taxonomy" title="Adicionar taxonomia"></a>

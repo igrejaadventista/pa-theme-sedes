@@ -79,7 +79,7 @@
 		},
 
 		$taxonomyRow: function() {
-			return this.$control().find('.taxonomy-row').first();
+			return this.$control().find('.taxonomy-row');
 		},
 
 		order: function() {
@@ -462,14 +462,59 @@
 		},
 
 		onClickAddTaxonomy: function(e, $el) {		
-			var $row = this.$taxonomyRow().clone();
+			var $row = this.$taxonomyRow().first().clone();
 			
 			$row.insertBefore($el.parent());
 			$row.slideDown();
+
+			var $selectTaxonomy = $row.find('[data-taxonomy]');
+			var $selectTerms = $row.find('[data-terms]');
+
+			if($selectTaxonomy.length) {
+				$selectTaxonomy.attr('name', `acf[${this.get('key')}][taxonomy][${this.$taxonomyRow().length - 2}]`);
+				$selectTerms.attr('name', `acf[${this.get('key')}][terms][${this.$taxonomyRow().length - 2}][]`);
+
+				$.each(this.taxonomies(), function (key, value) {
+					$selectTaxonomy.append($('<option>', { 
+						value: key,
+						text : value.label,
+					}));
+				});
+
+				$selectTaxonomy.on('change', () => {
+					$selectTerms.find('option[value]').remove();
+					
+					$.each(this.taxonomies()[$selectTaxonomy.val()].terms, function (key, value) {
+						$selectTerms.append($('<option>', { 
+							value: key,
+							text : value,
+						}));
+					});
+					$selectTerms.val('').trigger('change');
+				  });
+
+				$selectTaxonomy.trigger('change');
+				$selectTaxonomy.select2();
+				$selectTerms.select2();
+			}			
 		},
 
 		onClickRemoveTaxonomy: function(e, $el) {		
-			$el.parent().slideUp(() => $el.parent().remove());
+			$el.parent().slideUp(() => { 
+				$el.parent().remove(); 
+
+				this.$taxonomyRow().not(':first').each((index) => {
+					var $row = $(this.$taxonomyRow().get(index + 1));
+
+					var $selectTaxonomy = $row.find('[data-taxonomy]');
+					var $selectTerms = $row.find('[data-terms]');
+
+					if($selectTaxonomy.length)
+						$selectTaxonomy.attr('name', `acf[${this.get('key')}][taxonomy][${index}]`);
+					if($selectTerms.length)
+						$selectTerms.attr('name', `acf[${this.get('key')}][terms][${index}][]`);
+				});
+			});
 		},
 		
 	});

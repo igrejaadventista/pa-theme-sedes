@@ -183,7 +183,7 @@
 
 .acf-field-remote-data .taxonomies-selection .add-container,
 .acf-field-remote-data .taxonomies-selection .taxonomy-row {
-	align-items: flex-end;
+	align-items: center;
 	display: flex;
 	justify-content: center;
 }
@@ -198,4 +198,14 @@
 
 .acf-field-remote-data .taxonomies-selection .taxonomy-row label {
 	width: 40%;
+}
+
+.acf-field-remote-data .select2-container--default .select2-selection--single,
+.acf-field-remote-data .select2-container--default .select2-selection--multiple {
+	min-height: 32px;
+	width: 100%;
+}
+
+.acf-field-remote-data .remove-taxonomy-filter {
+	margin-top: 20px !important;
 }
