@@ -209,3 +209,13 @@
 .acf-field-remote-data .remove-taxonomy-filter {
 	margin-top: 20px !important;
 }
+
+.acf-field-remote-data .select2-container {
+	width: 100% !important;
+}
+
+[data-action="add-taxonomy"].disabled {
+	cursor: not-allowed;
+	opacity: 0.6;
+	pointer-events: none;
+}
