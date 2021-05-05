@@ -31,7 +31,6 @@ class Blocks {
 		$newBlocks = [
 			PACarouselFeature::class,
 			PAFacebookFeature::class,
-			PATwitterFeature::class,
 		];
 	
 		// Merge registered blocks with new blocks
