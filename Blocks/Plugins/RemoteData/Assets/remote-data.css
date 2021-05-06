@@ -177,6 +177,8 @@
 }
 
 .acf-field-remote-data .taxonomies-selection {
+	background: #F9F9F9;
+	border-bottom: #ccd0d4 solid 1px;
 	display: none;
 	padding: 10px;
 }
@@ -218,4 +220,8 @@
 	cursor: not-allowed;
 	opacity: 0.6;
 	pointer-events: none;
+}
+
+.acf-remote-data .selection .choices.active {
+	border-right: #DFDFDF solid 1px;
 }

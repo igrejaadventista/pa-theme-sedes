@@ -87,11 +87,14 @@
 		},
 		
 		initialize: function() {
+			// Define valores de limite e sticky
 			this.set('limit', this.$limitInput().val());
 			this.set('sticky', this.$stickyInput().val());
+
+			// Limpa campo de busca
 			this.$searchInput().val('');
 
-			// Add sortable.
+			// Adiciona sortable
 			this.$stickyList().sortable({
 				items:					'li',
 				forceHelperSize:		true,
@@ -501,8 +504,8 @@
 		},
 
 		initializeTaxonomyFilters($row, isNew = false) {
-			var $selectTaxonomy = $row.find('[data-taxonomy]');
-			var $selectTerms = $row.find('[data-terms]');
+			const $selectTaxonomy = $row.find('[data-taxonomy]');
+			const $selectTerms = $row.find('[data-terms]');
 
 			if(!$selectTaxonomy.length)
 				return;
@@ -511,11 +514,25 @@
 			$selectTerms.attr('name', `acf[${this.get('key')}][terms][${this.$taxonomyRow().length - 2}][]`);
 
 			if(isNew) {
-				$.each(this.taxonomies(), function (key, value) {
+				var $selects = this.$taxonomyRow().not(':first').not(':last').find('[data-taxonomy]');
+				var values = [];
+
+				$selects.map(function() {
+					values.push($(this).val());
+				});
+
+				values = values.reduce(function(a, b) {
+					if(a.indexOf(b) < 0)
+						a.push(b);
+
+					return a;
+				}, []);
+
+				$.each(this.taxonomies(), function(key, value) {
 					$selectTaxonomy.append($('<option>', { 
 						value: key,
 						text : value.label,
-						// disabled: count == 0,
+						disabled: values.includes(key),
 					}));
 				});
 			}
@@ -530,7 +547,6 @@
 					}));
 				});
 				
-				$selectTaxonomy.find(`option`).attr('selected', false);
 				$selectTaxonomy.find(`option[value="${$selectTaxonomy.val()}"]`).attr('selected', true);
 				$selectTerms.val('').trigger('change');
 				this.checkTaxonomyFilters();
@@ -541,76 +557,49 @@
 			if(isNew)
 				$selectTaxonomy.trigger('change');
 
-			// $selectTaxonomy.select2();
-			// $selectTerms.select2();	
+			$selectTaxonomy.select2();
+			$selectTerms.select2();	
 		},
 
 		checkTaxonomyFilters() {
+			// Habilita/desabilita botão de acordo com a quantidade de taxonomias disponíveis
 			this.$buttonAddTaxonomy().toggleClass('disabled', Object.keys(this.taxonomies()).length == this.$taxonomyRow().not(':first').length);
 
-			// var selectedOptions = this.$taxonomyRow().not(':first').find('[data-taxonomy]');
-			// $('select option').removeAttr('disabled');
-			// selectedOptions.each(function() {
-			// 	var value = this.value;
-			// 	var disable = disables[value] || [value]
-			// 	disable.forEach(function(value) {if (value !== ""){$('select[name*="location"]').find("[value='" + value + "']").prop("disabled", true)}})
-			// 	if (value !== ''){
-			// 	var id = $(this).parent('select[name*="location"]').prop('id');
-			// 	var options = $('select[name*="location"]:not(#' + id + ') option[value=' + value + ']');
-			// 	options.prop('disabled', 'true');
-			// 	}
-			// });
+			const $selects = this.$taxonomyRow().not(':first').find('[data-taxonomy]');
+			let values = [];
 
-			var $selects = this.$taxonomyRow().not(':first').find('[data-taxonomy]');
-			var values = [];
+			// Coleta valores em uso
+			$selects.map((_, element) => values.push($(element).val()));
 
-			$selects.map(function() {
-				values.push($(this).val());
-			});
-
-			values = values.reduce(function(a, b) {
+			// Remove valores duplicados
+			values = values.reduce((a, b) => {
 				if(a.indexOf(b) < 0)
 					a.push(b);
 
 				return a;
 			}, []);
 
-			$.each(values, (key, value) => {
-				this.$taxonomyRow().not(':first').find(`[data-taxonomy] [value="${value}"]`).not('[selected]').attr('disabled', true);
-			});
+			// Habilita todas opções e em seguida desabilita opções em uso
+			$selects.find(`option`).attr('disabled', false);
+			$.each(values, (_, value) => $selects.find(`[value="${value}"]`).not(':selected').attr('disabled', true));
 
-			// $selects.each((index) => {
-			// 	var $select = $($selects.get(index));
-			// 	var $options = $select.find('option');
-
-			// 	$options.each((indexOption) => {
-			// 		var $option = $($options.get(indexOption));
-					
-			// 		if(index != values.indexOf($select.val())) {
-			// 			console.log($select.val());
-			// 			$option.attr('disabled', (_, attr) => { 
-							
-			// 				return values.includes($option.val());
-			// 			});
-			// 		}
-			// 	});
-
-			// 	$select.trigger('change.select2');
-			// 	$select.select2();
-			// });
+			// Atualiza instância do select2
+			$selects.select2();
 		},
 
 		saveTaxonomyFilters() {
-			var $rows = this.$taxonomyRow().not(':first');
-			var $selectTaxonomy = $rows.find('[data-taxonomy]');
-			var $selectTerms = $rows.find('[data-terms]');
+			const $rows = this.$taxonomyRow().not(':first');
+			const $selectTaxonomy = $rows.find('[data-taxonomy]');
+			const $selectTerms = $rows.find('[data-terms]');
 
-			var taxonomies = [];
-			var terms = [];
+			let taxonomies = [];
+			let terms = [];
 
+			// Coleta valores selecionados
 			$selectTaxonomy.each((index) => taxonomies.push($($selectTaxonomy.get(index)).val()));
 			$selectTerms.each((index) => terms.push($($selectTerms.get(index)).val()));
 
+			// Atribui os valores em uso
 			this.set('taxonomies', taxonomies);
 			this.set('terms', terms);
 		},
