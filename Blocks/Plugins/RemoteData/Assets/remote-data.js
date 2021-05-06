@@ -189,12 +189,16 @@
 
 			for(var name in ajaxData)
 				ajaxData[name] = this.get(name);
+
+			this.saveTaxonomyFilters();
 			
 			// extra
 			ajaxData.action = 'acf/fields/remote_data/query';
 			ajaxData.field_key = this.get('key');
 			ajaxData.sticky = this.get('sticky');
 			ajaxData.limit = this.get('limit');
+			ajaxData.taxonomies = this.get('taxonomies');
+			ajaxData.terms = this.get('terms');
 			
 			// Filter.
 			ajaxData = acf.applyFilters('remote_data_ajax_data', ajaxData, this);
@@ -491,6 +495,7 @@
 						$selectTerms.attr('name', `acf[${this.get('key')}][terms][${index}][]`);
 				});
 
+				this.fetch();
 				this.checkTaxonomyFilters();
 			});
 		},
@@ -530,6 +535,8 @@
 				$selectTerms.val('').trigger('change');
 				this.checkTaxonomyFilters();
 			});
+
+			$selectTerms.on('change', () => this.fetch());
 
 			if(isNew)
 				$selectTaxonomy.trigger('change');
@@ -591,6 +598,21 @@
 			// 	$select.trigger('change.select2');
 			// 	$select.select2();
 			// });
+		},
+
+		saveTaxonomyFilters() {
+			var $rows = this.$taxonomyRow().not(':first');
+			var $selectTaxonomy = $rows.find('[data-taxonomy]');
+			var $selectTerms = $rows.find('[data-terms]');
+
+			var taxonomies = [];
+			var terms = [];
+
+			$selectTaxonomy.each((index) => taxonomies.push($($selectTaxonomy.get(index)).val()));
+			$selectTerms.each((index) => terms.push($($selectTerms.get(index)).val()));
+
+			this.set('taxonomies', taxonomies);
+			this.set('terms', terms);
 		},
 		
 	});
