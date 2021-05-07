@@ -3,7 +3,6 @@
 namespace Blocks;
 
 use \Blocks\PACarouselFeature\PACarouselFeature;
-use \Blocks\PATwitterFeature\PATwitterFeature;
 
 /**
  * Blocks Register blocks and manage settings
@@ -29,7 +28,6 @@ class Blocks {
 	public function registerBlocks(array $blocks): array {
 		$newBlocks = [
 			PACarouselFeature::class,
-			PATwitterFeature::class,
 		];
 	
 		// Merge registered blocks with new blocks
