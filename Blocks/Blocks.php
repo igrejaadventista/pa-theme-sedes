@@ -30,6 +30,7 @@ class Blocks {
 	public function registerBlocks(array $blocks): array {
 		$newBlocks = [
 			PACarouselFeature::class,
+			PATwitterFeature::class,
 			PAFacebookFeature::class,
 		];
 	
