@@ -30,6 +30,7 @@
 .acf-remote-data .selection .values .sticky-list {
 	border-bottom: #ccd0d4 solid 1px;
 	height: auto;
+	max-height: 276px;
 }
 
 .acf-remote-data .selection .values .sticky-list:empty {
@@ -37,7 +38,9 @@
 }
 
 .acf-remote-data .values-list .acf-rel-item,
-.acf-remote-data .sticky-list .acf-rel-item  {
+.acf-remote-data .sticky-list .acf-rel-item {
+	align-items: center;
+	display: flex;
 	padding-left: 35px;
 	width: 100%;
 }
@@ -118,6 +121,8 @@
 	opacity: 0.1;
 	position: absolute;
 	right: unset !important;
+	top: 50%;
+	transform: translateY(-50%);
 }
 
 .acf-remote-data .selection .values .sticky-list .acf-rel-item {
@@ -224,4 +229,16 @@
 
 .acf-remote-data .selection .choices.active {
 	border-right: #DFDFDF solid 1px;
+}
+
+.acf-remote-data .acf-rel-item img {
+	height: 45px;
+	margin-right: 16px;
+	object-fit: cover;
+	width: 70px;
+}
+
+.acf-remote-data .selection .choices .acf-rel-item {
+	align-items: center;
+	display: flex;
 }

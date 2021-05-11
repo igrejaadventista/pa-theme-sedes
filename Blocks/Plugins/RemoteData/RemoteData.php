@@ -352,7 +352,7 @@ if(!class_exists('RemoteData')):
 			
 			$results = [];
 			$url = $field['endpoint'];
-			$queryArgs = ['_fields' => 'id,title,date'];
+			$queryArgs = ['_fields' => 'id,title,date,featured_media_url'];
 	
 			$sticky = isset($options['sticky']) ? $options['sticky'] : 0;
 			$stickyItems = !empty($sticky) ? explode(',', $sticky) : [];
@@ -455,7 +455,7 @@ if(!class_exists('RemoteData')):
 			
 			$results = [];
 			$url = $field['endpoint'];
-			$queryArgs = ['_fields' => 'id,title,date'];
+			$queryArgs = ['_fields' => 'id,title,date,featured_media_url'];
 
 			$sticky = isset($options['sticky']) ? $options['sticky'] : 0;
 
@@ -475,6 +475,8 @@ if(!class_exists('RemoteData')):
 			if(!empty($options['s']))
 				// strip slashes (search may be integer)
 				$queryArgs['search'] = wp_unslash(strval($options['s']));
+
+			// die(var_dump(\add_query_arg($queryArgs, $url))); 
 
 			$response = \wp_remote_get(\add_query_arg($queryArgs, $url));
 			$responseCode = \wp_remote_retrieve_response_code($response);

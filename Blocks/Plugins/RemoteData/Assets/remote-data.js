@@ -453,6 +453,11 @@
 				if(sticky)
 					content += '<a href="#" class="acf-icon -pin small dark acf-js-tooltip" data-action="sticky" title="Fixar/Desafixar item"></a>';
 
+				if(element.hasOwnProperty('featured_media_url')) {
+					if(element.featured_media_url.hasOwnProperty('small'))
+						content += `<img src="${element.featured_media_url.small}" />`;
+				}
+				
 				content += acf.escHtml(element.title.rendered) + '</span></li>';
 
 				if(stickyItems.includes(element.id.toString()))
