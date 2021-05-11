@@ -14,79 +14,170 @@
 			'click [data-action="remove-taxonomy"]': 'onClickRemoveTaxonomy',
 		},
 		
-		$control: function() {
+		/**
+		 * Get jQuery control object
+		 *
+		 * @return {jQuery} jQuery control object
+		 */
+		$control() {
 			return this.$('.acf-remote-data');
 		},
 
-		$stickyInput: function() {
+		/**
+		 * Get jQuery sticky input object
+		 *
+		 * @return {jQuery} jQuery sticky input object
+		 */
+		$stickyInput() {
 			return this.$control().find('[data-sticky]');
 		},
 
-		$searchInput: function() {
+		/**
+		 * Get jQuery search input object
+		 *
+		 * @return {jQuery} jQuery search input object
+		 */
+		$searchInput() {
 			return this.$control().find('[data-filter="s"]');
 		},
 
-		$limitInput: function() {
+		/**
+		 * Get jQuery limit input object
+		 *
+		 * @return {jQuery} jQuery limit input object
+		 */
+		$limitInput() {
 			return this.$control().find('[data-limit]');
 		},
 
-		$valuesInput: function() {
+		/**
+		 * Get jQuery values input object
+		 *
+		 * @return {jQuery} jQuery values input object
+		 */
+		$valuesInput() {
 			return this.$control().find('[data-values]');
 		},
 
-		$buttonClear: function() {
+		/**
+		 * Get jQuery button clear object
+		 *
+		 * @return {jQuery} jQuery button clear object
+		 */
+		$buttonClear() {
 			return this.$control().find('.button-clear');
 		},
 		
-		$choices: function() {
+		/**
+		 * Get jQuery choices object
+		 *
+		 * @return {jQuery} jQuery choices object
+		 */
+		$choices() {
 			return this.$('.choices');
 		},
 
-		$choicesList: function() {
+		/**
+		 * Get jQuery choices list object
+		 *
+		 * @return {jQuery} jQuery choices list object
+		 */
+		$choicesList() {
 			return this.$choices().find('.choices-list');
 		},
 
-		$stickyList: function() {
+		/**
+		 * Get jQuery sticky list object
+		 *
+		 * @return {jQuery} jQuery sticky list object
+		 */
+		$stickyList() {
 			return this.$('.sticky-list');
 		},
 
-		$list: function() {
+		/**
+		 * Get jQuery values list object
+		 *
+		 * @return {jQuery} jQuery values list object
+		 */
+		$valuesList() {
 			return this.$('.values-list');
 		},
-
-		stickyItems: function() {
-			return this.$stickyInput().val().split(',');
-		},
 		
-		$listItems: function() {
+		/**
+		 * Get jQuery list items object
+		 *
+		 * @return {jQuery} jQuery list items object
+		 */
+		$listItems() {
 			return this.$list().find('.acf-rel-item');
 		},
 		
-		$listItem: function(id) {
+		/**
+		 * Get jQuery item object by id
+		 *
+		 * @param {number} id The item id
+		 * @return {jQuery} jQuery item object
+		 */
+		$listItem(id) {
 			return this.$list().find('.acf-rel-item[data-id="' + id + '"]');
 		},
 
-		$searchLoading: function() {
+		/**
+		 * Get jQuery search loading object
+		 *
+		 * @return {jQuery} jQuery search loading object
+		 */
+		$searchLoading() {
 			return this.$control().find('.-search .acf-loading');
 		},
 
-		$taxonomiesSelection: function() {
+		/**
+		 * Get jQuery taxonomies selection container object
+		 *
+		 * @return {jQuery} jQuery taxonomies selection container object
+		 */
+		$taxonomiesSelection() {
 			return this.$control().find('.taxonomies-selection');
 		},
 
-		taxonomies: function() {
-			return this.$control().find('.taxonomies-selection').data('taxonomies');
-		},
-
-		$taxonomyRow: function() {
+		/**
+		 * Get jQuery taxonomy row object
+		 *
+		 * @return {jQuery} jQuery taxonomy row object
+		 */
+		$taxonomyRow() {
 			return this.$control().find('.taxonomy-row');
 		},
 
-		$buttonAddTaxonomy: function() {
+		/**
+		 * Get jQuery button to add taxonomy object
+		 *
+		 * @return {jQuery} jQuery button to add taxonomy object
+		 */
+		$buttonAddTaxonomy() {
 			return this.$control().find('[data-action="add-taxonomy"]');
 		},
+
+		/**
+		 * Get sticky items array
+		 *
+		 * @return {Array} Sticky items array
+		 */
+		stickyItems() {
+			return this.$stickyInput().val().split(',');
+		},
+
+		/**
+		 * Get taxonomies list
+		 *
+		 * @return {string} Taxonomies array
+		 */
+		taxonomies() {
+			return this.$control().find('.taxonomies-selection').data('taxonomies');
+		},
 		
-		initialize: function() {
+		initialize() {
 			// Define valores de limite e sticky
 			this.set('limit', this.$limitInput().val());
 			this.set('sticky', this.$stickyInput().val());
@@ -128,13 +219,13 @@
 			acf.onceInView(this.$el, delayed);
 		},
 		
-		onKeypressFilter: function(e, $el) {
+		onKeypressFilter(e, $el) {
 			// don't submit form
 			if(e.which == 13)
 				e.preventDefault();
 		},
 		
-		onChangeFilter: function(e, $el) {
+		onChangeFilter(e, $el) {
 			// vars
 			var val = $el.val().trim();
 			var filter = $el.data('filter');
@@ -150,7 +241,7 @@
 			this.maybeFetch(filter);
 		},
 		
-		onClickSticky: function(e, $el) {
+		onClickSticky(e, $el) {
 			// Prevent default here because generic handler wont be triggered.
 			e.preventDefault();
 			
@@ -173,7 +264,7 @@
 			}
 		},
 		
-		maybeFetch: function(filter) {	
+		maybeFetch(filter) {	
 			// vars
 			var timeout = this.get('timeout');
 			
@@ -186,7 +277,7 @@
 		    this.set('timeout', timeout);
 		},
 		
-		getAjaxData: function() {
+		getAjaxData() {
 			// load data based on element attributes
 			var ajaxData = this.$control().data();
 
@@ -210,7 +301,7 @@
 			return ajaxData;
 		},
 		
-		fetch: function() {
+		fetch() {
 			// abort XHR if this field is already loading AJAX data
 			var xhr = this.get('xhr');
 			if(xhr)
@@ -270,7 +361,7 @@
 			this.set('xhr', xhr);
 		},
 
-		getSearchData: function() {
+		getSearchData() {
 			// load data based on element attributes
 			var ajaxData = this.$control().data();
 
@@ -291,7 +382,7 @@
 			return ajaxData;
 		},
 
-		search: function() {
+		search() {
 			// abort XHR if this field is already loading AJAX data
 			var xhr = this.get('xhr');
 			if(xhr)
@@ -350,7 +441,7 @@
 			this.set('xhr', xhr);
 		},
 		
-		walkChoices: function(data, sticky = true) {
+		walkChoices(data, sticky = true) {
 			// vars
 			var stickyItems = this.stickyItems();
 			var list = '';
@@ -376,7 +467,7 @@
 			};
 		},
 
-		onClickClear: function() {
+		onClickClear() {
 			this.$searchInput().val('');
 			this.$choices().removeClass('active');
 			this.$buttonClear().removeClass('active');
@@ -385,7 +476,7 @@
 			setTimeout(() => this.$choicesList().html(''), 400);
 		},
 
-		onClickAdd: function(e, $el) {		
+		onClickAdd(e, $el) {		
 			// can be added?
 			if($el.hasClass('disabled'))
 				return false;
@@ -418,13 +509,13 @@
 			this.fetch();
 		},
 
-		onClickToggleTaxonomies: function(e, $el) {		
+		onClickToggleTaxonomies(e, $el) {		
 			$el.toggleClass('active')
 			this.$taxonomiesSelection().slideToggle();
 			console.log(this.taxonomies());
 		},
 
-		newValue: function(props) {
+		newValue(props) {
 			return $([
 			'<li data-id="' + props.id + '" data-date="' + props.date + '" data-from-search>',
 				'<span class="acf-rel-item">' + props.text,
@@ -434,14 +525,14 @@
 			].join(''));
 		},
 
-		sortList: function() {
+		sortList() {
 			this.$list().find('li').sort(function(a, b) {
 				return new Date(b.dataset.date) - new Date(a.dataset.date);
 			})
 			.appendTo(this.$list());
 		},
 
-		sortValues: function() {
+		sortValues() {
 			var results = this.get('results');
 			var values = JSON.parse(this.$valuesInput().val());
 			var sortedValues = [];
@@ -469,7 +560,7 @@
 			this.set('sticky', this.$stickyInput().val());
 		},
 
-		onClickAddTaxonomy: function(e, $el) {	
+		onClickAddTaxonomy(e, $el) {	
 			if(Object.keys(this.taxonomies()).length == this.$taxonomyRow().not(':first').length)
 				return;
 
@@ -482,7 +573,7 @@
 			this.checkTaxonomyFilters();
 		},
 
-		onClickRemoveTaxonomy: function(e, $el) {		
+		onClickRemoveTaxonomy(e, $el) {		
 			$el.parent().slideUp(() => { 
 				$el.parent().remove(); 
 
