@@ -301,53 +301,54 @@
 			return ajaxData;
 		},
 		
+		/**
+		 * Fetch results
+		 */
 		fetch() {
 			// abort XHR if this field is already loading AJAX data
-			var xhr = this.get('xhr');
+			let xhr = this.get('xhr');
 			if(xhr)
 				xhr.abort();
 			
-			// add to this.o
-			var ajaxData = this.getAjaxData();
+			const ajaxData = this.getAjaxData();
 			
 			// clear html if is new query
-			var $list = this.$valuesList();
-			$list.html('');
+			const $list = this.$valuesList();
+			$list.empty();
 			
 			// loading
-			var $loading = $('<li class="-loading"><i class="acf-loading"></i> ' + acf.__('Loading') + '</li>');
+			const $loading = $(`<li class="-loading"><i class="acf-loading"></i>${acf.__('Loading')}</li>`);
 			$list.append($loading);
 			this.set('loading', true);
 			
 			// callback
-			var onComplete = function() {
+			const onComplete = () => {
 				this.set('loading', false);
 				$loading.remove();
 			};
 			
-			var onSuccess = function(json) {
+			const onSuccess = (json) => {
 				// no results
 				if(!json || !json.results || !json.results.length) {
 					// add message
-					this.$valuesList().append('<li>' + acf.__('No matches found') + '</li>');
+					this.$valuesList().append(`<li>${acf.__('No matches found')}</li>`);
 	
 					// return
 					return;
 				}
 
 				// get new results
-				var html = this.walkChoices(json.results);
+				const html = this.walkChoices(json.results);
 				
 				// append
-				this.$stickyList().html('');
-				this.$stickyList().append(html.stickyList);
+				this.$stickyList().empty().append(html.stickyList);
 				$list.append(html.list);
-				this.$valuesInput().val(json.data);
+				this.$valuesInput().val(this.parseData(json.data));
 				this.sortList();
 			};
 			
 			// get results
-		    var xhr = $.ajax({
+		    xhr = $.ajax({
 		    	url:		acf.get('ajaxurl'),
 				dataType:	'json',
 				type:		'post',
@@ -359,6 +360,29 @@
 			
 			// set
 			this.set('xhr', xhr);
+		},
+
+		/**
+		 * Parse data and remove unnecessary properties
+		 *
+		 * @return {string} Parsed data
+		 */
+		parseData(data) {
+			data = JSON.parse(data);
+
+			if(!Array.isArray(data))
+				return JSON.stringify(data);
+
+			$.each(data, (_, element) => {
+				if(element.hasOwnProperty('featured_media_url')) {
+					Object.keys(element.featured_media_url).forEach((item) => {
+						if(item != 'pa-block-render') 
+							delete element.featured_media_url[item];
+					});
+				}
+			});
+
+			return JSON.stringify(data);
 		},
 
 		getSearchData() {
