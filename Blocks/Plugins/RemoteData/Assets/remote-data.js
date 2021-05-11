@@ -110,7 +110,7 @@
 		 * @return {jQuery} jQuery list items object
 		 */
 		$listItems() {
-			return this.$list().find('.acf-rel-item');
+			return this.$valuesList().find('.acf-rel-item');
 		},
 		
 		/**
@@ -120,7 +120,7 @@
 		 * @return {jQuery} jQuery item object
 		 */
 		$listItem(id) {
-			return this.$list().find('.acf-rel-item[data-id="' + id + '"]');
+			return this.$valuesList().find('.acf-rel-item[data-id="' + id + '"]');
 		},
 
 		/**
@@ -197,7 +197,7 @@
 			// Delay initialization until "interacted with" or "in view".
 			var delayed = this.proxy(acf.once(function() {
 				// Avoid browser remembering old scroll position.
-				this.$list('choices').scrollTop(0);
+				this.$valuesList('choices').scrollTop(0);
 				
 				// Fetch choices.
 				this.fetch();
@@ -248,7 +248,7 @@
 			// vars
 			var $span = $el.parent();
 			var $li = $span.parent();
-			var sticky = $li.parent().get(0) == this.$list().get(0);
+			var sticky = $li.parent().get(0) == this.$valuesList().get(0);
 
 			if(this.$stickyInput().val() == 0)
 				this.$stickyInput().val('');
@@ -311,7 +311,7 @@
 			var ajaxData = this.getAjaxData();
 			
 			// clear html if is new query
-			var $list = this.$list();
+			var $list = this.$valuesList();
 			$list.html('');
 			
 			// loading
@@ -329,7 +329,7 @@
 				// no results
 				if(!json || !json.results || !json.results.length) {
 					// add message
-					this.$list().append('<li>' + acf.__('No matches found') + '</li>');
+					this.$valuesList().append('<li>' + acf.__('No matches found') + '</li>');
 	
 					// return
 					return;
@@ -373,7 +373,7 @@
 			ajaxData.field_key = this.get('key');
 			ajaxData.exclude = [];
 
-			this.$list().find('li').each((_, element) => ajaxData.exclude.push(element.dataset.id));
+			this.$valuesList().find('li').each((_, element) => ajaxData.exclude.push(element.dataset.id));
 			
 			// Filter.
 			ajaxData = acf.applyFilters('remote_data_search_data', ajaxData, this);
@@ -512,7 +512,6 @@
 		onClickToggleTaxonomies(e, $el) {		
 			$el.toggleClass('active')
 			this.$taxonomiesSelection().slideToggle();
-			console.log(this.taxonomies());
 		},
 
 		newValue(props) {
@@ -526,10 +525,10 @@
 		},
 
 		sortList() {
-			this.$list().find('li').sort(function(a, b) {
+			this.$valuesList().find('li').sort(function(a, b) {
 				return new Date(b.dataset.date) - new Date(a.dataset.date);
 			})
-			.appendTo(this.$list());
+			.appendTo(this.$valuesList());
 		},
 
 		sortValues() {
@@ -553,7 +552,7 @@
 				}
 			});
 
-			this.$list().find('li').each((_, element) => sortedValues.push(values.find(value => value.id == element.dataset.id)));
+			this.$valuesList().find('li').each((_, element) => sortedValues.push(values.find(value => value.id == element.dataset.id)));
 
 			this.$valuesInput().val(JSON.stringify(sortedValues));
 			this.$stickyInput().val(this.$stickyInput().val().replace(/(^\,+|\,+$)/mg, ''));
@@ -671,8 +670,22 @@
 			}, []);
 
 			// Habilita todas opções e em seguida desabilita opções em uso
-			$selects.find(`option`).attr('disabled', false);
-			$.each(values, (_, value) => $selects.find(`[value="${value}"]`).not(':selected').attr('disabled', true));
+			$selects.each((_, element) => {
+				const $element = $(element);
+				const elementValue = $element.val();
+
+				$element.find('option').remove();
+
+				$.each(this.taxonomies(), function(key, value) {
+					$element.append($('<option>', { 
+						value: key,
+						text : value.label,
+						selected: elementValue == key,
+					}));
+				});
+			});
+
+			$.each(values, (_, value) => $selects.find(`[value="${value}"]`).not(':selected').remove());
 
 			// Atualiza instância do select2
 			$selects.select2();
