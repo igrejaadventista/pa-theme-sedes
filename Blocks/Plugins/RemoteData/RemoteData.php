@@ -379,7 +379,7 @@ if(!class_exists('RemoteData')):
 
 				if(isset($options['taxonomies']) && isset($options['terms'])):
 					foreach($options['taxonomies'] as $key => $taxonomy)
-						$queryArgs[$taxonomy] = implode(',', $options['terms'][$key]);
+						$queryArgs["$taxonomy-tax"] = implode(',', $options['terms'][$key]);
 				endif;
 
 				// die(var_dump(\add_query_arg(array_merge($queryArgs, ['exclude' => $sticky, 'orderby' => 'date']), $url))); 
