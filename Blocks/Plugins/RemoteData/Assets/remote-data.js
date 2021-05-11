@@ -194,50 +194,45 @@
 				update:	this.proxy(() => this.sortValues())
 			});
 
-			// Delay initialization until "interacted with" or "in view".
-			var delayed = this.proxy(acf.once(function() {
-				// Avoid browser remembering old scroll position.
+			// Delay initialization until "interacted with" or "in view"
+			const delayed = this.proxy(acf.once(() => {
+				// Avoid browser remembering old scroll position
 				this.$valuesList('choices').scrollTop(0);
 				
-				// Fetch choices.
+				// Fetch choices
 				this.fetch();
 
-				this.$taxonomyRow().not(':first').each((index) => {
-					var $row = $(this.$taxonomyRow().get(index + 1));
-
-					this.initializeTaxonomyFilters($row);
-				});
+				this.$taxonomyRow().not(':first').each((index) => this.initializeTaxonomyFilters($(this.$taxonomyRow().get(index + 1))));
 
 				this.checkTaxonomyFilters();
 			}));
 			
-			// Bind "interacted with".
+			// Bind "interacted with"
 			this.$el.one('mouseover', delayed);
 			this.$el.one('focus', 'input', delayed);
 			
-			// Bind "in view".
+			// Bind "in view"
 			acf.onceInView(this.$el, delayed);
 		},
 		
 		onKeypressFilter(e, $el) {
-			// don't submit form
+			// Don't submit form
 			if(e.which == 13)
 				e.preventDefault();
 		},
 		
 		onChangeFilter(e, $el) {
-			// vars
-			var val = $el.val().trim();
-			var filter = $el.data('filter');
+			const val = $el.val().trim();
+			const filter = $el.data('filter');
 				
 			// Bail early if filter has not changed
 			if(this.get(filter) === val || val == '')
 				return;
 			
-			// update attr
+			// Update attr
 			this.set(filter, val);
 
-			// search must go through timeout
+			// Search must go through timeout
 			this.maybeFetch(filter);
 		},
 		
@@ -245,10 +240,9 @@
 			// Prevent default here because generic handler wont be triggered.
 			e.preventDefault();
 			
-			// vars
-			var $span = $el.parent();
-			var $li = $span.parent();
-			var sticky = $li.parent().get(0) == this.$valuesList().get(0);
+			const $span = $el.parent();
+			const $li = $span.parent();
+			const sticky = $li.parent().get(0) == this.$valuesList().get(0);
 
 			if(this.$stickyInput().val() == 0)
 				this.$stickyInput().val('');
@@ -265,28 +259,27 @@
 		},
 		
 		maybeFetch(filter) {	
-			// vars
-			var timeout = this.get('timeout');
+			let timeout = this.get('timeout');
 			
-			// abort timeout
+			// Abort timeout
 			if(timeout)
 				clearTimeout(timeout);
 			
-		    // fetch
+		    // Fetch
 		    timeout = this.setTimeout(filter == 's' ? this.search : this.fetch, 300);
 		    this.set('timeout', timeout);
 		},
 		
 		getAjaxData() {
-			// load data based on element attributes
-			var ajaxData = this.$control().data();
+			// Load data based on element attributes
+			let ajaxData = this.$control().data();
 
-			for(var name in ajaxData)
+			for(let name in ajaxData)
 				ajaxData[name] = this.get(name);
 
 			this.saveTaxonomyFilters();
 			
-			// extra
+			// Extra
 			ajaxData.action = 'acf/fields/remote_data/query';
 			ajaxData.field_key = this.get('key');
 			ajaxData.sticky = this.get('sticky');
@@ -294,60 +287,52 @@
 			ajaxData.taxonomies = this.get('taxonomies');
 			ajaxData.terms = this.get('terms');
 			
-			// Filter.
-			ajaxData = acf.applyFilters('remote_data_ajax_data', ajaxData, this);
-			
-			// return
-			return ajaxData;
+			return acf.applyFilters('remote_data_ajax_data', ajaxData, this);
 		},
 		
 		/**
 		 * Fetch results
 		 */
 		fetch() {
-			// abort XHR if this field is already loading AJAX data
+			// Abort XHR if this field is already loading AJAX data
 			let xhr = this.get('xhr');
 			if(xhr)
 				xhr.abort();
 			
 			const ajaxData = this.getAjaxData();
 			
-			// clear html if is new query
+			// Clear html if is new query
 			const $list = this.$valuesList();
 			$list.empty();
 			
-			// loading
+			// Loading
 			const $loading = $(`<li class="-loading"><i class="acf-loading"></i>${acf.__('Loading')}</li>`);
 			$list.append($loading);
 			this.set('loading', true);
 			
-			// callback
 			const onComplete = () => {
 				this.set('loading', false);
 				$loading.remove();
 			};
 			
 			const onSuccess = (json) => {
-				// no results
+				// No results
 				if(!json || !json.results || !json.results.length) {
-					// add message
-					this.$valuesList().append(`<li>${acf.__('No matches found')}</li>`);
-	
-					// return
-					return;
+					// Add message
+					return this.$valuesList().append(`<li>${acf.__('No matches found')}</li>`);
 				}
 
-				// get new results
+				// Get new results
 				const html = this.walkChoices(json.results);
 				
-				// append
+				// Append
 				this.$stickyList().empty().append(html.stickyList);
 				$list.append(html.list);
 				this.$valuesInput().val(this.parseData(json.data));
 				this.sortList();
 			};
 			
-			// get results
+			// Get results
 		    xhr = $.ajax({
 		    	url:		acf.get('ajaxurl'),
 				dataType:	'json',
@@ -358,7 +343,6 @@
 				complete:	onComplete,
 			});
 			
-			// set
 			this.set('xhr', xhr);
 		},
 
@@ -375,6 +359,7 @@
 
 			$.each(data, (_, element) => {
 				if(element.hasOwnProperty('featured_media_url')) {
+					// Delete all except pa-block-render
 					Object.keys(element.featured_media_url).forEach((item) => {
 						if(item != 'pa-block-render') 
 							delete element.featured_media_url[item];
@@ -386,72 +371,64 @@
 		},
 
 		getSearchData() {
-			// load data based on element attributes
-			var ajaxData = this.$control().data();
+			// Load data based on element attributes
+			let ajaxData = this.$control().data();
 
-			for(var name in ajaxData)
+			for(let name in ajaxData)
 				ajaxData[name] = this.get(name);
 			
-			// extra
+			// Extra
 			ajaxData.action = 'acf/fields/remote_data/search';
 			ajaxData.field_key = this.get('key');
 			ajaxData.exclude = [];
 
 			this.$valuesList().find('li').each((_, element) => ajaxData.exclude.push(element.dataset.id));
 			
-			// Filter.
-			ajaxData = acf.applyFilters('remote_data_search_data', ajaxData, this);
-			
-			// return
-			return ajaxData;
+			// Filter			
+			return acf.applyFilters('remote_data_search_data', ajaxData, this);
 		},
 
 		search() {
-			// abort XHR if this field is already loading AJAX data
-			var xhr = this.get('xhr');
+			// Abort XHR if this field is already loading AJAX data
+			let xhr = this.get('xhr');
 			if(xhr)
 				xhr.abort();
 			
-			// add to this.o
-			var ajaxData = this.getSearchData();
+			// Add to this.o
+			const ajaxData = this.getSearchData();
 			
-			// clear html if is new query
-			var $list = this.$choicesList();
-			$list.html('');
+			// Clear html if is new query
+			const $list = this.$choicesList();
+			$list.empty();
 			
-			// loading
+			// Loading
 			this.$searchLoading().addClass('active');
 			this.$buttonClear().removeClass('active');
 			this.set('loading', true);
 			
-			// callback
-			var onComplete = function() {
+			const onComplete = () => {
 				this.set('loading', false);
 				this.$searchLoading().removeClass('active');
 				this.$choices().addClass('active');
 				this.$buttonClear().addClass('active');
 			};
 			
-			var onSuccess = function(json) {
-				// no results
-				if(!json || !json.results || !json.results.length) {
-					// add message
-					this.$choicesList().append('<li>' + acf.__('No matches found') + '</li>');
-	
-					// return
-					return;
-				}
+			const onSuccess = (json) => {
+				// No results
+				if(!json || !json.results || !json.results.length)
+					// Add message
+					return this.$choicesList().append(`<li>${acf.__('No matches found')}</li>`);
 
-				// get new results
-				var html = this.walkChoices(json.results, false);
+				// Get new results
+				const html = this.walkChoices(json.results, false);
 				
-				// append
+				// Append
 				$list.append(html.list);
 				this.set('results', json.results);
 			};
 			
-			// get results
-		    var xhr = $.ajax({
+			// Get results
+		    xhr = $.ajax({
 		    	url:		acf.get('ajaxurl'),
 				dataType:	'json',
 				type:		'post',
@@ -461,18 +438,16 @@
 				complete:	onComplete,
 			});
 			
-			// set
 			this.set('xhr', xhr);
 		},
 		
 		walkChoices(data, sticky = true) {
-			// vars
-			var stickyItems = this.stickyItems();
-			var list = '';
-			var stickyList = '';
+			const stickyItems = this.stickyItems();
+			let list = '';
+			let stickyList = '';
 			
 			data.forEach(element => {
-				var content = '<li data-id="' + acf.escAttr(element.id) + '" data-date="' + acf.escAttr(element.date) + '"><span class="acf-rel-item">';
+				let content = `<li data-id="${acf.escAttr(element.id)}" data-date="${acf.escAttr(element.date)}"><span class="acf-rel-item">`;
 
 				if(sticky)
 					content += '<a href="#" class="acf-icon -pin small dark acf-js-tooltip" data-action="sticky" title="Fixar/Desafixar item"></a>';
@@ -482,7 +457,7 @@
 						content += `<img src="${element.featured_media_url.small}" />`;
 				}
 				
-				content += acf.escHtml(element.title.rendered) + '</span></li>';
+				content += `${acf.escHtml(element.title.rendered)}</span></li>`;
 
 				if(stickyItems.includes(element.id.toString()))
 					stickyList += content;
@@ -506,27 +481,26 @@
 		},
 
 		onClickAdd(e, $el) {		
-			// can be added?
+			// Can be added?
 			if($el.hasClass('disabled'))
 				return false;
 
-			var limit = this.get('limit');
+			const limit = this.get('limit');
 			
-			// validate
+			// Validate
 			if(this.stickyItems().length == limit) {
-				// add notice
+				// Add notice
 				this.showNotice({
 					text: `Limite máximo de ${limit} ite${limit == 1 ? 'm' : 'ns' } alcançado`,
-					type: 'warning'
+					type: 'warning',
 				});
 
 				return false;
 			}
 			
-			// disable
 			$el.addClass('disabled');
 			
-			// add
+			// Add
 			var html = this.newValue({
 				id: $el.data('id'),
 				date: $el.data('date'),
@@ -545,8 +519,8 @@
 
 		newValue(props) {
 			return $([
-			'<li data-id="' + props.id + '" data-date="' + props.date + '" data-from-search>',
-				'<span class="acf-rel-item">' + props.text,
+			`<li data-id="${props.id}" data-date="${props.date}" data-from-search>`,
+				`<span class="acf-rel-item">${props.text}`,
 					'<a href="#" class="acf-icon -pin small dark acf-js-tooltip" data-action="sticky" title="Fixar/Desafixar item"></a>',
 				'</span>',
 			'</li>'
@@ -554,21 +528,21 @@
 		},
 
 		sortList() {
-			this.$valuesList().find('li').sort(function(a, b) {
+			this.$valuesList().find('li').sort((a, b) => {
 				return new Date(b.dataset.date) - new Date(a.dataset.date);
 			})
 			.appendTo(this.$valuesList());
 		},
 
 		sortValues() {
-			var results = this.get('results');
-			var values = JSON.parse(this.$valuesInput().val());
-			var sortedValues = [];
+			const results = this.get('results');
+			const values = JSON.parse(this.$valuesInput().val());
+			let sortedValues = [];
 
 			this.$stickyInput().val('');
 
 			this.$stickyList().find('li').each((_, element) => {
-				var elementValue;
+				let elementValue;
 
 				if(typeof element.dataset.fromSearch != 'undefined')
 					elementValue = results.find(value => value.id == element.dataset.id);
@@ -592,10 +566,9 @@
 			if(Object.keys(this.taxonomies()).length == this.$taxonomyRow().not(':first').length)
 				return;
 
-			var $row = this.$taxonomyRow().first().clone();
+			const $row = this.$taxonomyRow().first().clone();
 			
-			$row.insertBefore($el.parent());
-			$row.slideDown();
+			$row.insertBefore($el.parent()).slideDown();
 
 			this.initializeTaxonomyFilters($row, true);
 			this.checkTaxonomyFilters();
@@ -606,10 +579,10 @@
 				$el.parent().remove(); 
 
 				this.$taxonomyRow().not(':first').each((index) => {
-					var $row = $(this.$taxonomyRow().get(index + 1));
+					const $row = $(this.$taxonomyRow().get(index + 1));
 
-					var $selectTaxonomy = $row.find('[data-taxonomy]');
-					var $selectTerms = $row.find('[data-terms]');
+					const $selectTaxonomy = $row.find('[data-taxonomy]');
+					const $selectTerms = $row.find('[data-terms]');
 
 					if($selectTaxonomy.length)
 						$selectTaxonomy.attr('name', `acf[${this.get('key')}][taxonomies][${index}]`);
@@ -633,21 +606,19 @@
 			$selectTerms.attr('name', `acf[${this.get('key')}][terms][${this.$taxonomyRow().length - 2}][]`);
 
 			if(isNew) {
-				var $selects = this.$taxonomyRow().not(':first').not(':last').find('[data-taxonomy]');
-				var values = [];
+				const $selects = this.$taxonomyRow().not(':first').not(':last').find('[data-taxonomy]');
+				let values = [];
 
-				$selects.map(function() {
-					values.push($(this).val());
-				});
+				$selects.map((_, element) => values.push($(element).val()));
 
-				values = values.reduce(function(a, b) {
+				values = values.reduce((a, b) => {
 					if(a.indexOf(b) < 0)
 						a.push(b);
 
 					return a;
 				}, []);
 
-				$.each(this.taxonomies(), function(key, value) {
+				$.each(this.taxonomies(), (key, value) => {
 					$selectTaxonomy.append($('<option>', { 
 						value: key,
 						text : value.label,
@@ -659,7 +630,7 @@
 			$selectTaxonomy.on('change', () => {
 				$selectTerms.find('option[value]').remove();
 				
-				$.each(this.taxonomies()[$selectTaxonomy.val()].terms, function (key, value) {
+				$.each(this.taxonomies()[$selectTaxonomy.val()].terms, (key, value) => {
 					$selectTerms.append($('<option>', { 
 						value: key,
 						text : value, 
@@ -705,7 +676,7 @@
 
 				$element.find('option').remove();
 
-				$.each(this.taxonomies(), function(key, value) {
+				$.each(this.taxonomies(), (key, value) => {
 					$element.append($('<option>', { 
 						value: key,
 						text : value.label,
