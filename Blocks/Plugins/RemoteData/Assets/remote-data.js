@@ -177,15 +177,18 @@
 			return this.$control().find('.taxonomies-selection').data('taxonomies');
 		},
 		
+		/**
+		 * Initialize plugin
+		 */
 		initialize() {
-			// Define valores de limite e sticky
+			// Set limit and sticky values
 			this.set('limit', this.$limitInput().val());
 			this.set('sticky', this.$stickyInput().val());
 
-			// Limpa campo de busca
+			// Clear searc field
 			this.$searchInput().val('');
 
-			// Adiciona sortable
+			// Add sortable
 			this.$stickyList().sortable({
 				items:					'li',
 				forceHelperSize:		true,
@@ -215,12 +218,17 @@
 			acf.onceInView(this.$el, delayed);
 		},
 		
+		/**
+		 * Don't submit form
+		 */
 		onKeypressFilter(e, $el) {
-			// Don't submit form
 			if(e.which == 13)
 				e.preventDefault();
 		},
 		
+		/**
+		 * On changes on filters
+		 */
 		onChangeFilter(e, $el) {
 			const val = $el.val().trim();
 			const filter = $el.data('filter');
@@ -236,8 +244,11 @@
 			this.maybeFetch(filter);
 		},
 		
+		/**
+		 * On sticky items
+		 */
 		onClickSticky(e, $el) {
-			// Prevent default here because generic handler wont be triggered.
+			// Prevent default here because generic handler wont be triggered
 			e.preventDefault();
 			
 			const $span = $el.parent();
@@ -258,6 +269,9 @@
 			}
 		},
 		
+		/**
+		 * Check if can fetch data
+		 */
 		maybeFetch(filter) {	
 			let timeout = this.get('timeout');
 			
@@ -270,6 +284,9 @@
 		    this.set('timeout', timeout);
 		},
 		
+		/**
+		 * Load fetch data
+		 */
 		getAjaxData() {
 			// Load data based on element attributes
 			let ajaxData = this.$control().data();
@@ -370,6 +387,9 @@
 			return JSON.stringify(data);
 		},
 
+		/**
+		 * Load search data
+		 */
 		getSearchData() {
 			// Load data based on element attributes
 			let ajaxData = this.$control().data();
@@ -388,6 +408,9 @@
 			return acf.applyFilters('remote_data_search_data', ajaxData, this);
 		},
 
+		/**
+		 * Make search
+		 */
 		search() {
 			// Abort XHR if this field is already loading AJAX data
 			let xhr = this.get('xhr');
@@ -441,6 +464,9 @@
 			this.set('xhr', xhr);
 		},
 		
+		/**
+		 * Walk results and create html
+		 */
 		walkChoices(data, sticky = true) {
 			const stickyItems = this.stickyItems();
 			let list = '';
@@ -453,8 +479,8 @@
 					content += '<a href="#" class="acf-icon -pin small dark acf-js-tooltip" data-action="sticky" title="Fixar/Desafixar item"></a>';
 
 				if(element.hasOwnProperty('featured_media_url')) {
-					if(element.featured_media_url.hasOwnProperty('small'))
-						content += `<img src="${element.featured_media_url.small}" />`;
+					if(element.featured_media_url.hasOwnProperty('pa-block-preview'))
+						content += `<img src="${element.featured_media_url['pa-block-preview']}" />`;
 				}
 				
 				content += `${acf.escHtml(element.title.rendered)}</span></li>`;
@@ -471,6 +497,9 @@
 			};
 		},
 
+		/**
+		 * Clear and close search
+		 */
 		onClickClear() {
 			this.$searchInput().val('');
 			this.$choices().removeClass('active');
@@ -480,6 +509,9 @@
 			setTimeout(() => this.$choicesList().html(''), 400);
 		},
 
+		/**
+		 * Add search result as sticky item
+		 */
 		onClickAdd(e, $el) {		
 			// Can be added?
 			if($el.hasClass('disabled'))
@@ -512,11 +544,20 @@
 			this.fetch();
 		},
 
+		/**
+		 * Show/hide taxonomies filters
+		 */
 		onClickToggleTaxonomies(e, $el) {		
 			$el.toggleClass('active')
 			this.$taxonomiesSelection().slideToggle();
 		},
 
+		/**
+		 * Create item html
+		 * 
+		 * @param {object} props The item data
+		 * @return {string} Item html
+		 */
 		newValue(props) {
 			return $([
 			`<li data-id="${props.id}" data-date="${props.date}" data-from-search>`,
@@ -527,6 +568,9 @@
 			].join(''));
 		},
 
+		/**
+		 * Sort list by date
+		 */
 		sortList() {
 			this.$valuesList().find('li').sort((a, b) => {
 				return new Date(b.dataset.date) - new Date(a.dataset.date);
@@ -534,6 +578,9 @@
 			.appendTo(this.$valuesList());
 		},
 
+		/**
+		 * Sort sticky items
+		 */
 		sortValues() {
 			const results = this.get('results');
 			const values = JSON.parse(this.$valuesInput().val());
@@ -562,6 +609,9 @@
 			this.set('sticky', this.$stickyInput().val());
 		},
 
+		/**
+		 * Add taxonomy row
+		 */
 		onClickAddTaxonomy(e, $el) {	
 			if(Object.keys(this.taxonomies()).length == this.$taxonomyRow().not(':first').length)
 				return;
@@ -574,6 +624,9 @@
 			this.checkTaxonomyFilters();
 		},
 
+		/**
+		 * Remove taxonomy row
+		 */
 		onClickRemoveTaxonomy(e, $el) {		
 			$el.parent().slideUp(() => { 
 				$el.parent().remove(); 
@@ -595,6 +648,9 @@
 			});
 		},
 
+		/**
+		 * Initialize taxonomies filters
+		 */
 		initializeTaxonomyFilters($row, isNew = false) {
 			const $selectTaxonomy = $row.find('[data-taxonomy]');
 			const $selectTerms = $row.find('[data-terms]');
@@ -651,17 +707,20 @@
 			$selectTerms.select2();	
 		},
 
+		/**
+		 * Check taxonomies filters on row added/removed
+		 */
 		checkTaxonomyFilters() {
-			// Habilita/desabilita botão de acordo com a quantidade de taxonomias disponíveis
+			// Enable/disable button
 			this.$buttonAddTaxonomy().toggleClass('disabled', Object.keys(this.taxonomies()).length == this.$taxonomyRow().not(':first').length);
 
 			const $selects = this.$taxonomyRow().not(':first').find('[data-taxonomy]');
 			let values = [];
 
-			// Coleta valores em uso
+			// Get options in use
 			$selects.map((_, element) => values.push($(element).val()));
 
-			// Remove valores duplicados
+			// Remove duplicate values
 			values = values.reduce((a, b) => {
 				if(a.indexOf(b) < 0)
 					a.push(b);
@@ -669,7 +728,7 @@
 				return a;
 			}, []);
 
-			// Habilita todas opções e em seguida desabilita opções em uso
+			// Remove options in use
 			$selects.each((_, element) => {
 				const $element = $(element);
 				const elementValue = $element.val();
@@ -687,10 +746,13 @@
 
 			$.each(values, (_, value) => $selects.find(`[value="${value}"]`).not(':selected').remove());
 
-			// Atualiza instância do select2
+			// Refresh select2
 			$selects.select2();
 		},
 
+		/**
+		 * Save taxonomies filters
+		 */
 		saveTaxonomyFilters() {
 			const $rows = this.$taxonomyRow().not(':first');
 			const $selectTaxonomy = $rows.find('[data-taxonomy]');
@@ -699,11 +761,10 @@
 			let taxonomies = [];
 			let terms = [];
 
-			// Coleta valores selecionados
+			// Get selected values
 			$selectTaxonomy.each((index) => taxonomies.push($($selectTaxonomy.get(index)).val()));
 			$selectTerms.each((index) => terms.push($($selectTerms.get(index)).val()));
 
-			// Atribui os valores em uso
 			this.set('taxonomies', taxonomies);
 			this.set('terms', terms);
 		},

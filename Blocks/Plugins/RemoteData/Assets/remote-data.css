@@ -242,3 +242,13 @@
 	align-items: center;
 	display: flex;
 }
+
+.acf-remote-data .list .disabled .acf-rel-item {
+	cursor: default;
+	opacity: 0.5;
+}
+
+.acf-remote-data .list .disabled .acf-rel-item:hover {
+	background: transparent;
+	color: inherit;
+}
