@@ -135,9 +135,9 @@
 }
 
 .acf-remote-data .button-update {
-	bottom: 103%;
 	position: absolute;
 	right: 0;
+	top: -36px;
 }
 
 .acf-field-remote-data .acf-notice {
