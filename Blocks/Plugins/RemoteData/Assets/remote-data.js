@@ -263,6 +263,8 @@
 				this.sortValues();
 			}
 			else {
+				this.$choicesList().find(`[data-id="${$li.data('id')}"]`).removeClass('disabled');
+
 				$li.remove();
 				this.sortValues();
 				this.fetch();
