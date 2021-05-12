@@ -49,6 +49,11 @@ class PACarouselFeature extends Block {
 				Relationship::make('', 'slides')
 					->min(1)
                     ->max(4)
+					->postTypes(['post'])
+					->filters([
+						'search',
+						'taxonomy'
+					])
 					->conditionalLogic([
 						ConditionalLogic::if('source')->equals('local')
 					]),
