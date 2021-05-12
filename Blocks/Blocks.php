@@ -19,6 +19,7 @@ class Blocks {
 		\add_filter('blade/view/paths', [$this, 'bladeViewPaths']);
 
 		\add_action('acf/include_field_types', 	array($this, 'registerPlugins'));
+		\add_action('enqueue_block_editor_assets', array($this, 'enqueueAssets'));
 		
 		require_once('Directives.php');
     }
@@ -72,6 +73,10 @@ class Blocks {
 
 	public function registerPlugins() {
 		include_once('Plugins/RemoteData/RemoteData.php');
+	}
+
+	function enqueueAssets() {
+		wp_enqueue_style('blocks-stylesheet', get_template_directory_uri() . '/Blocks/assets/blocks.css', array(), \wp_get_theme()->get('Version'), 'all');
 	}
 
 }
