@@ -8,6 +8,10 @@ if(have_posts()){
 }
 $next_post = get_next_post();
 $prev_post = get_previous_post();
+$values = json_decode(field('remotetest')['data']);
+
+foreach($values as $value)
+	echo $value->title->rendered . '<br />';
 ?>
 	<?php 
 		require(get_template_directory() . '/components/parent/header.php'); 	

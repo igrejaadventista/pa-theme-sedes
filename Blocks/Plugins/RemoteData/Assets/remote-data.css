@@ -1,0 +1,254 @@
+.acf-relationship .selection {
+	display: flex;
+}
+
+.acf-remote-data .selection .choices {
+	overflow: hidden;
+	transition: all 0.3s ease-in-out;
+	width: 0;
+}
+
+.acf-remote-data .selection .values,
+.acf-remote-data .selection .choices.active,
+.acf-remote-data .selection .choices .acf-rel-item {
+	width: 100%;
+}
+
+.acf-remote-data .selection .values .values-list,
+.acf-remote-data .selection .values .sticky-list,
+.acf-remote-data .selection .choices .choices-list {
+	display: flex;
+	flex-direction: column;
+	overflow-x: hidden;
+	padding: 0;
+}
+
+.acf-remote-data .selection .choices .choices-list {
+	height: auto;
+}
+
+.acf-remote-data .selection .values .sticky-list {
+	border-bottom: #ccd0d4 solid 1px;
+	height: auto;
+	max-height: 276px;
+}
+
+.acf-remote-data .selection .values .sticky-list:empty {
+	padding: 0;
+}
+
+.acf-remote-data .values-list .acf-rel-item,
+.acf-remote-data .sticky-list .acf-rel-item {
+	align-items: center;
+	display: flex;
+	padding-left: 35px;
+	width: 100%;
+}
+
+.acf-remote-data .values-list .acf-rel-item:hover {
+	background: #E4EEFF;
+	color: inherit;
+	cursor: default;
+}
+
+.acf-icon.-pin::before {
+    content: "\f109";
+}
+
+.acf-remote-data .filters .filter {
+	position: relative;
+}
+
+.acf-remote-data .filters .filter .acf-loading,
+.acf-remote-data .filters .filter .button-clear {
+	opacity: 0;
+	pointer-events: none;
+	position: absolute;
+	right: 6px;
+	top: 50%;
+	transform: translateY(-50%);
+	transition: all 0.3s ease-in-out;
+}
+
+.acf-remote-data .filters .filter .acf-loading.active,
+.acf-remote-data .filters .filter .button-clear.active {
+	opacity: 1;
+	pointer-events: all;
+}
+
+.acf-remote-data .filters .filter.-search {
+	flex: 1 0 0%;
+	width: 100%;
+}
+
+.acf-remote-data .filters .filter.-taxonomies,
+.acf-remote-data .filters .filter.-limit {
+	flex: 0 0 auto;
+	width: auto;
+}
+
+.acf-remote-data .filters .filter.-limit label {
+	align-items: center;
+	border-left: #ccd0d4 solid 1px;
+	color: #72777c;
+	display: flex;
+	padding-left: 10px;
+}
+
+.acf-remote-data .filters .filter.-limit input {
+	padding-left: 10px;
+}
+
+.acf-remote-data .list li {
+    display: flex;
+	order: 0;
+}
+
+.acf-remote-data .list .-loading {
+    position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%);
+}
+
+.acf-remote-data .list .acf-loading {
+	margin-right: 8px;
+}
+
+.acf-remote-data .selection .values .acf-icon {
+	display: block;
+	left: 7px !important;
+	opacity: 0.1;
+	position: absolute;
+	right: unset !important;
+	top: 50%;
+	transform: translateY(-50%);
+}
+
+.acf-remote-data .selection .values .sticky-list .acf-rel-item {
+	font-weight: bold;
+}
+
+.acf-remote-data .selection .values .sticky-list .acf-icon,
+.acf-remote-data .list .acf-rel-item:hover .acf-icon {
+    opacity: 1;
+}
+
+.acf-remote-data .button-update {
+	position: absolute;
+	right: 0;
+	top: -36px;
+}
+
+.acf-field-remote-data .acf-notice {
+	left: 0;
+	padding: 7px 40px 7px 12px;
+	position: absolute;
+	right: 0;
+	top: 0;
+	z-index: 1;
+}
+
+.acf-field-remote-data .acf-notice .acf-notice-dismiss {
+	top: 50%;
+	transform: translateY(-50%);
+}
+
+.acf-field-remote-data .components-panel__body-toggle.components-button {
+	border-left: #ccd0d4 solid 1px;
+	color: #72777c;
+	padding: 3px 0 3px 12px;
+	width: auto;
+}
+
+.acf-field-remote-data .components-panel__body-toggle.components-button:focus {
+	box-shadow: none;
+}
+
+.acf-field-remote-data .components-panel__body-toggle.components-button .components-panel__arrow {
+	margin-left: 6px;
+	position: relative;
+	right: unset;
+	transform: none;
+	transition: all 0.3s ease-in-out;
+}
+
+.acf-field-remote-data .components-panel__body-toggle.components-button.active .components-panel__arrow {
+	transform: rotate(180deg) translateY(-2px);
+}
+
+.acf-field-remote-data .filters {
+	display: flex;
+}
+
+.acf-field-remote-data .taxonomies-selection {
+	background: #F9F9F9;
+	border-bottom: #ccd0d4 solid 1px;
+	display: none;
+	padding: 10px;
+}
+
+.acf-field-remote-data .taxonomies-selection .add-container,
+.acf-field-remote-data .taxonomies-selection .taxonomy-row {
+	align-items: center;
+	display: flex;
+	justify-content: center;
+}
+
+.acf-field-remote-data .taxonomies-selection .taxonomy-row {
+	margin-bottom: 16px;
+}
+
+.acf-field-remote-data .taxonomies-selection .taxonomy-row > * {
+	margin: 0 4px;
+}
+
+.acf-field-remote-data .taxonomies-selection .taxonomy-row label {
+	width: 40%;
+}
+
+.acf-field-remote-data .select2-container--default .select2-selection--single,
+.acf-field-remote-data .select2-container--default .select2-selection--multiple {
+	min-height: 32px;
+	width: 100%;
+}
+
+.acf-field-remote-data .remove-taxonomy-filter {
+	margin-top: 20px !important;
+}
+
+.acf-field-remote-data .select2-container {
+	width: 100% !important;
+}
+
+[data-action="add-taxonomy"].disabled {
+	cursor: not-allowed;
+	opacity: 0.6;
+	pointer-events: none;
+}
+
+.acf-remote-data .selection .choices.active {
+	border-right: #DFDFDF solid 1px;
+}
+
+.acf-remote-data .acf-rel-item img {
+	height: 45px;
+	margin-right: 16px;
+	object-fit: cover;
+	width: 70px;
+}
+
+.acf-remote-data .selection .choices .acf-rel-item {
+	align-items: center;
+	display: flex;
+}
+
+.acf-remote-data .list .disabled .acf-rel-item {
+	cursor: default;
+	opacity: 0.5;
+}
+
+.acf-remote-data .list .disabled .acf-rel-item:hover {
+	background: transparent;
+	color: inherit;
+}
