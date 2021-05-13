@@ -12,6 +12,12 @@ use WordPlate\Acf\Location;
  */
 class Block extends AbstractBladeBlock {
 
+	public function __construct(array $settings) {
+		\add_filter('acf/register_block_type_args', array($this, 'registerExample'));
+
+		parent::__construct($settings);
+	}
+
 	/**
 	 * registerFields Register ACF fields with WordPlate/Acf lib
 	 *
@@ -27,12 +33,28 @@ class Block extends AbstractBladeBlock {
 		]))->toArray();
 	}
 
+	function registerExample(array $args) {
+		if($args['name'] == "acf/$this->name")
+			$args['example'] = $this->setExample();
+
+		return $args;
+	}
+
 	/**
 	 * setFields Set fields to be used on registerFields
 	 *
 	 * @return array Fields array
 	 */
 	protected function setFields(): array {
+		return [];
+	}
+	
+	/**
+	 * setExample Set example data to be used on preview
+	 *
+	 * @return array Example data array
+	 */
+	protected function setExample(): array {
 		return [];
 	}
 
