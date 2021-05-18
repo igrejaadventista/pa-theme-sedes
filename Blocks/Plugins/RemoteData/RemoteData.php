@@ -33,7 +33,11 @@ if(!class_exists('RemoteData')):
             // category (string) basic | content | choice | relational | jquery | layout | CUSTOM GROUP NAME
             $this->category = 'choice';
             // defaults (array) Array of default settings which are merged into the field object. These are used later in settings
-            $this->defaults = array('endpoint' => '');
+            $this->defaults = array(
+				'sub_fields'	=> array(),
+				'endpoint' 		=> '',
+			);
+			$this->have_rows = 'single';
 
             add_action('wp_ajax_acf/fields/remote_data/query',				array($this, 'ajax_query'));
 		    add_action('wp_ajax_nopriv_acf/fields/remote_data/query',		array($this, 'ajax_query'));
@@ -140,6 +144,23 @@ if(!class_exists('RemoteData')):
                 'allow_null'	=> 0,
                 'placeholder'	=> __('Selecione as taxonomias', 'acf-rest'),
             ));
+
+			// vars
+			$args = array(
+				'fields'	=> $field['sub_fields'],
+				'parent'	=> $field['ID']
+			);
+
+			?>
+			<tr class="acf-field acf-field-setting-sub_fields" data-setting="group" data-name="sub_fields">
+				<td class="acf-label">
+					<label><?= __('Campos de conteúdo manual', 'acf'); ?></label>	
+				</td>
+				<td class="acf-input">
+					<?php acf_get_view('field-group-fields', $args); ?>
+				</td>
+			</tr>
+			<?php
         }
 
         /*
@@ -284,7 +305,77 @@ if(!class_exists('RemoteData')):
 			</div>
 			</div>
             <?php
+
+			// load values
+			foreach($field['sub_fields'] as &$sub_field):
+				// add value
+				if(isset($field['value'][$sub_field['key']]))
+					// this is a normal value
+					$sub_field['value'] = $field['value'][$sub_field['key']];
+				elseif(isset($sub_field['default_value']))
+					// no value, but this sub field has a default value
+					$sub_field['value'] = $sub_field['default_value'];
+				
+				// update prefix to allow for nested values
+				$sub_field['prefix'] = $field['name'];
+				
+				
+				// restore required
+				if($field['required']) 
+					$sub_field['required'] = 0;
+			endforeach;
+			
+			// render
+			$this->render_field_block($field);
         }
+
+		/*
+		*  load_field()
+		*
+		*  This filter is appied to the $field after it is loaded from the database
+		*
+		*  @type	filter
+		*  @since	3.6
+		*  @date	23/01/13
+		*
+		*  @param	$field - the field array holding all the field options
+		*
+		*  @return	$field - the field array holding all the field options
+		*/
+		
+		function load_field($field) {
+			$sub_fields = acf_get_fields($field);
+			
+			// append
+			if($sub_fields)
+				$field['sub_fields'] = $sub_fields;
+			
+			// return
+			return $field;
+		}
+
+		/*
+		*  render_field_block
+		*
+		*  description
+		*
+		*  @type	function
+		*  @date	12/07/2016
+		*  @since	5.4.0
+		*
+		*  @param	$post_id (int)
+		*  @return	$post_id (int)
+		*/
+		
+		function render_field_block($field) {
+			// html
+			echo '<div class="acf-fields -top -border">';
+				
+			foreach($field['sub_fields'] as $sub_field)
+				acf_render_field_wrap($sub_field);
+			
+			echo '</div>';
+		}
 
         /**
          * @param $response_code
