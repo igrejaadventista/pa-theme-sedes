@@ -17,7 +17,7 @@ class PAFacebookFeature extends Block {
         parent::__construct([
             'title' 	  => 'Facebook - Feature',
             'description' => 'Facebook Widget',
-            'category' 	  => 'widgets',
+            'category' 	  => 'pa-adventista',
             'post_types'  => ['post', 'page'],
 			'keywords' 	  => ['facebook', 'embeded'],
 			'icon' 		  => '<svg id="Icons" style="enable-background:new 0 0 32 32;" version="1.1" viewBox="0 0 32 32" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><style type="text/css">

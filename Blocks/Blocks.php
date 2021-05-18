@@ -20,6 +20,7 @@ class Blocks {
 
 		\add_action('acf/include_field_types', 	array($this, 'registerPlugins'));
 		\add_action('enqueue_block_editor_assets', array($this, 'enqueueAssets'));
+		\add_filter('block_categories', array($this, 'addCategory'));
 		
 		require_once('Directives.php');
     }
@@ -77,6 +78,18 @@ class Blocks {
 
 	function enqueueAssets() {
 		wp_enqueue_style('blocks-stylesheet', get_template_directory_uri() . '/Blocks/assets/blocks.css', array(), \wp_get_theme()->get('Version'), 'all');
+	}
+
+	function addCategory($categories) {
+		return array_merge(
+			$categories,
+			array(
+				array(
+					'slug' => 'pa-adventista',
+					'title' => 'Adventista',
+				),
+			)
+		);
 	}
 
 }
