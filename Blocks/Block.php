@@ -35,10 +35,10 @@ class Block extends AbstractBladeBlock {
 
 	function additionalArgs(array $args)
 	{
-		if ($args['name'] == "acf/$this->name") :
+		if ($args['name'] == "acf/$this->name") {
 			$args['example'] = $this->setExample();
 			$args['parent'] = ['core/column'];
-		endif;
+		}
 
 		return $args;
 	}
