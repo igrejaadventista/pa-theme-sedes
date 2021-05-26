@@ -82,36 +82,36 @@ class PACoreInstall
     register_taxonomy('xtt-pa-colecoes', ['post'], $argsColecoes);
 
 
-	/**
+    /**
      * 
      * EDITORIAS
      * 
      */
 
     $labelsEditorias = array(
-			'name'                => __( 'Editorias', 'iasd'),
-			'singular_name'       => __( 'Editoria', 'iasd'),
-			'search_items'        => __( 'Buscar Editoria', 'iasd'),
-			'all_items'           => __( 'Todas as Editorias', 'iasd'),
-			'parent_item'         => __( 'Editoria Superior', 'iasd'),
-			'parent_item_colon'   => __( 'Editoria Superior', 'iasd'),
-			'edit_item'           => __( 'Editar Editoria', 'iasd' ),
-			'update_item'         => __( 'Atualizar Editoria', 'iasd'),
-			'add_new_item'        => __( 'Adicionar Nova Editoria', 'iasd'),
-			'new_item_name'       => __( 'Nome da Editoria', 'iasd'),
-			'menu_name'           => __( 'Editorias', 'iasd')
-		);
+      'name'                => __('Editorias', 'iasd'),
+      'singular_name'       => __('Editoria', 'iasd'),
+      'search_items'        => __('Buscar Editoria', 'iasd'),
+      'all_items'           => __('Todas as Editorias', 'iasd'),
+      'parent_item'         => __('Editoria Superior', 'iasd'),
+      'parent_item_colon'   => __('Editoria Superior', 'iasd'),
+      'edit_item'           => __('Editar Editoria', 'iasd'),
+      'update_item'         => __('Atualizar Editoria', 'iasd'),
+      'add_new_item'        => __('Adicionar Nova Editoria', 'iasd'),
+      'new_item_name'       => __('Nome da Editoria', 'iasd'),
+      'menu_name'           => __('Editorias', 'iasd')
+    );
 
-		$argsEditorias = array(
-			'hierarchical'        => true,
-			'labels'              => $labelsEditorias,
-			'show_ui'             => true,
-			'show_admin_column'   => true,
-			'query_var'           => true,
-			'rewrite'             => array( 'slug' => __('editoria', 'iasd') ),
-			'public'              => true,
+    $argsEditorias = array(
+      'hierarchical'        => true,
+      'labels'              => $labelsEditorias,
+      'show_ui'             => true,
+      'show_admin_column'   => true,
+      'query_var'           => true,
+      'rewrite'             => array('slug' => __('editoria', 'iasd')),
+      'public'              => true,
       'show_in_rest'        => true, // add support for Gutenberg editor
-		);
+    );
     register_taxonomy('xtt-pa-editorias', ['post'], $argsEditorias);
 
 
@@ -122,29 +122,29 @@ class PACoreInstall
      */
 
     $labelsDepartamentos = array(
-			'name'                => __( 'Departamentos', 'iasd'),
-			'singular_name'       => __( 'Departamento', 'iasd'),
-			'search_items'        => __( 'Buscar Departamento', 'iasd'),
-			'all_items'           => __( 'Todos os Departamento', 'iasd'),
-			'parent_item'         => __( 'Departamento Superior', 'iasd'),
-			'parent_item_colon'   => __( 'Departamento Superior', 'iasd'),
-			'edit_item'           => __( 'Editar Departamento', 'iasd' ),
-			'update_item'         => __( 'Atualizar Departamento', 'iasd'),
-			'add_new_item'        => __( 'Adicionar Novo Departamento', 'iasd'),
-			'new_item_name'       => __( 'Nome do Departamento', 'iasd'),
-			'menu_name'           => __( 'Departamentos', 'iasd')
-		);
+      'name'                => __('Departamentos', 'iasd'),
+      'singular_name'       => __('Departamento', 'iasd'),
+      'search_items'        => __('Buscar Departamento', 'iasd'),
+      'all_items'           => __('Todos os Departamento', 'iasd'),
+      'parent_item'         => __('Departamento Superior', 'iasd'),
+      'parent_item_colon'   => __('Departamento Superior', 'iasd'),
+      'edit_item'           => __('Editar Departamento', 'iasd'),
+      'update_item'         => __('Atualizar Departamento', 'iasd'),
+      'add_new_item'        => __('Adicionar Novo Departamento', 'iasd'),
+      'new_item_name'       => __('Nome do Departamento', 'iasd'),
+      'menu_name'           => __('Departamentos', 'iasd')
+    );
 
-		$argsDepartamentos = array(
-			'hierarchical'        => true,
-			'labels'              => $labelsDepartamentos,
-			'show_ui'             => true,
-			'show_admin_column'   => false,
-			'query_var'           => true,
-			'rewrite'             => array( 'slug' => __('departamento', 'iasd') ),
-			'public'              => true,
+    $argsDepartamentos = array(
+      'hierarchical'        => true,
+      'labels'              => $labelsDepartamentos,
+      'show_ui'             => true,
+      'show_admin_column'   => false,
+      'query_var'           => true,
+      'rewrite'             => array('slug' => __('departamento', 'iasd')),
+      'public'              => true,
       'show_in_rest'        => true, // add support for Gutenberg editor
-		);
+    );
     register_taxonomy('xtt-pa-departamentos', ['post'], $argsDepartamentos);
 
 
@@ -155,32 +155,32 @@ class PACoreInstall
      */
 
     $labelsProjetos = array(
-			'name'                => __( 'Projetos', 'iasd'),
-			'singular_name'       => __( 'Projeto', 'iasd'),
-			'search_items'        => __( 'Buscar Projeto', 'iasd'),
-			'all_items'           => __( 'Todos os Projetos', 'iasd'),
-			'parent_item'         => __( 'Projeto Pai', 'iasd'),
-			'parent_item_colon'   => __( 'Projeto Pai', 'iasd'),
-			'edit_item'           => __( 'Editar Projeto', 'iasd' ),
-			'update_item'         => __( 'Atualizar Projeto', 'iasd'),
-			'add_new_item'        => __( 'Adicionar Novo Projeto', 'iasd'),
-			'new_item_name'       => __( 'Nome do Projeto', 'iasd'),
-			'menu_name'           => __( 'Projetos', 'iasd')
-		);
+      'name'                => __('Projetos', 'iasd'),
+      'singular_name'       => __('Projeto', 'iasd'),
+      'search_items'        => __('Buscar Projeto', 'iasd'),
+      'all_items'           => __('Todos os Projetos', 'iasd'),
+      'parent_item'         => __('Projeto Pai', 'iasd'),
+      'parent_item_colon'   => __('Projeto Pai', 'iasd'),
+      'edit_item'           => __('Editar Projeto', 'iasd'),
+      'update_item'         => __('Atualizar Projeto', 'iasd'),
+      'add_new_item'        => __('Adicionar Novo Projeto', 'iasd'),
+      'new_item_name'       => __('Nome do Projeto', 'iasd'),
+      'menu_name'           => __('Projetos', 'iasd')
+    );
 
-		$argsProjetos = array(
-			'hierarchical'        => true,
-			'labels'              => $labelsProjetos,
-			'show_ui'             => true,
-			'show_admin_column'   => false,
-			'query_var'           => true,
-			'rewrite'             => array( 'slug' => __('projeto', 'iasd') ),
-			'public'              => true,
+    $argsProjetos = array(
+      'hierarchical'        => true,
+      'labels'              => $labelsProjetos,
+      'show_ui'             => true,
+      'show_admin_column'   => false,
+      'query_var'           => true,
+      'rewrite'             => array('slug' => __('projeto', 'iasd')),
+      'public'              => true,
       'show_in_rest'        => true, // add support for Gutenberg editor
     );
     register_taxonomy('xtt-pa-projetos', ['post'], $argsProjetos);
 
-	
+
     /**
      * 
      * Sedes Regionais
@@ -188,35 +188,35 @@ class PACoreInstall
      */
 
     $labelsSedes = array(
-			'name'                => __( 'Sedes Regionais', 'iasd'),
-			'singular_name'       => __( 'Sede Regional', 'iasd'),
-			'search_items'        => __( 'Buscar Sede', 'iasd'),
-			'all_items'           => __( 'Todas Sedes', 'iasd'),
-			'parent_item'         => __( 'Sede Adminitrativa', 'iasd'),
-			'parent_item_colon'   => __( 'Sede Adminitrativa', 'iasd'),
-			'edit_item'           => __( 'Editar Sede', 'iasd' ),
-			'update_item'         => __( 'Atualizar Sede', 'iasd'),
-			'add_new_item'        => __( 'Adicionar Nova Sede', 'iasd'),
-			'new_item_name'       => __( 'Nome da Sede', 'iasd'),
-			'menu_name'           => __( 'Sedes Regionais', 'iasd')
-		);
+      'name'                => __('Sedes Regionais', 'iasd'),
+      'singular_name'       => __('Sede Regional', 'iasd'),
+      'search_items'        => __('Buscar Sede', 'iasd'),
+      'all_items'           => __('Todas Sedes', 'iasd'),
+      'parent_item'         => __('Sede Adminitrativa', 'iasd'),
+      'parent_item_colon'   => __('Sede Adminitrativa', 'iasd'),
+      'edit_item'           => __('Editar Sede', 'iasd'),
+      'update_item'         => __('Atualizar Sede', 'iasd'),
+      'add_new_item'        => __('Adicionar Nova Sede', 'iasd'),
+      'new_item_name'       => __('Nome da Sede', 'iasd'),
+      'menu_name'           => __('Sedes Regionais', 'iasd')
+    );
 
-		$argsSedes = array(
-			'hierarchical'        => true,
-			'labels'              => $labelsSedes,
-			'show_ui'             => true,
-			'show_admin_column'   => true,
-			'query_var'           => true,
-			'rewrite'             => true,
-			'public'              => true,
-      		'show_in_rest'        => true, // add support for Gutenberg editor
-		);
+    $argsSedes = array(
+      'hierarchical'        => true,
+      'labels'              => $labelsSedes,
+      'show_ui'             => true,
+      'show_admin_column'   => true,
+      'query_var'           => true,
+      'rewrite'             => true,
+      'public'              => true,
+      'show_in_rest'        => true, // add support for Gutenberg editor
+    );
     register_taxonomy('xtt-pa-sedes', ['post'], $argsSedes);
 
 
     // Install routine to create or update taxonomies
-    if (!wp_next_scheduled('Service_Taxonomy_Schedule')) {
-      wp_schedule_event(time(), '20min', 'Service_Taxonomy_Schedule');
+    if (!wp_next_scheduled('PA_Service_Taxonomy_Schedule')) {
+      wp_schedule_event(time(), '20min', 'PA_Service_Taxonomy_Schedule');
     }
   }
 }

@@ -23,13 +23,13 @@ class PAFunctions
         $term = get_term($optionMap[$result->id]);
 
         //Change local nome if remote name is different
-        if ($term->name != $result->name) {
+
           wp_update_term($optionMap[$result->id], $tax, array(
             'name' => $result->name,
             'description' => $result->description,
             'slug' => $result->slug
           ));
-        }
+
       } else {
 
         // Dosn't exist id! Create now....
@@ -37,6 +37,7 @@ class PAFunctions
           $tempParents[$result->id] = [
             'name' => $result->name
           ];
+
           /**
            * Adding father id
            */
@@ -86,7 +87,9 @@ class PAFunctions
             }
           }
         }
-        update_option('tax_' . $tax . '_map', $tampMapTaxOption);
+        if(isset($tampMapTaxOption)){
+          update_option('tax_' . $tax . '_map', $tampMapTaxOption);
+        }
       }
     }
   }
