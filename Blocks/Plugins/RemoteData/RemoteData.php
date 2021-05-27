@@ -192,11 +192,20 @@ if(!class_exists('RemoteData')):
 			<div <?php acf_esc_attr_e($atts); ?>>
 
 			<?php acf_hidden_input(array('name' => $field['name'] . "[data]", 'value' => isset($values['data']) ? $values['data'] : '', 'data-values' => '')); ?>
+			<?php acf_hidden_input(array('name' => $field['name'] . "[manual]", 'value' => isset($values['manual']) ? $values['manual'] : '', 'data-manual' => '')); ?>
 			<?php acf_hidden_input(array('name' => $field['name'] . "[sticky]", 'value' => isset($values['sticky']) ? $values['sticky'] : 0, 'data-sticky' => '')); ?>
+
+			<div class="action-toolbar">
+				<button type="button" class="buttonAddManualPost" data-action="manual-new-post">Adicionar manual</button>
+
+				<button type="button" class="buttonUpdateTaxonomies acf-js-tooltip" data-action="refresh" title="Atualizar" aria-label="Atualizar">
+					<svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" aria-hidden="true" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
+				</button>
+			</div>
 
 			<div class="filters -f3">
 				<div class="filter -search">
-					<?php acf_text_input( array('placeholder' => __("Search...",'acf'), 'data-filter' => 's') ); ?>
+					<?php acf_text_input( array('placeholder' => __('Search...','acf'), 'data-filter' => 's') ); ?>
 					<i class="acf-loading"></i>
 					<a href="#" class="button-clear acf-icon -cancel acf-js-tooltip" data-action="clear" title="Limpar"></a>
 				</div>	
@@ -215,8 +224,6 @@ if(!class_exists('RemoteData')):
 						</button>
 					</div>
 				<?php endif; ?>
-
-				<a href="#" class="button-update acf-icon -sync dark acf-js-tooltip" data-action="refresh" title="Atualizar"></a>
 			</div>
 
 			<?php 
@@ -303,9 +310,8 @@ if(!class_exists('RemoteData')):
 					<ul class="acf-bl list values-list"></ul>
 				</div>
 			</div>
-			</div>
+			
             <?php
-
 			// load values
 			foreach($field['sub_fields'] as &$sub_field):
 				// add value
@@ -324,9 +330,18 @@ if(!class_exists('RemoteData')):
 				if($field['required']) 
 					$sub_field['required'] = 0;
 			endforeach;
-			
-			// render
-			$this->render_field_block($field);
+
+			?>
+					<div class="widgets-acf-modal -fields">
+						<div class="widgets-acf-modal-wrapper">
+							<div class="widgets-acf-modal-content">
+								<?php $this->render_field_block($field); ?>
+							</div>
+						</div>
+					</div>
+				</div><!-- End: -->
+			<?php
+
         }
 
 		/*
@@ -345,7 +360,7 @@ if(!class_exists('RemoteData')):
 		
 		function load_field($field) {
 			$sub_fields = acf_get_fields($field);
-			
+
 			// append
 			if($sub_fields)
 				$field['sub_fields'] = $sub_fields;
@@ -448,6 +463,11 @@ if(!class_exists('RemoteData')):
 			$sticky = isset($options['sticky']) ? $options['sticky'] : 0;
 			$stickyItems = !empty($sticky) ? explode(',', $sticky) : [];
 
+			// filter 'm' prefix
+			$stickyItemsFilter = array_filter($stickyItems, function($v) {
+				return substr( $v, 0, 1 ) !== 'm';
+			});
+
 			$limit = isset($options['limit']) ? $options['limit'] : $field['limit'];
 			$limit = !empty($limit) && $limit > 0 ? $limit : 1;
 			$limit = $limit <= 100 ? $limit : 100;
@@ -457,7 +477,7 @@ if(!class_exists('RemoteData')):
 				$queryArgs['_fields'] .= ',' . implode(',', $field['fields']);
 
 			if(!empty($sticky)):
-				$response = \wp_remote_get(\add_query_arg(array_merge($queryArgs, ['include' => $sticky, 'orderby' => 'include']), $url));
+				$response = \wp_remote_get(\add_query_arg(array_merge($queryArgs, ['include' => $stickyItemsFilter, 'orderby' => 'include']), $url));
 				$responseCode = \wp_remote_retrieve_response_code($response);
 				$responseData = \wp_remote_retrieve_body($response);
 
@@ -473,9 +493,9 @@ if(!class_exists('RemoteData')):
 						$queryArgs["$taxonomy-tax"] = implode(',', $options['terms'][$key]);
 				endif;
 
-				// die(var_dump(\add_query_arg(array_merge($queryArgs, ['exclude' => $sticky, 'orderby' => 'date']), $url))); 
+				// die(var_dump(\add_query_arg(array_merge($queryArgs, ['exclude' => $stickyItemsFilter, 'orderby' => 'date']), $url))); 
 
-				$response = \wp_remote_get(\add_query_arg(array_merge($queryArgs, ['exclude' => $sticky, 'orderby' => 'date']), $url));
+				$response = \wp_remote_get(\add_query_arg(array_merge($queryArgs, ['exclude' => $stickyItemsFilter, 'orderby' => 'date']), $url));
 				$responseCode = \wp_remote_retrieve_response_code($response);
 				$responseData = \wp_remote_retrieve_body($response);
 

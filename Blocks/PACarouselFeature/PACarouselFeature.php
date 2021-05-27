@@ -22,7 +22,7 @@ class PACarouselFeature extends Block {
     public function __construct() {
 		// Set block settings
         parent::__construct([
-            'title' 	  => 'Carousel - Feature',
+            'title' 	  => 'IASD - Carousel - Feature',
             'description' => 'Carrossel de destaques',
             'category' 	  => 'pa-adventista',
             'post_types'  => ['post', 'page'],

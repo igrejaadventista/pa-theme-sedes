@@ -14,7 +14,7 @@ class PATwitterFeature extends Block {
     public function __construct() {
 		// Set block settings
         parent::__construct([
-            'title' 	  => 'Twitter - Feature',
+            'title' 	  => 'IASD - Twitter - Feature',
             'description' => 'Twitter Widget',
             'category' 	  => 'pa-adventista',
             'post_types'  => ['post', 'page'],

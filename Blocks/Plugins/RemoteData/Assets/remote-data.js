@@ -12,6 +12,7 @@
 			'click [data-action="refresh"]': 		 'fetch',
 			'click [data-action="add-taxonomy"]': 	 'onClickAddTaxonomy',
 			'click [data-action="remove-taxonomy"]': 'onClickRemoveTaxonomy',
+			'click [data-action="manual-new-post"]': 'onClickAddManualPost',
 		},
 		
 		/**
@@ -57,6 +58,15 @@
 		 */
 		$valuesInput() {
 			return this.$control().find('[data-values]');
+		},
+
+		/**
+		 * Get jQuery values input object
+		 *
+		 * @return {jQuery} jQuery values input object
+		 */
+		$manualInput() {
+			return this.$control().find('[data-manual]');
 		},
 
 		/**
@@ -263,6 +273,14 @@
 				this.sortValues();
 			}
 			else {
+				if ($li[0].hasAttribute('data-manual')) {
+					const manualAttr = JSON.parse(this.$manualInput().val());
+					const manualId = $li.data('id');
+					const manualFilterId = manualAttr.filter(obj => obj.id !== manualId);
+
+					this.$manualInput().val(JSON.stringify(manualFilterId));
+				}
+				
 				this.$choicesList().find(`[data-id="${$li.data('id')}"]`).removeClass('disabled');
 
 				$li.remove();
@@ -473,9 +491,15 @@
 			const stickyItems = this.stickyItems();
 			let list = '';
 			let stickyList = '';
+			// check if value is empty
+			const stickyManual = this.$manualInput().val().length ? JSON.parse(this.$manualInput().val()) : [];
+			// merge data from api and manual data
+			const mergeItems = [].concat(data, stickyManual);
 			
-			data.forEach(element => {
-				let content = `<li data-id="${acf.escAttr(element.id)}" data-date="${acf.escAttr(element.date)}"><span class="acf-rel-item">`;
+			mergeItems.forEach(element => {
+				
+				let content = `<li data-id="${acf.escAttr(element.id)}" data-date="${acf.escAttr(element.date)}"`;
+				content += `${element.id.toString().startsWith('m') ? ' data-manual' : ''}><span class="acf-rel-item">`;
 
 				if(sticky)
 					content += '<a href="#" class="acf-icon -pin small dark acf-js-tooltip" data-action="sticky" title="Fixar/Desafixar item"></a>';
@@ -483,6 +507,8 @@
 				if(element.hasOwnProperty('featured_media_url')) {
 					if(element.featured_media_url.hasOwnProperty('pa-block-preview'))
 						content += `<img src="${element.featured_media_url['pa-block-preview']}" />`;
+					else if(element.featured_media_url.hasOwnProperty('pa-block-render'))
+						content += `<img src="${element.featured_media_url['pa-block-render']}" />`;
 				}
 				
 				content += `${acf.escHtml(element.title.rendered)}</span></li>`;
@@ -609,6 +635,80 @@
 			this.$valuesInput().val(JSON.stringify(sortedValues));
 			this.$stickyInput().val(this.$stickyInput().val().replace(/(^\,+|\,+$)/mg, ''));
 			this.set('sticky', this.$stickyInput().val());
+		},
+
+		/**
+		 * 
+		 */
+		onClickAddManualPost(e, $el) {
+			// console.log(e);
+			var $modal = this.$control().find('.widgets-acf-modal.-fields');
+			// Open modal
+			modal.open($modal, {
+				title: 'Manual',
+				onOpen: () => {
+					var $modalHeader = $modal.find('.widgets-acf-modal-title');
+					$modalHeader.append('<button class="button button-primary button-sticky-add">Adicionar</button>');
+					var $modalHeaderButtonAdd = $modalHeader.find('button.button-sticky-add');
+
+					// get existing input value data
+					// var $existingData = acf.getField('field_6074bcb2fba5c').val();
+					var $existingData = this.$manualInput().val();
+					// parse data
+					var $newData = $existingData.length ? JSON.parse($existingData) : [];
+
+					// var $existingSticky = acf.getField('field_6074bcb2fba5c').val();
+					// var $existingSticky = $('input[name="acf[field_6074bcb2fba5c][sticky]"]');
+					var $existingSticky = this.$stickyInput();
+
+					// push new data to $newData
+					$modalHeaderButtonAdd.click((e) => {
+						// iterate fields and get fields values
+						// $modal.find('.acf-fields > div').map(function( i, el ) {
+						// 	console.log(el);
+						// 	// get dynamic fields key
+						// });
+
+						// get acf fields inputs
+						var $title = acf.getField('field_60a2d5646e5d7').val();
+						var $thumbnail = $modal.find('.acf-field[data-name="thumbnail"]').find('img').attr('src');
+						var $except = acf.getField('field_60a81bd49d958').val();
+
+						var createNewFields = {
+							id: `m${e.timeStamp}`,
+							date: "2021-02-11T14:58:01",
+							// date: Date.now(),
+							title: {
+								rendered: $title
+							},
+							featured_media_url: {
+								'pa-block-render': $thumbnail
+							},
+							content: {
+								rendered: $except
+							},
+						};
+
+						$newData.push(createNewFields); // append new data
+
+						// append updated values to input
+						this.$manualInput().val(JSON.stringify($newData));
+						// console.log($newData);
+
+						// this.walkChoices($newData);
+
+						// get current values and add new one
+						$existingSticky.val(`${$existingSticky.val()},${createNewFields.id}`);
+						// console.log($existingSticky.val());
+
+						this.set('sticky', this.$stickyInput().val());
+
+						this.fetch();
+					});
+				},
+				onClose: () => {
+				}
+			});
 		},
 
 		/**
@@ -772,6 +872,141 @@
 		},
 		
 	});
+
+	// Widgets Modal
+	//
+	window.modal = {
+        modals: [],
+        
+        // Open
+        open: function($target, args) {
+            var model = this;
+            
+            args = acf.parseArgs(args, {
+                title: '',
+                footer: false,
+                size: false,
+                destroy: false,
+                onOpen: false,
+                onClose: false,
+            });
+            
+            model.args = args;
+            
+            $target.addClass('-open');
+            
+            if(args.size)
+                $target.addClass('-' + args.size);
+            
+            if(!$target.find('> .widgets-acf-modal-wrapper').length)
+                $target.wrapInner('<div class="widgets-acf-modal-wrapper" />');
+            
+            if(!$target.find('> .widgets-acf-modal-wrapper > .widgets-acf-modal-content').length)
+                $target.find('> .widgets-acf-modal-wrapper').wrapInner('<div class="widgets-acf-modal-content" />');
+            
+            $target.find('> .widgets-acf-modal-wrapper').prepend('<div class="widgets-acf-modal-wrapper-overlay"></div><div class="widgets-acf-modal-title"><span class="title">' + args.title + '</span><button class="button button-secondary button-close">Cancelar</button></div>');
+            
+            $target.find('.widgets-acf-modal-title > .button-close').click(function(e) {
+                e.preventDefault();
+                model.close(args);
+            });
+            
+            if(args.footer) {
+                $target.find('> .widgets-acf-modal-wrapper').append('<div class="widgets-acf-modal-footer"><button class="button button-primary">' + args.footer + '</button></div>');
+                
+                $target.find('.widgets-acf-modal-footer > button').click(function(e){
+                    e.preventDefault();
+                    model.close(args);
+                });
+            }
+            
+            modal.modals.push($target);
+            
+            var $body = $('body');
+            
+            if(!$body.hasClass('widgets-acf-modal-opened')) {
+				var overlay = $('<div class="widgets-acf-modal-overlay" />');
+                
+				$body.addClass('widgets-acf-modal-opened').append(overlay);
+                
+                $body.find('.widgets-acf-modal-overlay').click(function(e) {
+                    e.preventDefault();
+                    model.close(model.args);
+                });
+                
+                $(window).keydown(function(e) {
+                    if(e.keyCode !== 27 || !$('body').hasClass('widgets-acf-modal-opened'))
+                        return;
+                    
+                    e.preventDefault();
+                    model.close(model.args);
+                });
+			}
+            
+            modal.multiple();
+            modal.onOpen($target, args);
+            
+            return $target;
+		},
+		
+        // Close
+		close: function(args) {
+            args = acf.parseArgs(args, {
+                destroy: false,
+                onClose: false,
+            });
+            
+            var $target = modal.modals.pop();
+			
+			$target.find('.widgets-acf-modal-wrapper-overlay').remove();
+			$target.find('.widgets-acf-modal-title').remove();
+			$target.find('.widgets-acf-modal-footer').remove();
+            
+			$target.removeAttr('style');
+            
+			//$target.removeClass('-open -small -medium -full');
+			$target.removeClass('-open');
+            
+            if(args.destroy)
+                $target.remove();
+                
+			if(!modal.modals.length) {
+				$('.widgets-acf-modal-overlay').remove();
+                $('body').removeClass('widgets-acf-modal-opened');
+			}
+            
+            modal.multiple();
+            modal.onClose($target, args);
+		},
+        
+        // Multiple
+        multiple: function() {
+            var last = modal.modals.length - 1;
+            
+            $.each(modal.modals, function(i) {
+                if(last == i) {
+                    $(this).removeClass('widgets-acf-modal-sub').css('margin-left', '');
+                    return;
+                }
+                
+                $(this).addClass('widgets-acf-modal-sub').css('margin-left',  - (500 / (i+1)));
+			});
+        },
+        
+        onOpen: function($target, args) {
+            if(!args.onOpen || !(args.onOpen instanceof Function))
+                return;
+            
+            args.onOpen($target);
+        },
+        
+        onClose: function($target, args) {
+            if(!args.onClose || !(args.onClose instanceof Function))
+                return;
+            
+            args.onClose($target);
+        }
+    };  
 	
 	acf.registerFieldType(Field);
 })(jQuery);
