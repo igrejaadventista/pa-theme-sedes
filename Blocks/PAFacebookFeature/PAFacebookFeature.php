@@ -3,7 +3,6 @@
 namespace Blocks\PAFacebookFeature;
 
 use Blocks\Block;
-use Blocks\Fields\Source;
 use WordPlate\Acf\Fields\Text;
 use WordPlate\Acf\Fields\Url;
 
