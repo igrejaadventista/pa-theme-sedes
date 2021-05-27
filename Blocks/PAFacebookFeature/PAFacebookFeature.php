@@ -15,7 +15,7 @@ class PAFacebookFeature extends Block {
     public function __construct() {
 		// Set block settings
         parent::__construct([
-            'title' 	  => 'Facebook - Feature',
+            'title' 	  => 'IASD - Facebook - Feature',
             'description' => 'Facebook Widget',
             'category' 	  => 'pa-adventista',
             'post_types'  => ['post', 'page'],
