@@ -13,7 +13,7 @@ use WordPlate\Acf\Location;
 class Block extends AbstractBladeBlock {
 
 	public function __construct(array $settings) {
-		\add_filter('acf/register_block_type_args', array($this, 'registerExample'));
+		\add_filter('acf/register_block_type_args', array($this, 'additionalArgs'));
 
 		parent::__construct($settings);
 	}
@@ -33,9 +33,12 @@ class Block extends AbstractBladeBlock {
 		]))->toArray();
 	}
 
-	function registerExample(array $args) {
-		if($args['name'] == "acf/$this->name")
+	function additionalArgs(array $args)
+	{
+		if ($args['name'] == "acf/$this->name") {
 			$args['example'] = $this->setExample();
+			$args['parent'] = ['core/column'];
+		}
 
 		return $args;
 	}
