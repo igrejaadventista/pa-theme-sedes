@@ -688,79 +688,74 @@
 			modal.open($modal, {
 				title: 'Manual',
 				onOpen: () => {
-					var $modalHeader = $modal.find('.widgets-acf-modal-title');
-					$modalHeader.append('<button class="button button-primary button-sticky-add" data-name="manualSubmit">Adicionar</button>');
-					var $modalHeaderButtonAdd = $modalHeader.find('[data-name="manualSubmit"]');
+					let modalHeader = $modal.find('.widgets-acf-modal-title');
+					modalHeader.append('<button class="button button-primary button-sticky-add" data-name="manualSubmit">Adicionar</button>');
+					let buttonAdd = modalHeader.find('[data-name="manualSubmit"]');
+
+					// remove alert
+					this.$alertValidation().parent().removeClass('show');
+					this.$alertValidation().remove();
 
 					// get existing input value data
-					var $existingData = this.$manualInput().val();
+					let currentData = this.$manualInput().val();
 					// check if value has length
-					var $newData = $existingData.length ? JSON.parse($existingData) : [];
-					var $existingSticky = this.$stickyInput();
+					let newData = currentData.length ? JSON.parse(currentData) : [];
+					let existingSticky = this.$stickyInput();
 
 					// clear fields
 					this.$acfInputName('titulo').val('');
 					this.$acfInputName('thumbnail', '[data-name=remove]').click();
 					this.$acfInputName('excerpt', 'textarea').val('');
 
-					// push new data to $newData
-					$modalHeaderButtonAdd.click((e) => {
+					buttonAdd.click((e) => {
 						// retrieves acf fields from modal
-						var $title = this.$acfInputName('titulo').val();
-						var $thumbnail = this.$acfInputName('thumbnail', 'img').attr('src');
-						var $except = this.$acfInputName('excerpt', 'textarea').val();
+						let title = this.$acfInputName('titulo').val();
+						let thumbnail = this.$acfInputName('thumbnail', 'img').attr('src');
+						let content = this.$acfInputName('excerpt', 'textarea').val();
 
 						// alert component
 						this.$setAlertValidation();
 
 						// validate fields
-						if ($title === '') {
+						if ('' === title) {
 							this.$alertValidation().find('span').text('Título é obrigatório.');
 							return false;
 						}
-						if ($thumbnail === '') {
+						if ('' === thumbnail) {
 							this.$alertValidation().find('span').text('Tumbnail é obrigatório.');
 							return false;
 						}
-						if ($except === '') {
+						if ('' === content) {
 							this.$alertValidation().find('span').text('Resumo é obrigatório.');
 							return false;
 						}
 
-						// new data
-						var createNewFields = {
+						let createNewFields = {
 							id: `m${e.timeStamp}`,
 							date: new Date().toISOString(),
 							title: {
-								rendered: $title
+								rendered: title
 							},
 							featured_media_url: {
-								'pa_block_render': $thumbnail
+								'pa_block_render': thumbnail
 							},
 							content: {
-								rendered: $except
+								rendered: content
 							},
 						};
 
-						$newData.push(createNewFields);
+						newData.push(createNewFields);
 
 						// append updated values to input
-						this.$manualInput().val(JSON.stringify($newData));
+						this.$manualInput().val(JSON.stringify(newData));
 
 						// get current values and add new one
-						$existingSticky.val(`${$existingSticky.val()},${createNewFields.id}`);
+						existingSticky.val(`${existingSticky.val()},${createNewFields.id}`);
 
 						this.set('sticky', this.$stickyInput().val());
-
 						this.fetch();
-						// close modal on success
 						modal.close();
 					});
-				},
-				onClose: () => {
-					// remove alert
-					this.$alertValidation().parent().removeClass('show');
-					this.$alertValidation().remove();
 				}
 			});
 		},
@@ -774,6 +769,10 @@
 		onEditManual(e, $el) {
 			var $modal = this.$control().find('.widgets-acf-modal.-fields');
 
+			// remove alert
+			this.$alertValidation().parent().removeClass('show');
+			this.$alertValidation().remove();
+
 			// get current item id
 			var item_ID = $el.parent().attr('data-id');
 
@@ -781,57 +780,71 @@
 				title: 'Editar',
 				onOpen: () => {
 					// add header button action
-					var $modalHeader = $modal.find('.widgets-acf-modal-title');
-					$modalHeader.append('<button class="button button-primary button-sticky-add" data-name="editSubmit">Conlcuir</button>');
-					var $modalHeaderButtonEdit = $modalHeader.find('[data-name="editSubmit"]');
+					let modalHeader = $modal.find('.widgets-acf-modal-title');
+					modalHeader.append('<button class="button button-primary button-sticky-add" data-name="editSubmit">Conlcuir</button>');
+					let buttonEdit = modalHeader.find('[data-name="editSubmit"]');
 
-					// get current item object
-					var editData = JSON.parse(this.$manualInput().val());
+					// get original data
+					let originalData = JSON.parse(this.$manualInput().val());
+
+					// get current item object by id
+					let editData = JSON.parse(this.$manualInput().val());
 					editData, editIndex = editData.findIndex(obj => obj.id == item_ID);
 
-					// update field value
+					// fill current fields
 					this.$acfInputName('titulo').val(editData[editIndex].title.rendered);
 					this.$acfInputName('thumbnail', 'img').attr('src', editData[editIndex].featured_media_url.pa_block_render);
+					this.$acfInputName('thumbnail', '.acf-image-uploader').addClass('has-value');
 					this.$acfInputName('excerpt', 'textarea').val(editData[editIndex].content.rendered);
 
-					$modalHeaderButtonEdit.click((e) => {
-						const $$title = this.$acfInputName('titulo').val();
-						const $$thumbnail = this.$acfInputName('thumbnail', 'img').attr('src');
-						const $$content = this.$acfInputName('excerpt', 'textarea').val();
+					buttonEdit.click(() => {
+						let title = this.$acfInputName('titulo').val();
+						let thumbnail = this.$acfInputName('thumbnail', 'img').attr('src');
+						let content = this.$acfInputName('excerpt', 'textarea').val();
 
 						// alert component
 						this.$setAlertValidation();
 
-						// // validate fields
-						// if ($$title === '') {
-						// 	this.$alertValidation().find('span').text('Título é obrigatório.');
-						// 	return false;
-						// }
-						// if ($$thumbnail === '') {
-						// 	this.$alertValidation().find('span').text('Tumbnail é obrigatório.');
-						// 	return false;
-						// }
-						// if ($$content === '') {
-						// 	this.$alertValidation().find('span').text('Resumo é obrigatório.');
-						// 	return false;
-						// }
+						// validate fields
+						if ('' === title) {
+							this.$alertValidation().find('span').text('Título é obrigatório.');
+							return false;
+						}
+						if ('' === thumbnail) {
+							this.$alertValidation().find('span').text('Tumbnail é obrigatório.');
+							return false;
+						}
+						if ('' === content) {
+							this.$alertValidation().find('span').text('Resumo é obrigatório.');
+							return false;
+						}
 
-						// fields to update
-						editData[editIndex].title.rendered = $$title;
-						editData[editIndex].featured_media_url.pa_block_render = $$thumbnail;
-						editData[editIndex].content.rendered = $$content;
+						// update fields
+						editData[editIndex].title.rendered = title;
+						editData[editIndex].featured_media_url.pa_block_render = thumbnail;
+						editData[editIndex].content.rendered = content;
 
-						console.log('render: ', editData[editIndex]);
+						let updatedData = editData;
 
-						this.fetch();
-						// close modal on success
+						// check if objects is iqual
+						const objectsEqual = (o1, o2) => {
+							return typeof o1 === 'object' && Object.keys(o1).length > 0 
+							? Object.keys(o1).length === Object.keys(o2).length 
+							&& Object.keys(o1).every(p => objectsEqual(o1[p], o2[p])) : o1 === o2;
+						}
+
+						let compare = objectsEqual(originalData, updatedData);
+						if (!compare) {
+							// append updated values to input
+							this.$manualInput().val(JSON.stringify(updatedData));
+
+							// this.set('sticky', this.$stickyInput().val());
+							this.fetch();
+							modal.close();
+						};
+
 						modal.close();
 					});
-				},
-				onClose: () => {
-					// remove alert
-					this.$alertValidation().parent().removeClass('show');
-					this.$alertValidation().remove();
 				}
 			});
 		},
