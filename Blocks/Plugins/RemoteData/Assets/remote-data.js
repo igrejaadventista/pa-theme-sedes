@@ -765,6 +765,12 @@
 			});
 		},
 
+		/**
+		 * Edit manual (local) items
+		 * 
+		 * @param {*} e 
+		 * @param {*} $el 
+		 */
 		onEditManual(e, $el) {
 			var $modal = this.$control().find('.widgets-acf-modal.-fields');
 
@@ -777,18 +783,56 @@
 					// add header button action
 					var $modalHeader = $modal.find('.widgets-acf-modal-title');
 					$modalHeader.append('<button class="button button-primary button-sticky-add" data-name="editSubmit">Conlcuir</button>');
+					var $modalHeaderButtonEdit = $modalHeader.find('[data-name="editSubmit"]');
 
-					// get values to edit
-					let $editData = JSON.parse(this.$manualInput().val());
-					let $editItem = $editData.find(i => i.id == item_ID);
-					console.log($editItem);
+					// get current item object
+					var editData = JSON.parse(this.$manualInput().val());
+					editData, editIndex = editData.findIndex(obj => obj.id == item_ID);
 
-					// populate fields
-					this.$acfInputName('titulo').val($editItem.title.rendered);
-					this.$acfInputName('thumbnail', '.acf-image-uploader').addClass('has-value');
-					this.$acfInputName('thumbnail', 'img').attr('src', $editItem.featured_media_url.pa_block_render);
-					this.$acfInputName('excerpt', 'textarea').val($editItem.content.rendered);
+					// update field value
+					this.$acfInputName('titulo').val(editData[editIndex].title.rendered);
+					this.$acfInputName('thumbnail', 'img').attr('src', editData[editIndex].featured_media_url.pa_block_render);
+					this.$acfInputName('excerpt', 'textarea').val(editData[editIndex].content.rendered);
+
+					$modalHeaderButtonEdit.click((e) => {
+						const $$title = this.$acfInputName('titulo').val();
+						const $$thumbnail = this.$acfInputName('thumbnail', 'img').attr('src');
+						const $$content = this.$acfInputName('excerpt', 'textarea').val();
+
+						// alert component
+						this.$setAlertValidation();
+
+						// // validate fields
+						// if ($$title === '') {
+						// 	this.$alertValidation().find('span').text('Título é obrigatório.');
+						// 	return false;
+						// }
+						// if ($$thumbnail === '') {
+						// 	this.$alertValidation().find('span').text('Tumbnail é obrigatório.');
+						// 	return false;
+						// }
+						// if ($$content === '') {
+						// 	this.$alertValidation().find('span').text('Resumo é obrigatório.');
+						// 	return false;
+						// }
+
+						// fields to update
+						editData[editIndex].title.rendered = $$title;
+						editData[editIndex].featured_media_url.pa_block_render = $$thumbnail;
+						editData[editIndex].content.rendered = $$content;
+
+						console.log('render: ', editData[editIndex]);
+
+						this.fetch();
+						// close modal on success
+						modal.close();
+					});
 				},
+				onClose: () => {
+					// remove alert
+					this.$alertValidation().parent().removeClass('show');
+					this.$alertValidation().remove();
+				}
 			});
 		},
 
