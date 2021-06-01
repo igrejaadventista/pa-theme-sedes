@@ -14,6 +14,32 @@
 	top: -38px;
 }
 
+.acf-notice-render.show {
+	margin-bottom: 45px;
+}
+
+.acf-notice-render .acf-notice {
+	padding: 8px 10px !important;
+}
+
+.acf-notice-render .alert-content {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.acf-notice-render .alert-content button,
+.acf-field-remote-data .sticky-list button.editManualButton {
+	border: 0;
+	background: none;
+	font-size: 20px;
+	cursor: pointer;
+}
+
+.acf-notice-render .alert-content button:active {
+	color: inherit;
+}
+
 .acf-remote-data.acf-relationship .action-toolbar button {
 	cursor: pointer;
 	padding: 7px 10px;
@@ -24,7 +50,18 @@
 	border: 0;
 }
 
-.acf-remote-data.acf-relationship .action-toolbar button.buttonUpdateTaxonomies {
+.acf-field-remote-data .sticky-list button.editManualButton {
+	min-width: 45px;
+	width: 45px;
+}
+
+.acf-field-remote-data .sticky-list button.editManualButton:hover svg {
+	stroke: #0073aa;
+}
+
+.acf-remote-data.acf-relationship
+	.action-toolbar
+	button.buttonUpdateTaxonomies {
 	background: #007cba;
 	color: #fff;
 }
@@ -32,8 +69,8 @@
 .acf-remote-data.acf-relationship .action-toolbar button:active {
 	color: inherit;
 	-webkit-transform: scale(0.96);
-    -o-transform: scale(0.96);
-    transform: scale(0.96);
+	-o-transform: scale(0.96);
+	transform: scale(0.96);
 }
 
 .acf-remote-data .selection .choices {

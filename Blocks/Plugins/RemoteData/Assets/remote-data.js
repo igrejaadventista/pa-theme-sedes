@@ -13,6 +13,8 @@
 			'click [data-action="add-taxonomy"]': 	 'onClickAddTaxonomy',
 			'click [data-action="remove-taxonomy"]': 'onClickRemoveTaxonomy',
 			'click [data-action="manual-new-post"]': 'onClickAddManualPost',
+			'click [data-action="modal-alert-dismiss"]': 'onCloseModalDismiss',
+			'click [data-action="edit-manual"]': 'onEditManual',
 		},
 		
 		/**
@@ -67,6 +69,36 @@
 		 */
 		$manualInput() {
 			return this.$control().find('[data-manual]');
+		},
+
+		/**
+		 * Search for ACF fields using custom parameters
+		 * 
+		 * @param {*} slug name of field slug
+		 * @param {*} el dom elements
+		 * 
+		 * @returns {string}
+		 */
+		$acfInputName(slug, el = 'input') {
+			return this.$control().find('.acf-fields').find('[data-name=' + slug + ']').find(el);
+		},
+
+		/**
+		 * Validate individual fields on modal
+		 * 
+		 * @returns 
+		 */
+		$alertValidation() {
+			return this.$control().find('.widgets-acf-modal').find('[data-name="acf-modal-alert"]');
+		},
+
+		/**
+		 * Set alert component to the modal validation
+		 * 
+		 * @returns
+		 */
+		$setAlertValidation() {
+			return this.$control().find('.acf-notice-render').addClass('show').html('<div class="acf-notice -error acf-error-message" data-name="acf-modal-alert"><div class="alert-content"><span></span><button type="button" data-action="modal-alert-dismiss" aria-label="Fechar">&times;</button></div></div>');
 		},
 
 		/**
@@ -350,6 +382,13 @@
 			const onComplete = () => {
 				this.set('loading', false);
 				$loading.remove();
+
+				// check if has manual values
+				let hasManualData = JSON.parse(this.$manualInput().val());
+				if (hasManualData.length) {
+					// add edit button to manual lists
+					this.$stickyList().find('li[data-manual]').append('<button class="editManualButton" type="button" data-action="edit-manual" aria-label="Editar"><svg viewBox="0 0 24 24" width="10" height="10" stroke="currentColor" aria-label="hidden" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg></button>');
+				}
 			};
 			
 			const onSuccess = (json) => {
@@ -398,7 +437,7 @@
 				if(element.hasOwnProperty('featured_media_url')) {
 					// Delete all except pa-block-render
 					Object.keys(element.featured_media_url).forEach((item) => {
-						if(item != 'pa-block-render') 
+						if(item != 'pa_block_render') 
 							delete element.featured_media_url[item];
 					});
 				}
@@ -507,8 +546,8 @@
 				if(element.hasOwnProperty('featured_media_url')) {
 					if(element.featured_media_url.hasOwnProperty('pa-block-preview'))
 						content += `<img src="${element.featured_media_url['pa-block-preview']}" />`;
-					else if(element.featured_media_url.hasOwnProperty('pa-block-render'))
-						content += `<img src="${element.featured_media_url['pa-block-render']}" />`;
+					else if(element.featured_media_url.hasOwnProperty('pa_block_render'))
+						content += `<img src="${element.featured_media_url['pa_block_render']}" />`;
 				}
 				
 				content += `${acf.escHtml(element.title.rendered)}</span></li>`;
@@ -638,77 +677,130 @@
 		},
 
 		/**
+		 * Add manual (local) items
 		 * 
+		 * @param {*} e 
+		 * @param {*} $el 
 		 */
 		onClickAddManualPost(e, $el) {
-			// console.log(e);
 			var $modal = this.$control().find('.widgets-acf-modal.-fields');
 			// Open modal
 			modal.open($modal, {
 				title: 'Manual',
 				onOpen: () => {
 					var $modalHeader = $modal.find('.widgets-acf-modal-title');
-					$modalHeader.append('<button class="button button-primary button-sticky-add">Adicionar</button>');
-					var $modalHeaderButtonAdd = $modalHeader.find('button.button-sticky-add');
+					$modalHeader.append('<button class="button button-primary button-sticky-add" data-name="manualSubmit">Adicionar</button>');
+					var $modalHeaderButtonAdd = $modalHeader.find('[data-name="manualSubmit"]');
 
 					// get existing input value data
-					// var $existingData = acf.getField('field_6074bcb2fba5c').val();
 					var $existingData = this.$manualInput().val();
-					// parse data
+					// check if value has length
 					var $newData = $existingData.length ? JSON.parse($existingData) : [];
-
-					// var $existingSticky = acf.getField('field_6074bcb2fba5c').val();
-					// var $existingSticky = $('input[name="acf[field_6074bcb2fba5c][sticky]"]');
 					var $existingSticky = this.$stickyInput();
+
+					// clear fields
+					this.$acfInputName('titulo').val('');
+					this.$acfInputName('thumbnail', '[data-name=remove]').click();
+					this.$acfInputName('excerpt', 'textarea').val('');
 
 					// push new data to $newData
 					$modalHeaderButtonAdd.click((e) => {
-						// iterate fields and get fields values
-						// $modal.find('.acf-fields > div').map(function( i, el ) {
-						// 	console.log(el);
-						// 	// get dynamic fields key
-						// });
+						// retrieves acf fields from modal
+						var $title = this.$acfInputName('titulo').val();
+						var $thumbnail = this.$acfInputName('thumbnail', 'img').attr('src');
+						var $except = this.$acfInputName('excerpt', 'textarea').val();
 
-						// get acf fields inputs
-						var $title = acf.getField('field_60a2d5646e5d7').val();
-						var $thumbnail = $modal.find('.acf-field[data-name="thumbnail"]').find('img').attr('src');
-						var $except = acf.getField('field_60a81bd49d958').val();
+						// alert component
+						this.$setAlertValidation();
 
+						// validate fields
+						if ($title === '') {
+							this.$alertValidation().find('span').text('Título é obrigatório.');
+							return false;
+						}
+						if ($thumbnail === '') {
+							this.$alertValidation().find('span').text('Tumbnail é obrigatório.');
+							return false;
+						}
+						if ($except === '') {
+							this.$alertValidation().find('span').text('Resumo é obrigatório.');
+							return false;
+						}
+
+						// new data
 						var createNewFields = {
 							id: `m${e.timeStamp}`,
-							date: "2021-02-11T14:58:01",
-							// date: Date.now(),
+							date: new Date().toISOString(),
 							title: {
 								rendered: $title
 							},
 							featured_media_url: {
-								'pa-block-render': $thumbnail
+								'pa_block_render': $thumbnail
 							},
 							content: {
 								rendered: $except
 							},
 						};
 
-						$newData.push(createNewFields); // append new data
+						$newData.push(createNewFields);
 
 						// append updated values to input
 						this.$manualInput().val(JSON.stringify($newData));
-						// console.log($newData);
-
-						// this.walkChoices($newData);
 
 						// get current values and add new one
 						$existingSticky.val(`${$existingSticky.val()},${createNewFields.id}`);
-						// console.log($existingSticky.val());
 
 						this.set('sticky', this.$stickyInput().val());
 
 						this.fetch();
+						// close modal on success
+						modal.close();
 					});
 				},
 				onClose: () => {
+					// remove alert
+					this.$alertValidation().parent().removeClass('show');
+					this.$alertValidation().remove();
 				}
 			});
+		},
+
+		onEditManual(e, $el) {
+			var $modal = this.$control().find('.widgets-acf-modal.-fields');
+
+			// get current item id
+			var item_ID = $el.parent().attr('data-id');
+
+			modal.open($modal, {
+				title: 'Editar',
+				onOpen: () => {
+					// add header button action
+					var $modalHeader = $modal.find('.widgets-acf-modal-title');
+					$modalHeader.append('<button class="button button-primary button-sticky-add" data-name="editSubmit">Conlcuir</button>');
+
+					// get values to edit
+					let $editData = JSON.parse(this.$manualInput().val());
+					let $editItem = $editData.find(i => i.id == item_ID);
+					console.log($editItem);
+
+					// populate fields
+					this.$acfInputName('titulo').val($editItem.title.rendered);
+					this.$acfInputName('thumbnail', '.acf-image-uploader').addClass('has-value');
+					this.$acfInputName('thumbnail', 'img').attr('src', $editItem.featured_media_url.pa_block_render);
+					this.$acfInputName('excerpt', 'textarea').val($editItem.content.rendered);
+				},
+			});
+		},
+
+		/**
+		 * Dismiss modal validation alert
+		 * 
+		 * @param {*} e 
+		 * @param {*} $el 
+		 */
+		onCloseModalDismiss() {
+			this.$alertValidation().parent().removeClass('show');
+			this.$alertValidation().remove();
 		},
 
 		/**

@@ -192,7 +192,7 @@ if(!class_exists('RemoteData')):
 			<div <?php acf_esc_attr_e($atts); ?>>
 
 			<?php acf_hidden_input(array('name' => $field['name'] . "[data]", 'value' => isset($values['data']) ? $values['data'] : '', 'data-values' => '')); ?>
-			<?php acf_hidden_input(array('name' => $field['name'] . "[manual]", 'value' => isset($values['manual']) ? $values['manual'] : '', 'data-manual' => '')); ?>
+			<?php acf_hidden_input(array('name' => $field['name'] . "[manual]", 'value' => isset($values['manual']) ? $values['manual'] : [], 'data-manual' => '')); ?>
 			<?php acf_hidden_input(array('name' => $field['name'] . "[sticky]", 'value' => isset($values['sticky']) ? $values['sticky'] : 0, 'data-sticky' => '')); ?>
 
 			<div class="action-toolbar">
@@ -335,6 +335,7 @@ if(!class_exists('RemoteData')):
 					<div class="widgets-acf-modal -fields">
 						<div class="widgets-acf-modal-wrapper">
 							<div class="widgets-acf-modal-content">
+								<div class="acf-notice-render"></div>
 								<?php $this->render_field_block($field); ?>
 							</div>
 						</div>
