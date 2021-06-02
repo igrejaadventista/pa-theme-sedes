@@ -3,11 +3,13 @@
 namespace Blocks\PACategoriaFeature;
 
 use Blocks\Block;
-use WordPlate\Acf\Fields\Relationship;
-use WordPlate\Acf\Fields\Select;
+use WordPlate\Acf\Fields\Checkbox;
+use WordPlate\Acf\Fields\Radio;
+use WordPlate\Acf\Fields\Repeater;
 use WordPlate\Acf\Fields\Taxonomy;
 use WordPlate\Acf\Fields\Text;
-use WordPlate\Acf\Fields\Textarea;
+use WordPlate\Acf\Fields\TrueFalse;
+use WordPlate\Acf\Fields\Url;
 
 /**
  * PACategoriaFeature Carousel feature block
@@ -35,25 +37,24 @@ class PACategoriaFeature extends Block {
 	 * @return array Fields array
 	 */
 	protected function setFields(): array {
-		$categories    = \get_categories( [
-			'orderby' => 'name',
-			'order'   => 'ASC'
-		] );
-		$selectChoices = [];
-
-		if ( ! empty( $categories ) ):
-			foreach ( $categories as $category ):
-				$selectChoices[ $category->id ] = $category->name;
-			endforeach;
-		endif;
-
 		return
 			[
-				Text::make( 'Título', 'title' ),
-				Select::make( 'Selecionar categorias', 'categories' )
-				      ->choices( $selectChoices )
-				      ->returnFormat( 'array' )
-				      ->allowMultiple(),
+				Text::make( 'Título do bloco', 'title' ),
+				Repeater::make( 'Categorias', 'categories' )
+				        ->fields( [
+					        Text::make( 'Título do Item', 'itemTitle' ),
+					        Url::make( 'URL Link', 'url' ),
+					        TrueFalse::make( 'Opção de target do link', 'targetLink' )
+						        ->defaultValue(false)
+						        ->stylisedUi()
+						        ->required(),
+					        Text::make( 'Ícone', 'icon' ),
+				        ] )
+				        ->min( 1 )
+				        ->collapsed( 'name' )
+				        ->buttonLabel( 'Adicionar Categoria' )
+				        ->layout( 'row' )
+				        ->required(),
 			];
 	}
 
@@ -65,7 +66,7 @@ class PACategoriaFeature extends Block {
 	public function with(): array {
 		return [
 			'title'      => field( 'title' ),
-			'categories' => option( 'categories' ),
+			'categories' => field( 'categories' ),
 		];
 	}
 }
