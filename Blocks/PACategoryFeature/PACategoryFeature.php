@@ -1,9 +1,10 @@
 <?php
 
-namespace Blocks\PACategoriaFeature;
+namespace Blocks\PACategoryFeature;
 
 use Blocks\Block;
 use WordPlate\Acf\Fields\Checkbox;
+use WordPlate\Acf\Fields\Link;
 use WordPlate\Acf\Fields\Radio;
 use WordPlate\Acf\Fields\Repeater;
 use WordPlate\Acf\Fields\Taxonomy;
@@ -12,16 +13,16 @@ use WordPlate\Acf\Fields\TrueFalse;
 use WordPlate\Acf\Fields\Url;
 
 /**
- * PACategoriaFeature Carousel feature block
+ * PACategoryFeature Carousel feature block
  */
-class PACategoriaFeature extends Block {
+class PACategoryFeature extends Block {
 
 	public function __construct() {
 		// Set block settings
 		parent::__construct( [
-			'title'       => 'Categorias - Feature',
+			'title'       => 'IASD - Category - Feature',
 			'description' => 'Categorias',
-			'category'    => 'widgets',
+			'category'    => 'pa-adventista',
 			'post_types'  => [ 'post', 'page' ],
 			'keywords'    => [ 'category', 'select' ],
 			'icon'        => '<svg id="Icons" style="enable-background:new 0 0 32 32;" version="1.1" viewBox="0 0 32 32" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><style type="text/css">
@@ -55,6 +56,7 @@ class PACategoriaFeature extends Block {
 				        ->buttonLabel( 'Adicionar Categoria' )
 				        ->layout( 'row' )
 				        ->required(),
+				Link::make('Input da classe do ícone', 'iconLink'),
 			];
 	}
 

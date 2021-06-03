@@ -3,7 +3,7 @@
 namespace Blocks;
 
 use \Blocks\PACarouselFeature\PACarouselFeature;
-use \Blocks\PACategoriaFeature\PACategoriaFeature;
+use \Blocks\PACategoryFeature\PACategoryFeature;
 use Blocks\PAFacebookFeature\PAFacebookFeature;
 use Blocks\PATwitterFeature\PATwitterFeature;
 
@@ -37,7 +37,7 @@ class Blocks {
 			PACarouselFeature::class,
 			PATwitterFeature::class,
 			PAFacebookFeature::class,
-			PACategoriaFeature::class
+			PACategoryFeature::class
 		];
 	
 		// Merge registered blocks with new blocks
