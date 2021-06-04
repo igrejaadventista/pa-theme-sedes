@@ -227,7 +227,7 @@
 			this.set('limit', this.$limitInput().val());
 			this.set('sticky', this.$stickyInput().val());
 
-			// Clear searc field
+			// Clear search field
 			this.$searchInput().val('');
 
 			// Add sortable
@@ -307,8 +307,9 @@
 			else {
 				if ($li[0].hasAttribute('data-manual')) {
 					const manualAttr = JSON.parse(this.$manualInput().val());
+					// get sticky item id
 					const manualId = $li.data('id');
-					const manualFilterId = manualAttr.filter(obj => obj.id !== manualId);
+					const manualFilterId = manualAttr.filter(obj => obj.id != manualId);
 
 					this.$manualInput().val(JSON.stringify(manualFilterId));
 				}
@@ -384,10 +385,10 @@
 				$loading.remove();
 
 				// check if has manual values
-				let hasManualData = JSON.parse(this.$manualInput().val());
+				let hasManualData = this.$manualInput().val() !== '' ? JSON.parse(this.$manualInput().val()) : [];
 				if (hasManualData.length) {
 					// add edit button to manual lists
-					this.$stickyList().find('li[data-manual]').append('<button class="editManualButton" type="button" data-action="edit-manual" aria-label="Editar"><svg viewBox="0 0 24 24" width="10" height="10" stroke="currentColor" aria-label="hidden" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg></button>');
+					this.$stickyList().find('li[data-manual] > .acf-rel-item').append('<button class="editManualButton" type="button" data-action="edit-manual" aria-label="Editar" title="Editar"><svg viewBox="0 0 24 24" width="10" height="10" stroke="currentColor" aria-label="hidden" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg></button>');
 				}
 			};
 			
@@ -532,13 +533,12 @@
 			let stickyList = '';
 			// check if value is empty
 			const stickyManual = this.$manualInput().val().length ? JSON.parse(this.$manualInput().val()) : [];
+
 			// merge data from api and manual data
 			const mergeItems = [].concat(data, stickyManual);
-			
 			mergeItems.forEach(element => {
-				
 				let content = `<li data-id="${acf.escAttr(element.id)}" data-date="${acf.escAttr(element.date)}"`;
-				content += `${element.id.toString().startsWith('m') ? ' data-manual' : ''}><span class="acf-rel-item">`;
+					content += `${element.id.toString().startsWith('m') ? ' data-manual' : ''}><span class="acf-rel-item">`;
 
 				if(sticky)
 					content += '<a href="#" class="acf-icon -pin small dark acf-js-tooltip" data-action="sticky" title="Fixar/Desafixar item"></a>';
@@ -650,7 +650,12 @@
 		 */
 		sortValues() {
 			const results = this.get('results');
+			// api fields
 			const values = JSON.parse(this.$valuesInput().val());
+			// manual fields
+			const valuesManual = this.$manualInput().val() !== '' ? JSON.parse(this.$manualInput().val()) : [];
+			const valuesMerged = [].concat(values, valuesManual);
+
 			let sortedValues = [];
 
 			this.$stickyInput().val('');
@@ -661,7 +666,7 @@
 				if(typeof element.dataset.fromSearch != 'undefined')
 					elementValue = results.find(value => value.id == element.dataset.id);
 				else
-					elementValue = values.find(value => value.id == element.dataset.id);
+					elementValue = valuesMerged.find(value => value.id == element.dataset.id);
 
 				if(elementValue) {
 					sortedValues.push(elementValue);
@@ -669,10 +674,15 @@
 				}
 			});
 
+			// remote items
 			this.$valuesList().find('li').each((_, element) => sortedValues.push(values.find(value => value.id == element.dataset.id)));
 
 			this.$valuesInput().val(JSON.stringify(sortedValues));
+
+			// remove first comma from sticky items
 			this.$stickyInput().val(this.$stickyInput().val().replace(/(^\,+|\,+$)/mg, ''));
+			// this.$stickyInput().val(this.$stickyInput().val().substr(this.$stickyInput().val().indexOf(",") + 1));
+			
 			this.set('sticky', this.$stickyInput().val());
 		},
 
@@ -752,6 +762,9 @@
 						// get current values and add new one
 						existingSticky.val(`${existingSticky.val()},${createNewFields.id}`);
 
+						// remove first comma from sticky items
+						this.$stickyInput().val(this.$stickyInput().val().replace(/(^\,+|\,+$)/mg, ''));
+
 						this.set('sticky', this.$stickyInput().val());
 						this.fetch();
 						modal.close();
@@ -827,10 +840,10 @@
 						let updatedData = editData;
 
 						// check if objects is iqual
-						const objectsEqual = (o1, o2) => {
-							return typeof o1 === 'object' && Object.keys(o1).length > 0 
-							? Object.keys(o1).length === Object.keys(o2).length 
-							&& Object.keys(o1).every(p => objectsEqual(o1[p], o2[p])) : o1 === o2;
+						const objectsEqual = (oldValue, newValue) => {
+							return typeof oldValue === 'object' && Object.keys(oldValue).length > 0 
+							? Object.keys(oldValue).length === Object.keys(newValue).length 
+							&& Object.keys(oldValue).every(p => objectsEqual(oldValue[p], newValue[p])) : oldValue === newValue;
 						}
 
 						let compare = objectsEqual(originalData, updatedData);

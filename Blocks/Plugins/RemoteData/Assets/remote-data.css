@@ -29,7 +29,7 @@
 }
 
 .acf-notice-render .alert-content button,
-.acf-field-remote-data .sticky-list button.editManualButton {
+.acf-field-remote-data .sticky-list .editManualButton {
 	border: 0;
 	background: none;
 	font-size: 20px;
@@ -49,13 +49,19 @@
 	border: 0;
 }
 
-.acf-field-remote-data .sticky-list button.editManualButton {
+.acf-field-remote-data .sticky-list .editManualButton {
 	min-width: 45px;
 	width: 45px;
+	min-height: 8vh;
+
+	position: absolute;
+	right: 0;
+	z-index: 10;
 }
 
-.acf-field-remote-data .sticky-list button.editManualButton:hover svg {
-	stroke: #0073aa;
+.acf-field-remote-data .sticky-list .acf-rel-item:hover > .editManualButton svg {
+	color: #fff;
+	fill: #fff;
 }
 
 .acf-remote-data.acf-relationship
@@ -1825,8 +1831,10 @@ body.block-editor-page
 	.edit-post-layout
 	.widgets-acf-modal.-open
 	> .widgets-acf-modal-wrapper {
-	max-width: calc(100vw - 300px);
-	margin-left: 160px;
+	/* max-width: calc(100vw - 300px);
+	margin-left: 160px; */
+	max-width: calc(100vw - 600px);
+	margin-left: 300px;
 }
 
 body.block-editor-page

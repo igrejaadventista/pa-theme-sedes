@@ -190,9 +190,11 @@ if(!class_exists('RemoteData')):
             ?>
 
 			<div <?php acf_esc_attr_e($atts); ?>>
-
+			<!-- API Data -->
 			<?php acf_hidden_input(array('name' => $field['name'] . "[data]", 'value' => isset($values['data']) ? $values['data'] : '', 'data-values' => '')); ?>
-			<?php acf_hidden_input(array('name' => $field['name'] . "[manual]", 'value' => isset($values['manual']) ? $values['manual'] : [], 'data-manual' => '')); ?>
+			<!-- Manual Data -->
+			<?php acf_hidden_input(array('name' => $field['name'] . "[manual]", 'value' => isset($values['manual']) ? $values['manual'] : '', 'data-manual' => '')); ?>
+			<!-- Sticky List -->
 			<?php acf_hidden_input(array('name' => $field['name'] . "[sticky]", 'value' => isset($values['sticky']) ? $values['sticky'] : 0, 'data-sticky' => '')); ?>
 
 			<div class="action-toolbar">
