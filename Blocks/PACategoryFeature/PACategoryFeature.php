@@ -5,6 +5,7 @@ namespace Blocks\PACategoryFeature;
 use Blocks\Block;
 use WordPlate\Acf\Fields\Checkbox;
 use WordPlate\Acf\Fields\Link;
+use WordPlate\Acf\Fields\Message;
 use WordPlate\Acf\Fields\Radio;
 use WordPlate\Acf\Fields\Repeater;
 use WordPlate\Acf\Fields\Taxonomy;
@@ -56,7 +57,8 @@ class PACategoryFeature extends Block {
 				        ->buttonLabel( 'Adicionar Categoria' )
 				        ->layout( 'row' )
 				        ->required(),
-				Link::make('Input da classe do ícone', 'iconLink'),
+				Message::make('')
+					->message('<a href="https://fontawesome.com/v5.15/icons?d=gallery&p=2&m=free" target="_blank">Input da classe do ícone</a>'),
 			];
 	}
 
