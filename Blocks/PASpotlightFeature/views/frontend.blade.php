@@ -1,5 +1,5 @@
 @if(is_admin())
-	<img class="img-preview" src="{{ get_template_directory_uri() }}/Blocks/PACarouselFeature/preview.png"/>
+	<img class="img-preview" src="{{ get_template_directory_uri() }}/Blocks/PASpotlightFeature/preview.png"/>
 @else
 	@notempty($slides)
 	<div class="pa-widget pa-w-carousel-ministry col col-md-8 mb-5">
@@ -34,10 +34,10 @@
 				<div
 					class="pa-slider-controle d-flex justify-content-between justify-content-xl-start align-items-center mt-4">
 					<div data-glide-el="controls">
-					<span class="fa-stack" data-glide-dir="<">
-						<i class="fas fa-circle fa-stack-2x"></i>
-						<i class="icon fas fa-arrow-left fa-stack-1x"></i>
-					</span>
+						<span class="fa-stack" data-glide-dir="<">
+							<i class="fas fa-circle fa-stack-2x"></i>
+							<i class="icon fas fa-arrow-left fa-stack-1x"></i>
+						</span>
 					</div>
 
 					<div class="mx-2 pa-slider-bullet" data-glide-el="controls[nav]">
@@ -47,10 +47,10 @@
 					</div>
 
 					<div data-glide-el="controls">
-					<span class="fa-stack" data-glide-dir=">">
-						<i class="fas fa-circle fa-stack-2x"></i>
-						<i class="icon fas fa-arrow-right fa-stack-1x"></i>
-					</span>
+						<span class="fa-stack" data-glide-dir=">">
+							<i class="fas fa-circle fa-stack-2x"></i>
+							<i class="icon fas fa-arrow-right fa-stack-1x"></i>
+						</span>
 					</div>
 				</div>
 			</div>

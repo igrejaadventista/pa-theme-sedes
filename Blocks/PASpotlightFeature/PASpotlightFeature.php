@@ -42,22 +42,8 @@ class PASpotlightFeature extends Block {
 			[
 				Source::make(),
 				Text::make('Título', 'title'),
-				
 				Accordion::make('<span class="dashicons dashicons-admin-page"></span> Slides', 'slides_accordion'),
-				
-				Relationship::make('', 'slides')
-					->min(1)
-                    ->max(4)
-					->postTypes(['post'])
-					->filters([
-						'search',
-						'taxonomy'
-					])
-					->conditionalLogic([
-						ConditionalLogic::if('source')->equals('local')
-					]),
-                
-				Repeater::make('', 'custom_slides')
+				Repeater::make('', 'slides')
                     ->fields([
                         Image::make('Thumbnail', 'thumbnail'),
                         Text::make('Título', 'title'),
@@ -68,10 +54,7 @@ class PASpotlightFeature extends Block {
                     ->max(4)
                     ->buttonLabel('Adicionar slide')
                     ->collapsed('title')
-                    ->layout('block')
-					->conditionalLogic([
-						ConditionalLogic::if('source')->equals('custom')
-					]),
+                    ->layout('block'),
 			];
 	}
 	    
@@ -81,40 +64,9 @@ class PASpotlightFeature extends Block {
      * @return array
      */
     public function with(): array {
-		$slides = [];
-
-		if(field('source') == 'custom'):
-			$slides = field('custom_slides');
-		else:
-			$posts = field('slides');
-
-			if(!empty($posts)):
-				foreach($posts as $post):
-					$thumbnail = \get_post_thumbnail_id($post->ID);
-					$slide = [
-						'title' => $post->post_title,
-						'excerpt' => \get_the_excerpt($post->ID),
-						'link' => [
-							'url' => \get_permalink($post->ID),
-							'target' => '_self',
-						],
-					];
-
-					if(!empty($thumbnail)):
-						$slide['thumbnail'] = [
-							'url' => \wp_get_attachment_url($thumbnail),
-							'alt' => \get_post_meta($thumbnail, '_wp_attachment_image_alt', true),
-						];
-					endif;
-
-					$slides[] = $slide;
-				endforeach;
-			endif;
-		endif;
-
         return [
             'title'  => field('title'),
-			'slides' => $slides,
+			'slides' => field('slides'),
         ];
     }
 }
