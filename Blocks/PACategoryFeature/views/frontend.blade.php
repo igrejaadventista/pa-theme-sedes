@@ -1,7 +1,7 @@
 @if(is_admin())
 	<img class="img-preview" src="{{ get_template_directory_uri() }}/Blocks/PACategoryFeature/preview.png"/>
 @else
-	<div class="pa-widget pa-w-categories-feature">
+	<div class="pa-widget pa-w-categories-feature mb-5">
 		<h2>{{ $title ?? 'Widget - Category - Feature' }}</h2>
 		@notempty($categories)
 		<ul class="list-unstyled mt-4">
