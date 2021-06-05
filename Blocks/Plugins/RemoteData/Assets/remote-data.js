@@ -2,19 +2,19 @@
 	var Field = acf.Field.extend({
 		type: 'remote_data',
 		events: {
-			'keypress [data-filter]': 				 'onKeypressFilter',
-			'change [data-filter]': 				 'onChangeFilter',
-			'keyup [data-filter]': 					 'onChangeFilter',
-			'click [data-action="sticky"]': 		 'onClickSticky',
-			'click [data-action="clear"]': 			 'onClickClear',
-			'click .choices-list li': 				 'onClickAdd',
-			'click .-taxonomies button': 			 'onClickToggleTaxonomies',
-			'click [data-action="refresh"]': 		 'fetch',
-			'click [data-action="add-taxonomy"]': 	 'onClickAddTaxonomy',
-			'click [data-action="remove-taxonomy"]': 'onClickRemoveTaxonomy',
-			'click [data-action="manual-new-post"]': 'onClickAddManualPost',
-			'click [data-action="modal-alert-dismiss"]': 'onCloseModalDismiss',
-			'click [data-action="edit-manual"]': 'onEditManual',
+			'keypress [data-filter]': 				 	'onKeypressFilter',
+			'change [data-filter]': 				 	'onChangeFilter',
+			'keyup [data-filter]': 					 	'onChangeFilter',
+			'click [data-action="sticky"]': 		 	'onClickSticky',
+			'click [data-action="clear"]': 			 	'onClickClear',
+			'click .choices-list li': 				 	'onClickAdd',
+			'click .-taxonomies button': 			 	'onClickToggleTaxonomies',
+			'click [data-action="refresh"]': 		 	'fetch',
+			'click [data-action="add-taxonomy"]': 	 	'onClickAddTaxonomy',
+			'click [data-action="remove-taxonomy"]': 	'onClickRemoveTaxonomy',
+			'click [data-action="manual-new-post"]': 	'onClickAddManualPost',
+			'click [data-action="modal-alert-dismiss"]':'onCloseModalDismiss',
+			'click [data-action="edit-manual"]': 		'onEditManual',
 		},
 		
 		/**
@@ -69,6 +69,15 @@
 		 */
 		$manualInput() {
 			return this.$control().find('[data-manual]');
+		},
+
+		/**
+		 * Get jquery manual item new action button
+		 * 
+		 * @return {jQuery} jQuery values input object
+		 */
+		$manualAddActionButton() {
+			return this.$('[data-action="manual-new-post"]');
 		},
 
 		/**
@@ -529,14 +538,31 @@
 		 */
 		walkChoices(data, sticky = true) {
 			const stickyItems = this.stickyItems();
+
 			let list = '';
 			let stickyList = '';
-			// check if value is empty
-			const stickyManual = this.$manualInput().val().length ? JSON.parse(this.$manualInput().val()) : [];
 
+			// check if manual input has values
+			const stickyManual = this.$manualInput().val().length ? JSON.parse(this.$manualInput().val()) : [];
 			// merge data from api and manual data
-			const mergeItems = [].concat(data, stickyManual);
-			mergeItems.forEach(element => {
+			let mergeItems = [].concat(data, stickyManual);
+
+			let stickyOrder = [];
+			stickyItems.forEach(elms => {
+				const item = mergeItems.find(item => item.id == elms);
+
+				mergeItems = mergeItems.filter(function(value) { 
+					return value != item;
+				});
+
+				// check if array sticky input value is not empty
+				if(stickyItems[0] !== "")
+					stickyOrder.push(item);
+			});
+
+			// merge data objects if sticky values exists on input
+			let mergedData = stickyOrder.length ? [].concat(stickyOrder, mergeItems) : mergeItems;
+			mergedData.forEach(element => {
 				let content = `<li data-id="${acf.escAttr(element.id)}" data-date="${acf.escAttr(element.date)}"`;
 					content += `${element.id.toString().startsWith('m') ? ' data-manual' : ''}><span class="acf-rel-item">`;
 
@@ -556,6 +582,28 @@
 					stickyList += content;
 				else
 					list += content;
+			});
+			
+			// disable add manual item button if matches
+			let isExceeded = (value) => {
+				if(value)
+					this.$manualAddActionButton().addClass('disabled').attr('disabled', 'disabled').text('Quantidade atingido(a)!');
+				else
+					this.$manualAddActionButton().removeClass('disabled').removeAttr('disabled').text('Adicionar manual');
+			}
+
+			// check if limit filter exceeds
+			let validateLimit = true;
+			let currFilterLimit = parseInt(this.$limitInput().val());
+			let exceedLimit = stickyItems.length >= currFilterLimit ? true : false;
+				validateLimit = exceedLimit;
+
+			isExceeded(validateLimit);
+
+			// validate on qtd change
+			this.$limitInput().change((e) => {
+				let exceededLimit = stickyItems.length >= e.target.value ? true : false;
+				isExceeded(exceededLimit);
 			});
 			
 			return {
@@ -658,6 +706,7 @@
 
 			let sortedValues = [];
 
+			// clean sticky input
 			this.$stickyInput().val('');
 
 			this.$stickyList().find('li').each((_, element) => {
@@ -675,9 +724,9 @@
 			});
 
 			// remote items
-			this.$valuesList().find('li').each((_, element) => sortedValues.push(values.find(value => value.id == element.dataset.id)));
+			// this.$valuesList().find('li').each((_, element) => sortedValues.push(values.find(value => value.id == element.dataset.id)));
 
-			this.$valuesInput().val(JSON.stringify(sortedValues));
+			// this.$valuesInput().val(JSON.stringify(sortedValues));
 
 			// remove first comma from sticky items
 			this.$stickyInput().val(this.$stickyInput().val().replace(/(^\,+|\,+$)/mg, ''));
@@ -787,7 +836,7 @@
 			this.$alertValidation().remove();
 
 			// get current item id
-			var item_ID = $el.parent().attr('data-id');
+			var item_ID = $el.parent().parent().attr('data-id');
 
 			modal.open($modal, {
 				title: 'Editar',
