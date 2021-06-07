@@ -163,6 +163,16 @@
 		$listItems() {
 			return this.$valuesList().find('.acf-rel-item');
 		},
+
+		/**
+		 * Disable add manual item button if matches
+		 */
+		$isExceeded(value) {
+			if(value)
+				this.$manualAddActionButton().addClass('disabled').attr('disabled', 'disabled').text('Quantidade atingido(a)!');
+			else
+				this.$manualAddActionButton().removeClass('disabled').removeAttr('disabled').text('Adicionar manual');
+		},
 		
 		/**
 		 * Get jQuery item object by id
@@ -311,6 +321,22 @@
 
 			if(sticky) {
 				$li.appendTo(this.$stickyList());
+
+				// Update the list to validate the allowed quantity of items
+				if (e.type === 'click') {
+					let exceededLimit = (this.stickyItems().length + 1) >= parseInt(this.$limitInput().val()) ? true : false;
+					this.$isExceeded(exceededLimit);
+				}
+				// Update the list to validate the allowed quantity of items
+				this.fetch();
+
+				// validate on qtd change
+				// this.$limitInput().change((e) => {
+				// 	let exceededLimit = stickyItems.length >= e.target.value ? true : false;
+				// 	this.$isExceeded(exceededLimit);
+				// });
+
+
 				this.sortValues();
 			}
 			else {
@@ -583,14 +609,6 @@
 				else
 					list += content;
 			});
-			
-			// disable add manual item button if matches
-			let isExceeded = (value) => {
-				if(value)
-					this.$manualAddActionButton().addClass('disabled').attr('disabled', 'disabled').text('Quantidade atingido(a)!');
-				else
-					this.$manualAddActionButton().removeClass('disabled').removeAttr('disabled').text('Adicionar manual');
-			}
 
 			// check if limit filter exceeds
 			let validateLimit = true;
@@ -598,12 +616,12 @@
 			let exceedLimit = stickyItems.length >= currFilterLimit ? true : false;
 				validateLimit = exceedLimit;
 
-			isExceeded(validateLimit);
+			this.$isExceeded(validateLimit);
 
 			// validate on qtd change
 			this.$limitInput().change((e) => {
 				let exceededLimit = stickyItems.length >= e.target.value ? true : false;
-				isExceeded(exceededLimit);
+				this.$isExceeded(exceededLimit);
 			});
 			
 			return {

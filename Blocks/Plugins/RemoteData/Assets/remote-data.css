@@ -1067,12 +1067,12 @@ body.block-editor-page
 	margin-left: 160px;
 }
 
-body.block-editor-page
+/* body.block-editor-page
 	.edit-post-layout.is-sidebar-opened
 	.widgets-acf-modal.-open
 	> .widgets-acf-modal-wrapper {
 	max-width: calc(100vw - 440px);
-}
+} */
 
 body.block-editor-page.folded
 	.edit-post-layout
@@ -1850,12 +1850,12 @@ body.block-editor-page
 	margin-left: 300px;
 }
 
-body.block-editor-page
+/* body.block-editor-page
 	.edit-post-layout.is-sidebar-opened
 	.widgets-acf-modal.-open
 	> .widgets-acf-modal-wrapper {
 	max-width: calc(100vw - 440px);
-}
+} */
 
 body.block-editor-page.folded
 	.edit-post-layout
