@@ -268,7 +268,7 @@
 
 				this.$taxonomyRow().not(':first').each((index) => this.initializeTaxonomyFilters($(this.$taxonomyRow().get(index + 1))));
 
-				this.checkTaxonomyFilters();
+				// this.checkTaxonomyFilters();
 			}));
 			
 			// Bind "interacted with"
@@ -421,11 +421,13 @@
 			};
 			
 			const onSuccess = (json) => {
-				// No results
-				if(!json || !json.results || !json.results.length) {
-					// Add message
-					return this.$valuesList().append(`<li>${acf.__('No matches found')}</li>`);
-				}
+				console.log('JSON Response: ', json );
+
+				// Stop if No (local cpt data) results
+				// if(!json || !json.results || !json.results.length) {
+				// 	// Add message
+				// 	return this.$valuesList().append(`<li>${acf.__('No matches found')}</li>`);
+				// }
 
 				// Get new results
 				const html = this.walkChoices(json.results);
@@ -560,6 +562,10 @@
 
 			let list = '';
 			let stickyList = '';
+
+			console.log('Local Data CPT: ', data);
+			console.log( this.$limitInput().val() )
+			console.log( stickyItems )
 
 			// check if manual input has values
 			const stickyManual = this.$manualInput().val().length ? JSON.parse(this.$manualInput().val()) : [];
@@ -946,7 +952,7 @@
 			$row.insertBefore($el.parent()).slideDown();
 
 			this.initializeTaxonomyFilters($row, true);
-			this.checkTaxonomyFilters();
+			// this.checkTaxonomyFilters();
 		},
 
 		/**
@@ -969,7 +975,7 @@
 				});
 
 				this.fetch();
-				this.checkTaxonomyFilters();
+				// this.checkTaxonomyFilters();
 			});
 		},
 
@@ -1020,7 +1026,7 @@
 				
 				$selectTaxonomy.find(`option[value="${$selectTaxonomy.val()}"]`).attr('selected', true);
 				$selectTerms.val('').trigger('change');
-				this.checkTaxonomyFilters();
+				// this.checkTaxonomyFilters();
 			});
 
 			$selectTerms.on('change', () => this.fetch());

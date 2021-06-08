@@ -5,7 +5,6 @@ namespace Blocks\Plugins\RemoteData;
 // exit if accessed directly
 if (!defined('ABSPATH')) exit;
 
-
 // check if class already exists
 if (!class_exists('RemoteData')) :
 
@@ -15,29 +14,38 @@ if (!class_exists('RemoteData')) :
 	class RemoteData extends \acf_field
 	{
 
-		/*
-        *  __construct
-        *
-        *  This function will setup the field type data
-        *
-        *  @type	function
-        *  @date	5/03/2014
-        *  @since	5.0.0
-        *
-        *  @return	n/a
-        */
+		/**
+		 *  __construct
+		 *
+		 *  This function will setup the field type data
+		 *
+		 *  @type	function
+		 *  @date	5/03/2014
+		 *  @since	5.0.0
+		 *
+		 *  @return	n/a
+		 */
 		function __construct()
 		{
 			// name (string) Single word, no spaces. Underscores allowed
 			$this->name = 'remote_data';
 			// label (string) Multiple words, can include spaces, visible when selecting a field type
-			$this->label = __('Remote data', 'acf-rest');
+			$this->label = __('Objeto de posts Locais (Any CPT)', 'acf-rest');
 			// category (string) basic | content | choice | relational | jquery | layout | CUSTOM GROUP NAME
-			$this->category = 'choice';
+			$this->category = 'relational';
 			// defaults (array) Array of default settings which are merged into the field object. These are used later in settings
 			$this->defaults = array(
-				'sub_fields'	=> array(),
-				'endpoint' 		=> '',
+				'sub_fields'		=> array(),
+				'endpoint' 			=> '',
+
+
+				'post_type'			=> array(),
+				'taxonomy'			=> array(),
+				'min' 				=> 0,
+				'max' 				=> 0,
+				'filters'			=> array('search', 'post_type', 'taxonomy'),
+				'elements' 			=> array(),
+				'return_format'		=> 'object'
 			);
 			$this->have_rows = 'single';
 
@@ -56,61 +64,60 @@ if (!class_exists('RemoteData')) :
 			parent::__construct();
 		}
 
-		/*
-		*  input_admin_enqueue_scripts
-		*
-		*  description
-		*
-		*  @type	function
-		*  @date	16/12/2015
-		*  @since	5.3.2
-		*
-		*  @param	$post_id (int)
-		*  @return	$post_id (int)
-		*/
+		/**
+		 *  input_admin_enqueue_scripts
+		 *
+		 *  description
+		 *
+		 *  @type	function
+		 *  @date	16/12/2015
+		 *  @since	5.3.2
+		 *
+		 *  @param	$post_id (int)
+		 *  @return	$post_id (int)
+		 */
 		function input_admin_enqueue_scripts()
 		{
 			\wp_enqueue_style('acf-remote-data-css', get_template_directory_uri() . '/Blocks/Plugins/RemoteData/Assets/remote-data.css', false);
 			\wp_enqueue_script('acf-remote-data.js', get_template_directory_uri() . '/Blocks/Plugins/RemoteData/Assets/remote-data.js', ['jquery'], null, true);
 		}
 
-
-		/*
-        *  render_field_settings()
-        *
-        *  Create extra settings for your field. These are visible when editing a field
-        *
-        *  @type	action
-        *  @since	3.6
-        *  @date	23/01/13
-        *
-        *  @param	$field (array) the $field being edited
-        *  @return	n/a
-        */
+		/**
+		 *  render_field_settings()
+		 *
+		 *  Create extra settings for your field. These are visible when editing a field
+		 *
+		 *  @type	action
+		 *  @since	3.6
+		 *  @date	23/01/13
+		 *
+		 *  @param	$field (array) the $field being edited
+		 *  @return	n/a
+		 */
 		function render_field_settings($field)
 		{
 			$field['limit'] = empty($field['limit']) ? '' : $field['limit'];
 
 			acf_hidden_input(array('type' => 'hidden', 'name' => $field['prefix'] . '[sticky]', 'value' => '0'));
 
-			acf_render_field_setting($field, array(
-				'label'		   => __('Endpoint', 'acf-rest'),
-				'instructions' => __('Defina o endpoint de onde as informações serão buscadas', 'acf-rest'),
-				'type' 		   => 'url',
-				'name' 		   => 'endpoint',
-				'placeholder'  => 'https://website.com/wp-json/wp/v2/posts',
-				'required'	   => 1,
-			));
+			// acf_render_field_setting($field, array(
+			// 	'label'		   => __('Endpoint', 'acf-rest'),
+			// 	'instructions' => __('Defina o endpoint de onde as informações serão buscadas', 'acf-rest'),
+			// 	'type' 		   => 'url',
+			// 	'name' 		   => 'endpoint',
+			// 	'placeholder'  => 'https://website.com/wp-json/wp/v2/posts',
+			// 	'required'	   => 1,
+			// ));
 
 			acf_render_field_setting($field, array(
 				'label'			=> __('Quantidade', 'acf-rest'),
-				'instructions'	=> 'Quantidade de itens a ser retornado pela API',
+				'instructions'	=> 'Quantidade de itens a ser retornado',
 				'type'			=> 'number',
 				'name'			=> 'limit',
 				'min'			=> 1,
-				'max'			=> 100,
+				'max'			=> 100000,
 				'step'			=> 1,
-				'required'	    => 1,
+				'required'	    => 0,
 			));
 
 			$choices = [];
@@ -119,16 +126,28 @@ if (!class_exists('RemoteData')) :
 					$choices[$value] = $value;
 			endif;
 
+			// acf_render_field_setting($field, array(
+			// 	'label'			=> __('Campos', 'acf-rest'),
+			// 	'instructions'	=> 'Defina quais campos deverão ser retornados da API. Os campos id e title já são retornados automaticamente',
+			// 	'type'			=> 'select',
+			// 	'name'			=> 'fields',
+			// 	'choices'		=> $choices,
+			// 	'multiple'		=> 1,
+			// 	'ui'			=> 1,
+			// 	'allow_null'	=> 0,
+			// 	'placeholder'	=> __('Digite os nomes dos campos', 'acf-rest'),
+			// ));
+
 			acf_render_field_setting($field, array(
-				'label'			=> __('Campos', 'acf-rest'),
-				'instructions'	=> 'Defina quais campos deverão ser retornados da API. Os campos id e title já são retornados automaticamente',
+				'label'			=> __('Filter by Post Type', 'acf'),
+				'instructions'	=> '',
 				'type'			=> 'select',
-				'name'			=> 'fields',
-				'choices'		=> $choices,
+				'name'			=> 'post_type',
+				'choices'		=> acf_get_pretty_post_types(),
 				'multiple'		=> 1,
 				'ui'			=> 1,
-				'allow_null'	=> 0,
-				'placeholder'	=> __('Digite os nomes dos campos', 'acf-rest'),
+				'allow_null'	=> 1,
+				'placeholder'	=> __("All post types", 'acf'),
 			));
 
 			$taxonomies = get_taxonomies(['_builtin' => false], 'objects');
@@ -167,22 +186,46 @@ if (!class_exists('RemoteData')) :
 		<?php
 		}
 
-		/*
-        *  render_field()
-        *
-        *  Create the HTML interface for your field
-        *
-        *  @param	$field (array) the $field being rendered
-        *
-        *  @type	action
-        *  @since	3.6
-        *  @date	23/01/13
-        *
-        *  @return	n/a
-        */
+		/**
+		 *  render_field()
+		 *
+		 *  Create the HTML interface for your field
+		 *
+		 *  @param	$field (array) the $field being rendered
+		 *
+		 *  @type	action
+		 *  @since	3.6
+		 *  @date	23/01/13
+		 *
+		 *  @return	n/a
+		 */
 		function render_field($field)
 		{
 			$values = get_field($field['key']);
+
+			$post_type = acf_get_array($field['post_type']);
+			$filters = acf_get_array($field['filters']);
+
+			// post_type filter
+			if (in_array('post_type', $filters)) {
+
+				$filter_post_type_choices = array(
+					''	=> __('Select post type', 'acf')
+				) + acf_get_pretty_post_types($post_type);
+			}
+
+			// print_r($filter_post_type_choices);
+
+			print_r($field['value']);
+			// print_r($field['post_type']);
+
+			// get posts
+			// $posts = acf_get_posts(array(
+			// 	'post__in' => $field['value'],
+			// 	'post_type'	=> $field['post_type']
+			// ));
+
+			// var_dump( $posts );
 
 			// div attributes
 			$atts = array(
@@ -190,12 +233,13 @@ if (!class_exists('RemoteData')) :
 				'class'				=> "acf-remote-data acf-relationship {$field['class']}",
 				'data-s'			=> '',
 				'data-paged'		=> 1,
+				'data-min'			=> $field['min'],
+				'data-max'			=> $field['max'],
 			);
 
 		?>
-
 			<div <?php acf_esc_attr_e($atts); ?>>
-				<!-- API Data -->
+				<!-- Local CPT Data -->
 				<?php acf_hidden_input(array('name' => $field['name'] . "[data]", 'value' => isset($values['data']) ? $values['data'] : '', 'data-values' => '')); ?>
 				<!-- Manual Data -->
 				<?php acf_hidden_input(array('name' => $field['name'] . "[manual]", 'value' => isset($values['manual']) ? $values['manual'] : '', 'data-manual' => '')); ?>
@@ -203,7 +247,7 @@ if (!class_exists('RemoteData')) :
 				<?php acf_hidden_input(array('name' => $field['name'] . "[sticky]", 'value' => isset($values['sticky']) ? $values['sticky'] : 0, 'data-sticky' => '')); ?>
 
 				<div class="action-toolbar">
-					<button type="button" class="buttonAddManualPost disabled" data-action="manual-new-post" disabled>Adicionar manual</button>
+					<button type="button" class="buttonAddManualPost disabled_" data-action="manual-new-post" disabled_>Adicionar manual</button>
 
 					<button type="button" class="buttonUpdateTaxonomies acf-js-tooltip" data-action="refresh" title="Atualizar" aria-label="Atualizar">
 						<svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" aria-hidden="true" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -338,7 +382,6 @@ if (!class_exists('RemoteData')) :
 					// update prefix to allow for nested values
 					$sub_field['prefix'] = $field['name'];
 
-
 					// restore required
 					if ($field['required'])
 						$sub_field['required'] = 0;
@@ -355,22 +398,21 @@ if (!class_exists('RemoteData')) :
 				</div>
 			</div><!-- End: -->
 <?php
-
 		}
 
-		/*
-		*  load_field()
-		*
-		*  This filter is appied to the $field after it is loaded from the database
-		*
-		*  @type	filter
-		*  @since	3.6
-		*  @date	23/01/13
-		*
-		*  @param	$field - the field array holding all the field options
-		*
-		*  @return	$field - the field array holding all the field options
-		*/
+		/**
+		 *  load_field()
+		 *
+		 *  This filter is appied to the $field after it is loaded from the database
+		 *
+		 *  @type	filter
+		 *  @since	3.6
+		 *  @date	23/01/13
+		 *
+		 *  @param	$field - the field array holding all the field options
+		 *
+		 *  @return	$field - the field array holding all the field options
+		 */
 
 		function load_field($field)
 		{
@@ -384,18 +426,18 @@ if (!class_exists('RemoteData')) :
 			return $field;
 		}
 
-		/*
-		*  render_field_block
-		*
-		*  description
-		*
-		*  @type	function
-		*  @date	12/07/2016
-		*  @since	5.4.0
-		*
-		*  @param	$post_id (int)
-		*  @return	$post_id (int)
-		*/
+		/**
+		 *  render_field_block
+		 *
+		 *  description
+		 *
+		 *  @type	function
+		 *  @date	12/07/2016
+		 *  @since	5.4.0
+		 *
+		 *  @param	$post_id (int)
+		 *  @return	$post_id (int)
+		 */
 
 		function render_field_block($field)
 		{
@@ -421,18 +463,18 @@ if (!class_exists('RemoteData')) :
 		//     return json_decode($value['data'], true);
 		// }
 
-		/*
-		*  ajax_query
-		*
-		*  description
-		*
-		*  @type	function
-		*  @date	24/10/13
-		*  @since	5.0.0
-		*
-		*  @param	$post_id (int)
-		*  @return	$post_id (int)
-		*/
+		/**
+		 *  ajax_query
+		 *
+		 *  description
+		 *
+		 *  @type	function
+		 *  @date	24/10/13
+		 *  @since	5.0.0
+		 *
+		 *  @param	$post_id (int)
+		 *  @return	$post_id (int)
+		 */
 
 		function ajax_query()
 		{
@@ -448,18 +490,18 @@ if (!class_exists('RemoteData')) :
 		}
 
 
-		/*
-		*  get_ajax_query
-		*
-		*  This function will return an array of data formatted for use in a select2 AJAX response
-		*
-		*  @type	function
-		*  @date	15/10/2014
-		*  @since	5.0.9
-		*
-		*  @param	$options (array)
-		*  @return	(array)
-		*/
+		/**
+		 *  get_ajax_query
+		 *
+		 *  This function will return an array of data formatted for use in a select2 AJAX response
+		 *
+		 *  @type	function
+		 *  @date	15/10/2014
+		 *  @since	5.0.9
+		 *
+		 *  @param	$options (array)
+		 *  @return	(array)
+		 */
 
 		function get_ajax_query($options = array())
 		{
@@ -532,18 +574,18 @@ if (!class_exists('RemoteData')) :
 			return $response;
 		}
 
-		/*
-		*  ajax_query
-		*
-		*  description
-		*
-		*  @type	function
-		*  @date	24/10/13
-		*  @since	5.0.0
-		*
-		*  @param	$post_id (int)
-		*  @return	$post_id (int)
-		*/
+		/**
+		 *  ajax_query
+		 *
+		 *  description
+		 *
+		 *  @type	function
+		 *  @date	24/10/13
+		 *  @since	5.0.0
+		 *
+		 *  @param	$post_id (int)
+		 *  @return	$post_id (int)
+		 */
 
 		function ajax_search()
 		{
@@ -558,18 +600,18 @@ if (!class_exists('RemoteData')) :
 			acf_send_ajax_results($response);
 		}
 
-		/*
-		*  get_ajax_query
-		*
-		*  This function will return an array of data formatted for use in a select2 AJAX response
-		*
-		*  @type	function
-		*  @date	15/10/2014
-		*  @since	5.0.9
-		*
-		*  @param	$options (array)
-		*  @return	(array)
-		*/
+		/**
+		 *  get_ajax_query
+		 *
+		 *  This function will return an array of data formatted for use in a select2 AJAX response
+		 *
+		 *  @type	function
+		 *  @date	15/10/2014
+		 *  @since	5.0.9
+		 *
+		 *  @param	$options (array)
+		 *  @return	(array)
+		 */
 
 		function get_ajax_search($options = array())
 		{
