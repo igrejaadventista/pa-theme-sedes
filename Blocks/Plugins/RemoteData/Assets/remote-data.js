@@ -167,7 +167,7 @@
 		/**
 		 * Disable add manual item button if matches
 		 */
-		 $isExceeded(value) {
+		$isExceeded(value) {
 			if(value)
 				this.$manualAddActionButton().addClass('disabled').attr('disabled', 'disabled').text('Quantidade atingido(a)!');
 			else
@@ -246,7 +246,7 @@
 			this.set('limit', this.$limitInput().val());
 			this.set('sticky', this.$stickyInput().val());
 
-			// Clear searc field
+			// Clear search field
 			this.$searchInput().val('');
 
 			// Add sortable
@@ -321,9 +321,27 @@
 
 			if(sticky) {
 				$li.appendTo(this.$stickyList());
+
+				// Update the list to validate the allowed quantity of items
+				if (e.type === 'click') {
+					let exceededLimit = (this.stickyItems().length + 1) >= parseInt(this.$limitInput().val()) ? true : false;
+					this.$isExceeded(exceededLimit);
+				}
+				// Update the list to validate the allowed quantity of items
+				this.fetch();
+
 				this.sortValues();
 			}
 			else {
+				if ($li[0].hasAttribute('data-manual')) {
+					const manualAttr = JSON.parse(this.$manualInput().val());
+					// get sticky item id
+					const manualId = $li.data('id');
+					const manualFilterId = manualAttr.filter(obj => obj.id != manualId);
+
+					this.$manualInput().val(JSON.stringify(manualFilterId));
+				}
+				
 				this.$choicesList().find(`[data-id="${$li.data('id')}"]`).removeClass('disabled');
 
 				$li.remove();
@@ -393,6 +411,13 @@
 			const onComplete = () => {
 				this.set('loading', false);
 				$loading.remove();
+
+				// check if has manual values
+				let hasManualData = this.$manualInput().val() !== '' ? JSON.parse(this.$manualInput().val()) : [];
+				if (hasManualData.length) {
+					// add edit button to manual lists
+					this.$stickyList().find('li[data-manual] > .acf-rel-item').append('<button class="editManualButton" type="button" data-action="edit-manual" aria-label="Editar" title="Editar"><svg viewBox="0 0 24 24" width="10" height="10" stroke="currentColor" aria-label="hidden" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg></button>');
+				}
 			};
 			
 			const onSuccess = (json) => {
@@ -441,7 +466,7 @@
 				if(element.hasOwnProperty('featured_media_url')) {
 					// Delete all except pa-block-render
 					Object.keys(element.featured_media_url).forEach((item) => {
-						if(item != 'pa-block-render') 
+						if(item != 'pa_block_render') 
 							delete element.featured_media_url[item];
 					});
 				}
@@ -532,11 +557,34 @@
 		 */
 		walkChoices(data, sticky = true) {
 			const stickyItems = this.stickyItems();
+
 			let list = '';
 			let stickyList = '';
-			
-			data.forEach(element => {
-				let content = `<li data-id="${acf.escAttr(element.id)}" data-date="${acf.escAttr(element.date)}"><span class="acf-rel-item">`;
+
+			// check if manual input has values
+			const stickyManual = this.$manualInput().val().length ? JSON.parse(this.$manualInput().val()) : [];
+			// merge data from api and manual data
+			// let mergeItems = [].concat(data, stickyManual);
+			let mergeItems = stickyManual;
+
+			let stickyOrder = [];
+			stickyItems.forEach(elms => {
+				const item = mergeItems.find(item => item.id == elms);
+
+				mergeItems = mergeItems.filter(function(value) { 
+					return value != item;
+				});
+
+				// check if array sticky input value is not empty
+				if(stickyItems[0] !== "")
+					stickyOrder.push(item);
+			});
+
+			// merge data objects if sticky values exists on input
+			let mergedData = stickyOrder.length ? [].concat(stickyOrder, mergeItems) : mergeItems;
+			mergedData.forEach(element => {
+				let content = `<li data-id="${acf.escAttr(element.id)}" data-date="${acf.escAttr(element.date)}"`;
+					content += `${element.id.toString().startsWith('m') ? ' data-manual' : ''}><span class="acf-rel-item">`;
 
 				if(sticky)
 					content += '<a href="#" class="acf-icon -pin small dark acf-js-tooltip" data-action="sticky" title="Fixar/Desafixar item"></a>';
@@ -544,6 +592,8 @@
 				if(element.hasOwnProperty('featured_media_url')) {
 					if(element.featured_media_url.hasOwnProperty('pa-block-preview'))
 						content += `<img src="${element.featured_media_url['pa-block-preview']}" />`;
+					else if(element.featured_media_url.hasOwnProperty('pa_block_render'))
+						content += `<img src="${element.featured_media_url['pa_block_render']}" />`;
 				}
 				
 				content += `${acf.escHtml(element.title.rendered)}</span></li>`;
@@ -552,6 +602,20 @@
 					stickyList += content;
 				else
 					list += content;
+			});
+
+			// check if limit filter exceeds
+			let validateLimit = true;
+			let currFilterLimit = parseInt(this.$limitInput().val());
+			let exceedLimit = stickyItems.length >= currFilterLimit ? true : false;
+				validateLimit = exceedLimit;
+
+			this.$isExceeded(validateLimit);
+
+			// validate on qtd change
+			this.$limitInput().change((e) => {
+				let exceededLimit = stickyItems.length >= e.target.value ? true : false;
+				this.$isExceeded(exceededLimit);
 			});
 			
 			return {
@@ -646,9 +710,15 @@
 		 */
 		sortValues() {
 			const results = this.get('results');
+			// api fields
 			const values = JSON.parse(this.$valuesInput().val());
+			// manual fields
+			const valuesManual = this.$manualInput().val() !== '' ? JSON.parse(this.$manualInput().val()) : [];
+			const valuesMerged = [].concat(values, valuesManual);
+
 			let sortedValues = [];
 
+			// clean sticky input
 			this.$stickyInput().val('');
 
 			this.$stickyList().find('li').each((_, element) => {
@@ -657,7 +727,7 @@
 				if(typeof element.dataset.fromSearch != 'undefined')
 					elementValue = results.find(value => value.id == element.dataset.id);
 				else
-					elementValue = values.find(value => value.id == element.dataset.id);
+					elementValue = valuesMerged.find(value => value.id == element.dataset.id);
 
 				if(elementValue) {
 					sortedValues.push(elementValue);
@@ -665,10 +735,15 @@
 				}
 			});
 
-			this.$valuesList().find('li').each((_, element) => sortedValues.push(values.find(value => value.id == element.dataset.id)));
+			// remote items
+			// this.$valuesList().find('li').each((_, element) => sortedValues.push(values.find(value => value.id == element.dataset.id)));
 
-			this.$valuesInput().val(JSON.stringify(sortedValues));
+			// this.$valuesInput().val(JSON.stringify(sortedValues));
+
+			// remove first comma from sticky items
 			this.$stickyInput().val(this.$stickyInput().val().replace(/(^\,+|\,+$)/mg, ''));
+			// this.$stickyInput().val(this.$stickyInput().val().substr(this.$stickyInput().val().indexOf(",") + 1));
+			
 			this.set('sticky', this.$stickyInput().val());
 		},
 
@@ -849,15 +924,15 @@
 		},
 
 		/**
-		* Dismiss modal validation alert
-		* 
-		* @param {*} e 
-		* @param {*} $el 
-		*/
+		 * Dismiss modal validation alert
+		 * 
+		 * @param {*} e 
+		 * @param {*} $el 
+		 */
 		onCloseModalDismiss() {
 			this.$alertValidation().parent().removeClass('show');
 			this.$alertValidation().remove();
-		},		
+		},
 
 		/**
 		 * Add taxonomy row
@@ -1018,9 +1093,11 @@
 			this.set('taxonomies', taxonomies);
 			this.set('terms', terms);
 		},
+		
 	});
 
 	// Widgets Modal
+	//
 	window.modal = {
         modals: [],
         
@@ -1152,7 +1229,7 @@
             
             args.onClose($target);
         }
-    };
+    };  
 	
 	acf.registerFieldType(Field);
 })(jQuery);
