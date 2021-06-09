@@ -36,10 +36,8 @@ if (!class_exists('RemoteData')) :
 			// defaults (array) Array of default settings which are merged into the field object. These are used later in settings
 			$this->defaults = array(
 				'sub_fields'		=> array(),
-				'endpoint' 			=> '',
+				// 'endpoint' 			=> '',
 
-
-				'post_type'			=> array(),
 				'taxonomy'			=> array(),
 				'min' 				=> 0,
 				'max' 				=> 0,
@@ -105,7 +103,7 @@ if (!class_exists('RemoteData')) :
 			// 	'instructions' => __('Defina o endpoint de onde as informações serão buscadas', 'acf-rest'),
 			// 	'type' 		   => 'url',
 			// 	'name' 		   => 'endpoint',
-			// 	'placeholder'  => 'https://website.com/wp-json/wp/v2/posts',
+			// 	'placeholder'  => 'https://v2-noticias.adventistas.org/pt/wp-json/wp/v2/posts/',
 			// 	'required'	   => 1,
 			// ));
 
@@ -203,38 +201,49 @@ if (!class_exists('RemoteData')) :
 		{
 			$values = get_field($field['key']);
 
+			// vars
 			$post_type = acf_get_array($field['post_type']);
+			$taxonomy = acf_get_array($field['taxonomy']);
 			$filters = acf_get_array($field['filters']);
 
-			// post_type filter
-			if (in_array('post_type', $filters)) {
+			$get_posts_ID = get_posts(array(
+				'fields'          => 'ids',
+				'posts_per_page'  => -1,
+				'post_type'	=> $field['post_type']
+			));
 
-				$filter_post_type_choices = array(
-					''	=> __('Select post type', 'acf')
-				) + acf_get_pretty_post_types($post_type);
-			}
+			if (!empty($field['value'])) :
 
-			// print_r($filter_post_type_choices);
+				// get posts
+				$posts = acf_get_posts(array(
+					// 'post__in' => $field['value'],
+					'post__in' => $get_posts_ID,
+					'post_type'	=> $field['post_type']
+				));
 
-			print_r($field['value']);
-			// print_r($field['post_type']);
+				echo "<pre>\n\r";
+				var_export($posts);
+				echo "</pre>";
 
-			// get posts
-			// $posts = acf_get_posts(array(
-			// 	'post__in' => $field['value'],
-			// 	'post_type'	=> $field['post_type']
-			// ));
+				foreach ($posts as $post) :
+				// $values['data'] = $posts;
+				endforeach;
+			endif;
+			// $values['data'] = json_encode($posts);
 
-			// var_dump( $posts );
+			// echo "<pre>\n\r";
+			// print_r($values['data']);
+			// print_r(json_encode($values['data']));
+			// echo "</pre>";
 
 			// div attributes
 			$atts = array(
 				'id'				=> $field['id'],
-				'class'				=> "acf-remote-data acf-relationship {$field['class']}",
+				'class'				=> "acf-local-data __SEP__ acf-remote-data acf-relationship {$field['class']}",
 				'data-s'			=> '',
 				'data-paged'		=> 1,
-				'data-min'			=> $field['min'],
-				'data-max'			=> $field['max'],
+				// 'data-min'			=> $field['min'],
+				// 'data-max'			=> $field['max'],
 			);
 
 		?>
@@ -507,9 +516,15 @@ if (!class_exists('RemoteData')) :
 		{
 			// defaults
 			$options = wp_parse_args($options, array(
-				'endpoint'		=> '',
-				'field_key'		=> '',
+				// 'endpoint'		=> '',
 				'sticky'		=> '',
+
+				'post_id'		=> 0,
+				's'				=> '',
+				'field_key'		=> '',
+				'paged'			=> 1,
+				'post_type'		=> '',
+				'taxonomy'		=> ''
 			));
 
 			// load field
