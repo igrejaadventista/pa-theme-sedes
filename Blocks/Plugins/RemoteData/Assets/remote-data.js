@@ -221,6 +221,13 @@
 		},
 
 		/**
+		 * Get current post type value
+		 */
+		getPostType() {
+			return this.$control().find('[data-filter="post_type"]').val();
+		},
+
+		/**
 		 * Get sticky items array
 		 *
 		 * @return {Array} Sticky items array
@@ -295,8 +302,8 @@
 			const filter = $el.data('filter');
 				
 			// Bail early if filter has not changed
-			if(this.get(filter) === val || val == '')
-				return;
+			// if(this.get(filter) === val || val == '')
+			// 	return;
 			
 			// Update attr
 			this.set(filter, val);
@@ -375,15 +382,21 @@
 			for(let name in ajaxData)
 				ajaxData[name] = this.get(name);
 
-			this.saveTaxonomyFilters();
+			// this.saveTaxonomyFilters();
+
+			// get current filter state value
+			let currSelectedPostType = this.getPostType();
+			console.log(currSelectedPostType);
+			let selectedPostTypeFilter = currSelectedPostType !== undefined ? currSelectedPostType : this.get('post_type');
 			
 			// Extra
 			ajaxData.action = 'acf/fields/remote_data/query';
+			ajaxData.post_type = selectedPostTypeFilter;
 			ajaxData.field_key = this.get('key');
 			ajaxData.sticky = this.get('sticky');
 			ajaxData.limit = this.get('limit');
-			ajaxData.taxonomies = this.get('taxonomies');
-			ajaxData.terms = this.get('terms');
+			// ajaxData.taxonomies = this.get('taxonomies');
+			// ajaxData.terms = this.get('terms');
 			
 			return acf.applyFilters('remote_data_ajax_data', ajaxData, this);
 		},
@@ -421,13 +434,11 @@
 			};
 			
 			const onSuccess = (json) => {
-				console.log('JSON Response: ', json );
-
 				// Stop if No (local cpt data) results
-				// if(!json || !json.results || !json.results.length) {
-				// 	// Add message
-				// 	return this.$valuesList().append(`<li>${acf.__('No matches found')}</li>`);
-				// }
+				if(!json || !json.results || !json.results.length) {
+					// Add message
+					return this.$valuesList().append(`<li>${acf.__('No matches found')}</li>`);
+				}
 
 				// Get new results
 				const html = this.walkChoices(json.results);
@@ -563,15 +574,14 @@
 			let list = '';
 			let stickyList = '';
 
-			console.log('Local Data CPT: ', data);
-			console.log( this.$limitInput().val() )
-			console.log( stickyItems )
-
 			// check if manual input has values
 			const stickyManual = this.$manualInput().val().length ? JSON.parse(this.$manualInput().val()) : [];
 			// merge data from api and manual data
-			// let mergeItems = [].concat(data, stickyManual);
-			let mergeItems = stickyManual;
+			let mergeItems = [].concat(data, stickyManual);
+			// let mergeItems = stickyManual;
+
+			console.log('walkChoices data: ', data);
+			console.log('sticky items: ', stickyItems );
 
 			let stickyOrder = [];
 			stickyItems.forEach(elms => {
@@ -717,10 +727,13 @@
 		sortValues() {
 			const results = this.get('results');
 			// api fields
+			// console.log(JSON.parse(this.data.xhr.responseJSON.data));
+			console.log(this);
 			const values = JSON.parse(this.$valuesInput().val());
 			// manual fields
 			const valuesManual = this.$manualInput().val() !== '' ? JSON.parse(this.$manualInput().val()) : [];
 			const valuesMerged = [].concat(values, valuesManual);
+			// const valuesMerged = valuesManual;
 
 			let sortedValues = [];
 
