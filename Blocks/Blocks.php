@@ -2,8 +2,11 @@
 
 namespace Blocks;
 
+use Blocks\PAAppsFeature\PAAppsFeature;
+use Blocks\PAMagazinesFeature\PAMagazinesFeature;
 use \Blocks\PACarouselFeature\PACarouselFeature;
 use Blocks\PAFacebookFeature\PAFacebookFeature;
+use Blocks\PAOtherSlidesFeature\PAOtherSlidesFeature;
 use Blocks\PATwitterFeature\PATwitterFeature;
 
 /**
@@ -36,6 +39,9 @@ class Blocks {
 			PACarouselFeature::class,
 			PATwitterFeature::class,
 			PAFacebookFeature::class,
+			PAOtherSlidesFeature::class,
+			PAAppsFeature::class,
+			PAMagazinesFeature::class,
 		];
 	
 		// Merge registered blocks with new blocks
