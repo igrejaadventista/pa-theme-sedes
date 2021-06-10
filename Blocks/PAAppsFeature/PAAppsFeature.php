@@ -3,9 +3,9 @@
 namespace Blocks\PAAppsFeature;
 
 use Blocks\Block;
+use WordPlate\Acf\Fields\Link;
 use WordPlate\Acf\Fields\Text;
 use WordPlate\Acf\Fields\Textarea;
-use WordPlate\Acf\Fields\Url;
 
 /**
  * Class PAAppsFeature
@@ -38,7 +38,8 @@ class PAAppsFeature extends Block {
 		        Text::make('Título', 'title'),
 		        Text::make('Título do botão', 'buttonTitle'),
                 Textarea::make('Descrição','description'),
-                Url::make('url'),
+				Link::make('Link de destino do botão', 'url')
+				    ->returnFormat('url'),
 			];
 	}
 	    

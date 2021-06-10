@@ -44,7 +44,8 @@ class PAMagazinesFeature extends Block {
 				        ->fields([
 					        Image::make('Thumbnail', 'thumbnail'),
 					        Text::make('Título', 'title'),
-					        Url::make('url')
+					        Link::make('URL', 'url')
+					            ->returnFormat('url'),
 				        ])
 				        ->min(1)
 				        ->buttonLabel('Adicionar item')
