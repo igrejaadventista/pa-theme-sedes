@@ -41,13 +41,17 @@ class PACoreInstall
       'menu_name'         => __('Sedes Proprietárias'),
     );
     $argsOwners   = array(
-      'hierarchical'      => true, // make it hierarchical (like categories)
-      'labels'            => $labelsOwners,
-      'show_ui'           => true,
-      'show_admin_column' => true,
-      'query_var'         => true,
-      'show_in_rest'      => true, // add support for Gutenberg editor
-      'rewrite'           => ['slug' => 'xtt-pa-owner'],
+		'hierarchical'      => true, // make it hierarchical (like categories)
+		'labels'            => $labelsOwners,
+		'show_ui'           => true,
+		'show_admin_column' => true,
+		'query_var'         => true,
+		'show_in_rest'      => true, // add support for Gutenberg editor
+		'rewrite'           => ['slug' => 'xtt-pa-owner'],
+		'capabilities' 		  => array(
+			'edit_terms' 	  => false,
+			'delete_terms'    => false,
+		),
     );
     register_taxonomy('xtt-pa-owner', ['post'], $argsOwners);
 
@@ -71,13 +75,17 @@ class PACoreInstall
       'menu_name'         => __('Coleções'),
     );
     $argsColecoes   = array(
-      'hierarchical'      => true, // make it hierarchical (like categories)
-      'labels'            => $labelsColecoes,
-      'show_ui'           => true,
-      'show_admin_column' => true,
-      'query_var'         => true,
-      'show_in_rest'      => true, // add support for Gutenberg editor
-      'rewrite'           => ['slug' => 'xtt-pa-colecoes'],
+		'hierarchical'      => true, // make it hierarchical (like categories)
+		'labels'            => $labelsColecoes,
+		'show_ui'           => true,
+		'show_admin_column' => true,
+		'query_var'         => true,
+		'show_in_rest'      => true, // add support for Gutenberg editor
+		'rewrite'           => ['slug' => 'xtt-pa-colecoes'],
+		'capabilities' 		  => array(
+			'edit_terms' 	  => false,
+			'delete_terms'    => false,
+		),
     );
     register_taxonomy('xtt-pa-colecoes', ['post'], $argsColecoes);
 
@@ -110,7 +118,11 @@ class PACoreInstall
 			'query_var'           => true,
 			'rewrite'             => array( 'slug' => __('editoria', 'iasd') ),
 			'public'              => true,
-      'show_in_rest'        => true, // add support for Gutenberg editor
+      		'show_in_rest'        => true, // add support for Gutenberg editor
+			'capabilities' 		  => array(
+				'edit_terms' 	  => false,
+				'delete_terms'    => false,
+			),
 		);
     register_taxonomy('xtt-pa-editorias', ['post'], $argsEditorias);
 
@@ -143,7 +155,11 @@ class PACoreInstall
 			'query_var'           => true,
 			'rewrite'             => array( 'slug' => __('departamento', 'iasd') ),
 			'public'              => true,
-      'show_in_rest'        => true, // add support for Gutenberg editor
+      		'show_in_rest'        => true, // add support for Gutenberg editor
+			'capabilities' 		  => array(
+				'edit_terms' 	  => false,
+				'delete_terms'    => false,
+			),
 		);
     register_taxonomy('xtt-pa-departamentos', ['post'], $argsDepartamentos);
 
@@ -176,6 +192,10 @@ class PACoreInstall
 			'query_var'           => true,
 			'rewrite'             => array( 'slug' => __('projeto', 'iasd') ),
 			'public'              => true,
+			'capabilities' 		  => array(
+				'edit_terms' 	  => false,
+				'delete_terms'    => false,
+			),
       'show_in_rest'        => true, // add support for Gutenberg editor
     );
     register_taxonomy('xtt-pa-projetos', ['post'], $argsProjetos);
@@ -210,6 +230,10 @@ class PACoreInstall
 			'rewrite'             => true,
 			'public'              => true,
       		'show_in_rest'        => true, // add support for Gutenberg editor
+			'capabilities' 		  => array(
+				'edit_terms' 	  => false,
+				'delete_terms'    => false,
+			),
 		);
     register_taxonomy('xtt-pa-sedes', ['post'], $argsSedes);
 
