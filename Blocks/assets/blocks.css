@@ -1,0 +1,19 @@
+/* Main column width */
+.wp-block {
+    max-width: none;
+}
+ 
+/* Width of "wide" blocks */
+/* .wp-block[data-align="wide"] {
+    max-width: 1080px;
+} */
+ 
+/* Width of "full-wide" blocks */
+/* .wp-block[data-align="full"] {
+    max-width: none;
+} */
+
+.acf-block-preview .img-preview {
+	display: block;
+	margin: 0 auto;
+}

@@ -1,6 +1,12 @@
 <?php 
 
-require_once 'vendor/autoload.php';
+use Blocks\Blocks;
+
+if(file_exists($composer = __DIR__. '/vendor/autoload.php'))
+	require_once $composer;
+
+new Blocks;
+
 require_once (dirname(__FILE__) . '/classes/controllers/PA_Theme_Helpers.class.php');
 require_once (dirname(__FILE__) . '/classes/controllers/PA_ACF_Helpers.class.php');
 require_once (dirname(__FILE__) . '/classes/controllers/PA_ACF_Site-settings.class.php');
@@ -27,18 +33,18 @@ add_action( 'init', 'pa_wp_custom_menus' );
 
 
 //Função auxiliar para imprimir no console o print_r.
-function pconsole($var) {
+// function pconsole($var) {
 
-	$s = json_encode($var);
-	echo "<script>console.log(". $s . ");</script>";
-	return;
-}
+// 	$s = json_encode($var);
+// 	echo "<script>console.log(". $s . ");</script>";
+// 	return;
+// }
 // Função auxiliar para imprimir no console o echo.
-function cconsole($var) {
+// function cconsole($var) {
 
-	echo "<script>console.log('" . $var . "');</script>";
-	return;
-}
+// 	echo "<script>console.log('" . $var . "');</script>";
+// 	return;
+// }
 
 
 function add_responsive_class($content){
