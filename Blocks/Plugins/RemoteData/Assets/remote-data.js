@@ -382,16 +382,14 @@
 			for(let name in ajaxData)
 				ajaxData[name] = this.get(name);
 
-			// this.saveTaxonomyFilters();
-
 			// get current filter state value
 			let currSelectedPostType = this.getPostType();
-			console.log(currSelectedPostType);
-			let selectedPostTypeFilter = currSelectedPostType !== undefined ? currSelectedPostType : this.get('post_type');
+			let selectedPostType = currSelectedPostType !== undefined ? 
+			currSelectedPostType : this.get('post_type');
 			
 			// Extra
 			ajaxData.action = 'acf/fields/remote_data/query';
-			ajaxData.post_type = selectedPostTypeFilter;
+			ajaxData.post_type = selectedPostType;
 			ajaxData.field_key = this.get('key');
 			ajaxData.sticky = this.get('sticky');
 			ajaxData.limit = this.get('limit');
@@ -499,14 +497,20 @@
 				ajaxData[name] = this.get(name);
 			
 			// Extra
-			ajaxData.action = 'acf/fields/remote_data/search';
+			// ajaxData.action = 'acf/fields/remote_data/search';
+			ajaxData.action = 'acf/fields/remote_data/query';
+			ajaxData.post_type = this.getPostType();
 			ajaxData.field_key = this.get('key');
-			ajaxData.exclude = [];
+			// ajaxData.exclude = [];
 
-			this.$valuesList().find('li').each((_, element) => ajaxData.exclude.push(element.dataset.id));
+			// exclude non items in list
+			// this.$valuesList().find('li').each((_, element) => ajaxData.exclude.push(element.dataset.id));
 			
-			// Filter			
-			return acf.applyFilters('remote_data_search_data', ajaxData, this);
+			// Filter
+			// ajaxData = acf.applyFilters('remote_data_search_data', ajaxData, this);
+			ajaxData = acf.applyFilters('remote_data_ajax_data', ajaxData, this);
+			
+			return ajaxData;
 		},
 
 		/**
@@ -521,7 +525,9 @@
 			// Add to this.o
 			const ajaxData = this.getSearchData();
 			
-			// Clear html if is new query
+			console.log('getSearchData(): ', ajaxData);
+			
+			// Clear html content if is new query
 			const $list = this.$choicesList();
 			$list.empty();
 			
@@ -533,11 +539,15 @@
 			const onComplete = () => {
 				this.set('loading', false);
 				this.$searchLoading().removeClass('active');
+				
 				this.$choices().addClass('active');
+
 				this.$buttonClear().addClass('active');
 			};
 			
 			const onSuccess = (json) => {
+				console.log( 'onSuccess', json.results );
+
 				// No results
 				if(!json || !json.results || !json.results.length)
 					// Add message
@@ -580,8 +590,8 @@
 			let mergeItems = [].concat(data, stickyManual);
 			// let mergeItems = stickyManual;
 
-			console.log('walkChoices data: ', data);
-			console.log('sticky items: ', stickyItems );
+			console.log('walkChoices(): ', data);
+			// console.log('sticky items: ', stickyItems );
 
 			let stickyOrder = [];
 			stickyItems.forEach(elms => {
@@ -633,7 +643,7 @@
 				let exceededLimit = stickyItems.length >= e.target.value ? true : false;
 				this.$isExceeded(exceededLimit);
 			});
-			
+
 			return {
 				list: list,
 				stickyList: stickyList,
@@ -646,6 +656,7 @@
 		onClickClear() {
 			this.$searchInput().val('');
 			this.$choices().removeClass('active');
+			this.$valuesList().addClass('active');
 			this.$buttonClear().removeClass('active');
 			this.set('s', '');
 
