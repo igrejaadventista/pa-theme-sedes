@@ -3,15 +3,11 @@
 namespace Blocks\PACategoryFeature;
 
 use Blocks\Block;
-use WordPlate\Acf\Fields\Checkbox;
 use WordPlate\Acf\Fields\Link;
 use WordPlate\Acf\Fields\Message;
-use WordPlate\Acf\Fields\Radio;
 use WordPlate\Acf\Fields\Repeater;
-use WordPlate\Acf\Fields\Taxonomy;
 use WordPlate\Acf\Fields\Text;
 use WordPlate\Acf\Fields\TrueFalse;
-use WordPlate\Acf\Fields\Url;
 
 /**
  * PACategoryFeature Carousel feature block
@@ -44,21 +40,14 @@ class PACategoryFeature extends Block {
 				Text::make( 'Título do bloco', 'title' ),
 				Repeater::make( 'Categorias', 'categories' )
 				        ->fields( [
-					        Text::make( 'Título do Item', 'itemTitle' ),
-					        Url::make( 'URL Link', 'url' ),
-					        TrueFalse::make( 'Opção de target do link', 'targetLink' )
-						        ->defaultValue(false)
-						        ->stylisedUi()
-						        ->required(),
-					        Text::make( 'Ícone', 'icon' ),
+					        Link::make( 'URL Link', 'link' ),
+					        Text::make( 'Ícone', 'icon' )->instructions('<a href="https://fontawesome.com/v5.15/icons?d=gallery&p=2&m=free" target="_blank">Input da classe do ícone</a>'),
 				        ] )
 				        ->min( 1 )
 				        ->collapsed( 'name' )
 				        ->buttonLabel( 'Adicionar Categoria' )
-				        ->layout( 'row' )
+				        ->layout( 'block' )
 				        ->required(),
-				Message::make('')
-					->message('<a href="https://fontawesome.com/v5.15/icons?d=gallery&p=2&m=free" target="_blank">Input da classe do ícone</a>'),
 			];
 	}
 
