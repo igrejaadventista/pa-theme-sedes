@@ -501,10 +501,10 @@
 			ajaxData.action = 'acf/fields/remote_data/query';
 			ajaxData.post_type = this.getPostType();
 			ajaxData.field_key = this.get('key');
-			// ajaxData.exclude = [];
+			ajaxData.exclude = [];
 
 			// exclude non items in list
-			// this.$valuesList().find('li').each((_, element) => ajaxData.exclude.push(element.dataset.id));
+			this.$valuesList().find('li').each((_, element) => ajaxData.exclude.push(element.dataset.id));
 			
 			// Filter
 			// ajaxData = acf.applyFilters('remote_data_search_data', ajaxData, this);
@@ -524,8 +524,6 @@
 			
 			// Add to this.o
 			const ajaxData = this.getSearchData();
-			
-			console.log('getSearchData(): ', ajaxData);
 			
 			// Clear html content if is new query
 			const $list = this.$choicesList();
@@ -590,7 +588,7 @@
 			let mergeItems = [].concat(data, stickyManual);
 			// let mergeItems = stickyManual;
 
-			console.log('walkChoices(): ', data);
+			// console.log('walkChoices(): ', data);
 			// console.log('sticky items: ', stickyItems );
 
 			let stickyOrder = [];
@@ -736,15 +734,16 @@
 		 * Sort sticky items
 		 */
 		sortValues() {
-			const results = this.get('results');
+			// const results = this.get('results');
+			const results = this.data;
+			
 			// api fields
-			// console.log(JSON.parse(this.data.xhr.responseJSON.data));
-			console.log(this);
-			const values = JSON.parse(this.$valuesInput().val());
+			// const values = JSON.parse(this.$valuesInput().val());
+
 			// manual fields
 			const valuesManual = this.$manualInput().val() !== '' ? JSON.parse(this.$manualInput().val()) : [];
-			const valuesMerged = [].concat(values, valuesManual);
-			// const valuesMerged = valuesManual;
+			// const valuesMerged = [].concat(values, valuesManual);
+			const valuesMerged = valuesManual;
 
 			let sortedValues = [];
 

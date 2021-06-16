@@ -516,7 +516,7 @@ if (!class_exists('RemoteData')) :
 		 *  @param	$text (string)
 		 *  @return	(array)
 		 */
-		function get_post_result($id, $date, $title, $img)
+		function get_post_result($id, $date, $title, $img, $excerpt = null, $url = null)
 		{
 			// vars
 			$result = array(
@@ -528,6 +528,10 @@ if (!class_exists('RemoteData')) :
 				'featured_media_url' => [
 					'pa_block_render' => $img
 				],
+				'excerpt' => [
+					'rendered' => $excerpt
+				],
+				'url' => $url
 			);
 
 			// return
@@ -568,13 +572,14 @@ if (!class_exists('RemoteData')) :
 
 			// vars
 			$postsLocal = array();
+
 			$args = array();
 			$s = false;
 			$is_search = false;
 
 			// paged
-			// $args['posts_per_page'] = 20;
-			// $args['paged'] = intval($options['paged']);
+			$args['posts_per_page'] = 20;
+			$args['paged'] = intval($options['paged']);
 
 			// search
 			if ($options['s'] !== '') {
@@ -619,17 +624,14 @@ if (!class_exists('RemoteData')) :
 			// $args = apply_filters('acf/fields/remote_data/query', $args, $field, $options['post_id']);
 
 			// retrieves posts
-			$posts = acf_get_posts(array(
-				'post_type'	=> $args['post_type'],
-
-			));
+			$posts = acf_get_posts(['post_type'	=> $args['post_type']]);
 
 			// order posts by search
 			if ($is_search && empty($args['orderby']) && isset($args['s'])) :
 				$posts = acf_get_posts(array(
-					's'  => $args['s'],
+					's'  		=> $args['s'],
 					'post_type'	=> $args['post_type'],
-					// 'exclude'	=> $stickyItemsFilter
+					'exclude'	=> $stickyItemsFilter
 				));
 			endif;
 
@@ -643,7 +645,7 @@ if (!class_exists('RemoteData')) :
 			endif;
 
 			if (!empty($sticky)) :
-				// $response = \wp_remote_get(\add_query_arg(array_merge($queryArgs, ['include' => $stickyItemsFilter, 'orderby' => 'include']), $url));
+			// $response = \wp_remote_get(\add_query_arg(array_merge($queryArgs, ['include' => $stickyItemsFilter, 'orderby' => 'include']), $url));
 			endif;
 
 			if ($limit > count($stickyItems)) :
@@ -664,12 +666,12 @@ if (!class_exists('RemoteData')) :
 
 			// if ($this->responseSuccess($responseCode))
 			// 	$results = array_merge($results, json_decode($responseData, true));
-			// $postsLocal[] = array();
 			endif;
 
 			// vars
 			$response = array(
 				'results'	=> $postsLocal,
+				'limit'		=> $args['posts_per_page'],
 				'data'		=> json_encode($postsLocal),
 			);
 
