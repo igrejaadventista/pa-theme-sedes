@@ -1,6 +1,6 @@
 (function($, undefined) {
 	var Field = acf.Field.extend({
-		type: 'remote_data',
+		type: 'localposts_data',
 		events: {
 			'keypress [data-filter]': 				 	'onKeypressFilter',
 			'change [data-filter]': 				 	'onChangeFilter',
@@ -8,10 +8,7 @@
 			'click [data-action="sticky"]': 		 	'onClickSticky',
 			'click [data-action="clear"]': 			 	'onClickClear',
 			'click .choices-list li': 				 	'onClickAdd',
-			'click .-taxonomies button': 			 	'onClickToggleTaxonomies',
 			'click [data-action="refresh"]': 		 	'fetch',
-			'click [data-action="add-taxonomy"]': 	 	'onClickAddTaxonomy',
-			'click [data-action="remove-taxonomy"]': 	'onClickRemoveTaxonomy',
 			'click [data-action="manual-new-post"]': 	'onClickAddManualPost',
 			'click [data-action="modal-alert-dismiss"]':'onCloseModalDismiss',
 			'click [data-action="edit-manual"]': 		'onEditManual',
@@ -23,7 +20,7 @@
 		 * @return {jQuery} jQuery control object
 		 */
 		$control() {
-			return this.$('.acf-remote-data');
+			return this.$('.acf-local-data');
 		},
 
 		/**
@@ -194,33 +191,6 @@
 		},
 
 		/**
-		 * Get jQuery taxonomies selection container object
-		 *
-		 * @return {jQuery} jQuery taxonomies selection container object
-		 */
-		$taxonomiesSelection() {
-			return this.$control().find('.taxonomies-selection');
-		},
-
-		/**
-		 * Get jQuery taxonomy row object
-		 *
-		 * @return {jQuery} jQuery taxonomy row object
-		 */
-		$taxonomyRow() {
-			return this.$control().find('.taxonomy-row');
-		},
-
-		/**
-		 * Get jQuery button to add taxonomy object
-		 *
-		 * @return {jQuery} jQuery button to add taxonomy object
-		 */
-		$buttonAddTaxonomy() {
-			return this.$control().find('[data-action="add-taxonomy"]');
-		},
-
-		/**
 		 * Get current post type value
 		 */
 		getPostType() {
@@ -236,15 +206,6 @@
 			return this.$stickyInput().val().split(',');
 		},
 
-		/**
-		 * Get taxonomies list
-		 *
-		 * @return {string} Taxonomies array
-		 */
-		taxonomies() {
-			return this.$control().find('.taxonomies-selection').data('taxonomies');
-		},
-		
 		/**
 		 * Initialize plugin
 		 */
@@ -272,10 +233,6 @@
 				
 				// Fetch choices
 				this.fetch();
-
-				this.$taxonomyRow().not(':first').each((index) => this.initializeTaxonomyFilters($(this.$taxonomyRow().get(index + 1))));
-
-				// this.checkTaxonomyFilters();
 			}));
 			
 			// Bind "interacted with"
@@ -388,15 +345,13 @@
 			currSelectedPostType : this.get('post_type');
 			
 			// Extra
-			ajaxData.action = 'acf/fields/remote_data/query';
+			ajaxData.action = 'acf/fields/localposts_data/query';
 			ajaxData.post_type = selectedPostType;
 			ajaxData.field_key = this.get('key');
 			ajaxData.sticky = this.get('sticky');
 			ajaxData.limit = this.get('limit');
-			// ajaxData.taxonomies = this.get('taxonomies');
-			// ajaxData.terms = this.get('terms');
 			
-			return acf.applyFilters('remote_data_ajax_data', ajaxData, this);
+			return acf.applyFilters('localposts_data_ajax_data', ajaxData, this);
 		},
 		
 		/**
@@ -497,8 +452,7 @@
 				ajaxData[name] = this.get(name);
 			
 			// Extra
-			// ajaxData.action = 'acf/fields/remote_data/search';
-			ajaxData.action = 'acf/fields/remote_data/query';
+			ajaxData.action = 'acf/fields/localposts_data/query';
 			ajaxData.post_type = this.getPostType();
 			ajaxData.field_key = this.get('key');
 			ajaxData.exclude = [];
@@ -507,8 +461,7 @@
 			this.$valuesList().find('li').each((_, element) => ajaxData.exclude.push(element.dataset.id));
 			
 			// Filter
-			// ajaxData = acf.applyFilters('remote_data_search_data', ajaxData, this);
-			ajaxData = acf.applyFilters('remote_data_ajax_data', ajaxData, this);
+			ajaxData = acf.applyFilters('localposts_data_ajax_data', ajaxData, this);
 			
 			return ajaxData;
 		},
@@ -699,10 +652,10 @@
 		/**
 		 * Show/hide taxonomies filters
 		 */
-		onClickToggleTaxonomies(e, $el) {		
-			$el.toggleClass('active')
-			this.$taxonomiesSelection().slideToggle();
-		},
+		// onClickToggleTaxonomies(e, $el) {		
+		// 	$el.toggleClass('active')
+		// 	this.$taxonomiesSelection().slideToggle();
+		// },
 
 		/**
 		 * Create item html
@@ -736,7 +689,8 @@
 		sortValues() {
 			// const results = this.get('results');
 			const results = this.data;
-			
+			console.log(results.xhr)
+
 			// api fields
 			// const values = JSON.parse(this.$valuesInput().val());
 
@@ -753,10 +707,13 @@
 			this.$stickyList().find('li').each((_, element) => {
 				let elementValue;
 
-				if(typeof element.dataset.fromSearch != 'undefined')
+				if(typeof element.dataset.fromSearch != 'undefined') {
 					elementValue = results.find(value => value.id == element.dataset.id);
-				else
+					console.log('results get()');
+				} else {
 					elementValue = valuesMerged.find(value => value.id == element.dataset.id);
+					console.log('results merged');
+				}
 
 				if(elementValue) {
 					sortedValues.push(elementValue);
@@ -961,166 +918,6 @@
 		onCloseModalDismiss() {
 			this.$alertValidation().parent().removeClass('show');
 			this.$alertValidation().remove();
-		},
-
-		/**
-		 * Add taxonomy row
-		 */
-		onClickAddTaxonomy(e, $el) {	
-			if(Object.keys(this.taxonomies()).length == this.$taxonomyRow().not(':first').length)
-				return;
-
-			const $row = this.$taxonomyRow().first().clone();
-			
-			$row.insertBefore($el.parent()).slideDown();
-
-			this.initializeTaxonomyFilters($row, true);
-			// this.checkTaxonomyFilters();
-		},
-
-		/**
-		 * Remove taxonomy row
-		 */
-		onClickRemoveTaxonomy(e, $el) {		
-			$el.parent().slideUp(() => { 
-				$el.parent().remove(); 
-
-				this.$taxonomyRow().not(':first').each((index) => {
-					const $row = $(this.$taxonomyRow().get(index + 1));
-
-					const $selectTaxonomy = $row.find('[data-taxonomy]');
-					const $selectTerms = $row.find('[data-terms]');
-
-					if($selectTaxonomy.length)
-						$selectTaxonomy.attr('name', `acf[${this.get('key')}][taxonomies][${index}]`);
-					if($selectTerms.length)
-						$selectTerms.attr('name', `acf[${this.get('key')}][terms][${index}][]`);
-				});
-
-				this.fetch();
-				// this.checkTaxonomyFilters();
-			});
-		},
-
-		/**
-		 * Initialize taxonomies filters
-		 */
-		initializeTaxonomyFilters($row, isNew = false) {
-			const $selectTaxonomy = $row.find('[data-taxonomy]');
-			const $selectTerms = $row.find('[data-terms]');
-
-			if(!$selectTaxonomy.length)
-				return;
-
-			$selectTaxonomy.attr('name', `acf[${this.get('key')}][taxonomies][${this.$taxonomyRow().length - 2}]`);
-			$selectTerms.attr('name', `acf[${this.get('key')}][terms][${this.$taxonomyRow().length - 2}][]`);
-
-			if(isNew) {
-				const $selects = this.$taxonomyRow().not(':first').not(':last').find('[data-taxonomy]');
-				let values = [];
-
-				$selects.map((_, element) => values.push($(element).val()));
-
-				values = values.reduce((a, b) => {
-					if(a.indexOf(b) < 0)
-						a.push(b);
-
-					return a;
-				}, []);
-
-				$.each(this.taxonomies(), (key, value) => {
-					$selectTaxonomy.append($('<option>', { 
-						value: key,
-						text : value.label,
-						disabled: values.includes(key),
-					}));
-				});
-			}
-
-			$selectTaxonomy.on('change', () => {
-				$selectTerms.find('option[value]').remove();
-				
-				$.each(this.taxonomies()[$selectTaxonomy.val()].terms, (key, value) => {
-					$selectTerms.append($('<option>', { 
-						value: key,
-						text : value, 
-					}));
-				});
-				
-				$selectTaxonomy.find(`option[value="${$selectTaxonomy.val()}"]`).attr('selected', true);
-				$selectTerms.val('').trigger('change');
-				// this.checkTaxonomyFilters();
-			});
-
-			$selectTerms.on('change', () => this.fetch());
-
-			if(isNew)
-				$selectTaxonomy.trigger('change');
-
-			$selectTaxonomy.select2();
-			$selectTerms.select2();	
-		},
-
-		/**
-		 * Check taxonomies filters on row added/removed
-		 */
-		checkTaxonomyFilters() {
-			// Enable/disable button
-			this.$buttonAddTaxonomy().toggleClass('disabled', Object.keys(this.taxonomies()).length == this.$taxonomyRow().not(':first').length);
-
-			const $selects = this.$taxonomyRow().not(':first').find('[data-taxonomy]');
-			let values = [];
-
-			// Get options in use
-			$selects.map((_, element) => values.push($(element).val()));
-
-			// Remove duplicate values
-			values = values.reduce((a, b) => {
-				if(a.indexOf(b) < 0)
-					a.push(b);
-
-				return a;
-			}, []);
-
-			// Remove options in use
-			$selects.each((_, element) => {
-				const $element = $(element);
-				const elementValue = $element.val();
-
-				$element.find('option').remove();
-
-				$.each(this.taxonomies(), (key, value) => {
-					$element.append($('<option>', { 
-						value: key,
-						text : value.label,
-						selected: elementValue == key,
-					}));
-				});
-			});
-
-			$.each(values, (_, value) => $selects.find(`[value="${value}"]`).not(':selected').remove());
-
-			// Refresh select2
-			$selects.select2();
-		},
-
-		/**
-		 * Save taxonomies filters
-		 */
-		saveTaxonomyFilters() {
-			const $rows = this.$taxonomyRow().not(':first');
-			const $selectTaxonomy = $rows.find('[data-taxonomy]');
-			const $selectTerms = $rows.find('[data-terms]');
-
-			let taxonomies = [];
-			let terms = [];
-
-			// Get selected values
-			$selectTaxonomy.each((index) => taxonomies.push($($selectTaxonomy.get(index)).val()));
-			$selectTerms.each((index) => terms.push($($selectTerms.get(index)).val()));
-
-			this.set('taxonomies', taxonomies);
-			this.set('terms', terms);
 		},
 		
 	});

@@ -2,6 +2,8 @@
 
 namespace Blocks\Plugins\RemoteData;
 
+use WordPlate\Acf\Fields\Text;
+
 // exit if accessed directly
 if (!defined('ABSPATH')) exit;
 
@@ -28,30 +30,25 @@ if (!class_exists('RemoteData')) :
 		function __construct()
 		{
 			// name (string) Single word, no spaces. Underscores allowed
-			$this->name = 'remote_data';
+			$this->name = 'localposts_data';
 			// label (string) Multiple words, can include spaces, visible when selecting a field type
-			$this->label = __('Objeto de posts Locais (Any CPT)', 'acf-rest');
+			$this->label = __('Objeto de posts Locais', 'acf-rest');
 			// category (string) basic | content | choice | relational | jquery | layout | CUSTOM GROUP NAME
 			$this->category = 'relational';
 			// defaults (array) Array of default settings which are merged into the field object. These are used later in settings
 			$this->defaults = array(
 				'sub_fields'		=> array(),
-				// 'endpoint' 			=> '',
 				'post_type'			=> array(),
-				'taxonomy'			=> array(),
 				'min' 				=> 0,
 				'max' 				=> 0,
-				'filters'			=> array('search', 'post_type', 'taxonomy'),
+				'filters'			=> array('post_type'),
 				'elements' 			=> array(),
 				'return_format'		=> 'object'
 			);
 			$this->have_rows = 'single';
 
-			add_action('wp_ajax_acf/fields/remote_data/query',				array($this, 'ajax_query'));
-			add_action('wp_ajax_nopriv_acf/fields/remote_data/query',		array($this, 'ajax_query'));
-
-			// add_action('wp_ajax_acf/fields/remote_data/search',				array($this, 'ajax_search'));
-			// add_action('wp_ajax_nopriv_acf/fields/remote_data/search',		array($this, 'ajax_search'));
+			add_action('wp_ajax_acf/fields/localposts_data/query',				array($this, 'ajax_query'));
+			add_action('wp_ajax_nopriv_acf/fields/localposts_data/query',		array($this, 'ajax_query'));
 
 			// Admin Scripts
 			\add_action('admin_enqueue_scripts', function () {
@@ -103,43 +100,11 @@ if (!class_exists('RemoteData')) :
 
 			acf_hidden_input(array('type' => 'hidden', 'name' => $field['prefix'] . '[sticky]', 'value' => '0'));
 
-			// acf_render_field_setting($field, array(
-			// 	'label'		   => __('Endpoint', 'acf-rest'),
-			// 	'instructions' => __('Defina o endpoint de onde as informações serão buscadas', 'acf-rest'),
-			// 	'type' 		   => 'url',
-			// 	'name' 		   => 'endpoint',
-			// 	'placeholder'  => 'https://v2-noticias.adventistas.org/pt/wp-json/wp/v2/posts/',
-			// 	'required'	   => 1,
-			// ));
-
-			acf_render_field_setting($field, array(
-				'label'			=> __('Quantidade', 'acf-rest'),
-				'instructions'	=> 'Quantidade de itens a ser retornado',
-				'type'			=> 'number',
-				'name'			=> 'limit',
-				'min'			=> 1,
-				'max'			=> 100000,
-				'step'			=> 1,
-				'required'	    => 0,
-			));
-
 			$choices = [];
 			if (!empty($field['fields'])) :
 				foreach ($field['fields'] as $value)
 					$choices[$value] = $value;
 			endif;
-
-			// acf_render_field_setting($field, array(
-			// 	'label'			=> __('Campos', 'acf-rest'),
-			// 	'instructions'	=> 'Defina quais campos deverão ser retornados da API. Os campos id e title já são retornados automaticamente',
-			// 	'type'			=> 'select',
-			// 	'name'			=> 'fields',
-			// 	'choices'		=> $choices,
-			// 	'multiple'		=> 1,
-			// 	'ui'			=> 1,
-			// 	'allow_null'	=> 0,
-			// 	'placeholder'	=> __('Digite os nomes dos campos', 'acf-rest'),
-			// ));
 
 			// filter (by post types)
 			acf_render_field_setting($field, array(
@@ -153,33 +118,6 @@ if (!class_exists('RemoteData')) :
 				'allow_null'	=> 1,
 				'placeholder'	=> __("All post types", 'acf'),
 			));
-
-			// filter (featured image)
-			// acf_render_field_setting($field, array(
-			// 	'label'			=> __('Elements', 'acf'),
-			// 	'instructions'	=> __('Selected elements will be displayed in each result', 'acf'),
-			// 	'type'			=> 'checkbox',
-			// 	'name'			=> 'elements',
-			// 	'choices'		=> array(
-			// 		'featured_image'	=> __("Featured Image", 'acf'),
-			// 	),
-			// ));
-
-			// filter (min)
-			// acf_render_field_setting($field, array(
-			// 	'label'			=> __('Minimum posts', 'acf'),
-			// 	'instructions'	=> '',
-			// 	'type'			=> 'number',
-			// 	'name'			=> 'min',
-			// ));
-
-			// filter (max)
-			// acf_render_field_setting($field, array(
-			// 	'label'			=> __('Maximum posts', 'acf'),
-			// 	'instructions'	=> '',
-			// 	'type'			=> 'number',
-			// 	'name'			=> 'max',
-			// ));
 
 			// vars
 			$args = array(
@@ -229,16 +167,12 @@ if (!class_exists('RemoteData')) :
 				) + acf_get_pretty_post_types($post_type);
 			}
 
-			// print_r($filter_post_type_choices);
-
 			// div attributes
 			$atts = array(
 				'id'				=> $field['id'],
 				'class'				=> "acf-local-data acf-remote-data acf-relationship {$field['class']}",
 				'data-s'			=> '',
 				'data-paged'		=> 1,
-				// 'data-min'			=> $field['min'],
-				// 'data-max'			=> $field['max'],
 			);
 
 		?>
@@ -285,92 +219,7 @@ if (!class_exists('RemoteData')) :
 						</label>
 					</div>
 
-					<?php if (!empty($field['taxonomies'])) : ?>
-						<!-- <div class="filter -taxonomies">
-							<button type="button" aria-expanded="false" class="components-button components-panel__body-toggle">
-								Filtros
-								<svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="components-panel__arrow" role="img" aria-hidden="true" focusable="false">
-									<path d="M17.5 11.6L12 16l-5.5-4.4.9-1.2L12 14l4.5-3.6 1 1.2z"></path>
-								</svg>
-							</button>
-						</div> -->
-					<?php endif; ?>
 				</div>
-
-				<?php
-				if (!empty($field['taxonomies'])) :
-					$taxonomies = [];
-
-					foreach ($field['taxonomies'] as $tax) :
-						$taxonomy = get_taxonomy($tax);
-
-						if (empty($taxonomy))
-							continue;
-
-						$taxonomies[$tax] = [];
-						$taxonomies[$tax]['label'] = $taxonomy->label;
-						$taxonomies[$tax]['terms'] = [];
-
-						$terms = get_terms(array(
-							'taxonomy' 	 => $tax,
-							'hide_empty' => false,
-						));
-
-						if (is_wp_error($terms))
-							continue;
-
-						foreach ($terms as $term)
-							$taxonomies[$tax]['terms'][$term->slug] = $term->name;
-					endforeach;
-				?>
-
-					<div class="taxonomies-selection" data-taxonomies='<?= json_encode($taxonomies) ?>'>
-						<div class="taxonomy-row" style="display: none;">
-							<label>
-								<span class="acf-js-tooltip" title="Quantidade de itens a ser exibido. De 1 a 100">Taxonomia</span>
-								<?php acf_select_input(array('data-taxonomy' => '')); ?>
-							</label>
-
-							<label>
-								<span class="acf-js-tooltip" title="Quantidade de itens a ser exibido. De 1 a 100">Termos</span>
-								<?php acf_select_input(array('placeholder' => 'Selecione os termos desejados', 'data-terms' => '', 'multiple' => '')); ?>
-							</label>
-
-							<a href="#" class="acf-icon -minus remove-taxonomy-filter acf-js-tooltip" data-action="remove-taxonomy" title="Remover taxonomia"></a>
-						</div>
-
-						<?php
-						if (!empty($values['taxonomies'])) :
-							$choicesTaxonomies = [];
-							foreach ($taxonomies as $key => $value)
-								$choicesTaxonomies[$key] = $value['label'];
-
-							foreach ($values['taxonomies'] as $key => $taxonomy) :
-						?>
-								<div class="taxonomy-row">
-									<label>
-										<span class="acf-js-tooltip" title="Quantidade de itens a ser exibido. De 1 a 100">Taxonomia</span>
-										<?php acf_select_input(array('data-taxonomy' => '', 'choices' => $choicesTaxonomies, 'value' => $taxonomy)); ?>
-									</label>
-
-									<label>
-										<span class="acf-js-tooltip" title="Quantidade de itens a ser exibido. De 1 a 100">Termos</span>
-										<?php acf_select_input(array('placeholder' => 'Selecione os termos desejados', 'choices' => $taxonomies[$taxonomy]['terms'], 'value' => $values['terms'][$key], 'data-terms' => '', 'multiple' => '')); ?>
-									</label>
-
-									<a href="#" class="acf-icon -minus remove-taxonomy-filter acf-js-tooltip" data-action="remove-taxonomy" title="Remover taxonomia"></a>
-								</div>
-						<?php
-							endforeach;
-						endif;
-						?>
-
-						<div class="add-container">
-							<a href="#" class="acf-icon -plus dark acf-js-tooltip" data-action="add-taxonomy" title="Adicionar taxonomia"></a>
-						</div>
-					</div>
-
-				<?php endif; ?>
 
 				<div class="selection">
 					<div class="choices">
@@ -555,15 +404,12 @@ if (!class_exists('RemoteData')) :
 		{
 			// defaults
 			$options = wp_parse_args($options, array(
-				// 'endpoint'		=> '',
 				'sticky'		=> '',
-
 				'post_id'		=> 0,
 				's'				=> '',
 				'field_key'		=> '',
 				'paged'			=> 1,
 				'post_type'		=> '',
-				'taxonomy'		=> ''
 			));
 
 			// load field
@@ -571,15 +417,19 @@ if (!class_exists('RemoteData')) :
 			if (!$field) return false;
 
 			// vars
-			$postsLocal = array();
-
+			$results = array();
 			$args = array();
 			$s = false;
 			$is_search = false;
 
 			// paged
-			$args['posts_per_page'] = 20;
 			$args['paged'] = intval($options['paged']);
+
+			// limit
+			$limit = isset($options['limit']) ? $options['limit'] : $field['limit'];
+			$limit = !empty($limit) && $limit > 0 ? $limit : 1;
+			$limit = $limit <= 100 ? $limit : 100;
+			$args['posts_per_page'] = $limit;
 
 			// search
 			if ($options['s'] !== '') {
@@ -591,9 +441,6 @@ if (!class_exists('RemoteData')) :
 				$is_search = true;
 			}
 
-			// $url = $field['endpoint'];
-			// $queryArgs = ['_fields' => 'id,title,date,featured_media_url'];
-
 			$sticky = isset($options['sticky']) ? $options['sticky'] : 0;
 			$stickyItems = !empty($sticky) ? explode(',', $sticky) : [];
 
@@ -601,16 +448,6 @@ if (!class_exists('RemoteData')) :
 			$stickyItemsFilter = array_filter($stickyItems, function ($v) {
 				return substr($v, 0, 1) !== 'm';
 			});
-
-			// paged
-			$limit = isset($options['limit']) ? $options['limit'] : $field['limit'];
-			$limit = !empty($limit) && $limit > 0 ? $limit : 1;
-			$limit = $limit <= 100 ? $limit : 100;
-			// $queryArgs['per_page'] = $limit;
-			$args['posts_per_page'] = $limit;
-
-			// if (!empty($field['fields']))
-			// 	$queryArgs['_fields'] .= ',' . implode(',', $field['fields']);
 
 			// post_type
 			if (!empty($options['post_type'])) {
@@ -621,18 +458,36 @@ if (!class_exists('RemoteData')) :
 				$args['post_type'] = acf_get_post_types();
 			}
 
-			// $args = apply_filters('acf/fields/remote_data/query', $args, $field, $options['post_id']);
+			// $args = apply_filters('acf/fields/localposts_data/query', $args, $field, $options['post_id']);
 
-			// retrieves posts
-			$posts = acf_get_posts(['post_type'	=> $args['post_type']]);
+			// retrieves static posts
+			$posts = acf_get_posts([
+				'post_type' => $args['post_type'],
+				'posts_per_page' => $args['posts_per_page']
+			]);
 
-			// order posts by search
+			// perform search query
 			if ($is_search && empty($args['orderby']) && isset($args['s'])) :
-				$posts = acf_get_posts(array(
-					's'  		=> $args['s'],
+				$posts = acf_get_posts([
+					's' => $args['s'],
 					'post_type'	=> $args['post_type'],
-					'exclude'	=> $stickyItemsFilter
-				));
+					'posts_per_page' => $args['posts_per_page'],
+					'exclude' => $stickyItemsFilter
+				]);
+			endif;
+
+			if (!empty($sticky)) :
+				// $response = \wp_remote_get(\add_query_arg(array_merge($queryArgs, ['include' => $stickyItemsFilter, 'orderby' => 'include']), $url));
+				$posts = acf_get_posts(array_merge($args, [
+					'post_type'	=> $args['post_type'],
+					'posts_per_page' => $args['posts_per_page'],
+					'include' => $stickyItemsFilter,
+					'orderby' => 'include'
+				]));
+			endif;
+
+			if ($limit > count($stickyItems)) :
+				$args['posts_per_page'] = count($stickyItems) <= $limit ? $limit - count($stickyItems) : $limit;
 			endif;
 
 			// iterate posts query
@@ -640,39 +495,15 @@ if (!class_exists('RemoteData')) :
 				foreach ($posts as $post) :
 					$thumb = get_the_post_thumbnail_url($post->ID, 'full');
 
-					$postsLocal[] = $this->get_post_result($post->ID, $post->post_date, $post->post_title, $thumb);
+					$results[] = $this->get_post_result($post->ID, $post->post_date, $post->post_title, $thumb);
 				endforeach;
-			endif;
-
-			if (!empty($sticky)) :
-			// $response = \wp_remote_get(\add_query_arg(array_merge($queryArgs, ['include' => $stickyItemsFilter, 'orderby' => 'include']), $url));
-			endif;
-
-			if ($limit > count($stickyItems)) :
-				// $queryArgs['per_page'] = count($stickyItems) <= $limit ? $limit - count($stickyItems) : $limit;
-				$args['posts_per_page'] = count($stickyItems) <= $limit ? $limit - count($stickyItems) : $limit;
-
-			// if (isset($options['taxonomies']) && isset($options['terms'])) :
-			// 	foreach ($options['taxonomies'] as $key => $taxonomy)
-			// 		$queryArgs["$taxonomy-tax"] = implode(',', $options['terms'][$key]);
-			// endif;
-
-			// die(var_dump(\add_query_arg(array_merge($queryArgs, ['exclude' => $stickyItemsFilter, 'orderby' => 'date']), $url))); 
-
-
-			// $response = \wp_remote_get(\add_query_arg(array_merge($queryArgs, ['exclude' => $stickyItemsFilter, 'orderby' => 'date']), $url));
-			// $responseCode = \wp_remote_retrieve_response_code($response);
-			// $responseData = \wp_remote_retrieve_body($response);
-
-			// if ($this->responseSuccess($responseCode))
-			// 	$results = array_merge($results, json_decode($responseData, true));
 			endif;
 
 			// vars
 			$response = array(
-				'results'	=> $postsLocal,
+				'results'	=> $results,
 				'limit'		=> $args['posts_per_page'],
-				'data'		=> json_encode($postsLocal),
+				'data'		=> json_encode($results),
 			);
 
 			// return
