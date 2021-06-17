@@ -4,6 +4,8 @@ namespace Blocks\PAListFeature;
 
 use Blocks\Block;
 use Blocks\Fields\Source;
+use WordPlate\Acf\ConditionalLogic;
+use WordPlate\Acf\Fields\Checkbox;
 use WordPlate\Acf\Fields\Link;
 use WordPlate\Acf\Fields\Repeater;
 use WordPlate\Acf\Fields\Text;
@@ -38,6 +40,15 @@ class PAListFeature extends Block {
 			[
 				Source::make(),
 				Text::make('Título', 'title'),
+				Checkbox::make( 'Habilitar link mais conteúdos', 'checkContent' )
+				        ->choices( [
+					        'sim' => 'Sim'
+				        ] )
+				        ->layout( 'horizontal' ),
+				Link::make( 'Conteúdo', 'contents' )
+				    ->conditionalLogic( [
+					    ConditionalLogic::if( 'checkContent' )->equals( 'sim' )
+				    ] ),
 				Repeater::make('', 'items')
 				        ->fields([
 					        Link::make('Link', 'link')
@@ -57,6 +68,8 @@ class PAListFeature extends Block {
     public function with(): array {
         return [
             'title'  => field('title'),
+            'checkContent' => field( 'checkContent' ),
+            'contents' => field( 'contents' ),
 			'items' => field('items'),
         ];
     }

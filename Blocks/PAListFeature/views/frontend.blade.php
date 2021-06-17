@@ -14,6 +14,9 @@
 				</li>
 			@endforeach
 		</ul>
-		<a href="#" class="pa-all-content">Ver todos os projetos</a>
+		@if(!empty($checkContent))
+			<a href="{{ $contents['url'] ?? '#' }}" class="pa-all-content"
+			   target="{{ $contents['target'] ?? '_self' }}">{{ $contents['title'] }}</a>
+		@endif
 	</div>
 @endif
