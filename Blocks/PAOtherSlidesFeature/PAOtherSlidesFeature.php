@@ -8,6 +8,7 @@ use WordPlate\Acf\ConditionalLogic;
 use WordPlate\Acf\Fields\Checkbox;
 use WordPlate\Acf\Fields\Image;
 use WordPlate\Acf\Fields\Link;
+use WordPlate\Acf\Fields\Relationship;
 use WordPlate\Acf\Fields\Repeater;
 use WordPlate\Acf\Fields\Text;
 
@@ -50,6 +51,17 @@ class PAOtherSlidesFeature extends Block {
 				    ->conditionalLogic( [
 					    ConditionalLogic::if( 'checkContent' )->equals( 'sim' )
 				    ] ),
+				Relationship::make('', 'localItems')
+				            ->min(1)
+				            ->max(4)
+				            ->postTypes(['post', 'projetos', 'revistas'])
+				            ->filters([
+					            'search',
+					            'post_type'
+				            ])
+				            ->conditionalLogic([
+					            ConditionalLogic::if('source')->equals('local')
+				            ]),
 				Repeater::make( '', 'items' )
 				        ->fields( [
 					        Image::make( 'Thumbnail', 'thumbnail' ),
@@ -59,7 +71,10 @@ class PAOtherSlidesFeature extends Block {
 				        ->min( 1 )
 				        ->buttonLabel( 'Adicionar item' )
 				        ->collapsed( 'title' )
-				        ->layout( 'block' ),
+				        ->layout( 'block' )
+				        ->conditionalLogic( [
+					        ConditionalLogic::if( 'source' )->equals( 'custom' )
+				        ] ),
 			];
 	}
 
@@ -70,10 +85,10 @@ class PAOtherSlidesFeature extends Block {
 	 */
 	public function with(): array {
 		return [
-			'title'    => field( 'title' ),
+			'title'        => field( 'title' ),
 			'checkContent' => field( 'checkContent' ),
-			'contents' => field( 'contents' ),
-			'items'    => field( 'items' ),
+			'contents'     => field( 'contents' ),
+			'items'        => field( 'items' ),
 		];
 	}
 }
