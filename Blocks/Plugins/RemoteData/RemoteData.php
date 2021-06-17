@@ -425,12 +425,6 @@ if (!class_exists('RemoteData')) :
 			// paged
 			$args['paged'] = intval($options['paged']);
 
-			// limit
-			$limit = isset($options['limit']) ? $options['limit'] : $field['limit'];
-			$limit = !empty($limit) && $limit > 0 ? $limit : 1;
-			$limit = $limit <= 100 ? $limit : 100;
-			$args['posts_per_page'] = $limit;
-
 			// search
 			if ($options['s'] !== '') {
 				// strip slashes (search may be integer)
@@ -441,8 +435,17 @@ if (!class_exists('RemoteData')) :
 				$is_search = true;
 			}
 
+			// field range limit
+			$limit = isset($options['limit']) ? $options['limit'] : $field['limit'];
+			// $limit = !empty($limit) && $limit > 0 ? $limit : 1;
+			$args['posts_per_page'] = $limit;
+
 			$sticky = isset($options['sticky']) ? $options['sticky'] : 0;
 			$stickyItems = !empty($sticky) ? explode(',', $sticky) : [];
+
+			if ($limit > count($stickyItems)) :
+				$args['posts_per_page'] = count($stickyItems) <= $limit ? $limit - count($stickyItems) : $limit;
+			endif;
 
 			// filter non 'm' prefix (manual item)
 			$stickyItemsFilter = array_filter($stickyItems, function ($v) {
@@ -486,15 +489,11 @@ if (!class_exists('RemoteData')) :
 				]));
 			endif;
 
-			if ($limit > count($stickyItems)) :
-				$args['posts_per_page'] = count($stickyItems) <= $limit ? $limit - count($stickyItems) : $limit;
-			endif;
-
-			// iterate posts query
+			// iterate results
 			if (!empty($posts)) :
 				foreach ($posts as $post) :
 					$thumb = get_the_post_thumbnail_url($post->ID, 'full');
-
+					// push results
 					$results[] = $this->get_post_result($post->ID, $post->post_date, $post->post_title, $thumb);
 				endforeach;
 			endif;
