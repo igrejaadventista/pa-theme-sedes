@@ -3,6 +3,7 @@
 namespace Blocks;
 
 use Blocks\PAAppsFeature\PAAppsFeature;
+use Blocks\PALatestNewsFeature\PALatestNewsFeature;
 use Blocks\PAMagazinesFeature\PAMagazinesFeature;
 use \Blocks\PACarouselFeature\PACarouselFeature;
 use Blocks\PAFacebookFeature\PAFacebookFeature;
@@ -42,6 +43,7 @@ class Blocks {
 			PAOtherSlidesFeature::class,
 			PAAppsFeature::class,
 			PAMagazinesFeature::class,
+			PALatestNewsFeature::class,
 		];
 	
 		// Merge registered blocks with new blocks
