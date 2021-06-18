@@ -294,7 +294,7 @@
 				// Update the list to validate the allowed quantity of items
 				this.fetch();
 
-				this.sortValues();
+				this.sortValues(); // call this after onSuccess on fetch()
 			}
 			else {
 				if ($li[0].hasAttribute('data-manual')) {
@@ -688,8 +688,8 @@
 		 */
 		sortValues() {
 			// const results = this.get('results');
-			const results = this.data;
-			console.log(results.xhr)
+			const results = this;
+			console.log(results)
 
 			// api fields
 			// const values = JSON.parse(this.$valuesInput().val());

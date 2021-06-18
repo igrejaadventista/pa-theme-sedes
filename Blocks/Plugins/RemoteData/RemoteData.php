@@ -521,7 +521,6 @@ if (!class_exists('RemoteData')) :
 		 *  @param	$post_id (int)
 		 *  @return	$post_id (int)
 		 */
-
 		function ajax_search()
 		{
 			// validate
