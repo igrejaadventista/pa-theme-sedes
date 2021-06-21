@@ -283,7 +283,8 @@
 			if(this.$stickyInput().val() == 0)
 				this.$stickyInput().val('');
 
-			if(sticky) {
+			if (sticky) {
+				console.log(sticky);
 				$li.appendTo(this.$stickyList());
 
 				// Update the list to validate the allowed quantity of items
@@ -291,12 +292,12 @@
 					let exceededLimit = (this.stickyItems().length + 1) >= parseInt(this.$limitInput().val()) ? true : false;
 					this.$isExceeded(exceededLimit);
 				}
-				// Update the list to validate the allowed quantity of items
-				this.fetch();
 
-				this.sortValues(); // call this after onSuccess on fetch()
-			}
-			else {
+				this.sortValues();
+				// Update the list to validate the allowed quantity of items
+				// this.fetch();
+			} else {
+				console.log(sticky);
 				if ($li[0].hasAttribute('data-manual')) {
 					const manualAttr = JSON.parse(this.$manualInput().val());
 					// get sticky item id
@@ -305,11 +306,13 @@
 
 					this.$manualInput().val(JSON.stringify(manualFilterId));
 				}
-				
+
 				this.$choicesList().find(`[data-id="${$li.data('id')}"]`).removeClass('disabled');
 
 				$li.remove();
+			
 				this.sortValues();
+
 				this.fetch();
 			}
 		},
@@ -399,8 +402,12 @@
 				// Append
 				this.$stickyList().empty().append(html.stickyList);
 				$list.append(html.list);
-				this.$valuesInput().val(this.parseData(json.data));
+
+				// this.$valuesInput().val(this.parseData(json.data));
+
 				this.sortList();
+
+				this.sortValues();
 			};
 			
 			// Get results
@@ -497,8 +504,6 @@
 			};
 			
 			const onSuccess = (json) => {
-				console.log( 'onSuccess', json.results );
-
 				// No results
 				if(!json || !json.results || !json.results.length)
 					// Add message
@@ -541,14 +546,11 @@
 			let mergeItems = [].concat(data, stickyManual);
 			// let mergeItems = stickyManual;
 
-			// console.log('walkChoices(): ', data);
-			// console.log('sticky items: ', stickyItems );
-
 			let stickyOrder = [];
 			stickyItems.forEach(elms => {
 				const item = mergeItems.find(item => item.id == elms);
 
-				mergeItems = mergeItems.filter(function(value) { 
+				mergeItems = mergeItems.filter((value) => { 
 					return value != item;
 				});
 
@@ -559,6 +561,9 @@
 
 			// merge data objects if sticky values exists on input
 			let mergedData = stickyOrder.length ? [].concat(stickyOrder, mergeItems) : mergeItems;
+
+			console.log('mergedData: ', mergedData);
+
 			mergedData.forEach(element => {
 				let content = `<li data-id="${acf.escAttr(element.id)}" data-date="${acf.escAttr(element.date)}"`;
 					content += `${element.id.toString().startsWith('m') ? ' data-manual' : ''}><span class="acf-rel-item">`;
@@ -617,7 +622,7 @@
 		/**
 		 * Add search result as sticky item
 		 */
-		onClickAdd(e, $el) {		
+		onClickAdd(e, $el) {
 			// Can be added?
 			if($el.hasClass('disabled'))
 				return false;
@@ -650,14 +655,6 @@
 		},
 
 		/**
-		 * Show/hide taxonomies filters
-		 */
-		// onClickToggleTaxonomies(e, $el) {		
-		// 	$el.toggleClass('active')
-		// 	this.$taxonomiesSelection().slideToggle();
-		// },
-
-		/**
 		 * Create item html
 		 * 
 		 * @param {object} props The item data
@@ -687,17 +684,16 @@
 		 * Sort sticky items
 		 */
 		sortValues() {
-			// const results = this.get('results');
-			const results = this;
-			console.log(results)
+			console.log('sortValues()');
+			const results = this.get('xhr');
 
-			// api fields
-			// const values = JSON.parse(this.$valuesInput().val());
-
-			// manual fields
+			const valuesLocal = results.readyState === 4 ? JSON.parse(results.responseJSON.data) : [];
+			console.log(valuesLocal)
 			const valuesManual = this.$manualInput().val() !== '' ? JSON.parse(this.$manualInput().val()) : [];
-			// const valuesMerged = [].concat(values, valuesManual);
-			const valuesMerged = valuesManual;
+			
+			// merge local/manual fields array
+			const valuesMerged = [].concat(valuesLocal, valuesManual);
+			// const valuesMerged = valuesManual;
 
 			let sortedValues = [];
 
@@ -708,11 +704,9 @@
 				let elementValue;
 
 				if(typeof element.dataset.fromSearch != 'undefined') {
-					elementValue = results.find(value => value.id == element.dataset.id);
-					console.log('results get()');
+					elementValue = valuesLocal.find(value => value.id == element.dataset.id);
 				} else {
 					elementValue = valuesMerged.find(value => value.id == element.dataset.id);
-					console.log('results merged');
 				}
 
 				if(elementValue) {
@@ -739,7 +733,7 @@
 		 * @param {*} e 
 		 * @param {*} $el 
 		 */
-		onClickAddManualPost(e, $el) {
+		onClickAddManualPost() {
 			var $modal = this.$control().find('.widgets-acf-modal.-fields');
 			// Open modal
 			modal.open($modal, {
@@ -761,10 +755,10 @@
 
 					// clear fields
 					this.$acfInputName('titulo').val('');
-					this.$acfInputName('thumbnail', '[data-name=remove]').click();
+					this.$acfInputName('thumbnail', '[data-name="remove"]').click();
 					this.$acfInputName('excerpt', 'textarea').val('');
 
-					buttonAdd.click((e) => {
+					buttonAdd.click(() => {
 						// retrieves acf fields from modal
 						let title = this.$acfInputName('titulo').val();
 						let thumbnail = this.$acfInputName('thumbnail', 'img').attr('src');
@@ -787,9 +781,11 @@
 							return false;
 						}
 
+						const $date = new Date();
+
 						let createNewFields = {
-							id: `m${e.timeStamp}`,
-							date: new Date().toISOString(),
+							id: `m${$date.getUTCMilliseconds()}`,
+							date: $date.toISOString(),
 							title: {
 								rendered: title
 							},
@@ -813,7 +809,9 @@
 						this.$stickyInput().val(this.$stickyInput().val().replace(/(^\,+|\,+$)/mg, ''));
 
 						this.set('sticky', this.$stickyInput().val());
+
 						this.fetch();
+
 						modal.close();
 					});
 				}

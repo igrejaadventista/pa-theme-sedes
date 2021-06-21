@@ -181,7 +181,7 @@ if (!class_exists('RemoteData')) :
 				<?php acf_hidden_input(array('name' => $field['name'] . "[sticky]", 'value' => isset($values['sticky']) ? $values['sticky'] : 0, 'data-sticky' => '')); ?>
 
 				<div class="action-toolbar">
-					<button type="button" class="buttonAddManualPost disabled_" data-action="manual-new-post" disabled_>Adicionar manual</button>
+					<button type="button" class="buttonAddManualPost disabled" data-action="manual-new-post" disabled>Adicionar manual</button>
 					<button type="button" class="buttonUpdateTaxonomies acf-js-tooltip" data-action="refresh" title="Atualizar" aria-label="Atualizar">
 						<svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" aria-hidden="true" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
 							<polyline points="23 4 23 10 17 10"></polyline>
@@ -369,17 +369,17 @@ if (!class_exists('RemoteData')) :
 		{
 			// vars
 			$result = array(
-				'id' => $id,
-				'date' => $date,
-				'title' => [
-					'rendered' => $title
-				],
-				'featured_media_url' => [
-					'pa_block_render' => $img
-				],
-				'excerpt' => [
-					'rendered' => $excerpt
-				],
+				'id' 					=> $id,
+				'date' 					=> $date,
+				'title' 				=> array(
+					'rendered' 			=> $title
+				),
+				'featured_media_url' 	=> array(
+					'pa_block_render' 	=> $img
+				),
+				'excerpt' 				=> array(
+					'rendered' 			=> $excerpt
+				),
 				'url' => $url
 			);
 
@@ -417,8 +417,8 @@ if (!class_exists('RemoteData')) :
 			if (!$field) return false;
 
 			// vars
-			$results = array();
-			$args = array();
+			$results = [];
+			$args = [];
 			$s = false;
 			$is_search = false;
 
@@ -435,17 +435,8 @@ if (!class_exists('RemoteData')) :
 				$is_search = true;
 			}
 
-			// field range limit
-			$limit = isset($options['limit']) ? $options['limit'] : $field['limit'];
-			// $limit = !empty($limit) && $limit > 0 ? $limit : 1;
-			$args['posts_per_page'] = $limit;
-
 			$sticky = isset($options['sticky']) ? $options['sticky'] : 0;
 			$stickyItems = !empty($sticky) ? explode(',', $sticky) : [];
-
-			if ($limit > count($stickyItems)) :
-				$args['posts_per_page'] = count($stickyItems) <= $limit ? $limit - count($stickyItems) : $limit;
-			endif;
 
 			// filter non 'm' prefix (manual item)
 			$stickyItemsFilter = array_filter($stickyItems, function ($v) {
@@ -461,141 +452,71 @@ if (!class_exists('RemoteData')) :
 				$args['post_type'] = acf_get_post_types();
 			}
 
+			// field range limit
+			$limit = isset($options['limit']) ? $options['limit'] : $field['limit'];
+			// $limit = !empty($limit) && $limit > 0 ? $limit : 1;
+			// $limit = $limit <= 100 ? $limit : 100;
+			$args['posts_per_page'] = (int)$limit;
+
+			// die(var_dump($args['posts_per_page']));
+
+			if ($limit > count($stickyItems)) :
+				$args['posts_per_page'] = count($stickyItems) <= $limit ? $limit - count($stickyItems) : $limit;
+			// $args['exclude'] = $stickyItemsFilter;
+			// $args['orderby'] = 'date';
+
+			// $posts = acf_get_posts(array_merge($args, [
+			// 	'post_type'	=> $args['post_type'],
+			// 	'posts_per_page' => $args['posts_per_page'],
+			// 	// 'exclude' 	=> $stickyItemsFilter,
+			// 	// 'orderby' 	=> 'date'
+			// ]));
+			// die(var_dump($args['posts_per_page']));
+			endif;
+
 			// $args = apply_filters('acf/fields/localposts_data/query', $args, $field, $options['post_id']);
 
-			// retrieves static posts
-			$posts = acf_get_posts([
-				'post_type' => $args['post_type'],
-				'posts_per_page' => $args['posts_per_page']
-			]);
+			// die(var_export($args));
 
 			// perform search query
 			if ($is_search && empty($args['orderby']) && isset($args['s'])) :
-				$posts = acf_get_posts([
-					's' => $args['s'],
+				$posts = acf_get_posts(array(
+					's' 		=> $args['s'],
 					'post_type'	=> $args['post_type'],
-					'posts_per_page' => $args['posts_per_page'],
-					'exclude' => $stickyItemsFilter
-				]);
+					// 'posts_per_page' => $args['posts_per_page'],
+					'exclude' 	=> $stickyItemsFilter
+				));
 			endif;
 
 			if (!empty($sticky)) :
 				// $response = \wp_remote_get(\add_query_arg(array_merge($queryArgs, ['include' => $stickyItemsFilter, 'orderby' => 'include']), $url));
 				$posts = acf_get_posts(array_merge($args, [
 					'post_type'	=> $args['post_type'],
-					'posts_per_page' => $args['posts_per_page'],
-					'include' => $stickyItemsFilter,
-					'orderby' => 'include'
+					// 'posts_per_page' => $args['posts_per_page'],
+					'include' 	=> $stickyItemsFilter,
+					'orderby' 	=> 'include',
+					// 'numberposts' => 1
 				]));
 			endif;
 
-			// iterate results
-			if (!empty($posts)) :
-				foreach ($posts as $post) :
-					$thumb = get_the_post_thumbnail_url($post->ID, 'full');
-					// push results
-					$results[] = $this->get_post_result($post->ID, $post->post_date, $post->post_title, $thumb);
-				endforeach;
-			endif;
+			// retrieves static posts
+			$posts = acf_get_posts(array(
+				'post_type' => $args['post_type'],
+				'posts_per_page' => $args['posts_per_page'],
+				// 'numberposts' => 1
+			));
+
+			// if (!empty($posts)) :
+			foreach ($posts as $post) :
+				$thumb = get_the_post_thumbnail_url($post->ID, 'full');
+				$results[] = $this->get_post_result($post->ID, $post->post_date, $post->post_title, $thumb);
+			endforeach;
+			// endif;
 
 			// vars
 			$response = array(
 				'results'	=> $results,
 				'limit'		=> $args['posts_per_page'],
-				'data'		=> json_encode($results),
-			);
-
-			// return
-			return $response;
-		}
-
-		/**
-		 *  ajax_query
-		 *
-		 *  description
-		 *
-		 *  @type	function
-		 *  @date	24/10/13
-		 *  @since	5.0.0
-		 *
-		 *  @param	$post_id (int)
-		 *  @return	$post_id (int)
-		 */
-		function ajax_search()
-		{
-			// validate
-			if (!acf_verify_ajax())
-				die();
-
-			// get choices
-			$response = $this->get_ajax_search($_POST);
-
-			// return
-			acf_send_ajax_results($response);
-		}
-
-		/**
-		 *  get_ajax_query
-		 *
-		 *  This function will return an array of data formatted for use in a select2 AJAX response
-		 *
-		 *  @type	function
-		 *  @date	15/10/2014
-		 *  @since	5.0.9
-		 *
-		 *  @param	$options (array)
-		 *  @return	(array)
-		 */
-
-		function get_ajax_search($options = array())
-		{
-			// defaults
-			$options = wp_parse_args($options, array(
-				'endpoint'		=> '',
-				'field_key'		=> '',
-				's'				=> '',
-			));
-
-			// load field
-			$field = acf_get_field($options['field_key']);
-			if (!$field)
-				return false;
-
-			$results = [];
-			$url = $field['endpoint'];
-			$queryArgs = ['_fields' => 'id,title,date,featured_media_url'];
-
-			$sticky = isset($options['sticky']) ? $options['sticky'] : 0;
-
-			if (!empty($sticky) || isset($options['exclude'])) :
-				$queryArgs['exclude'] = [];
-
-				if (isset($options['exclude']))
-					$queryArgs['exclude'] = array_merge($queryArgs['exclude'], $options['exclude']);
-				if (!empty($sticky))
-					$queryArgs['exclude'] = array_merge($queryArgs['exclude'], explode(',', $sticky));
-			endif;
-
-			if (!empty($field['fields']))
-				$queryArgs['_fields'] .= ',' . implode(',', $field['fields']);
-
-			// search
-			if (!empty($options['s']))
-				// strip slashes (search may be integer)
-				$queryArgs['search'] = wp_unslash(strval($options['s']));
-
-			// die(var_dump(\add_query_arg($queryArgs, $url))); 
-
-			$response = \wp_remote_get(\add_query_arg($queryArgs, $url));
-			$responseCode = \wp_remote_retrieve_response_code($response);
-			$responseData = \wp_remote_retrieve_body($response);
-
-			if ($this->responseSuccess($responseCode))
-				$results = array_merge($results, json_decode($responseData, true));
-
-			// vars
-			$response = array(
-				'results'	=> $results,
 				'data'		=> json_encode($results),
 			);
 
