@@ -26,7 +26,7 @@
 					</div>
 				</div>
 			</div>
-			<a href="//{{ $url }}" class="btn btn-primary btn-block mt-4">{{ $buttonTitle }}</a>
+			<a href="//{{ $link['url'] }}" class="btn btn-primary btn-block mt-4">{{ $link['title'] }}</a>
 
 		</div>
 	</div>
