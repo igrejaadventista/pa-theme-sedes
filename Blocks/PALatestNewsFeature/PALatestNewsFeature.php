@@ -5,8 +5,10 @@ namespace Blocks\PALatestNewsFeature;
 use Blocks\Block;
 use Blocks\Fields\Source;
 
+use WordPlate\Acf\ConditionalLogic;
 use WordPlate\Acf\Fields\Image;
 use WordPlate\Acf\Fields\Link;
+use WordPlate\Acf\Fields\Relationship;
 use WordPlate\Acf\Fields\Repeater;
 use WordPlate\Acf\Fields\Text;
 use WordPlate\Acf\Fields\Textarea;
@@ -41,20 +43,34 @@ class PALatestNewsFeature extends Block {
 			[
 				Source::make(),
 				Text::make('Título', 'title'),
-				Repeater::make('', 'news')
+				Relationship::make('', 'news')
+				            ->min(1)
+				            ->max(4)
+				            ->postTypes(['post', 'artigos'])
+				            ->filters([
+					            'search',
+					            'sedes'
+				            ])
+				            ->conditionalLogic([
+					            ConditionalLogic::if('source')->equals('local')
+				            ]),
+				Repeater::make('', 'custom_news')
                     ->fields([
                         Image::make('Thumbnail', 'thumbnail'),
                         Text::make('Título', 'title'),
                         Text::make('Tipo', 'postType'),
                         Text::make('Subtitulo', 'header'),
                         Textarea::make('Resumo', 'excerpt'),
-                        Link::make('Link', 'link')
+                        Link::make('URL', 'link')
                     ])
                     ->min(1)
                     ->max(4)
                     ->buttonLabel('Adicionar notícia')
                     ->collapsed('title')
-                    ->layout('block'),
+                    ->layout('block')
+					->conditionalLogic([
+						ConditionalLogic::if('source')->equals('custom')
+					]),
 			];
 	}
 	    
