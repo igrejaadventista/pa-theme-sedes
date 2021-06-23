@@ -1,19 +1,17 @@
 <?php
 
-namespace Blocks\Plugins\RemoteData;
-
-use WordPlate\Acf\Fields\Text;
+namespace Blocks\Plugins\LocalData;
 
 // exit if accessed directly
 if (!defined('ABSPATH')) exit;
 
 // check if class already exists
-if (!class_exists('RemoteData')) :
+if (!class_exists('LocalData')) :
 
 	/**
 	 * Class acf_field_rest
 	 */
-	class RemoteData extends \acf_field
+	class LocalData extends \acf_field
 	{
 
 		/**
@@ -51,7 +49,7 @@ if (!class_exists('RemoteData')) :
 
 			// Admin Scripts
 			\add_action('admin_enqueue_scripts', function () {
-				\wp_enqueue_script('acf-remote-fields.js', get_template_directory_uri() . '/Blocks/Plugins/RemoteData/Assets/remote-fields.js', ['jquery'], null, true);
+				\wp_enqueue_script('acf-remote-fields.js', get_template_directory_uri() . '/Blocks/Plugins/LocalData/Assets/local-fields.js', ['jquery'], null, true);
 			});
 
 			// do not delete!
@@ -72,8 +70,8 @@ if (!class_exists('RemoteData')) :
 		 */
 		function input_admin_enqueue_scripts()
 		{
-			\wp_enqueue_style('acf-remote-data-css', get_template_directory_uri() . '/Blocks/Plugins/RemoteData/Assets/remote-data.css', false);
-			\wp_enqueue_script('acf-remote-data.js', get_template_directory_uri() . '/Blocks/Plugins/RemoteData/Assets/remote-data.js', ['jquery'], null, true);
+			\wp_enqueue_style('acf-local-data-css', get_template_directory_uri() . '/Blocks/Plugins/LocalData/Assets/local-data.css', false);
+			\wp_enqueue_script('acf-local-data.js', get_template_directory_uri() . '/Blocks/Plugins/LocalData/Assets/local-data.js', ['jquery'], null, true);
 		}
 
 		/**
@@ -495,7 +493,7 @@ if (!class_exists('RemoteData')) :
 	}
 
 	// initialize
-	new RemoteData();
+	new LocalData();
 
 // class_exists check
 endif;

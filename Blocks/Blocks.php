@@ -73,7 +73,7 @@ class Blocks {
 	}
 
 	public function registerPlugins() {
-		include_once('Plugins/RemoteData/RemoteData.php');
+		include_once('Plugins/LocalData/LocalData.php');
 	}
 
 	function enqueueAssets() {
