@@ -784,7 +784,7 @@
 						// alert component
 						this.$setAlertValidation();
 
-						// validate fields
+						// validate fields // change to func (args: input value, error message)
 						if ('' === title) {
 							this.$alertValidation().find('span').text('Título é obrigatório.');
 							return false;

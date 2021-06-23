@@ -353,7 +353,7 @@
 
 /***** MODAL *****/
 
-/*
+ /*
  * Modal Body
  */
 body.widgets-acf-modal-opened {
@@ -363,23 +363,21 @@ body.widgets-acf-modal-opened {
 /*
  * Modal Overlay
  */
-.widgets-acf-modal-overlay {
-	/* background: rgba(0, 0, 0, 0.7); */
-	background: #000;
-	opacity: 0.5;
-	position: fixed;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	height: 100%;
-	width: 100%;
-	z-index: 1000;
-}
+/* .widgets-acf-modal-overlay {
+    background: rgba(0, 0, 0, .7);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 100000
+} */
 
-.widgets-acf-modal-overlay {
+/* .widgets-acf-modal-overlay {
 	display: none;
-}
+} */
 
 .widgets-acf-modal.-open .widgets-acf-modal-title > button.button-sticky-add {
 	position: absolute;
@@ -397,9 +395,6 @@ body.widgets-acf-modal-opened {
 	background: none;
 }
 
-/*
- * Modal
- */
 .widgets-acf-modal {
 	display: none;
 	-webkit-transition: all 0.3s ease-in-out;
@@ -408,31 +403,29 @@ body.widgets-acf-modal-opened {
 }
 
 .widgets-acf-modal.-open {
-	position: fixed;
-	z-index: 10010;
-	height: 100%;
-	width: 100%;
-	top: 0;
-	left: 0;
-	bottom: 0;
-	right: 0;
-	-webkit-font-smoothing: subpixel-antialiased;
-
-	display: -webkit-box;
-	display: -ms-flexbox;
-	display: flex;
-	-webkit-box-orient: vertical;
-	-webkit-box-direction: normal;
-	-ms-flex-direction: column;
-	flex-direction: column;
-	-webkit-box-pack: center;
-	-ms-flex-pack: center;
-	justify-content: center;
-	-webkit-box-align: center;
-	-ms-flex-align: center;
-	align-items: center;
-
-	pointer-events: none;
+    position: fixed;
+    z-index: 100001;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    -webkit-font-smoothing: subpixel-antialiased;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    pointer-events: none;
 }
 
 /*
@@ -447,7 +440,6 @@ body.widgets-acf-modal-opened {
 	-webkit-box-direction: normal;
 	-ms-flex-direction: column;
 	flex-direction: column;
-
 	width: calc(100vw - 60px);
 	max-width: 1100px;
 	max-height: calc(100vh - 60px);
@@ -1028,12 +1020,13 @@ body:not(.acf-admin-5-3)
  * widgets-acf Modal: Gutenberg Fix
  */
 body.block-editor-page .edit-post-layout .widgets-acf-modal.-open {
-	-webkit-box-pack: start;
-	-ms-flex-pack: start;
-	justify-content: start;
-	-webkit-box-align: start;
-	-ms-flex-align: start;
-	align-items: start;
+    -webkit-box-pack: start;
+    -ms-flex-pack: start;
+    justify-content: start;
+    -webkit-box-align: start;
+    -ms-flex-align: start;
+    align-items: start;
+    background: rgba(0, 0, 0, .7);
 }
 
 body.block-editor-page
