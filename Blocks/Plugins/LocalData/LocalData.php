@@ -49,7 +49,7 @@ if (!class_exists('LocalData')) :
 
 			// Admin Scripts
 			\add_action('admin_enqueue_scripts', function () {
-				\wp_enqueue_script('acf-remote-fields.js', get_template_directory_uri() . '/Blocks/Plugins/LocalData/Assets/local-fields.js', ['jquery'], null, true);
+				\wp_enqueue_script('acf-local-fields.js', get_template_directory_uri() . '/Blocks/Plugins/LocalData/Assets/local-fields.js', ['jquery'], null, true);
 			});
 
 			// do not delete!
@@ -165,7 +165,7 @@ if (!class_exists('LocalData')) :
 			// div attributes
 			$atts = array(
 				'id'				=> $field['id'],
-				'class'				=> "acf-local-data acf-remote-data acf-relationship {$field['class']}",
+				'class'				=> "acf-local-data acf-relationship {$field['class']}",
 				'data-s'			=> '',
 				'data-paged'		=> 1,
 				'data-post_type'	=> '',
