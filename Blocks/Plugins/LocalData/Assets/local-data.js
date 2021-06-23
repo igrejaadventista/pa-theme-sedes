@@ -772,12 +772,14 @@
 					this.$acfInputName('titulo').val('');
 					this.$acfInputName('thumbnail', '[data-name="remove"]').click();
 					this.$acfInputName('excerpt', 'textarea').val('');
+					this.$acfInputName('url').val('');
 
 					buttonAdd.click(() => {
 						// retrieves acf fields from modal
 						let title = this.$acfInputName('titulo').val();
 						let thumbnail = this.$acfInputName('thumbnail', 'img').attr('src');
 						let content = this.$acfInputName('excerpt', 'textarea').val();
+						let url = this.$acfInputName('url').val();
 
 						// alert component
 						this.$setAlertValidation();
@@ -795,6 +797,10 @@
 							this.$alertValidation().find('span').text('Resumo é obrigatório.');
 							return false;
 						}
+						if ('' === url) {
+							this.$alertValidation().find('span').text('URL é obrigatório.');
+							return false;
+						}
 
 						const $date = new Date();
 
@@ -810,6 +816,9 @@
 							content: {
 								rendered: content
 							},
+							url: {
+								rendered: url
+							}
 						};
 
 						newData.push(createNewFields);
@@ -869,11 +878,13 @@
 					this.$acfInputName('thumbnail', 'img').attr('src', editData[editIndex].featured_media_url.pa_block_render);
 					this.$acfInputName('thumbnail', '.acf-image-uploader').addClass('has-value');
 					this.$acfInputName('excerpt', 'textarea').val(editData[editIndex].content.rendered);
+					this.$acfInputName('url').val(editData[editIndex].url.rendered);
 
 					buttonEdit.click(() => {
 						let title = this.$acfInputName('titulo').val();
 						let thumbnail = this.$acfInputName('thumbnail', 'img').attr('src');
 						let content = this.$acfInputName('excerpt', 'textarea').val();
+						let url = this.$acfInputName('url').val();
 
 						// alert component
 						this.$setAlertValidation();
@@ -891,11 +902,16 @@
 							this.$alertValidation().find('span').text('Resumo é obrigatório.');
 							return false;
 						}
+						if ('' === url) {
+							this.$alertValidation().find('span').text('Url é obrigatório.');
+							return false;
+						}
 
 						// update fields
 						editData[editIndex].title.rendered = title;
 						editData[editIndex].featured_media_url.pa_block_render = thumbnail;
 						editData[editIndex].content.rendered = content;
+						editData[editIndex].url.rendered = url;
 
 						let updatedData = editData;
 

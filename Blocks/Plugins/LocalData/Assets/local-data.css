@@ -367,7 +367,7 @@ body.widgets-acf-modal-opened {
 	/* background: rgba(0, 0, 0, 0.7); */
 	background: #000;
 	opacity: 0.5;
-	/* position: fixed; */
+	position: fixed;
 	top: 0;
 	left: 0;
 	right: 0;
@@ -375,6 +375,10 @@ body.widgets-acf-modal-opened {
 	height: 100%;
 	width: 100%;
 	z-index: 1000;
+}
+
+.widgets-acf-modal-overlay {
+	display: none;
 }
 
 .widgets-acf-modal.-open .widgets-acf-modal-title > button.button-sticky-add {
@@ -1138,10 +1142,6 @@ body.block-editor-page.folded
 		overflow-y: hidden;
 	}
 }
-
-/* body.block-editor-page .widgets-acf-modal-overlay {
-	display: none;
-} */
 
 /*
  * widgets-acf Modal: Attachment Single Fix
