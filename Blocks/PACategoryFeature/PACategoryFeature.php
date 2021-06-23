@@ -40,11 +40,19 @@ class PACategoryFeature extends Block {
 				Text::make( 'Título do bloco', 'title' ),
 				Repeater::make( 'Categorias', 'categories' )
 				        ->fields( [
-					        Link::make( 'URL Link', 'link' ),
-					        Text::make( 'Ícone', 'icon' )->instructions('<a href="https://fontawesome.com/v5.15/icons?d=gallery&p=2&m=free" target="_blank">Input da classe do ícone</a>'),
+					        Link::make( 'Link', 'link' )
+						        ->wrapper([
+							        'width' => 50,
+						        ]),
+					        Text::make( 'Ícone', 'icon' )
+					            ->instructions('<a href="https://fontawesome.com/v5.15/icons?d=gallery&p=2&m=free" target="_blank">Input da classe do ícone</a>')
+						        ->placeholder('fab fa-wordpress')
+						        ->wrapper([
+							        'width' => 50,
+						        ]),
 				        ] )
 				        ->min( 1 )
-				        ->collapsed( 'name' )
+				        ->collapsed( 'link' )
 				        ->buttonLabel( 'Adicionar Categoria' )
 				        ->layout( 'block' )
 				        ->required(),
