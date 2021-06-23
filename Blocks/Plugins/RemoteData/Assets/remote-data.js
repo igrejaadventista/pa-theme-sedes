@@ -295,7 +295,7 @@
 
 				this.sortValues();
 				// Update the list to validate the allowed quantity of items
-				// this.fetch();
+				this.fetch(); // update data list on sticky item
 			} else {
 				console.log(sticky);
 				if ($li[0].hasAttribute('data-manual')) {
@@ -344,7 +344,7 @@
 
 			// get current filter state value
 			let currSelectedPostType = this.getPostType();
-			let selectedPostType = currSelectedPostType !== undefined ? 
+			let selectedPostType = currSelectedPostType !== "" ? 
 			currSelectedPostType : this.get('post_type');
 			
 			// Extra
@@ -353,6 +353,10 @@
 			ajaxData.field_key = this.get('key');
 			ajaxData.sticky = this.get('sticky');
 			ajaxData.limit = this.get('limit');
+			// ajaxData.exclude = [163];
+
+			// exclude non items in list
+			// this.$valuesList().find('li').each((_, element) => ajaxData.exclude.push(element.dataset.id));
 			
 			return acf.applyFilters('localposts_data_ajax_data', ajaxData, this);
 		},
@@ -367,6 +371,8 @@
 				xhr.abort();
 			
 			const ajaxData = this.getAjaxData();
+
+			console.log(ajaxData);
 			
 			// Clear html if is new query
 			const $list = this.$valuesList();
@@ -460,9 +466,10 @@
 			
 			// Extra
 			ajaxData.action = 'acf/fields/localposts_data/query';
-			ajaxData.post_type = this.getPostType();
+			// ajaxData.post_type = this.getPostType();
 			ajaxData.field_key = this.get('key');
 			ajaxData.exclude = [];
+			
 
 			// exclude non items in list
 			this.$valuesList().find('li').each((_, element) => ajaxData.exclude.push(element.dataset.id));
@@ -536,28 +543,38 @@
 		 */
 		walkChoices(data, sticky = true) {
 			const stickyItems = this.stickyItems();
+			console.log('stickys: ', stickyItems);
 
 			let list = '';
 			let stickyList = '';
 
 			// check if manual input has values
 			const stickyManual = this.$manualInput().val().length ? JSON.parse(this.$manualInput().val()) : [];
+
+			console.log('walkChoices: ', data);
+			
 			// merge data from api and manual data
 			let mergeItems = [].concat(data, stickyManual);
 			// let mergeItems = stickyManual;
+			console.log('mergeItems: ', mergeItems);
 
 			let stickyOrder = [];
 			stickyItems.forEach(elms => {
 				const item = mergeItems.find(item => item.id == elms);
+				console.log('return stickyed items: ', item);
 
 				mergeItems = mergeItems.filter((value) => { 
 					return value != item;
 				});
 
+				console.log('mergeItems 2: ', mergeItems);
+
 				// check if array sticky input value is not empty
 				if(stickyItems[0] !== "")
 					stickyOrder.push(item);
 			});
+
+			console.log('stickyOrder: ', stickyOrder);
 
 			// merge data objects if sticky values exists on input
 			let mergedData = stickyOrder.length ? [].concat(stickyOrder, mergeItems) : mergeItems;
@@ -684,13 +701,12 @@
 		 * Sort sticky items
 		 */
 		sortValues() {
-			console.log('sortValues()');
+			// console.log('sortValues()');
 			const results = this.get('xhr');
 
 			const valuesLocal = results.readyState === 4 ? JSON.parse(results.responseJSON.data) : [];
-			console.log(valuesLocal)
+			// console.log(valuesLocal);
 			const valuesManual = this.$manualInput().val() !== '' ? JSON.parse(this.$manualInput().val()) : [];
-			
 			// merge local/manual fields array
 			const valuesMerged = [].concat(valuesLocal, valuesManual);
 			// const valuesMerged = valuesManual;
@@ -722,7 +738,6 @@
 
 			// remove first comma from sticky items
 			this.$stickyInput().val(this.$stickyInput().val().replace(/(^\,+|\,+$)/mg, ''));
-			// this.$stickyInput().val(this.$stickyInput().val().substr(this.$stickyInput().val().indexOf(",") + 1));
 			
 			this.set('sticky', this.$stickyInput().val());
 		},

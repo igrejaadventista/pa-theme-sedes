@@ -37,12 +37,11 @@ if (!class_exists('RemoteData')) :
 			$this->category = 'relational';
 			// defaults (array) Array of default settings which are merged into the field object. These are used later in settings
 			$this->defaults = array(
-				'sub_fields'		=> array(),
-				'post_type'			=> array(),
+				'sub_fields'		=> [],
+				'post_type'			=> [],
 				'min' 				=> 0,
 				'max' 				=> 0,
-				'filters'			=> array('post_type'),
-				'elements' 			=> array(),
+				'filters'			=> ['post_type'],
 				'return_format'		=> 'object'
 			);
 			$this->have_rows = 'single';
@@ -156,8 +155,6 @@ if (!class_exists('RemoteData')) :
 			// vars
 			$post_type = acf_get_array($field['post_type']);
 			$filters = acf_get_array($field['filters']);
-
-			// filters
 			$filter_post_type_choices = array();
 
 			// post_type filter
@@ -173,6 +170,7 @@ if (!class_exists('RemoteData')) :
 				'class'				=> "acf-local-data acf-remote-data acf-relationship {$field['class']}",
 				'data-s'			=> '',
 				'data-paged'		=> 1,
+				'data-post_type'	=> '',
 			);
 
 		?>
@@ -200,17 +198,20 @@ if (!class_exists('RemoteData')) :
 						<a href="#" class="button-clear acf-icon -cancel acf-js-tooltip" data-action="clear" title="Limpar"></a>
 					</div>
 
-					<?php /* post_type filters */
-					if (
+					<?php if (
 						in_array('post_type', $filters)
-						&& count($filter_post_type_choices) >= 3
+						&& count($filter_post_type_choices) > 2
 					) : ?>
 						<div class="filter -post_type">
-							<?php acf_select_input(array('choices' => $filter_post_type_choices, 'data-filter' => 'post_type'));
+							<?php acf_select_input(
+								array(
+									'choices' => $filter_post_type_choices,
+									'data-filter' => 'post_type'
+								)
+							);
 							?>
 						</div>
-					<?php endif;
-					?>
+					<?php endif ?>
 
 					<div class="filter -limit">
 						<label>
@@ -311,15 +312,6 @@ if (!class_exists('RemoteData')) :
 				acf_render_field_wrap($sub_field);
 
 			echo '</div>';
-		}
-
-		/**
-		 * @param $response_code
-		 * @return bool
-		 */
-		private function responseSuccess($response_code)
-		{
-			return $response_code === 200;
 		}
 
 		// public function load_value($value, $post_id, $field) {
@@ -438,80 +430,57 @@ if (!class_exists('RemoteData')) :
 			$sticky = isset($options['sticky']) ? $options['sticky'] : 0;
 			$stickyItems = !empty($sticky) ? explode(',', $sticky) : [];
 
-			// filter non 'm' prefix (manual item)
 			$stickyItemsFilter = array_filter($stickyItems, function ($v) {
 				return substr($v, 0, 1) !== 'm';
 			});
+
+			$limit = isset($options['limit']) ? $options['limit'] : $field['limit'];
+			// $limit = !empty($limit) && $limit > 0 ? $limit : 1;
+			// $limit = $limit <= 100 ? $limit : 100;
+			$args['posts_per_page'] = (int)$limit;
+			$args['posts_per_page'] = $args['posts_per_page'] - (count($stickyItems) - count($stickyItemsFilter));
+
+			// die(var_dump($stickyItemsFilter));
 
 			// post_type
 			if (!empty($options['post_type'])) {
 				$args['post_type'] = acf_get_array($options['post_type']);
 			} elseif (!empty($field['post_type'])) {
+				// default post_type
 				$args['post_type'] = acf_get_array($field['post_type']);
 			} else {
 				$args['post_type'] = acf_get_post_types();
 			}
 
-			// field range limit
-			$limit = isset($options['limit']) ? $options['limit'] : $field['limit'];
-			// $limit = !empty($limit) && $limit > 0 ? $limit : 1;
-			// $limit = $limit <= 100 ? $limit : 100;
-			$args['posts_per_page'] = (int)$limit;
-
-			// die(var_dump($args['posts_per_page']));
-
-			if ($limit > count($stickyItems)) :
-				$args['posts_per_page'] = count($stickyItems) <= $limit ? $limit - count($stickyItems) : $limit;
-			// $args['exclude'] = $stickyItemsFilter;
-			// $args['orderby'] = 'date';
-
-			// $posts = acf_get_posts(array_merge($args, [
-			// 	'post_type'	=> $args['post_type'],
-			// 	'posts_per_page' => $args['posts_per_page'],
-			// 	// 'exclude' 	=> $stickyItemsFilter,
-			// 	// 'orderby' 	=> 'date'
-			// ]));
-			// die(var_dump($args['posts_per_page']));
+			if ($limit <= count($stickyItems)) :
+				// only manual or only local
+				$args['include'] = $stickyItemsFilter ?: $stickyItems;
 			endif;
 
-			// $args = apply_filters('acf/fields/localposts_data/query', $args, $field, $options['post_id']);
-
-			// die(var_export($args));
+			// exclude sticky items from query
+			if (!empty($sticky)) :
+			// $args['include'] = $stickyItemsFilter;
+			// $args['orderby'] = 'include';
+			endif;
 
 			// perform search query
 			if ($is_search && empty($args['orderby']) && isset($args['s'])) :
-				$posts = acf_get_posts(array(
-					's' 		=> $args['s'],
-					'post_type'	=> $args['post_type'],
-					// 'posts_per_page' => $args['posts_per_page'],
-					'exclude' 	=> $stickyItemsFilter
-				));
+				$args['s'] = $s;
 			endif;
+			
+			// die(print_r($args));
+			// die(var_dump(get_post_type(163)));
 
-			if (!empty($sticky)) :
-				// $response = \wp_remote_get(\add_query_arg(array_merge($queryArgs, ['include' => $stickyItemsFilter, 'orderby' => 'include']), $url));
-				$posts = acf_get_posts(array_merge($args, [
-					'post_type'	=> $args['post_type'],
-					// 'posts_per_page' => $args['posts_per_page'],
-					'include' 	=> $stickyItemsFilter,
-					'orderby' 	=> 'include',
-					// 'numberposts' => 1
-				]));
+			$posts = acf_get_posts($args);
+
+			// get queried posts
+			if (!empty($posts)) :
+				foreach ($posts as $post) :
+					$thumb = get_the_post_thumbnail_url($post->ID, 'full');
+					//  push data into $results
+					$results[] = $this->get_post_result($post->ID, $post->post_date, $post->post_title, $thumb);
+				endforeach;
 			endif;
-
-			// retrieves static posts
-			$posts = acf_get_posts(array(
-				'post_type' => $args['post_type'],
-				'posts_per_page' => $args['posts_per_page'],
-				// 'numberposts' => 1
-			));
-
-			// if (!empty($posts)) :
-			foreach ($posts as $post) :
-				$thumb = get_the_post_thumbnail_url($post->ID, 'full');
-				$results[] = $this->get_post_result($post->ID, $post->post_date, $post->post_title, $thumb);
-			endforeach;
-			// endif;
 
 			// vars
 			$response = array(
