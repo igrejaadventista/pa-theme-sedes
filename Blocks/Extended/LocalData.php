@@ -31,7 +31,7 @@ class LocalData extends Field {
     }
 
 	/**
-	 * manualFields Post types to query
+	 * postTypes Post types to query
 	 *
 	 * @param  array $values Post types array
 	 * @return self
