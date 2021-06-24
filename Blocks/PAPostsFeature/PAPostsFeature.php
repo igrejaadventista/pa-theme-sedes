@@ -1,6 +1,6 @@
 <?php
 
-namespace Blocks\PALatestNewsFeature;
+namespace Blocks\PAPostsFeature;
 
 use Blocks\Block;
 use Blocks\Fields\Source;
@@ -11,21 +11,20 @@ use WordPlate\Acf\Fields\Link;
 use WordPlate\Acf\Fields\Relationship;
 use WordPlate\Acf\Fields\Repeater;
 use WordPlate\Acf\Fields\Text;
-use WordPlate\Acf\Fields\Textarea;
 
 /**
- * Class PALatestNewsFeature
- * @package Blocks\PALatestNewsFeature
+ * Class PASideNewsFeature
+ * @package Blocks\PASideNewsFeature
  */
-class PALatestNewsFeature extends Block {
+class PAPostsFeature extends Block {
 
     public function __construct() {
 		// Set block settings
         parent::__construct([
-            'title' 	  => 'IASD - News - Feature',
-            'description' => 'Ultimas Notícias',
+            'title' 	  => 'IASD - List Posts - Feature',
+            'description' => 'Artigos',
             'category' 	  => 'pa-adventista',
-            'post_types'  => ['post', 'page'],
+            'post_types'  => ['post', 'artigos'],
 			'keywords' 	  => ['list', 'news'],
 			'icon' 		  => '<svg id="Icons" style="enable-background:new 0 0 32 32;" version="1.1" viewBox="0 0 32 32" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><style type="text/css">
 								.st0{fill:none;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
@@ -59,13 +58,11 @@ class PALatestNewsFeature extends Block {
                         Image::make('Thumbnail', 'thumbnail'),
                         Text::make('Título', 'title'),
                         Text::make('Tipo', 'postType'),
-                        Text::make('Subtitulo', 'header'),
-                        Textarea::make('Resumo', 'excerpt'),
-                        Link::make('URL', 'link')
+                        Link::make('URL', 'link'),
                     ])
                     ->min(1)
                     ->max(4)
-                    ->buttonLabel('Adicionar notícia')
+                    ->buttonLabel('Adicionar artigo')
                     ->collapsed('title')
                     ->layout('block')
 					->conditionalLogic([
@@ -82,8 +79,8 @@ class PALatestNewsFeature extends Block {
     public function with(): array {
         return [
             'title'  => field('title'),
-			'custom_news' => field('custom_news'),
-			'news' => field('news'),
+            'custom_news' => field('custom_news'),
+            'news' => field('news'),
         ];
     }
 }

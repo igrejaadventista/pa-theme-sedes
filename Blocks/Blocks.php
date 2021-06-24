@@ -8,7 +8,9 @@ use Blocks\PAMagazinesFeature\PAMagazinesFeature;
 use \Blocks\PACarouselFeature\PACarouselFeature;
 use Blocks\PAFacebookFeature\PAFacebookFeature;
 use Blocks\PAOtherSlidesFeature\PAOtherSlidesFeature;
+use Blocks\PAPostsFeature\PAPostsFeature;
 use Blocks\PATwitterFeature\PATwitterFeature;
+use Blocks\PAVideosFeature\PAVideosFeature;
 
 /**
  * Blocks Register blocks and manage settings
@@ -44,6 +46,8 @@ class Blocks {
 			PAAppsFeature::class,
 			PAMagazinesFeature::class,
 			PALatestNewsFeature::class,
+			PAPostsFeature::class,
+			PAVideosFeature::class,
 		];
 	
 		// Merge registered blocks with new blocks

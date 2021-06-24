@@ -5,7 +5,7 @@
 		<h2>{{ $title ?? 'Widget - List - News' }}</h2>
 
 		<div class="mt-4">
-			@foreach($news as $new)
+			@foreach($custom_news as $new)
 				<div class="card mb-5 mb-xl-4 border-0">
 					<a href="{{ $new['link']['url'] }}" target="{{ $new['link']['target'] }}">
 						<div class="row">
