@@ -9,6 +9,7 @@ use WordPlate\Acf\Fields\Checkbox;
 use WordPlate\Acf\Fields\Link;
 use WordPlate\Acf\Fields\Repeater;
 use WordPlate\Acf\Fields\Text;
+use WordPlate\Acf\Fields\TrueFalse;
 
 /**
  * Class PAListFeature
@@ -40,7 +41,6 @@ class PAListFeature extends Block {
 			[
 				Source::make(),
 				Text::make( 'Título', 'title' ),
-				
 				Repeater::make( '', 'items' )
 				        ->fields( [
 					        Link::make( 'Link', 'link' )
@@ -52,15 +52,17 @@ class PAListFeature extends Block {
 				        ->conditionalLogic( [
 					        ConditionalLogic::if( 'source' )->equals( 'custom' )
 				        ] ),
-				Checkbox::make( 'Habilitar link mais conteúdos', 'checkContent' )
-				        ->choices( [
-					        'sim' => 'Sim'
-				        ] )
-				        ->layout( 'horizontal' ),
+				TrueFalse::make( 'Habilitar link mais conteúdos', 'checkContent' )
+				         ->stylisedUi( 'Sim', 'Não' )
+				         ->wrapper( [
+					         'width' => 50,
+				         ] ),
 				Link::make( 'Conteúdo', 'contents' )
-				    ->conditionalLogic( [
-					    ConditionalLogic::if( 'checkContent' )->equals( 'sim' )
-				    ] ),
+					    ->conditionalLogic( [
+						    ConditionalLogic::if( 'checkContent' )->equals( true )
+					    ] )->wrapper( [
+							'width' => 50,
+						] ),
 			];
 	}
 

@@ -14,7 +14,7 @@
 				</li>
 			@endforeach
 		</ul>
-		@if(!empty($checkContent))
+		@if($checkContent)
 			<a href="{{ $contents['url'] ?? '#' }}" class="pa-all-content"
 			   target="{{ $contents['target'] ?? '_self' }}">{{ $contents['title'] }}</a>
 		@endif
