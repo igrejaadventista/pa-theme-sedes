@@ -30,7 +30,7 @@ if (!class_exists('LocalData')) :
 			// name (string) Single word, no spaces. Underscores allowed
 			$this->name = 'localposts_data';
 			// label (string) Multiple words, can include spaces, visible when selecting a field type
-			$this->label = __('Objeto de posts Locais', 'acf-rest');
+			$this->label = __('Local data', 'acf-rest');
 			// category (string) basic | content | choice | relational | jquery | layout | CUSTOM GROUP NAME
 			$this->category = 'relational';
 			// defaults (array) Array of default settings which are merged into the field object. These are used later in settings
@@ -102,6 +102,17 @@ if (!class_exists('LocalData')) :
 				foreach ($field['fields'] as $value)
 					$choices[$value] = $value;
 			endif;
+
+			acf_render_field_setting($field, array(
+				'label'			=> __('Quantidade', 'acf'),
+				'instructions'	=> 'Quantidade de itens a ser retornado',
+				'type'			=> 'number',
+				'name'			=> 'limit',
+				'min'			=> 1,
+				'max'			=> 100,
+				'step'			=> 1,
+				'required'	    => 1,
+			));
 
 			// filter (by post types)
 			acf_render_field_setting($field, array(

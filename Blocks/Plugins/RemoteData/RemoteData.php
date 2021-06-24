@@ -31,7 +31,7 @@ if(!class_exists('RemoteData')):
 			// label (string) Multiple words, can include spaces, visible when selecting a field type
             $this->label = __('Remote data', 'acf-rest');
             // category (string) basic | content | choice | relational | jquery | layout | CUSTOM GROUP NAME
-            $this->category = 'choice';
+            $this->category = 'relational';
             // defaults (array) Array of default settings which are merged into the field object. These are used later in settings
             $this->defaults = array(
 				'sub_fields'	=> array(),
