@@ -1042,6 +1042,8 @@
 		 * Check taxonomies filters on row added/removed
 		 */
 		checkTaxonomyFilters() {
+			if(!this.$buttonAddTaxonomy().length)
+				return;
 			// Enable/disable button
 			this.$buttonAddTaxonomy().toggleClass('disabled', Object.keys(this.taxonomies()).length == this.$taxonomyRow().not(':first').length);
 
