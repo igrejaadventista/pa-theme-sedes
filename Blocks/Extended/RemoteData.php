@@ -8,11 +8,7 @@ use WordPlate\Acf\Fields\Attributes\Instructions;
 use WordPlate\Acf\Fields\Attributes\Wrapper;
 
 /**
- * Menu Registra um campo do tipo Menu para ser utlizado na biblioteca Extend ACF
- *
- * @package Serasa
- * @author Lorde Aleister
- * @access public
+ * Register new remote data field
  */
 class RemoteData extends Field {
 
