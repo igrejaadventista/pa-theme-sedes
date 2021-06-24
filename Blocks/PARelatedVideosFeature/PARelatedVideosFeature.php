@@ -1,6 +1,6 @@
 <?php
 
-namespace Blocks\PAVideosFeature;
+namespace Blocks\PARelatedVideosFeature;
 
 use Blocks\Block;
 use Blocks\Fields\Source;
@@ -18,12 +18,12 @@ use WordPlate\Acf\Fields\TimePicker;
  * Class PAVideosFeature
  * @package Blocks\PAVideosFeature
  */
-class PAVideosFeature extends Block {
+class PARelatedVideosFeature extends Block {
 
     public function __construct() {
 		// Set block settings
         parent::__construct([
-            'title' 	  => 'IASD - List - Videos',
+            'title' 	  => 'IASD - Related - Videos',
             'description' => 'Ultimas Notícias',
             'category' 	  => 'pa-adventista',
             'post_types'  => ['post', 'page'],
@@ -59,7 +59,6 @@ class PAVideosFeature extends Block {
                     ->fields([
                         Image::make('Thumbnail', 'thumbnail'),
                         Text::make('Título', 'title'),
-                        Textarea::make('Resumo', 'excerpt'),
                         Link::make('URL', 'link')
 	                        ->wrapper([
 		                        'width' => 50,

@@ -9,6 +9,7 @@ use \Blocks\PACarouselFeature\PACarouselFeature;
 use Blocks\PAFacebookFeature\PAFacebookFeature;
 use Blocks\PAOtherSlidesFeature\PAOtherSlidesFeature;
 use Blocks\PAPostsFeature\PAPostsFeature;
+use Blocks\PARelatedVideosFeature\PARelatedVideosFeature;
 use Blocks\PATwitterFeature\PATwitterFeature;
 use Blocks\PAVideosFeature\PAVideosFeature;
 
@@ -48,6 +49,7 @@ class Blocks {
 			PALatestNewsFeature::class,
 			PAPostsFeature::class,
 			PAVideosFeature::class,
+			PARelatedVideosFeature::class,
 		];
 	
 		// Merge registered blocks with new blocks
