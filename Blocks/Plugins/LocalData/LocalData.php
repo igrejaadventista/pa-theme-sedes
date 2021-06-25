@@ -376,7 +376,7 @@ if (!class_exists('LocalData')) :
 		 *  @param	$text (string)
 		 *  @return	(array)
 		 */
-		function get_post_result($id, $date, $title, $img, $excerpt = null, $url = null)
+		function get_post_result($id, $date, $title, $cpt, $img, $excerpt = null, $url = null)
 		{
 			// vars
 			$result = array(
@@ -384,6 +384,9 @@ if (!class_exists('LocalData')) :
 				'date' 					=> $date,
 				'title' 				=> array(
 					'rendered' 			=> $title
+				),
+				'cpt_label'				=> array(
+					'rendered'			=> $cpt
 				),
 				'featured_media_url' 	=> array(
 					'pa_block_render' 	=> $img
@@ -490,14 +493,19 @@ if (!class_exists('LocalData')) :
 			// die(print_r($args));
 			// die(var_dump(get_post_type(163)));
 
-			$posts = acf_get_posts($args);
+			$posts = get_posts($args);
+
+			// foreach ($posts as $post) {
+			// 	die(print_r( get_post_type($post->ID) ));
+			// }
 
 			// get queried posts
 			if (!empty($posts)) :
 				foreach ($posts as $post) :
 					$thumb = get_the_post_thumbnail_url($post->ID, 'full');
+					$cpt = get_post_type($post->ID);
 					//  push data into $results
-					$results[] = $this->get_post_result($post->ID, $post->post_date, $post->post_title, $thumb);
+					$results[] = $this->get_post_result($post->ID, $post->post_date, $post->post_title, $cpt, $thumb);
 				endforeach;
 			endif;
 

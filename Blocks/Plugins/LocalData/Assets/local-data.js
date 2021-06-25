@@ -372,8 +372,9 @@
 				xhr.abort();
 			
 			const ajaxData = this.getAjaxData();
-
 			console.log(ajaxData);
+
+			// console.log(ajaxData.post_type);
 			
 			// Clear html if is new query
 			const $list = this.$valuesList();
@@ -544,7 +545,6 @@
 		 */
 		walkChoices(data, sticky = true) {
 			const stickyItems = this.stickyItems();
-			console.log('stickys: ', stickyItems);
 
 			let list = '';
 			let stickyList = '';
@@ -557,25 +557,19 @@
 			// merge data from api and manual data
 			let mergeItems = [].concat(data, stickyManual);
 			// let mergeItems = stickyManual;
-			console.log('mergeItems: ', mergeItems);
 
 			let stickyOrder = [];
 			stickyItems.forEach(elms => {
 				const item = mergeItems.find(item => item.id == elms);
-				console.log('return stickyed items: ', item);
 
 				mergeItems = mergeItems.filter((value) => { 
 					return value != item;
 				});
 
-				console.log('mergeItems 2: ', mergeItems);
-
 				// check if array sticky input value is not empty
 				if(stickyItems[0] !== "")
 					stickyOrder.push(item);
 			});
-
-			console.log('stickyOrder: ', stickyOrder);
 
 			// merge data objects if sticky values exists on input
 			let mergedData = stickyOrder.length ? [].concat(stickyOrder, mergeItems) : mergeItems;
@@ -596,7 +590,12 @@
 						content += `<img src="${element.featured_media_url['pa_block_render']}" />`;
 				}
 				
-				content += `${acf.escHtml(element.title.rendered)}</span></li>`;
+					content += `<div class="walker__item">`;
+						content += `<div>${acf.escHtml(element.title.rendered)}</div>`;
+						content += `${element.id.toString().startsWith('m') ? '' : `<div class="badge__pill">${element.cpt_label.rendered}</div>`}`;
+					content += `</div>`;
+
+				content += `</span></li>`;
 
 				if(stickyItems.includes(element.id.toString()))
 					stickyList += content;
