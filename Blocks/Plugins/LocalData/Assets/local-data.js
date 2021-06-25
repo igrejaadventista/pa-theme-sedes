@@ -468,10 +468,10 @@
 			
 			// Extra
 			ajaxData.action = 'acf/fields/localposts_data/query';
-			// ajaxData.post_type = this.getPostType();
+			ajaxData.post_type = '';
 			ajaxData.field_key = this.get('key');
+			ajaxData.limit = 20;
 			ajaxData.exclude = [];
-			
 
 			// exclude non items in list
 			this.$valuesList().find('li').each((_, element) => ajaxData.exclude.push(element.dataset.id));

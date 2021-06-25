@@ -376,7 +376,7 @@ if (!class_exists('LocalData')) :
 		 *  @param	$text (string)
 		 *  @return	(array)
 		 */
-		function get_post_result($id, $date, $title, $cpt, $img, $excerpt = null, $url = null)
+		function get_post_result($id, $date, $img, $title, $cpt, $excerpt = null, $url = null)
 		{
 			// vars
 			$result = array(
@@ -502,10 +502,18 @@ if (!class_exists('LocalData')) :
 			// get queried posts
 			if (!empty($posts)) :
 				foreach ($posts as $post) :
-					$thumb = get_the_post_thumbnail_url($post->ID, 'full');
+					$img = get_the_post_thumbnail_url($post->ID, 'full');
 					$cpt = get_post_type_object(get_post_type($post->ID));
 					//  push data into $results
-					$results[] = $this->get_post_result($post->ID, $post->post_date, $post->post_title, $cpt->labels->singular_name, $thumb);
+					$results[] = $this->get_post_result(
+						$post->ID,
+						$post->post_date,
+						$img,
+						$post->post_title,
+						$cpt->labels->singular_name,
+						// $excerpt,
+						// $url
+					);
 				endforeach;
 			endif;
 
