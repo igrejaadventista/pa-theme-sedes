@@ -503,9 +503,9 @@ if (!class_exists('LocalData')) :
 			if (!empty($posts)) :
 				foreach ($posts as $post) :
 					$thumb = get_the_post_thumbnail_url($post->ID, 'full');
-					$cpt = get_post_type($post->ID);
+					$cpt = get_post_type_object(get_post_type($post->ID));
 					//  push data into $results
-					$results[] = $this->get_post_result($post->ID, $post->post_date, $post->post_title, $cpt, $thumb);
+					$results[] = $this->get_post_result($post->ID, $post->post_date, $post->post_title, $cpt->labels->singular_name, $thumb);
 				endforeach;
 			endif;
 
