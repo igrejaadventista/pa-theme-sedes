@@ -783,12 +783,14 @@
 					this.$acfInputName('titulo').val('');
 					this.$acfInputName('thumbnail', '[data-name=remove]').click();
 					this.$acfInputName('excerpt', 'textarea').val('');
+					this.$acfInputName('url').val('');
 
 					buttonAdd.click((e) => {
 						// retrieves acf fields from modal
 						let title = this.$acfInputName('titulo').val();
 						let thumbnail = this.$acfInputName('thumbnail', 'img').attr('src');
 						let content = this.$acfInputName('excerpt', 'textarea').val();
+						let url = this.$acfInputName('url').val();
 
 						// alert component
 						this.$setAlertValidation();
@@ -806,10 +808,16 @@
 							this.$alertValidation().find('span').text('Resumo é obrigatório.');
 							return false;
 						}
+						if ('' === url) {
+							this.$alertValidation().find('span').text('URL é obrigatório.');
+							return false;
+						}
+
+						const $date = new Date();
 
 						let createNewFields = {
-							id: `m${e.timeStamp}`,
-							date: new Date().toISOString(),
+							id: `m${$date.getUTCMilliseconds()}`,
+							date: $date.toISOString(),
 							title: {
 								rendered: title
 							},
@@ -819,6 +827,7 @@
 							content: {
 								rendered: content
 							},
+							url: url,
 						};
 
 						newData.push(createNewFields);
@@ -876,11 +885,13 @@
 					this.$acfInputName('thumbnail', 'img').attr('src', editData[editIndex].featured_media_url.pa_block_render);
 					this.$acfInputName('thumbnail', '.acf-image-uploader').addClass('has-value');
 					this.$acfInputName('excerpt', 'textarea').val(editData[editIndex].content.rendered);
+					this.$acfInputName('url').val(editData[editIndex].url);
 
 					buttonEdit.click(() => {
 						let title = this.$acfInputName('titulo').val();
 						let thumbnail = this.$acfInputName('thumbnail', 'img').attr('src');
 						let content = this.$acfInputName('excerpt', 'textarea').val();
+						let url = this.$acfInputName('url').val();
 
 						// alert component
 						this.$setAlertValidation();
@@ -898,11 +909,16 @@
 							this.$alertValidation().find('span').text('Resumo é obrigatório.');
 							return false;
 						}
+						if ('' === url) {
+							this.$alertValidation().find('span').text('Url é obrigatório.');
+							return false;
+						}
 
 						// update fields
 						editData[editIndex].title.rendered = title;
 						editData[editIndex].featured_media_url.pa_block_render = thumbnail;
 						editData[editIndex].content.rendered = content;
+						editData[editIndex].url = url;
 
 						let updatedData = editData;
 
@@ -1174,7 +1190,7 @@
                 });
 			}
             
-            modal.multiple();
+            // modal.multiple();
             modal.onOpen($target, args);
             
             return $target;
@@ -1189,7 +1205,7 @@
             
             var $target = modal.modals.pop();
 			
-			$target.find('.widgets-acf-modal-wrapper-overlay').remove();
+			// $target.find('.widgets-acf-modal-wrapper-overlay').remove();
 			$target.find('.widgets-acf-modal-title').remove();
 			$target.find('.widgets-acf-modal-footer').remove();
             
@@ -1206,7 +1222,7 @@
                 $('body').removeClass('widgets-acf-modal-opened');
 			}
             
-            modal.multiple();
+            // modal.multiple();
             modal.onClose($target, args);
 		},
         

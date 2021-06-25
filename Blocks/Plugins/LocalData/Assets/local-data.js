@@ -3,7 +3,9 @@
 		type: 'localposts_data',
 		events: {
 			'keypress [data-filter]': 				 	'onKeypressFilter',
-			'change [data-filter]': 				 	'onChangeFilter',
+			'change [data-filter="post_type"]':			'onChangeFilter',
+			'change [data-filter="limit"]': 			'onChangeFilter',
+			// 'change [data-filter]': 					'onChangeFilter',
 			'keyup [data-filter]': 					 	'onChangeFilter',
 			'click [data-action="sticky"]': 		 	'onClickSticky',
 			'click [data-action="clear"]': 			 	'onClickClear',
@@ -353,7 +355,6 @@
 			ajaxData.field_key = this.get('key');
 			ajaxData.sticky = this.get('sticky');
 			ajaxData.limit = this.get('limit');
-			// ajaxData.exclude = [163];
 
 			// exclude non items in list
 			// this.$valuesList().find('li').each((_, element) => ajaxData.exclude.push(element.dataset.id));
@@ -772,17 +773,19 @@
 					this.$acfInputName('titulo').val('');
 					this.$acfInputName('thumbnail', '[data-name="remove"]').click();
 					this.$acfInputName('excerpt', 'textarea').val('');
+					this.$acfInputName('url').val('');
 
 					buttonAdd.click(() => {
 						// retrieves acf fields from modal
 						let title = this.$acfInputName('titulo').val();
 						let thumbnail = this.$acfInputName('thumbnail', 'img').attr('src');
 						let content = this.$acfInputName('excerpt', 'textarea').val();
+						let url = this.$acfInputName('url').val();
 
 						// alert component
 						this.$setAlertValidation();
 
-						// validate fields
+						// validate fields // change to func (args: input value, error message)
 						if ('' === title) {
 							this.$alertValidation().find('span').text('Título é obrigatório.');
 							return false;
@@ -793,6 +796,10 @@
 						}
 						if ('' === content) {
 							this.$alertValidation().find('span').text('Resumo é obrigatório.');
+							return false;
+						}
+						if ('' === url) {
+							this.$alertValidation().find('span').text('URL é obrigatório.');
 							return false;
 						}
 
@@ -810,6 +817,7 @@
 							content: {
 								rendered: content
 							},
+							url: url
 						};
 
 						newData.push(createNewFields);
@@ -869,11 +877,13 @@
 					this.$acfInputName('thumbnail', 'img').attr('src', editData[editIndex].featured_media_url.pa_block_render);
 					this.$acfInputName('thumbnail', '.acf-image-uploader').addClass('has-value');
 					this.$acfInputName('excerpt', 'textarea').val(editData[editIndex].content.rendered);
+					this.$acfInputName('url').val(editData[editIndex].url);
 
 					buttonEdit.click(() => {
 						let title = this.$acfInputName('titulo').val();
 						let thumbnail = this.$acfInputName('thumbnail', 'img').attr('src');
 						let content = this.$acfInputName('excerpt', 'textarea').val();
+						let url = this.$acfInputName('url').val();
 
 						// alert component
 						this.$setAlertValidation();
@@ -891,11 +901,16 @@
 							this.$alertValidation().find('span').text('Resumo é obrigatório.');
 							return false;
 						}
+						if ('' === url) {
+							this.$alertValidation().find('span').text('Url é obrigatório.');
+							return false;
+						}
 
 						// update fields
 						editData[editIndex].title.rendered = title;
 						editData[editIndex].featured_media_url.pa_block_render = thumbnail;
 						editData[editIndex].content.rendered = content;
+						editData[editIndex].url = url;
 
 						let updatedData = editData;
 
@@ -1020,7 +1035,7 @@
             
             var $target = modal.modals.pop();
 			
-			$target.find('.widgets-acf-modal-wrapper-overlay').remove();
+			// $target.find('.widgets-acf-modal-wrapper-overlay').remove();
 			$target.find('.widgets-acf-modal-title').remove();
 			$target.find('.widgets-acf-modal-footer').remove();
             
