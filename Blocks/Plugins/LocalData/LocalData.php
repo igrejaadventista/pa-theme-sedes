@@ -116,6 +116,25 @@ if (!class_exists('LocalData')) :
 				'placeholder'	=> __("All post types", 'acf'),
 			));
 
+			// min
+			// acf_render_field_setting($field, array(
+			// 	'label'			=> __('Minimum posts', 'acf'),
+			// 	'instructions'	=> '',
+			// 	'type'			=> 'number',
+			// 	'name'			=> 'min',
+			// 	'value'			=> 1,
+			// 	'min'			=> 1
+			// ));
+
+
+			// // max
+			// acf_render_field_setting($field, array(
+			// 	'label'			=> __('Maximum posts', 'acf'),
+			// 	'instructions'	=> '',
+			// 	'type'			=> 'number',
+			// 	'name'			=> 'max',
+			// ));
+
 			// vars
 			$args = array(
 				'fields'	=> $field['sub_fields'],
@@ -158,7 +177,8 @@ if (!class_exists('LocalData')) :
 			// post_type filter
 			if (in_array('post_type', $filters)) {
 				$filter_post_type_choices = array(
-					''	=> __('Select post type', 'acf')
+					// ''	=> __('Select post type', 'acf')
+					''	=> 'Filtros'
 				) + acf_get_pretty_post_types($post_type);
 			}
 
@@ -166,15 +186,16 @@ if (!class_exists('LocalData')) :
 			$atts = array(
 				'id'				=> $field['id'],
 				'class'				=> "acf-local-data acf-relationship {$field['class']}",
+				'min' 				=> $field['min'],
+				'max' 				=> $field['max'],
 				'data-s'			=> '',
 				'data-paged'		=> 1,
 				'data-post_type'	=> '',
 			);
-
 		?>
 			<div <?php acf_esc_attr_e($atts); ?>>
 				<?php acf_hidden_input(array('name' => $field['name'] . "[manual]", 'value' => isset($values['manual']) ? $values['manual'] : '', 'data-manual' => '')); ?>
-				<?php acf_hidden_input(array('name' => $field['name'] . "[sticky]", 'value' => isset($values['sticky']) ? $values['sticky'] : 0, 'data-sticky' => '')); ?>
+				<?php acf_hidden_input(array('name' => $field['name'] . "[sticky]", 'value' => isset($values['sticky']) ? $values['sticky'] : '', 'data-sticky' => '')); ?>
 
 				<div class="action-toolbar">
 					<button type="button" class="buttonAddManualPost disabled" data-action="manual-new-post" disabled>Adicionar manual</button>
@@ -196,11 +217,18 @@ if (!class_exists('LocalData')) :
 						<a href="#" class="button-clear acf-icon -cancel acf-js-tooltip" data-action="clear" title="Limpar"></a>
 					</div>
 
+					<div class="filter -limit">
+						<label>
+							<span class="acf-js-tooltip" title="Quantidade de itens a ser exibido.">Quantidade</span>
+							<?php acf_text_input(array('name' => $field['name'] . "[limit]", 'value' => isset($values['limit']) ? $values['limit'] : 1, 'type' => 'number', 'step' => 1, 'min' => 1, 'max' => 100, 'data-limit' => '', 'data-filter' => 'limit')); ?>
+						</label>
+					</div>
+
 					<?php if (
 						in_array('post_type', $filters)
 						&& count($filter_post_type_choices) > 2
 					) : ?>
-						<div class="filter -post_type">
+						<div class="filter -post_type filter__post_type">
 							<?php acf_select_input(
 								array(
 									'choices' => $filter_post_type_choices,
@@ -210,13 +238,6 @@ if (!class_exists('LocalData')) :
 							?>
 						</div>
 					<?php endif ?>
-
-					<div class="filter -limit">
-						<label>
-							<span class="acf-js-tooltip" title="Quantidade de itens a ser exibido. De 1 a 100">Quantidade</span>
-							<?php acf_text_input(array('name' => $field['name'] . "[limit]", 'value' => isset($values['limit']) ? $values['limit'] : $field['limit'], 'type' => 'number', 'step' => 1, 'min' => 1, 'max' => 100, 'data-limit' => '', 'data-filter' => 'limit')); ?>
-						</label>
-					</div>
 
 				</div>
 
@@ -465,7 +486,7 @@ if (!class_exists('LocalData')) :
 			if ($is_search && empty($args['orderby']) && isset($args['s'])) :
 				$args['s'] = $s;
 			endif;
-			
+
 			// die(print_r($args));
 			// die(var_dump(get_post_type(163)));
 

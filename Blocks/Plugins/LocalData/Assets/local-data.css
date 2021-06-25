@@ -351,6 +351,28 @@
 	color: inherit;
 }
 
+.filter__post_type {
+	max-width: 20%;
+	min-width: 10%;
+}
+
+.filter__post_type select:active,
+.filter__post_type select:focus {
+	border-color: #ccd0d4;
+}
+
+.filter__post_type select {
+	border-left: 1px solid #ccd0d4;
+	border-radius: 0;
+	border-top: 0;
+	border-bottom: 0;
+	border-right: 0;
+}
+
+.filter__post_type select option:first-child {
+	color: #72777c;
+}
+
 /***** MODAL *****/
 
  /*

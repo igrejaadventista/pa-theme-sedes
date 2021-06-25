@@ -3,7 +3,9 @@
 		type: 'localposts_data',
 		events: {
 			'keypress [data-filter]': 				 	'onKeypressFilter',
-			'change [data-filter]': 				 	'onChangeFilter',
+			'change [data-filter="post_type"]':			'onChangeFilter',
+			'change [data-filter="limit"]': 			'onChangeFilter',
+			// 'change [data-filter]': 					'onChangeFilter',
 			'keyup [data-filter]': 					 	'onChangeFilter',
 			'click [data-action="sticky"]': 		 	'onClickSticky',
 			'click [data-action="clear"]': 			 	'onClickClear',
@@ -353,7 +355,6 @@
 			ajaxData.field_key = this.get('key');
 			ajaxData.sticky = this.get('sticky');
 			ajaxData.limit = this.get('limit');
-			// ajaxData.exclude = [163];
 
 			// exclude non items in list
 			// this.$valuesList().find('li').each((_, element) => ajaxData.exclude.push(element.dataset.id));
@@ -816,9 +817,7 @@
 							content: {
 								rendered: content
 							},
-							url: {
-								rendered: url
-							}
+							url: url
 						};
 
 						newData.push(createNewFields);
@@ -878,7 +877,7 @@
 					this.$acfInputName('thumbnail', 'img').attr('src', editData[editIndex].featured_media_url.pa_block_render);
 					this.$acfInputName('thumbnail', '.acf-image-uploader').addClass('has-value');
 					this.$acfInputName('excerpt', 'textarea').val(editData[editIndex].content.rendered);
-					this.$acfInputName('url').val(editData[editIndex].url.rendered);
+					this.$acfInputName('url').val(editData[editIndex].url);
 
 					buttonEdit.click(() => {
 						let title = this.$acfInputName('titulo').val();
@@ -911,7 +910,7 @@
 						editData[editIndex].title.rendered = title;
 						editData[editIndex].featured_media_url.pa_block_render = thumbnail;
 						editData[editIndex].content.rendered = content;
-						editData[editIndex].url.rendered = url;
+						editData[editIndex].url = url;
 
 						let updatedData = editData;
 
@@ -1036,7 +1035,7 @@
             
             var $target = modal.modals.pop();
 			
-			$target.find('.widgets-acf-modal-wrapper-overlay').remove();
+			// $target.find('.widgets-acf-modal-wrapper-overlay').remove();
 			$target.find('.widgets-acf-modal-title').remove();
 			$target.find('.widgets-acf-modal-footer').remove();
             
