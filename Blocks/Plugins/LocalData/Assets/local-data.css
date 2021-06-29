@@ -350,18 +350,21 @@
 }
 
 .walker__item .badge__pill {
-	background-color: #f1f1f1;
 	display: inline-block;
-	padding: 0 8px;
+	padding: 0;
 	font-size: 10px;
 	font-weight: normal;
-	color: #000;
+	color: #505050;
 	text-align: center;
 	white-space: nowrap;
 	vertical-align: baseline;
-	box-shadow: 1px 1px #ddd;
+	box-shadow: none;
 	border-radius: 0.25rem;
 	margin-top: 5px;
+}
+
+.sticky-list .acf-rel-item:hover .badge__pill {
+	color: #fff;
 }
 
 .filter__post_type {

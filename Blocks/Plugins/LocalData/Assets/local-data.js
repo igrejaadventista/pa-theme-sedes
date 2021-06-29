@@ -372,9 +372,6 @@
 				xhr.abort();
 
 			const ajaxData = this.getAjaxData();
-			console.log(ajaxData);
-
-			// console.log(ajaxData.post_type);
 
 			// Clear html if is new query
 			const $list = this.$valuesList();
@@ -466,11 +463,12 @@
 			for(let name in ajaxData)
 				ajaxData[name] = this.get(name);
 
+			console.log('ajaxData', this);
+
 			// Extra
 			ajaxData.action = 'acf/fields/localposts_data/query';
-			// ajaxData.post_type = '';
 			ajaxData.field_key = this.get('key');
-			ajaxData.limit = 1000;
+			ajaxData.limit = 50;
 			// ajaxData.exclude = [];
 
 			// exclude non items in list
@@ -546,6 +544,8 @@
 		walkChoices(data, sticky = true) {
 			// fetch search list on walk render
 			this.$choicesList().html('');
+			this.$choices().removeClass('active');
+			// this.$valuesList().addClass('active');
 
 			const stickyItems = this.stickyItems();
 
@@ -702,15 +702,11 @@
 		 * Sort sticky items
 		 */
 		sortValues() {
-			// console.log('sortValues()');
 			const results = this.get('xhr');
 
 			const valuesLocal = results.readyState === 4 ? JSON.parse(results.responseJSON.data) : [];
-			// console.log(valuesLocal);
 			const valuesManual = this.$manualInput().val() !== '' ? JSON.parse(this.$manualInput().val()) : [];
-			// merge local/manual fields array
 			const valuesMerged = [].concat(valuesLocal, valuesManual);
-			// const valuesMerged = valuesManual;
 
 			let sortedValues = [];
 

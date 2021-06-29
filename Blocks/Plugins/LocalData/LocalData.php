@@ -476,18 +476,18 @@ if (!class_exists('LocalData')) :
 				$args['s'] = $s;
 			endif;
 
-			// get array of values from sticky posts
-			$stickyIds = array_values($stickyItemsFilter);
-
 			$stickedArr = [];
 			if (!empty($stickyItemsFilter)) :
-				// exclude sticked posts from main query
+				// get array of values from sticky posts
+				$stickyIds = array_values($stickyItemsFilter);
+
+				// exclude sticked posts from query
 				$args['exclude'] = $stickyIds;
 
 				// return only sticked array items
 				$stickedPosts = get_posts(array(
 					'include'	=> $stickyIds,
-					'post_type'	=> 'any',
+					'post_type'	=> get_post_types(),
 				));
 				foreach ($stickedPosts as $post) {
 					$img = get_the_post_thumbnail_url($post->ID, 'full');
