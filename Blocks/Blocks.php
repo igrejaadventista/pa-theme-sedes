@@ -3,6 +3,7 @@
 namespace Blocks;
 
 use Blocks\PAAppsFeature\PAAppsFeature;
+use Blocks\PADownloadFeature\PADownloadFeature;
 use Blocks\PALatestNewsFeature\PALatestNewsFeature;
 use Blocks\PAMagazinesFeature\PAMagazinesFeature;
 use \Blocks\PACarouselFeature\PACarouselFeature;
@@ -44,6 +45,7 @@ class Blocks {
 			PAAppsFeature::class,
 			PAMagazinesFeature::class,
 			PALatestNewsFeature::class,
+			PADownloadFeature::class,
 		];
 	
 		// Merge registered blocks with new blocks
