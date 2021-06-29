@@ -1,6 +1,6 @@
 (function($, undefined) {
 	var Field = acf.Field.extend({
-		type: 'remote_data',
+		type: 'localposts_data',
 		events: {
 			'keypress [data-filter]': 				 	'onKeypressFilter',
 			'change [data-filter]': 				 	'onChangeFilter',
@@ -8,10 +8,7 @@
 			'click [data-action="sticky"]': 		 	'onClickSticky',
 			'click [data-action="clear"]': 			 	'onClickClear',
 			'click .choices-list li': 				 	'onClickAdd',
-			'click .-taxonomies button': 			 	'onClickToggleTaxonomies',
 			'click [data-action="refresh"]': 		 	'fetch',
-			'click [data-action="add-taxonomy"]': 	 	'onClickAddTaxonomy',
-			'click [data-action="remove-taxonomy"]': 	'onClickRemoveTaxonomy',
 			'click [data-action="manual-new-post"]': 	'onClickAddManualPost',
 			'click [data-action="modal-alert-dismiss"]':'onCloseModalDismiss',
 			'click [data-action="edit-manual"]': 		'onEditManual',
@@ -23,7 +20,7 @@
 		 * @return {jQuery} jQuery control object
 		 */
 		$control() {
-			return this.$('.acf-remote-data');
+			return this.$('.acf-local-data');
 		},
 
 		/**
@@ -194,30 +191,10 @@
 		},
 
 		/**
-		 * Get jQuery taxonomies selection container object
-		 *
-		 * @return {jQuery} jQuery taxonomies selection container object
+		 * Get current post type value
 		 */
-		$taxonomiesSelection() {
-			return this.$control().find('.taxonomies-selection');
-		},
-
-		/**
-		 * Get jQuery taxonomy row object
-		 *
-		 * @return {jQuery} jQuery taxonomy row object
-		 */
-		$taxonomyRow() {
-			return this.$control().find('.taxonomy-row');
-		},
-
-		/**
-		 * Get jQuery button to add taxonomy object
-		 *
-		 * @return {jQuery} jQuery button to add taxonomy object
-		 */
-		$buttonAddTaxonomy() {
-			return this.$control().find('[data-action="add-taxonomy"]');
+		getPostType() {
+			return this.$control().find('[data-filter="post_type"]').val();
 		},
 
 		/**
@@ -229,15 +206,6 @@
 			return this.$stickyInput().val().split(',');
 		},
 
-		/**
-		 * Get taxonomies list
-		 *
-		 * @return {string} Taxonomies array
-		 */
-		taxonomies() {
-			return this.$control().find('.taxonomies-selection').data('taxonomies');
-		},
-		
 		/**
 		 * Initialize plugin
 		 */
@@ -265,10 +233,6 @@
 				
 				// Fetch choices
 				this.fetch();
-
-				this.$taxonomyRow().not(':first').each((index) => this.initializeTaxonomyFilters($(this.$taxonomyRow().get(index + 1))));
-
-				this.checkTaxonomyFilters();
 			}));
 			
 			// Bind "interacted with"
@@ -295,8 +259,8 @@
 			const filter = $el.data('filter');
 				
 			// Bail early if filter has not changed
-			if(this.get(filter) === val || val == '')
-				return;
+			// if(this.get(filter) === val || val == '')
+			// 	return;
 			
 			// Update attr
 			this.set(filter, val);
@@ -319,7 +283,8 @@
 			if(this.$stickyInput().val() == 0)
 				this.$stickyInput().val('');
 
-			if(sticky) {
+			if (sticky) {
+				console.log(sticky);
 				$li.appendTo(this.$stickyList());
 
 				// Update the list to validate the allowed quantity of items
@@ -327,19 +292,12 @@
 					let exceededLimit = (this.stickyItems().length + 1) >= parseInt(this.$limitInput().val()) ? true : false;
 					this.$isExceeded(exceededLimit);
 				}
-				// Update the list to validate the allowed quantity of items
-				this.fetch();
-
-				// validate on qtd change
-				// this.$limitInput().change((e) => {
-				// 	let exceededLimit = stickyItems.length >= e.target.value ? true : false;
-				// 	this.$isExceeded(exceededLimit);
-				// });
-
 
 				this.sortValues();
-			}
-			else {
+				// Update the list to validate the allowed quantity of items
+				this.fetch(); // update data list on sticky item
+			} else {
+				console.log(sticky);
 				if ($li[0].hasAttribute('data-manual')) {
 					const manualAttr = JSON.parse(this.$manualInput().val());
 					// get sticky item id
@@ -348,11 +306,13 @@
 
 					this.$manualInput().val(JSON.stringify(manualFilterId));
 				}
-				
+
 				this.$choicesList().find(`[data-id="${$li.data('id')}"]`).removeClass('disabled');
 
 				$li.remove();
+			
 				this.sortValues();
+
 				this.fetch();
 			}
 		},
@@ -382,17 +342,23 @@
 			for(let name in ajaxData)
 				ajaxData[name] = this.get(name);
 
-			this.saveTaxonomyFilters();
+			// get current filter state value
+			let currSelectedPostType = this.getPostType();
+			let selectedPostType = currSelectedPostType !== "" ? 
+			currSelectedPostType : this.get('post_type');
 			
 			// Extra
-			ajaxData.action = 'acf/fields/remote_data/query';
+			ajaxData.action = 'acf/fields/localposts_data/query';
+			ajaxData.post_type = selectedPostType;
 			ajaxData.field_key = this.get('key');
 			ajaxData.sticky = this.get('sticky');
 			ajaxData.limit = this.get('limit');
-			ajaxData.taxonomies = this.get('taxonomies');
-			ajaxData.terms = this.get('terms');
+			// ajaxData.exclude = [163];
+
+			// exclude non items in list
+			// this.$valuesList().find('li').each((_, element) => ajaxData.exclude.push(element.dataset.id));
 			
-			return acf.applyFilters('remote_data_ajax_data', ajaxData, this);
+			return acf.applyFilters('localposts_data_ajax_data', ajaxData, this);
 		},
 		
 		/**
@@ -405,6 +371,8 @@
 				xhr.abort();
 			
 			const ajaxData = this.getAjaxData();
+
+			console.log(ajaxData);
 			
 			// Clear html if is new query
 			const $list = this.$valuesList();
@@ -428,7 +396,7 @@
 			};
 			
 			const onSuccess = (json) => {
-				// No results
+				// Stop if No (local cpt data) results
 				if(!json || !json.results || !json.results.length) {
 					// Add message
 					return this.$valuesList().append(`<li>${acf.__('No matches found')}</li>`);
@@ -440,8 +408,12 @@
 				// Append
 				this.$stickyList().empty().append(html.stickyList);
 				$list.append(html.list);
-				this.$valuesInput().val(this.parseData(json.data));
+
+				// this.$valuesInput().val(this.parseData(json.data));
+
 				this.sortList();
+
+				this.sortValues();
 			};
 			
 			// Get results
@@ -493,14 +465,19 @@
 				ajaxData[name] = this.get(name);
 			
 			// Extra
-			ajaxData.action = 'acf/fields/remote_data/search';
+			ajaxData.action = 'acf/fields/localposts_data/query';
+			// ajaxData.post_type = this.getPostType();
 			ajaxData.field_key = this.get('key');
 			ajaxData.exclude = [];
+			
 
+			// exclude non items in list
 			this.$valuesList().find('li').each((_, element) => ajaxData.exclude.push(element.dataset.id));
 			
-			// Filter			
-			return acf.applyFilters('remote_data_search_data', ajaxData, this);
+			// Filter
+			ajaxData = acf.applyFilters('localposts_data_ajax_data', ajaxData, this);
+			
+			return ajaxData;
 		},
 
 		/**
@@ -515,7 +492,7 @@
 			// Add to this.o
 			const ajaxData = this.getSearchData();
 			
-			// Clear html if is new query
+			// Clear html content if is new query
 			const $list = this.$choicesList();
 			$list.empty();
 			
@@ -527,7 +504,9 @@
 			const onComplete = () => {
 				this.set('loading', false);
 				this.$searchLoading().removeClass('active');
+				
 				this.$choices().addClass('active');
+
 				this.$buttonClear().addClass('active');
 			};
 			
@@ -564,30 +543,44 @@
 		 */
 		walkChoices(data, sticky = true) {
 			const stickyItems = this.stickyItems();
+			console.log('stickys: ', stickyItems);
 
 			let list = '';
 			let stickyList = '';
 
 			// check if manual input has values
 			const stickyManual = this.$manualInput().val().length ? JSON.parse(this.$manualInput().val()) : [];
+
+			console.log('walkChoices: ', data);
+			
 			// merge data from api and manual data
 			let mergeItems = [].concat(data, stickyManual);
+			// let mergeItems = stickyManual;
+			console.log('mergeItems: ', mergeItems);
 
 			let stickyOrder = [];
 			stickyItems.forEach(elms => {
 				const item = mergeItems.find(item => item.id == elms);
+				console.log('return stickyed items: ', item);
 
-				mergeItems = mergeItems.filter(function(value) { 
+				mergeItems = mergeItems.filter((value) => { 
 					return value != item;
 				});
+
+				console.log('mergeItems 2: ', mergeItems);
 
 				// check if array sticky input value is not empty
 				if(stickyItems[0] !== "")
 					stickyOrder.push(item);
 			});
 
+			console.log('stickyOrder: ', stickyOrder);
+
 			// merge data objects if sticky values exists on input
 			let mergedData = stickyOrder.length ? [].concat(stickyOrder, mergeItems) : mergeItems;
+
+			console.log('mergedData: ', mergedData);
+
 			mergedData.forEach(element => {
 				let content = `<li data-id="${acf.escAttr(element.id)}" data-date="${acf.escAttr(element.date)}"`;
 					content += `${element.id.toString().startsWith('m') ? ' data-manual' : ''}><span class="acf-rel-item">`;
@@ -623,7 +616,7 @@
 				let exceededLimit = stickyItems.length >= e.target.value ? true : false;
 				this.$isExceeded(exceededLimit);
 			});
-			
+
 			return {
 				list: list,
 				stickyList: stickyList,
@@ -636,6 +629,7 @@
 		onClickClear() {
 			this.$searchInput().val('');
 			this.$choices().removeClass('active');
+			this.$valuesList().addClass('active');
 			this.$buttonClear().removeClass('active');
 			this.set('s', '');
 
@@ -645,7 +639,7 @@
 		/**
 		 * Add search result as sticky item
 		 */
-		onClickAdd(e, $el) {		
+		onClickAdd(e, $el) {
 			// Can be added?
 			if($el.hasClass('disabled'))
 				return false;
@@ -678,14 +672,6 @@
 		},
 
 		/**
-		 * Show/hide taxonomies filters
-		 */
-		onClickToggleTaxonomies(e, $el) {		
-			$el.toggleClass('active')
-			this.$taxonomiesSelection().slideToggle();
-		},
-
-		/**
 		 * Create item html
 		 * 
 		 * @param {object} props The item data
@@ -715,12 +701,15 @@
 		 * Sort sticky items
 		 */
 		sortValues() {
-			const results = this.get('results');
-			// api fields
-			const values = JSON.parse(this.$valuesInput().val());
-			// manual fields
+			// console.log('sortValues()');
+			const results = this.get('xhr');
+
+			const valuesLocal = results.readyState === 4 ? JSON.parse(results.responseJSON.data) : [];
+			// console.log(valuesLocal);
 			const valuesManual = this.$manualInput().val() !== '' ? JSON.parse(this.$manualInput().val()) : [];
-			const valuesMerged = [].concat(values, valuesManual);
+			// merge local/manual fields array
+			const valuesMerged = [].concat(valuesLocal, valuesManual);
+			// const valuesMerged = valuesManual;
 
 			let sortedValues = [];
 
@@ -730,10 +719,11 @@
 			this.$stickyList().find('li').each((_, element) => {
 				let elementValue;
 
-				if(typeof element.dataset.fromSearch != 'undefined')
-					elementValue = results.find(value => value.id == element.dataset.id);
-				else
+				if(typeof element.dataset.fromSearch != 'undefined') {
+					elementValue = valuesLocal.find(value => value.id == element.dataset.id);
+				} else {
 					elementValue = valuesMerged.find(value => value.id == element.dataset.id);
+				}
 
 				if(elementValue) {
 					sortedValues.push(elementValue);
@@ -748,7 +738,6 @@
 
 			// remove first comma from sticky items
 			this.$stickyInput().val(this.$stickyInput().val().replace(/(^\,+|\,+$)/mg, ''));
-			// this.$stickyInput().val(this.$stickyInput().val().substr(this.$stickyInput().val().indexOf(",") + 1));
 			
 			this.set('sticky', this.$stickyInput().val());
 		},
@@ -759,7 +748,7 @@
 		 * @param {*} e 
 		 * @param {*} $el 
 		 */
-		onClickAddManualPost(e, $el) {
+		onClickAddManualPost() {
 			var $modal = this.$control().find('.widgets-acf-modal.-fields');
 			// Open modal
 			modal.open($modal, {
@@ -781,10 +770,10 @@
 
 					// clear fields
 					this.$acfInputName('titulo').val('');
-					this.$acfInputName('thumbnail', '[data-name=remove]').click();
+					this.$acfInputName('thumbnail', '[data-name="remove"]').click();
 					this.$acfInputName('excerpt', 'textarea').val('');
 
-					buttonAdd.click((e) => {
+					buttonAdd.click(() => {
 						// retrieves acf fields from modal
 						let title = this.$acfInputName('titulo').val();
 						let thumbnail = this.$acfInputName('thumbnail', 'img').attr('src');
@@ -807,9 +796,11 @@
 							return false;
 						}
 
+						const $date = new Date();
+
 						let createNewFields = {
-							id: `m${e.timeStamp}`,
-							date: new Date().toISOString(),
+							id: `m${$date.getUTCMilliseconds()}`,
+							date: $date.toISOString(),
 							title: {
 								rendered: title
 							},
@@ -833,7 +824,9 @@
 						this.$stickyInput().val(this.$stickyInput().val().replace(/(^\,+|\,+$)/mg, ''));
 
 						this.set('sticky', this.$stickyInput().val());
+
 						this.fetch();
+
 						modal.close();
 					});
 				}
@@ -938,166 +931,6 @@
 		onCloseModalDismiss() {
 			this.$alertValidation().parent().removeClass('show');
 			this.$alertValidation().remove();
-		},
-
-		/**
-		 * Add taxonomy row
-		 */
-		onClickAddTaxonomy(e, $el) {	
-			if(Object.keys(this.taxonomies()).length == this.$taxonomyRow().not(':first').length)
-				return;
-
-			const $row = this.$taxonomyRow().first().clone();
-			
-			$row.insertBefore($el.parent()).slideDown();
-
-			this.initializeTaxonomyFilters($row, true);
-			this.checkTaxonomyFilters();
-		},
-
-		/**
-		 * Remove taxonomy row
-		 */
-		onClickRemoveTaxonomy(e, $el) {		
-			$el.parent().slideUp(() => { 
-				$el.parent().remove(); 
-
-				this.$taxonomyRow().not(':first').each((index) => {
-					const $row = $(this.$taxonomyRow().get(index + 1));
-
-					const $selectTaxonomy = $row.find('[data-taxonomy]');
-					const $selectTerms = $row.find('[data-terms]');
-
-					if($selectTaxonomy.length)
-						$selectTaxonomy.attr('name', `acf[${this.get('key')}][taxonomies][${index}]`);
-					if($selectTerms.length)
-						$selectTerms.attr('name', `acf[${this.get('key')}][terms][${index}][]`);
-				});
-
-				this.fetch();
-				this.checkTaxonomyFilters();
-			});
-		},
-
-		/**
-		 * Initialize taxonomies filters
-		 */
-		initializeTaxonomyFilters($row, isNew = false) {
-			const $selectTaxonomy = $row.find('[data-taxonomy]');
-			const $selectTerms = $row.find('[data-terms]');
-
-			if(!$selectTaxonomy.length)
-				return;
-
-			$selectTaxonomy.attr('name', `acf[${this.get('key')}][taxonomies][${this.$taxonomyRow().length - 2}]`);
-			$selectTerms.attr('name', `acf[${this.get('key')}][terms][${this.$taxonomyRow().length - 2}][]`);
-
-			if(isNew) {
-				const $selects = this.$taxonomyRow().not(':first').not(':last').find('[data-taxonomy]');
-				let values = [];
-
-				$selects.map((_, element) => values.push($(element).val()));
-
-				values = values.reduce((a, b) => {
-					if(a.indexOf(b) < 0)
-						a.push(b);
-
-					return a;
-				}, []);
-
-				$.each(this.taxonomies(), (key, value) => {
-					$selectTaxonomy.append($('<option>', { 
-						value: key,
-						text : value.label,
-						disabled: values.includes(key),
-					}));
-				});
-			}
-
-			$selectTaxonomy.on('change', () => {
-				$selectTerms.find('option[value]').remove();
-				
-				$.each(this.taxonomies()[$selectTaxonomy.val()].terms, (key, value) => {
-					$selectTerms.append($('<option>', { 
-						value: key,
-						text : value, 
-					}));
-				});
-				
-				$selectTaxonomy.find(`option[value="${$selectTaxonomy.val()}"]`).attr('selected', true);
-				$selectTerms.val('').trigger('change');
-				this.checkTaxonomyFilters();
-			});
-
-			$selectTerms.on('change', () => this.fetch());
-
-			if(isNew)
-				$selectTaxonomy.trigger('change');
-
-			$selectTaxonomy.select2();
-			$selectTerms.select2();	
-		},
-
-		/**
-		 * Check taxonomies filters on row added/removed
-		 */
-		checkTaxonomyFilters() {
-			// Enable/disable button
-			this.$buttonAddTaxonomy().toggleClass('disabled', Object.keys(this.taxonomies()).length == this.$taxonomyRow().not(':first').length);
-
-			const $selects = this.$taxonomyRow().not(':first').find('[data-taxonomy]');
-			let values = [];
-
-			// Get options in use
-			$selects.map((_, element) => values.push($(element).val()));
-
-			// Remove duplicate values
-			values = values.reduce((a, b) => {
-				if(a.indexOf(b) < 0)
-					a.push(b);
-
-				return a;
-			}, []);
-
-			// Remove options in use
-			$selects.each((_, element) => {
-				const $element = $(element);
-				const elementValue = $element.val();
-
-				$element.find('option').remove();
-
-				$.each(this.taxonomies(), (key, value) => {
-					$element.append($('<option>', { 
-						value: key,
-						text : value.label,
-						selected: elementValue == key,
-					}));
-				});
-			});
-
-			$.each(values, (_, value) => $selects.find(`[value="${value}"]`).not(':selected').remove());
-
-			// Refresh select2
-			$selects.select2();
-		},
-
-		/**
-		 * Save taxonomies filters
-		 */
-		saveTaxonomyFilters() {
-			const $rows = this.$taxonomyRow().not(':first');
-			const $selectTaxonomy = $rows.find('[data-taxonomy]');
-			const $selectTerms = $rows.find('[data-terms]');
-
-			let taxonomies = [];
-			let terms = [];
-
-			// Get selected values
-			$selectTaxonomy.each((index) => taxonomies.push($($selectTaxonomy.get(index)).val()));
-			$selectTerms.each((index) => terms.push($($selectTerms.get(index)).val()));
-
-			this.set('taxonomies', taxonomies);
-			this.set('terms', terms);
 		},
 		
 	});
