@@ -288,7 +288,6 @@
 				this.$stickyInput().val('');
 
 			if (sticky) {
-				console.log(sticky);
 				$li.appendTo(this.$stickyList());
 
 				// Update the list to validate the allowed quantity of items
@@ -301,7 +300,6 @@
 				// Update the list to validate the allowed quantity of items
 				this.fetch(); // update data list on sticky item
 			} else {
-				console.log(sticky);
 				if ($li[0].hasAttribute('data-manual')) {
 					const manualAttr = JSON.parse(this.$manualInput().val());
 					// get sticky item id
@@ -546,7 +544,7 @@
 		 * Walk results and create html
 		 */
 		walkChoices(data, sticky = true) {
-			// clean search query list on render
+			// fetch search list on walk render
 			this.$choicesList().html('');
 
 			const stickyItems = this.stickyItems();
@@ -579,8 +577,6 @@
 			// merge data objects if sticky values exists on input
 			let mergedData = stickyOrder.length ? [].concat(stickyOrder, mergeItems) : mergeItems;
 
-			console.log('mergedData: ', mergedData);
-
 			mergedData.forEach(element => {
 				let content = `<li data-id="${acf.escAttr(element.id)}" data-date="${acf.escAttr(element.date)}"`;
 					content += `${element.id.toString().startsWith('m') ? ' data-manual' : ''}><span class="acf-rel-item">`;
@@ -590,9 +586,9 @@
 
 				if(element.hasOwnProperty('featured_media_url')) {
 					if(element.featured_media_url.hasOwnProperty('pa-block-preview'))
-						content += `<img src="${element.featured_media_url['pa-block-preview']}" />`;
+						content += `<img src="${element.featured_media_url['pa-block-preview']}" alt="Thumbnail" />`;
 					else if(element.featured_media_url.hasOwnProperty('pa_block_render'))
-						content += `<img src="${element.featured_media_url['pa_block_render']}" />`;
+						content += `<img src="${element.featured_media_url['pa_block_render']}" alt="Thumbnail" />`;
 				}
 
 					content += `<div class="walker__item">`;
