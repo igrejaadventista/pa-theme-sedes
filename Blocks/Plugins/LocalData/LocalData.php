@@ -472,9 +472,9 @@ if (!class_exists('LocalData')) :
 			}
 
 			// perform search query
-			if ($is_search && empty($args['orderby']) && isset($args['s'])) :
+			if ($is_search && empty($args['orderby']) && isset($args['s'])) {
 				$args['s'] = $s;
-			endif;
+			}
 
 			$stickedArr = [];
 			if (!empty($stickyItemsFilter)) {
@@ -495,7 +495,7 @@ if (!class_exists('LocalData')) :
 					$stickedArr[] = $this->get_post_result(
 						$post->ID,
 						$post->post_date,
-						get_the_post_thumbnail_url($post->ID, 'full'),
+						get_the_post_thumbnail_url($post->ID, 'medium'),
 						$post->post_title,
 						get_post_type_object(get_post_type($post->ID))->labels->singular_name,
 						$post->post_content,
@@ -508,25 +508,25 @@ if (!class_exists('LocalData')) :
 
 			// get queried posts
 			$posts = get_posts($args);
-			if (!empty($posts)) :
+			if (!empty($posts)) {
 				foreach ($posts as $post) {
 					//  push data into $results
 					$results[] = $this->get_post_result(
 						$post->ID,
 						$post->post_date,
-						get_the_post_thumbnail_url($post->ID, 'full'),
+						get_the_post_thumbnail_url($post->ID, 'medium'),
 						$post->post_title,
 						get_post_type_object(get_post_type($post->ID))->labels->singular_name,
 						$post->post_content,
 						// $url
 					);
 				}
-			endif;
+			}
 
-			if ($limit <= count($stickyItems)) :
-				// clean on limit reach
+			// clean on limit reach
+			if ($limit <= count($stickyItems)) {
 				$results = array(json_encode(0));
-			endif;
+			}
 
 			$mergedResults = array_merge($stickedArr, $results);
 
