@@ -376,7 +376,7 @@ if (!class_exists('LocalData')) :
 		 *  @param	$text (string)
 		 *  @return	(array)
 		 */
-		function get_post_result($id, $date, $img, $title, $cpt, $excerpt = null, $url = null)
+		function get_post_result($id, $date, $img, $title, $cpt, $excerpt, $url = null)
 		{
 			// vars
 			$result = array(
@@ -477,7 +477,7 @@ if (!class_exists('LocalData')) :
 			endif;
 
 			$stickedArr = [];
-			if (!empty($stickyItemsFilter)) :
+			if (!empty($stickyItemsFilter)) {
 				// get array of values from sticky posts
 				$stickyIds = array_values($stickyItemsFilter);
 
@@ -491,37 +491,33 @@ if (!class_exists('LocalData')) :
 				));
 
 				foreach ($stickedPosts as $post) {
-					$img = get_the_post_thumbnail_url($post->ID, 'full');
-					$cpt = get_post_type_object(get_post_type($post->ID));
 					//  push data into $results
 					$stickedArr[] = $this->get_post_result(
 						$post->ID,
 						$post->post_date,
-						$img,
+						get_the_post_thumbnail_url($post->ID, 'full'),
 						$post->post_title,
-						$cpt->labels->singular_name,
-						// $excerpt,
+						get_post_type_object(get_post_type($post->ID))->labels->singular_name,
+						$post->post_content,
 						// $url
 					);
 				}
 				// remove sticked posts from results...
 				$args['posts_per_page'] = $args['posts_per_page'] - count($stickedArr);
-			endif;
+			}
 
 			// get queried posts
 			$posts = get_posts($args);
 			if (!empty($posts)) :
 				foreach ($posts as $post) {
-					$img = get_the_post_thumbnail_url($post->ID, 'full');
-					$cpt = get_post_type_object(get_post_type($post->ID));
 					//  push data into $results
 					$results[] = $this->get_post_result(
 						$post->ID,
 						$post->post_date,
-						$img,
+						get_the_post_thumbnail_url($post->ID, 'full'),
 						$post->post_title,
-						$cpt->labels->singular_name,
-						// $excerpt,
+						get_post_type_object(get_post_type($post->ID))->labels->singular_name,
+						$post->post_content,
 						// $url
 					);
 				}
