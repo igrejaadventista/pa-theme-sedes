@@ -363,7 +363,8 @@
 	margin-top: 5px;
 }
 
-.sticky-list .acf-rel-item:hover .badge__pill {
+.sticky-list .acf-rel-item:hover .badge__pill,
+.choices-list .acf-rel-item:hover .badge__pill {
 	color: #fff;
 }
 
@@ -387,6 +388,12 @@
 
 .filter__post_type select option:first-child {
 	color: #72777c;
+}
+
+/* remove relation modal labels. Field name: url  */
+#link-selector #link-options .wp-link-text-field,
+[data-name="url"] span.link-title {
+	display: none !important;
 }
 
 /***** MODAL *****/

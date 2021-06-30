@@ -489,6 +489,7 @@ if (!class_exists('LocalData')) :
 					'include'	=> $stickyIds,
 					'post_type'	=> get_post_types(),
 				));
+
 				foreach ($stickedPosts as $post) {
 					$img = get_the_post_thumbnail_url($post->ID, 'full');
 					$cpt = get_post_type_object(get_post_type($post->ID));
@@ -526,10 +527,9 @@ if (!class_exists('LocalData')) :
 				}
 			endif;
 
-			// die( print_r( $posts ) );
-
 			if ($limit <= count($stickyItems)) :
-				$results = [];
+				// clean on limit reach
+				$results = array(json_encode(0));
 			endif;
 
 			$mergedResults = array_merge($stickedArr, $results);
