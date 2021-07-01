@@ -394,7 +394,7 @@ if (!class_exists('LocalData')) :
 		 *  @param	$text (string)
 		 *  @return	(array)
 		 */
-		function get_post_result($id, $date, $title, $img, $excerpt = null, $url = null)
+		function get_post_result($id, $date, $img, $title, $cpt, $excerpt, $url = null)
 		{
 			// vars
 			$result = array(
@@ -402,6 +402,9 @@ if (!class_exists('LocalData')) :
 				'date' 					=> $date,
 				'title' 				=> array(
 					'rendered' 			=> $title
+				),
+				'cpt_label'				=> array(
+					'rendered'			=> $cpt
 				),
 				'featured_media_url' 	=> array(
 					'pa_block_render' 	=> $img
@@ -472,58 +475,84 @@ if (!class_exists('LocalData')) :
 			});
 
 			$limit = isset($options['limit']) ? $options['limit'] : $field['limit'];
-			// $limit = !empty($limit) && $limit > 0 ? $limit : 1;
-			// $limit = $limit <= 100 ? $limit : 100;
 			$args['posts_per_page'] = (int)$limit;
 			$args['posts_per_page'] = $args['posts_per_page'] - (count($stickyItems) - count($stickyItemsFilter));
 
-			// die(var_dump($stickyItemsFilter));
-
-			// post_type
+			// filter by post types
 			if (!empty($options['post_type'])) {
+				// selected
 				$args['post_type'] = acf_get_array($options['post_type']);
 			} elseif (!empty($field['post_type'])) {
-				// default post_type
+				// default
 				$args['post_type'] = acf_get_array($field['post_type']);
 			} else {
 				$args['post_type'] = acf_get_post_types();
 			}
 
-			if ($limit <= count($stickyItems)) :
-				// only manual or only local
-				$args['include'] = $stickyItemsFilter ?: $stickyItems;
-			endif;
-
-			// exclude sticky items from query
-			if (!empty($sticky)) :
-			// $args['include'] = $stickyItemsFilter;
-			// $args['orderby'] = 'include';
-			endif;
-
 			// perform search query
-			if ($is_search && empty($args['orderby']) && isset($args['s'])) :
+			if ($is_search && empty($args['orderby']) && isset($args['s'])) {
 				$args['s'] = $s;
-			endif;
+			}
 
-			// die(print_r($args));
-			// die(var_dump(get_post_type(163)));
+			$stickedArr = [];
+			if (!empty($stickyItemsFilter)) {
+				// get array of values from sticky posts
+				$stickyIds = array_values($stickyItemsFilter);
 
-			$posts = acf_get_posts($args);
+				// exclude sticked posts from query
+				$args['exclude'] = $stickyIds;
+
+				// return only sticked array items
+				$stickedPosts = get_posts(array(
+					'include'	=> $stickyIds,
+					'post_type'	=> get_post_types(),
+				));
+
+				foreach ($stickedPosts as $post) {
+					//  push data into $results
+					$stickedArr[] = $this->get_post_result(
+						$post->ID,
+						$post->post_date,
+						get_the_post_thumbnail_url($post->ID, 'medium'),
+						$post->post_title,
+						get_post_type_object(get_post_type($post->ID))->labels->singular_name,
+						$post->post_content,
+						// $url
+					);
+				}
+				// remove sticked posts from results...
+				$args['posts_per_page'] = $args['posts_per_page'] - count($stickedArr);
+			}
 
 			// get queried posts
-			if (!empty($posts)) :
-				foreach ($posts as $post) :
-					$thumb = get_the_post_thumbnail_url($post->ID, 'full');
+			$posts = get_posts($args);
+			if (!empty($posts)) {
+				foreach ($posts as $post) {
 					//  push data into $results
-					$results[] = $this->get_post_result($post->ID, $post->post_date, $post->post_title, $thumb);
-				endforeach;
-			endif;
+					$results[] = $this->get_post_result(
+						$post->ID,
+						$post->post_date,
+						get_the_post_thumbnail_url($post->ID, 'medium'),
+						$post->post_title,
+						get_post_type_object(get_post_type($post->ID))->labels->singular_name,
+						$post->post_content,
+						// $url
+					);
+				}
+			}
+
+			// clean on limit reach
+			if ($limit <= count($stickyItems)) {
+				$results = array(json_encode(0));
+			}
+
+			$mergedResults = array_merge($stickedArr, $results);
 
 			// vars
 			$response = array(
-				'results'	=> $results,
+				'results'	=> $mergedResults,
 				'limit'		=> $args['posts_per_page'],
-				'data'		=> json_encode($results),
+				'data'		=> json_encode($mergedResults),
 			);
 
 			// return
