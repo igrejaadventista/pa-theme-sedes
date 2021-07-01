@@ -231,7 +231,7 @@ if (!class_exists('LocalData')) :
 					<div class="filter -limit">
 						<label>
 							<span class="acf-js-tooltip" title="Quantidade de itens a ser exibido.">Quantidade</span>
-							<?php acf_text_input(array('name' => $field['name'] . "[limit]", 'value' => isset($values['limit']) ? $values['limit'] : 1, 'type' => 'number', 'step' => 1, 'min' => 1, 'max' => 100, 'data-limit' => '', 'data-filter' => 'limit')); ?>
+							<?php acf_text_input(array('name' => $field['name'] . "[limit]", 'value' => isset($values['limit']) ? $values['limit'] : $field['limit'], 'type' => 'number', 'step' => 1, 'min' => 1, 'max' => 100, 'data-limit' => '', 'data-filter' => 'limit')); ?>
 						</label>
 					</div>
 
@@ -242,6 +242,7 @@ if (!class_exists('LocalData')) :
 						<div class="filter -post_type filter__post_type">
 							<?php acf_select_input(
 								array(
+									'name' => $field['name'] . "[post_type_filter]",
 									'choices' => $filter_post_type_choices,
 									'data-filter' => 'post_type'
 								)
@@ -318,6 +319,12 @@ if (!class_exists('LocalData')) :
 
 			// return
 			return $field;
+		}
+
+		function format_value($value, $post_id, $field) {
+			$value['post_type'] = acf_get_array($field['post_type']);
+
+			return $value;
 		}
 
 		/**
