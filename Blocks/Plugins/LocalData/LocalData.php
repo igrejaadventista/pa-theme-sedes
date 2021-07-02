@@ -360,7 +360,7 @@ if (!class_exists('LocalData')) :
 		function format_value($value, $post_id, $field) {
 			$value['post_type'] = acf_get_array($field['post_type']);
 
-			$data = $this->get_ajax_query([
+			$data = $this->getData([
 				'limit' => $value['limit'],
 				'sticky' => $value['sticky'],
 				'post_type' => !empty($value['post_type_filter']) ? $value['post_type_filter'] : $value['post_type'],
@@ -419,7 +419,7 @@ if (!class_exists('LocalData')) :
 				die();
 
 			// get choices
-			$response = $this->get_ajax_query($_POST);
+			$response = $this->getData($_POST);
 
 			// return
 			acf_send_ajax_results($response);
@@ -462,22 +462,14 @@ if (!class_exists('LocalData')) :
 			// return
 			return $result;
 		}
-
+		
 		/**
-		 *  get_ajax_query
+		 * getData
 		 *
-		 *  This function will return an array of data formatted for use in a select2 AJAX response
-		 *
-		 *  @type	function
-		 *  @date	15/10/2014
-		 *  @since	5.0.9
-		 *
-		 *  @param	$options (array)
-		 *  @return	(array)
+		 * @param  mixed $options
+		 * @return void
 		 */
-
-		function get_ajax_query($options = array())
-		{
+		function getData($options = array()) {
 			// defaults
 			$options = wp_parse_args($options, array(
 				'sticky'		=> '',
@@ -490,7 +482,9 @@ if (!class_exists('LocalData')) :
 
 			// load field
 			$field = acf_get_field($options['field_key']);
-			if (!$field) return false;
+			
+			if(!$field) 
+				return false;
 
 			// vars
 			$results = [];
@@ -502,14 +496,14 @@ if (!class_exists('LocalData')) :
 			$args['paged'] = intval($options['paged']);
 
 			// search
-			if ($options['s'] !== '') {
+			if ($options['s'] !== ''):
 				// strip slashes (search may be integer)
 				$s = wp_unslash(strval($options['s']));
 
 				// update vars
 				$args['s'] = $s;
 				$is_search = true;
-			}
+			endif;
 
 			$sticky = isset($options['sticky']) ? $options['sticky'] : 0;
 			$stickyItems = !empty($sticky) ? explode(',', $sticky) : [];
@@ -523,23 +517,21 @@ if (!class_exists('LocalData')) :
 			$args['posts_per_page'] = $args['posts_per_page'] - (count($stickyItems) - count($stickyItemsFilter));
 
 			// filter by post types
-			if (!empty($options['post_type'])) {
+			if(!empty($options['post_type']))
 				// selected
 				$args['post_type'] = acf_get_array($options['post_type']);
-			} elseif (!empty($field['post_type'])) {
+			elseif (!empty($field['post_type']))
 				// default
 				$args['post_type'] = acf_get_array($field['post_type']);
-			} else {
+			else
 				$args['post_type'] = acf_get_post_types();
-			}
 
 			// perform search query
-			if ($is_search && empty($args['orderby']) && isset($args['s'])) {
+			if($is_search && empty($args['orderby']) && isset($args['s']))
 				$args['s'] = $s;
-			}
 
 			$stickedArr = [];
-			if (!empty($stickyItemsFilter)) {
+			if(!empty($stickyItemsFilter)):
 				// get array of values from sticky posts
 				$stickyIds = array_values($stickyItemsFilter);
 
@@ -552,7 +544,7 @@ if (!class_exists('LocalData')) :
 					'post_type'	=> get_post_types(),
 				));
 
-				foreach ($stickedPosts as $post) {
+				foreach($stickedPosts as $post):
 					//  push data into $results
 					$stickedArr[] = $this->get_post_result(
 						$post->ID,
@@ -563,15 +555,16 @@ if (!class_exists('LocalData')) :
 						$post->post_content
 						// $url
 					);
-				}
+				endforeach;
+
 				// remove sticked posts from results...
 				$args['posts_per_page'] = $args['posts_per_page'] - count($stickedArr);
-			}
+			endif;
 
 			// get queried posts
 			$posts = get_posts($args);
-			if (!empty($posts)) {
-				foreach ($posts as $post) {
+			if(!empty($posts)):
+				foreach($posts as $post):
 					//  push data into $results
 					$results[] = $this->get_post_result(
 						$post->ID,
@@ -582,13 +575,12 @@ if (!class_exists('LocalData')) :
 						$post->post_content
 						// $url
 					);
-				}
-			}
+				endforeach;
+			endif;
 
 			// clean on limit reach
-			if ($limit <= count($stickyItems)) {
+			if($limit <= count($stickyItems))
 				$results = array(json_encode(0));
-			}
 
 			$mergedResults = array_merge($stickedArr, $results);
 
