@@ -240,10 +240,12 @@ if (!class_exists('LocalData')) :
 						&& count($filter_post_type_choices) > 2
 					) : ?>
 						<div class="filter -post_type filter__post_type">
-							<?php acf_select_input(
+							<?php 
+							acf_select_input(
 								array(
 									'name' => $field['name'] . "[post_type_filter]",
 									'choices' => $filter_post_type_choices,
+									'value' => isset($values['post_type_filter']) ? $values['post_type_filter'] : '',
 									'data-filter' => 'post_type'
 								)
 							);
@@ -264,6 +266,40 @@ if (!class_exists('LocalData')) :
 				</div>
 
 				<?php
+
+					$field['sub_fields'][] = array(
+						'key' => 'title',
+						'label' => 'Título',
+						'name' => 'title',
+						'type' => 'text',
+						'required' => 1,
+					);
+
+					$field['sub_fields'][] = array(
+						'key' => 'thumbnail',
+						'label' => 'Thumbnail',
+						'name' => 'thumbnail',
+						'type' => 'image',
+						'required' => 1,
+					);
+
+					$field['sub_fields'][] = array(
+						'key' => 'excerpt',
+						'label' => 'Resumo',
+						'name' => 'excerpt',
+						'type' => 'textarea',
+						'rows' => 3,
+						'required' => 0,
+					);
+
+					$field['sub_fields'][] = array(
+						'key' => 'link',
+						'label' => 'Link',
+						'name' => 'link',
+						'type' => 'link',
+						'required' => 0,
+					);
+
 				// load values
 				foreach ($field['sub_fields'] as &$sub_field) :
 					// add value
@@ -323,6 +359,14 @@ if (!class_exists('LocalData')) :
 
 		function format_value($value, $post_id, $field) {
 			$value['post_type'] = acf_get_array($field['post_type']);
+
+			$data = $this->get_ajax_query([
+				'limit' => $value['limit'],
+				'sticky' => $value['sticky'],
+				'post_type' => !empty($value['post_type_filter']) ? $value['post_type_filter'] : $value['post_type'],
+			]);
+
+			$value['data'] = $data['results'];
 
 			return $value;
 		}
@@ -516,7 +560,7 @@ if (!class_exists('LocalData')) :
 						get_the_post_thumbnail_url($post->ID, 'medium'),
 						$post->post_title,
 						get_post_type_object(get_post_type($post->ID))->labels->singular_name,
-						$post->post_content,
+						$post->post_content
 						// $url
 					);
 				}
@@ -535,7 +579,7 @@ if (!class_exists('LocalData')) :
 						get_the_post_thumbnail_url($post->ID, 'medium'),
 						$post->post_title,
 						get_post_type_object(get_post_type($post->ID))->labels->singular_name,
-						$post->post_content,
+						$post->post_content
 						// $url
 					);
 				}

@@ -765,14 +765,14 @@
 					let existingSticky = this.$stickyInput();
 
 					// clear fields
-					this.$acfInputName('titulo').val('');
+					this.$acfInputName('title').val('');
 					this.$acfInputName('thumbnail', '[data-name="remove"]').click();
 					this.$acfInputName('excerpt', 'textarea').val('');
 					this.$acfInputName('url').val('');
 
 					buttonAdd.click(() => {
 						// retrieves acf fields from modal
-						let title = this.$acfInputName('titulo').val();
+						let title = this.$acfInputName('title').val();
 						let thumbnail = this.$acfInputName('thumbnail', 'img').attr('src');
 						let content = this.$acfInputName('excerpt', 'textarea').val();
 						let url = this.$acfInputName('url').val();
@@ -868,17 +868,17 @@
 					editData, editIndex = editData.findIndex(obj => obj.id == item_ID);
 
 					// fill current fields
-					this.$acfInputName('titulo').val(editData[editIndex].title.rendered);
+					this.$acfInputName('title').val(editData[editIndex].title.rendered);
 					this.$acfInputName('thumbnail', 'img').attr('src', editData[editIndex].featured_media_url.pa_block_render);
 					this.$acfInputName('thumbnail', '.acf-image-uploader').addClass('has-value');
 					this.$acfInputName('excerpt', 'textarea').val(editData[editIndex].content.rendered);
-					this.$acfInputName('url').val(editData[editIndex].url);
+					this.$acfInputName('link').val(editData[editIndex].url);
 
 					buttonEdit.click(() => {
-						let title = this.$acfInputName('titulo').val();
+						let title = this.$acfInputName('title').val();
 						let thumbnail = this.$acfInputName('thumbnail', 'img').attr('src');
 						let content = this.$acfInputName('excerpt', 'textarea').val();
-						let url = this.$acfInputName('url').val();
+						let url = this.$acfInputName('link').val();
 
 						// alert component
 						this.$setAlertValidation();
