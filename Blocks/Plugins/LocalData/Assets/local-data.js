@@ -208,6 +208,23 @@
 			return this.$stickyInput().val().split(',');
 		},
 
+		empty(data) {
+			if(typeof(data) == 'number' || typeof(data) == 'boolean') 
+				return false; 
+			if(typeof(data) == 'undefined' || data === null)
+				return true; 
+			if(typeof(data.length) != 'undefined')
+				return data.length == 0;
+
+			var count = 0;
+			for(var i in data) {
+				if(data.hasOwnProperty(i))
+					count ++;
+			}
+
+			return count == 0;
+		},
+
 		/**
 		 * Initialize plugin
 		 */
@@ -753,10 +770,45 @@
 					let modalHeader = $modal.find('.widgets-acf-modal-title');
 					modalHeader.append('<button class="button button-primary button-sticky-add" data-name="manualSubmit">Adicionar</button>');
 					let buttonAdd = modalHeader.find('[data-name="manualSubmit"]');
+					const $modalContent = $modal.find('.widgets-acf-modal-content');
 
-					// remove alert
-					this.$alertValidation().parent().removeClass('show');
-					this.$alertValidation().remove();
+					$modalContent.empty();
+
+					const ajaxData = {
+						action: 'acf/fields/localposts_data/modal',
+						field_key: this.get('key'),
+					};
+
+					const onComplete = () => {
+						
+						// this.set('loading', false);
+						// this.$searchLoading().removeClass('active');
+		
+						// this.$choices().addClass('active');
+		
+						// this.$buttonClear().addClass('active');
+					};
+		
+					const onSuccess = (data) => {
+						// No results
+						$modalContent.html(data);
+						acf.do_action('append', $modalContent);
+					};
+		
+					// Get results
+					$.ajax({
+						url:		acf.get('ajaxurl'),
+						// dataType:	'json',
+						type:		'post',
+						data:		acf.prepareForAjax(ajaxData),
+						context:	this,
+						success:	onSuccess,
+						complete:	onComplete,
+					});
+
+					// // remove alert
+					// this.$alertValidation().parent().removeClass('show');
+					// this.$alertValidation().remove();
 
 					// get existing input value data
 					let currentData = this.$manualInput().val();
@@ -764,39 +816,57 @@
 					let newData = currentData.length ? JSON.parse(currentData) : [];
 					let existingSticky = this.$stickyInput();
 
-					// clear fields
-					this.$acfInputName('title').val('');
-					this.$acfInputName('thumbnail', '[data-name="remove"]').click();
-					this.$acfInputName('excerpt', 'textarea').val('');
-					this.$acfInputName('url').val('');
-
 					buttonAdd.click(() => {
-						// retrieves acf fields from modal
-						let title = this.$acfInputName('title').val();
-						let thumbnail = this.$acfInputName('thumbnail', 'img').attr('src');
-						let content = this.$acfInputName('excerpt', 'textarea').val();
-						let url = this.$acfInputName('url').val();
+						const $fields = $modalContent.find('.acf-field');
+						let values = {};
+						let hasInvalid = false;
 
-						// alert component
-						this.$setAlertValidation();
+						$fields.each((_, element) => {
+							const field = acf.getField($(element));
+
+							if(this.empty(field.getValue()) && element.dataset.required == 1) {
+								hasInvalid = true;
+								field.showError('Campo obrigatório');
+							}
+							
+							if(field.data.name == 'featured_media_url')
+								values[field.data.name] = {
+									id: field.getValue(),
+									url: $(element).find('img').attr('src'),
+								};
+							else
+							values[field.data.name] = field.getValue();
+						});
+
+						// retrieves acf fields from modal
+						// let title = this.$acfInputName('title').val();
+						// let thumbnail = this.$acfInputName('thumbnail', 'img').attr('src');
+						// let content = this.$acfInputName('excerpt', 'textarea').val();
+						// let url = this.$acfInputName('url').val();
+
+						// // alert component
+						// this.$setAlertValidation();
 
 						// validate fields // change to func (args: input value, error message)
-						if ('' === title) {
-							this.$alertValidation().find('span').text('Título é obrigatório.');
-							return false;
-						}
-						if ('' === thumbnail) {
-							this.$alertValidation().find('span').text('Tumbnail é obrigatório.');
-							return false;
-						}
-						if ('' === content) {
-							this.$alertValidation().find('span').text('Resumo é obrigatório.');
-							return false;
-						}
-						if ('' === url) {
-							this.$alertValidation().find('span').text('URL é obrigatório.');
-							return false;
-						}
+						// if ('' === title) {
+						// 	this.$alertValidation().find('span').text('Título é obrigatório.');
+						// 	return false;
+						// }
+						// // if ('' === thumbnail) {
+						// // 	this.$alertValidation().find('span').text('Tumbnail é obrigatório.');
+						// // 	return false;
+						// // }
+						// if ('' === content) {
+						// 	this.$alertValidation().find('span').text('Resumo é obrigatório.');
+						// 	return false;
+						// }
+						// if ('' === url) {
+						// 	this.$alertValidation().find('span').text('URL é obrigatório.');
+						// 	return false;
+						// }
+
+						if(hasInvalid)
+							return;
 
 						const $date = new Date();
 
@@ -804,15 +874,16 @@
 							id: `m${$date.getUTCMilliseconds()}`,
 							date: $date.toISOString(),
 							title: {
-								rendered: title
+								rendered: values.title,
 							},
 							featured_media_url: {
-								'pa_block_render': thumbnail
+								id: values.featured_media_url.id,
+								pa_block_render: values.featured_media_url.url,
 							},
 							content: {
-								rendered: content
+								rendered: values.content,
 							},
-							url: url
+							link: values.link,
 						};
 
 						newData.push(createNewFields);
@@ -859,6 +930,9 @@
 					let modalHeader = $modal.find('.widgets-acf-modal-title');
 					modalHeader.append('<button class="button button-primary button-sticky-add" data-name="editSubmit">Conlcuir</button>');
 					let buttonEdit = modalHeader.find('[data-name="editSubmit"]');
+					const $modalContent = $modal.find('.widgets-acf-modal-content');
+
+					$modalContent.empty();
 
 					// get original data
 					let originalData = JSON.parse(this.$manualInput().val());
@@ -867,12 +941,44 @@
 					let editData = JSON.parse(this.$manualInput().val());
 					editData, editIndex = editData.findIndex(obj => obj.id == item_ID);
 
+					const ajaxData = {
+						action: 'acf/fields/localposts_data/modal',
+						field_key: this.get('key'),
+						data: editData[editIndex],
+					};
+
+					const onComplete = () => {
+						// this.set('loading', false);
+						// this.$searchLoading().removeClass('active');
+		
+						// this.$choices().addClass('active');
+		
+						// this.$buttonClear().addClass('active');
+					};
+		
+					const onSuccess = (data) => {
+						// No results
+						$modalContent.html(data);
+						acf.do_action('append', $modalContent);
+					};
+		
+					// Get results
+					$.ajax({
+						url:		acf.get('ajaxurl'),
+						// dataType:	'json',
+						type:		'post',
+						data:		acf.prepareForAjax(ajaxData),
+						context:	this,
+						success:	onSuccess,
+						complete:	onComplete,
+					});
+
 					// fill current fields
-					this.$acfInputName('title').val(editData[editIndex].title.rendered);
-					this.$acfInputName('thumbnail', 'img').attr('src', editData[editIndex].featured_media_url.pa_block_render);
-					this.$acfInputName('thumbnail', '.acf-image-uploader').addClass('has-value');
-					this.$acfInputName('excerpt', 'textarea').val(editData[editIndex].content.rendered);
-					this.$acfInputName('link').val(editData[editIndex].url);
+					// this.$acfInputName('title').val(editData[editIndex].title.rendered);
+					// this.$acfInputName('thumbnail', 'img').attr('src', editData[editIndex].featured_media_url.pa_block_render);
+					// this.$acfInputName('thumbnail', '.acf-image-uploader').addClass('has-value');
+					// this.$acfInputName('excerpt', 'textarea').val(editData[editIndex].content.rendered);
+					// this.$acfInputName('link').val(editData[editIndex].url);
 
 					buttonEdit.click(() => {
 						let title = this.$acfInputName('title').val();
@@ -1077,7 +1183,8 @@
                 return;
 
             args.onClose($target);
-        }
+        },
+
     };
 
 	acf.registerFieldType(Field);

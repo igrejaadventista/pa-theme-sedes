@@ -25,8 +25,7 @@ if (!class_exists('LocalData')) :
 		 *
 		 *  @return	n/a
 		 */
-		function __construct()
-		{
+		function __construct() {
 			// name (string) Single word, no spaces. Underscores allowed
 			$this->name = 'localposts_data';
 			// label (string) Multiple words, can include spaces, visible when selecting a field type
@@ -46,6 +45,8 @@ if (!class_exists('LocalData')) :
 
 			add_action('wp_ajax_acf/fields/localposts_data/query',				array($this, 'ajax_query'));
 			add_action('wp_ajax_nopriv_acf/fields/localposts_data/query',		array($this, 'ajax_query'));
+
+			add_action('wp_ajax_acf/fields/localposts_data/modal',				array($this, 'modalAjax'));
 
 			// Admin Scripts
 			\add_action('admin_enqueue_scripts', function () {
@@ -68,8 +69,7 @@ if (!class_exists('LocalData')) :
 		 *  @param	$post_id (int)
 		 *  @return	$post_id (int)
 		 */
-		function input_admin_enqueue_scripts()
-		{
+		function input_admin_enqueue_scripts() {
 			\wp_enqueue_style('acf-local-data-css', get_template_directory_uri() . '/Blocks/Plugins/LocalData/Assets/local-data.css', false);
 			\wp_enqueue_script('acf-local-data.js', get_template_directory_uri() . '/Blocks/Plugins/LocalData/Assets/local-data.js', ['jquery'], null, true);
 		}
@@ -265,65 +265,11 @@ if (!class_exists('LocalData')) :
 					</div>
 				</div>
 
-				<?php
-
-					$field['sub_fields'][] = array(
-						'key' => 'title',
-						'label' => 'Título',
-						'name' => 'title',
-						'type' => 'text',
-						'required' => 1,
-					);
-
-					$field['sub_fields'][] = array(
-						'key' => 'thumbnail',
-						'label' => 'Thumbnail',
-						'name' => 'thumbnail',
-						'type' => 'image',
-						'required' => 1,
-					);
-
-					$field['sub_fields'][] = array(
-						'key' => 'excerpt',
-						'label' => 'Resumo',
-						'name' => 'excerpt',
-						'type' => 'textarea',
-						'rows' => 3,
-						'required' => 0,
-					);
-
-					$field['sub_fields'][] = array(
-						'key' => 'link',
-						'label' => 'Link',
-						'name' => 'link',
-						'type' => 'link',
-						'required' => 0,
-					);
-
-				// load values
-				foreach ($field['sub_fields'] as &$sub_field) :
-					// add value
-					if (isset($field['value'][$sub_field['key']]))
-						// this is a normal value
-						$sub_field['value'] = $field['value'][$sub_field['key']];
-					elseif (isset($sub_field['default_value']))
-						// no value, but this sub field has a default value
-						$sub_field['value'] = $sub_field['default_value'];
-
-					// update prefix to allow for nested values
-					$sub_field['prefix'] = $field['name'];
-
-					// restore required
-					if ($field['required'])
-						$sub_field['required'] = 0;
-				endforeach;
-
-				?>
 				<div class="widgets-acf-modal -fields">
 					<div class="widgets-acf-modal-wrapper">
 						<div class="widgets-acf-modal-content">
 							<div class="acf-notice-render"></div>
-							<?php $this->render_field_block($field); ?>
+							<?php //$this->getSubfields($field); ?>
 						</div>
 					</div>
 				</div>
@@ -369,30 +315,6 @@ if (!class_exists('LocalData')) :
 			$value['data'] = $data['results'];
 
 			return $value;
-		}
-
-		/**
-		 *  render_field_block
-		 *
-		 *  description
-		 *
-		 *  @type	function
-		 *  @date	12/07/2016
-		 *  @since	5.4.0
-		 *
-		 *  @param	$post_id (int)
-		 *  @return	$post_id (int)
-		 */
-
-		function render_field_block($field)
-		{
-			// html
-			echo '<div class="acf-fields -top -border">';
-
-			foreach ($field['sub_fields'] as $sub_field)
-				acf_render_field_wrap($sub_field);
-
-			echo '</div>';
 		}
 
 		// public function load_value($value, $post_id, $field) {
@@ -594,6 +516,91 @@ if (!class_exists('LocalData')) :
 			// return
 			return $response;
 		}
+
+		function modalAjax() {
+			// validate
+			if (!acf_verify_ajax())
+				die();
+
+			// get choices
+			$this->getSubfields($_POST);
+
+			// return
+			// acf_send_ajax_results($response);
+			wp_die();
+		}
+
+		function getSubfields($options) {
+			$field = acf_get_field($options['field_key']);
+
+			array_unshift(
+				$field['sub_fields'],
+				array(
+					'key' => $options['field_key'] . '_title',
+					'label' => 'Título',
+					'name' => 'title',
+					'type' => 'text',
+					'required' => 1,
+				),
+				array(
+					'key' => $options['field_key'] . '_thumbnail',
+					'label' => 'Thumbnail',
+					'name' => 'featured_media_url',
+					'type' => 'image',
+					'required' => 1,
+				),
+				array(
+					'key' => $options['field_key'] . '_content',
+					'label' => 'Resumo',
+					'name' => 'content',
+					'type' => 'textarea',
+					'rows' => 3,
+					'required' => 0,
+				),
+				array(
+					'key' => $options['field_key'] . '_link',
+					'label' => 'Link',
+					'name' => 'link',
+					'type' => 'link',
+					'required' => 0,
+				)
+			);
+	
+			// load values
+			if(isset($options['data'])):
+				foreach($field['sub_fields'] as &$sub_field):
+					if(isset($options['data'][$sub_field['name']])):
+						if($sub_field['name'] == 'title' || $sub_field['name'] == 'content')
+							$sub_field['value'] = $options['data'][$sub_field['name']]['rendered'];
+						elseif($sub_field['name'] == 'featured_media_url')
+							$sub_field['value'] = $options['data'][$sub_field['name']]['id'];
+						else
+							$sub_field['value'] = $options['data'][$sub_field['name']];
+					endif;
+					// add value
+					// if(isset($field['value'][$sub_field['key']]))
+					// 	// this is a normal value
+					// 	$sub_field['value'] = $field['value'][$sub_field['key']];
+					// elseif(isset($sub_field['default_value']))
+					// 	// no value, but this sub field has a default value
+					// 	$sub_field['value'] = $sub_field['default_value'];
+		
+					// // update prefix to allow for nested values
+					// $sub_field['prefix'] = $field['name'];
+		
+					// // restore required
+					// if($field['required'])
+					// 	$sub_field['required'] = 0;
+				endforeach;
+			endif;
+	
+			echo '<div class="acf-fields -top -border">';
+				foreach($field['sub_fields'] as &$sub_field):
+					acf_render_field_wrap($sub_field);
+				endforeach;
+			echo '</div>';
+		}
+
 	}
 
 	// initialize
