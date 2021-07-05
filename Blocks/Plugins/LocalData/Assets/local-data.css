@@ -981,6 +981,21 @@ body:not(.acf-admin-5-3)
 	max-width: 16.66%;
 }
 
+.widgets-acf-modal-content .-loading {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.widgets-acf-modal-content .acf-notice {
+    position: relative !important;
+}
+
+.widgets-acf-modal-content .acf-notice p {
+    margin: 0 !important;
+}
+
 @media only screen and (max-width: 960px) {
 	.widgets-acf-modal.-open
 		.widgets-acf-modal-content

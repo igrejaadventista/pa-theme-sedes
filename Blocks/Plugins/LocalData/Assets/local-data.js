@@ -5,7 +5,6 @@
 			'keypress [data-filter]': 				 	'onKeypressFilter',
 			'change [data-filter="post_type"]':			'onChangeFilter',
 			'change [data-filter="limit"]': 			'onChangeFilter',
-			// 'change [data-filter]': 					'onChangeFilter',
 			'keyup [data-filter]': 					 	'onChangeFilter',
 			'click [data-action="sticky"]': 		 	'onClickSticky',
 			'click [data-action="clear"]': 			 	'onClickClear',
@@ -89,24 +88,6 @@
 		 */
 		$acfInputName(slug, el = 'input') {
 			return this.$control().find('.acf-fields').find('[data-name=' + slug + ']').find(el);
-		},
-
-		/**
-		 * Validate individual fields on modal
-		 *
-		 * @returns
-		 */
-		$alertValidation() {
-			return this.$control().find('.widgets-acf-modal').find('[data-name="acf-modal-alert"]');
-		},
-
-		/**
-		 * Set alert component to the modal validation
-		 *
-		 * @returns
-		 */
-		$setAlertValidation() {
-			return this.$control().find('.acf-notice-render').addClass('show').html('<div class="acf-notice -error acf-error-message" data-name="acf-modal-alert"><div class="alert-content"><span></span><button type="button" data-action="modal-alert-dismiss" aria-label="Fechar">&times;</button></div></div>');
 		},
 
 		/**
@@ -302,7 +283,7 @@
 			const sticky = $li.parent().get(0) == this.$valuesList().get(0);
 
 			if(this.$stickyInput().val() == 0)
-				this.$stickyInput().val('');
+				this.$stickyInput().val('').trigger('change');
 
 			if (sticky) {
 				$li.appendTo(this.$stickyList());
@@ -323,7 +304,7 @@
 					const manualId = $li.data('id');
 					const manualFilterId = manualAttr.filter(obj => obj.id != manualId);
 
-					this.$manualInput().val(JSON.stringify(manualFilterId));
+					this.$manualInput().val(JSON.stringify(manualFilterId)).trigger('change');
 				}
 
 				this.$choicesList().find(`[data-id="${$li.data('id')}"]`).removeClass('disabled');
@@ -579,9 +560,9 @@
 				mergeItems = mergeItems.filter((value) => {
 					return value != item;
 				});
-
+				
 				// check if array sticky input value is not empty
-				if(stickyItems[0] !== "")
+				if(stickyItems[0] !== "" && typeof item !== 'undefined')
 					stickyOrder.push(item);
 			});
 
@@ -727,7 +708,7 @@
 			let sortedValues = [];
 
 			// clean sticky input
-			this.$stickyInput().val('');
+			this.$stickyInput().val('').trigger('change');
 
 			this.$stickyList().find('li').each((_, element) => {
 				let elementValue;
@@ -740,7 +721,7 @@
 
 				if(elementValue) {
 					sortedValues.push(elementValue);
-					this.$stickyInput().val(`${this.$stickyInput().val()},${elementValue.id}`);
+					this.$stickyInput().val(`${this.$stickyInput().val()},${elementValue.id}`).trigger('change');
 				}
 			});
 
@@ -750,65 +731,132 @@
 			// this.$valuesInput().val(JSON.stringify(sortedValues));
 
 			// remove first comma from sticky items
-			this.$stickyInput().val(this.$stickyInput().val().replace(/(^\,+|\,+$)/mg, ''));
+			this.$stickyInput().val(this.$stickyInput().val().replace(/(^\,+|\,+$)/mg, '')).trigger('change');
 
 			this.set('sticky', this.$stickyInput().val());
 		},
 
 		/**
-		 * Add manual (local) items
+		 * Parse fields and collect data
+		 * 
+		 * @param {jQuery} $modal The modal element
+		 * @param {string} data Values on edit data
+		 */
+		modalContent($modal, data = null) {
+			const $modalContent = $modal.find('.widgets-acf-modal-content');
+			const $loading = $(`<span class="-loading"><i class="acf-loading"></i>${acf.__('Loading')}</span>`);
+
+			$modalContent.empty();
+			$modalContent.append($loading);
+			this.set('loading', true);
+
+			const ajaxData = {
+				action: 'acf/fields/localposts_data/modal',
+				field_key: this.get('key'),
+			};
+
+			if(data)
+				ajaxData.data = data;
+
+			const onComplete = () => {
+				$loading.remove();
+				this.set('loading', false);
+			};
+
+			const onSuccess = (data) => {
+				// No results
+				$modalContent.html(data);
+				acf.do_action('append', $modalContent);
+			};
+
+			// Get results
+			$.ajax({
+				url:		acf.get('ajaxurl'),
+				type:		'post',
+				data:		acf.prepareForAjax(ajaxData),
+				context:	this,
+				success:	onSuccess,
+				complete:	onComplete,
+			});
+		},
+
+		/**
+		 * Parse fields and collect data
+		 * 
+		 * @param {jQuery} $modal The modal element
+		 * @param {string} id ID on edit data
 		 *
-		 * @param {*} e
-		 * @param {*} $el
+		 * @return {object} Object with data values
+		 */
+		parseModalFields($modal, id = null) {
+			const $fields = $modal.find('.acf-field');
+			let values = {};
+			let hasInvalid = false;
+
+			$fields.each((_, element) => {
+				const field = acf.getField($(element));
+
+				if(this.empty(field.getValue()) && element.dataset.required == 1) {
+					hasInvalid = true;
+					field.showError('Campo obrigatório');
+				}
+				
+				if(field.data.name == 'featured_media_url')
+					values[field.data.name] = {
+						id: field.getValue(),
+						url: $(element).find('img').attr('src'),
+					};
+				else
+					values[field.data.name] = field.getValue();
+			});
+
+			if(hasInvalid)
+				return null;
+
+			const $date = new Date();
+
+			if(!id)
+				id = `m${$date.getUTCMilliseconds()}`;
+
+			let createNewFields = {
+				id: id,
+				date: $date.toISOString(),
+				title: {
+					rendered: values.title,
+				},
+				featured_media_url: {
+					id: values.featured_media_url.id,
+					pa_block_render: values.featured_media_url.url,
+				},
+				content: {
+					rendered: values.content,
+				},
+				link: values.link,
+			};
+
+			delete values.title;
+			delete values.featured_media_url;
+			delete values.content;
+			delete values.link;
+
+			return $.extend(createNewFields, values);
+		},
+
+		/**
+		 * Add manual (local) items
 		 */
 		onClickAddManualPost() {
-			var $modal = this.$control().find('.widgets-acf-modal.-fields');
+			const $modal = this.$control().find('.widgets-acf-modal.-fields');
+
 			// Open modal
-			modal.open($modal, {
+			this.modal.open($modal, {
 				title: 'Manual',
 				onOpen: () => {
 					let modalHeader = $modal.find('.widgets-acf-modal-title');
 					modalHeader.append('<button class="button button-primary button-sticky-add" data-name="manualSubmit">Adicionar</button>');
 					let buttonAdd = modalHeader.find('[data-name="manualSubmit"]');
-					const $modalContent = $modal.find('.widgets-acf-modal-content');
-
-					$modalContent.empty();
-
-					const ajaxData = {
-						action: 'acf/fields/localposts_data/modal',
-						field_key: this.get('key'),
-					};
-
-					const onComplete = () => {
-						
-						// this.set('loading', false);
-						// this.$searchLoading().removeClass('active');
-		
-						// this.$choices().addClass('active');
-		
-						// this.$buttonClear().addClass('active');
-					};
-		
-					const onSuccess = (data) => {
-						// No results
-						$modalContent.html(data);
-						acf.do_action('append', $modalContent);
-					};
-		
-					// Get results
-					$.ajax({
-						url:		acf.get('ajaxurl'),
-						// dataType:	'json',
-						type:		'post',
-						data:		acf.prepareForAjax(ajaxData),
-						context:	this,
-						success:	onSuccess,
-						complete:	onComplete,
-					});
-
-					// // remove alert
-					// this.$alertValidation().parent().removeClass('show');
-					// this.$alertValidation().remove();
+					
+					this.modalContent($modal);
 
 					// get existing input value data
 					let currentData = this.$manualInput().val();
@@ -817,91 +865,27 @@
 					let existingSticky = this.$stickyInput();
 
 					buttonAdd.click(() => {
-						const $fields = $modalContent.find('.acf-field');
-						let values = {};
-						let hasInvalid = false;
+						const values = this.parseModalFields($modal);
 
-						$fields.each((_, element) => {
-							const field = acf.getField($(element));
-
-							if(this.empty(field.getValue()) && element.dataset.required == 1) {
-								hasInvalid = true;
-								field.showError('Campo obrigatório');
-							}
-							
-							if(field.data.name == 'featured_media_url')
-								values[field.data.name] = {
-									id: field.getValue(),
-									url: $(element).find('img').attr('src'),
-								};
-							else
-							values[field.data.name] = field.getValue();
-						});
-
-						// retrieves acf fields from modal
-						// let title = this.$acfInputName('title').val();
-						// let thumbnail = this.$acfInputName('thumbnail', 'img').attr('src');
-						// let content = this.$acfInputName('excerpt', 'textarea').val();
-						// let url = this.$acfInputName('url').val();
-
-						// // alert component
-						// this.$setAlertValidation();
-
-						// validate fields // change to func (args: input value, error message)
-						// if ('' === title) {
-						// 	this.$alertValidation().find('span').text('Título é obrigatório.');
-						// 	return false;
-						// }
-						// // if ('' === thumbnail) {
-						// // 	this.$alertValidation().find('span').text('Tumbnail é obrigatório.');
-						// // 	return false;
-						// // }
-						// if ('' === content) {
-						// 	this.$alertValidation().find('span').text('Resumo é obrigatório.');
-						// 	return false;
-						// }
-						// if ('' === url) {
-						// 	this.$alertValidation().find('span').text('URL é obrigatório.');
-						// 	return false;
-						// }
-
-						if(hasInvalid)
+						if(!values)
 							return;
 
-						const $date = new Date();
-
-						let createNewFields = {
-							id: `m${$date.getUTCMilliseconds()}`,
-							date: $date.toISOString(),
-							title: {
-								rendered: values.title,
-							},
-							featured_media_url: {
-								id: values.featured_media_url.id,
-								pa_block_render: values.featured_media_url.url,
-							},
-							content: {
-								rendered: values.content,
-							},
-							link: values.link,
-						};
-
-						newData.push(createNewFields);
+						newData.push(values);
 
 						// append updated values to input
-						this.$manualInput().val(JSON.stringify(newData));
+						this.$manualInput().val(JSON.stringify(newData)).trigger('change');
 
 						// get current values and add new one
-						existingSticky.val(`${existingSticky.val()},${createNewFields.id}`);
+						existingSticky.val(`${existingSticky.val()},${values.id}`);
 
 						// remove first comma from sticky items
-						this.$stickyInput().val(this.$stickyInput().val().replace(/(^\,+|\,+$)/mg, ''));
+						this.$stickyInput().val(this.$stickyInput().val().replace(/(^\,+|\,+$)/mg, '')).trigger('change');
 
 						this.set('sticky', this.$stickyInput().val());
 
 						this.fetch();
 
-						modal.close();
+						this.modal.close();
 					});
 				}
 			});
@@ -914,104 +898,35 @@
 		 * @param {*} $el
 		 */
 		onEditManual(e, $el) {
-			var $modal = this.$control().find('.widgets-acf-modal.-fields');
-
-			// remove alert
-			this.$alertValidation().parent().removeClass('show');
-			this.$alertValidation().remove();
+			const $modal = this.$control().find('.widgets-acf-modal.-fields');
 
 			// get current item id
-			var item_ID = $el.parent().parent().attr('data-id');
+			const item_ID = $el.parent().parent().attr('data-id');
 
-			modal.open($modal, {
+			this.modal.open($modal, {
 				title: 'Editar',
 				onOpen: () => {
 					// add header button action
 					let modalHeader = $modal.find('.widgets-acf-modal-title');
 					modalHeader.append('<button class="button button-primary button-sticky-add" data-name="editSubmit">Conlcuir</button>');
 					let buttonEdit = modalHeader.find('[data-name="editSubmit"]');
-					const $modalContent = $modal.find('.widgets-acf-modal-content');
-
-					$modalContent.empty();
-
 					// get original data
 					let originalData = JSON.parse(this.$manualInput().val());
-
 					// get current item object by id
 					let editData = JSON.parse(this.$manualInput().val());
+
 					editData, editIndex = editData.findIndex(obj => obj.id == item_ID);
 
-					const ajaxData = {
-						action: 'acf/fields/localposts_data/modal',
-						field_key: this.get('key'),
-						data: editData[editIndex],
-					};
-
-					const onComplete = () => {
-						// this.set('loading', false);
-						// this.$searchLoading().removeClass('active');
-		
-						// this.$choices().addClass('active');
-		
-						// this.$buttonClear().addClass('active');
-					};
-		
-					const onSuccess = (data) => {
-						// No results
-						$modalContent.html(data);
-						acf.do_action('append', $modalContent);
-					};
-		
-					// Get results
-					$.ajax({
-						url:		acf.get('ajaxurl'),
-						// dataType:	'json',
-						type:		'post',
-						data:		acf.prepareForAjax(ajaxData),
-						context:	this,
-						success:	onSuccess,
-						complete:	onComplete,
-					});
-
-					// fill current fields
-					// this.$acfInputName('title').val(editData[editIndex].title.rendered);
-					// this.$acfInputName('thumbnail', 'img').attr('src', editData[editIndex].featured_media_url.pa_block_render);
-					// this.$acfInputName('thumbnail', '.acf-image-uploader').addClass('has-value');
-					// this.$acfInputName('excerpt', 'textarea').val(editData[editIndex].content.rendered);
-					// this.$acfInputName('link').val(editData[editIndex].url);
+					this.modalContent($modal, editData[editIndex]);
 
 					buttonEdit.click(() => {
-						let title = this.$acfInputName('title').val();
-						let thumbnail = this.$acfInputName('thumbnail', 'img').attr('src');
-						let content = this.$acfInputName('excerpt', 'textarea').val();
-						let url = this.$acfInputName('link').val();
+						const values = this.parseModalFields($modal, item_ID);
 
-						// alert component
-						this.$setAlertValidation();
-
-						// validate fields
-						if ('' === title) {
-							this.$alertValidation().find('span').text('Título é obrigatório.');
-							return false;
-						}
-						if ('' === thumbnail) {
-							this.$alertValidation().find('span').text('Tumbnail é obrigatório.');
-							return false;
-						}
-						if ('' === content) {
-							this.$alertValidation().find('span').text('Resumo é obrigatório.');
-							return false;
-						}
-						if ('' === url) {
-							this.$alertValidation().find('span').text('Url é obrigatório.');
-							return false;
-						}
+						if(!values)
+							return;
 
 						// update fields
-						editData[editIndex].title.rendered = title;
-						editData[editIndex].featured_media_url.pa_block_render = thumbnail;
-						editData[editIndex].content.rendered = content;
-						editData[editIndex].url = url;
+						editData[editIndex] = values;
 
 						let updatedData = editData;
 
@@ -1023,169 +938,157 @@
 						}
 
 						let compare = objectsEqual(originalData, updatedData);
-						if (!compare) {
+						if(!compare) {
 							// append updated values to input
-							this.$manualInput().val(JSON.stringify(updatedData));
-
-							// this.set('sticky', this.$stickyInput().val());
+							this.$manualInput().val(JSON.stringify(updatedData)).trigger('change');
 							this.fetch();
-							modal.close();
+							this.modal.close();
 						};
 
-						modal.close();
+						this.modal.close();
 					});
 				}
 			});
 		},
 
-		/**
-		 * Dismiss modal validation alert
-		 *
-		 * @param {*} e
-		 * @param {*} $el
-		 */
-		onCloseModalDismiss() {
-			this.$alertValidation().parent().removeClass('show');
-			this.$alertValidation().remove();
+		// Widgets Modal
+		modal: {
+			modals: [],
+
+			// Open
+			open: function($target, args) {
+				var model = this;
+
+				args = acf.parseArgs(args, {
+					title: '',
+					footer: false,
+					size: false,
+					destroy: false,
+					onOpen: false,
+					onClose: false,
+				});
+
+				model.args = args;
+
+				$target.addClass('-open');
+
+				if(args.size)
+					$target.addClass('-' + args.size);
+
+				if(!$target.find('> .widgets-acf-modal-wrapper').length)
+					$target.wrapInner('<div class="widgets-acf-modal-wrapper" />');
+
+				if(!$target.find('> .widgets-acf-modal-wrapper > .widgets-acf-modal-content').length)
+					$target.find('> .widgets-acf-modal-wrapper').wrapInner('<div class="widgets-acf-modal-content" />');
+
+				$target.find('> .widgets-acf-modal-wrapper').prepend('<div class="widgets-acf-modal-wrapper-overlay"></div><div class="widgets-acf-modal-title"><span class="title">' + args.title + '</span><button class="button button-secondary button-close">Cancelar</button></div>');
+
+				$target.find('.widgets-acf-modal-title > .button-close').click(function(e) {
+					e.preventDefault();
+					model.close(args);
+				});
+
+				if(args.footer) {
+					$target.find('> .widgets-acf-modal-wrapper').append('<div class="widgets-acf-modal-footer"><button class="button button-primary">' + args.footer + '</button></div>');
+
+					$target.find('.widgets-acf-modal-footer > button').click(function(e){
+						e.preventDefault();
+						model.close(args);
+					});
+				}
+
+				modal.modals.push($target);
+
+				var $body = $('body');
+
+				if(!$body.hasClass('widgets-acf-modal-opened')) {
+					var overlay = $('<div class="widgets-acf-modal-overlay" />');
+
+					$body.addClass('widgets-acf-modal-opened').append(overlay);
+
+					$body.find('.widgets-acf-modal-overlay').click(function(e) {
+						e.preventDefault();
+						model.close(model.args);
+					});
+
+					$(window).keydown(function(e) {
+						if(e.keyCode !== 27 || !$('body').hasClass('widgets-acf-modal-opened'))
+							return;
+
+						e.preventDefault();
+						model.close(model.args);
+					});
+				}
+
+				modal.multiple();
+				modal.onOpen($target, args);
+
+				return $target;
+			},
+
+			// Close
+			close: function(args) {
+				args = acf.parseArgs(args, {
+					destroy: false,
+					onClose: false,
+				});
+
+				var $target = modal.modals.pop();
+
+				if($target) {
+					// $target.find('.widgets-acf-modal-wrapper-overlay').remove();
+					$target.find('.widgets-acf-modal-title').remove();
+					$target.find('.widgets-acf-modal-footer').remove();
+
+					$target.removeAttr('style');
+
+					//$target.removeClass('-open -small -medium -full');
+					$target.removeClass('-open');
+
+					if(args.destroy)
+						$target.remove();
+				}
+
+				if(!modal.modals.length) {
+					$('.widgets-acf-modal-overlay').remove();
+					$('body').removeClass('widgets-acf-modal-opened');
+				}
+
+				modal.multiple();
+				modal.onClose($target, args);
+			},
+
+			// Multiple
+			multiple: function() {
+				var last = modal.modals.length - 1;
+
+				$.each(modal.modals, function(i) {
+					if(last == i) {
+						$(this).removeClass('widgets-acf-modal-sub').css('margin-left', '');
+						return;
+					}
+
+					$(this).addClass('widgets-acf-modal-sub').css('margin-left',  - (500 / (i+1)));
+				});
+			},
+
+			onOpen: function($target, args) {
+				if(!args.onOpen || !(args.onOpen instanceof Function))
+					return;
+
+				args.onOpen($target);
+			},
+
+			onClose: function($target, args) {
+				if(!args.onClose || !(args.onClose instanceof Function))
+					return;
+
+				args.onClose($target);
+			},
+
 		},
 
 	});
-
-	// Widgets Modal
-	//
-	window.modal = {
-        modals: [],
-
-        // Open
-        open: function($target, args) {
-            var model = this;
-
-            args = acf.parseArgs(args, {
-                title: '',
-                footer: false,
-                size: false,
-                destroy: false,
-                onOpen: false,
-                onClose: false,
-            });
-
-            model.args = args;
-
-            $target.addClass('-open');
-
-            if(args.size)
-                $target.addClass('-' + args.size);
-
-            if(!$target.find('> .widgets-acf-modal-wrapper').length)
-                $target.wrapInner('<div class="widgets-acf-modal-wrapper" />');
-
-            if(!$target.find('> .widgets-acf-modal-wrapper > .widgets-acf-modal-content').length)
-                $target.find('> .widgets-acf-modal-wrapper').wrapInner('<div class="widgets-acf-modal-content" />');
-
-            $target.find('> .widgets-acf-modal-wrapper').prepend('<div class="widgets-acf-modal-wrapper-overlay"></div><div class="widgets-acf-modal-title"><span class="title">' + args.title + '</span><button class="button button-secondary button-close">Cancelar</button></div>');
-
-            $target.find('.widgets-acf-modal-title > .button-close').click(function(e) {
-                e.preventDefault();
-                model.close(args);
-            });
-
-            if(args.footer) {
-                $target.find('> .widgets-acf-modal-wrapper').append('<div class="widgets-acf-modal-footer"><button class="button button-primary">' + args.footer + '</button></div>');
-
-                $target.find('.widgets-acf-modal-footer > button').click(function(e){
-                    e.preventDefault();
-                    model.close(args);
-                });
-            }
-
-            modal.modals.push($target);
-
-            var $body = $('body');
-
-            if(!$body.hasClass('widgets-acf-modal-opened')) {
-				var overlay = $('<div class="widgets-acf-modal-overlay" />');
-
-				$body.addClass('widgets-acf-modal-opened').append(overlay);
-
-                $body.find('.widgets-acf-modal-overlay').click(function(e) {
-                    e.preventDefault();
-                    model.close(model.args);
-                });
-
-                $(window).keydown(function(e) {
-                    if(e.keyCode !== 27 || !$('body').hasClass('widgets-acf-modal-opened'))
-                        return;
-
-                    e.preventDefault();
-                    model.close(model.args);
-                });
-			}
-
-            modal.multiple();
-            modal.onOpen($target, args);
-
-            return $target;
-		},
-
-        // Close
-		close: function(args) {
-            args = acf.parseArgs(args, {
-                destroy: false,
-                onClose: false,
-            });
-
-            var $target = modal.modals.pop();
-
-			// $target.find('.widgets-acf-modal-wrapper-overlay').remove();
-			$target.find('.widgets-acf-modal-title').remove();
-			$target.find('.widgets-acf-modal-footer').remove();
-
-			$target.removeAttr('style');
-
-			//$target.removeClass('-open -small -medium -full');
-			$target.removeClass('-open');
-
-            if(args.destroy)
-                $target.remove();
-
-			if(!modal.modals.length) {
-				$('.widgets-acf-modal-overlay').remove();
-                $('body').removeClass('widgets-acf-modal-opened');
-			}
-
-            modal.multiple();
-            modal.onClose($target, args);
-		},
-
-        // Multiple
-        multiple: function() {
-            var last = modal.modals.length - 1;
-
-            $.each(modal.modals, function(i) {
-                if(last == i) {
-                    $(this).removeClass('widgets-acf-modal-sub').css('margin-left', '');
-                    return;
-                }
-
-                $(this).addClass('widgets-acf-modal-sub').css('margin-left',  - (500 / (i+1)));
-			});
-        },
-
-        onOpen: function($target, args) {
-            if(!args.onOpen || !(args.onOpen instanceof Function))
-                return;
-
-            args.onOpen($target);
-        },
-
-        onClose: function($target, args) {
-            if(!args.onClose || !(args.onClose instanceof Function))
-                return;
-
-            args.onClose($target);
-        },
-
-    };
 
 	acf.registerFieldType(Field);
 })(jQuery);

@@ -176,8 +176,7 @@ if (!class_exists('LocalData')) :
 		 *
 		 *  @return	n/a
 		 */
-		function render_field($field)
-		{
+		function render_field($field) {
 			$values = get_field($field['key']);
 
 			// vars
@@ -305,21 +304,34 @@ if (!class_exists('LocalData')) :
 
 		function format_value($value, $post_id, $field) {
 			$value['post_type'] = acf_get_array($field['post_type']);
+			$manual = json_decode($value['manual'], true);
 
-			$data = $this->getData([
-				'limit' => $value['limit'],
-				'sticky' => $value['sticky'],
-				'post_type' => !empty($value['post_type_filter']) ? $value['post_type_filter'] : $value['post_type'],
-			]);
+			if(!is_admin()):
+				$stickys = explode(',', $value['sticky']);
 
-			$value['data'] = $data['results'];
+				if(!empty($stickys)):
+					foreach($stickys as $sticky):
+						if(substr($sticky, 0, 1) !== "m")
+							continue;
+
+						$key = array_search($sticky, array_column(json_decode(json_encode($manual), TRUE), 'id'));
+
+						if($key >= 0)
+							$value['data'][] = $manual[$key];
+					endforeach;
+				endif;
+
+				$data = $this->getData([
+					'limit' => $value['limit'],
+					'sticky' => $value['sticky'],
+					'post_type' => !empty($value['post_type_filter']) ? $value['post_type_filter'] : $value['post_type'],
+				]);
+
+				$value['data'] = array_merge($value['data'], $data['results']);
+			endif;
 
 			return $value;
 		}
-
-		// public function load_value($value, $post_id, $field) {
-		//     return json_decode($value['data'], true);
-		// }
 
 		/**
 		 *  ajax_query
@@ -522,11 +534,8 @@ if (!class_exists('LocalData')) :
 			if (!acf_verify_ajax())
 				die();
 
-			// get choices
 			$this->getSubfields($_POST);
 
-			// return
-			// acf_send_ajax_results($response);
 			wp_die();
 		}
 
@@ -577,20 +586,6 @@ if (!class_exists('LocalData')) :
 						else
 							$sub_field['value'] = $options['data'][$sub_field['name']];
 					endif;
-					// add value
-					// if(isset($field['value'][$sub_field['key']]))
-					// 	// this is a normal value
-					// 	$sub_field['value'] = $field['value'][$sub_field['key']];
-					// elseif(isset($sub_field['default_value']))
-					// 	// no value, but this sub field has a default value
-					// 	$sub_field['value'] = $sub_field['default_value'];
-		
-					// // update prefix to allow for nested values
-					// $sub_field['prefix'] = $field['name'];
-		
-					// // restore required
-					// if($field['required'])
-					// 	$sub_field['required'] = 0;
 				endforeach;
 			endif;
 	
