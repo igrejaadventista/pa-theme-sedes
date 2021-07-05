@@ -77,9 +77,7 @@
 	fill: #fff;
 }
 
-.acf-local-data.acf-relationship
-	.action-toolbar
-	button.buttonUpdateTaxonomies {
+.acf-local-data.acf-relationship .action-toolbar button.buttonUpdateTaxonomies {
 	background: #007cba;
 	color: #fff;
 }
@@ -351,6 +349,53 @@
 	color: inherit;
 }
 
+.walker__item .badge__pill {
+	display: inline-block;
+	padding: 0;
+	font-size: 10px;
+	font-weight: normal;
+	color: #505050;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: baseline;
+	box-shadow: none;
+	border-radius: 0.25rem;
+	margin-top: 5px;
+}
+
+.sticky-list .acf-rel-item:hover .badge__pill,
+.choices-list .acf-rel-item:hover .badge__pill {
+	color: #fff;
+}
+
+.filter__post_type {
+	max-width: 20%;
+	min-width: 10%;
+}
+
+.filter__post_type select:active,
+.filter__post_type select:focus {
+	border-color: #ccd0d4;
+}
+
+.filter__post_type select {
+	border-left: 1px solid #ccd0d4;
+	border-radius: 0;
+	border-top: 0;
+	border-bottom: 0;
+	border-right: 0;
+}
+
+.filter__post_type select option:first-child {
+	color: #72777c;
+}
+
+/* remove relation modal labels. Field name: url  */
+#link-selector #link-options .wp-link-text-field,
+[data-name="url"] span.link-title {
+	display: none !important;
+}
+
 /***** MODAL *****/
 
 /*
@@ -363,19 +408,21 @@ body.widgets-acf-modal-opened {
 /*
  * Modal Overlay
  */
-.widgets-acf-modal-overlay {
-	/* background: rgba(0, 0, 0, 0.7); */
-	background: #000;
-	opacity: 0.5;
-	/* position: fixed; */
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	height: 100%;
-	width: 100%;
-	z-index: 1000;
-}
+/* .widgets-acf-modal-overlay {
+    background: rgba(0, 0, 0, .7);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 100000
+} */
+
+/* .widgets-acf-modal-overlay {
+	display: none;
+} */
 
 .widgets-acf-modal.-open .widgets-acf-modal-title > button.button-sticky-add {
 	position: absolute;
@@ -393,9 +440,6 @@ body.widgets-acf-modal-opened {
 	background: none;
 }
 
-/*
- * Modal
- */
 .widgets-acf-modal {
 	display: none;
 	-webkit-transition: all 0.3s ease-in-out;
@@ -405,7 +449,7 @@ body.widgets-acf-modal-opened {
 
 .widgets-acf-modal.-open {
 	position: fixed;
-	z-index: 10010;
+	z-index: 100001;
 	height: 100%;
 	width: 100%;
 	top: 0;
@@ -413,7 +457,6 @@ body.widgets-acf-modal-opened {
 	bottom: 0;
 	right: 0;
 	-webkit-font-smoothing: subpixel-antialiased;
-
 	display: -webkit-box;
 	display: -ms-flexbox;
 	display: flex;
@@ -427,7 +470,6 @@ body.widgets-acf-modal-opened {
 	-webkit-box-align: center;
 	-ms-flex-align: center;
 	align-items: center;
-
 	pointer-events: none;
 }
 
@@ -443,7 +485,6 @@ body.widgets-acf-modal-opened {
 	-webkit-box-direction: normal;
 	-ms-flex-direction: column;
 	flex-direction: column;
-
 	width: calc(100vw - 60px);
 	max-width: 1100px;
 	max-height: calc(100vh - 60px);
@@ -940,6 +981,21 @@ body:not(.acf-admin-5-3)
 	max-width: 16.66%;
 }
 
+.widgets-acf-modal-content .-loading {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.widgets-acf-modal-content .acf-notice {
+    position: relative !important;
+}
+
+.widgets-acf-modal-content .acf-notice p {
+    margin: 0 !important;
+}
+
 @media only screen and (max-width: 960px) {
 	.widgets-acf-modal.-open
 		.widgets-acf-modal-content
@@ -1030,6 +1086,7 @@ body.block-editor-page .edit-post-layout .widgets-acf-modal.-open {
 	-webkit-box-align: start;
 	-ms-flex-align: start;
 	align-items: start;
+	background: rgba(0, 0, 0, 0.7);
 }
 
 body.block-editor-page
@@ -1138,10 +1195,6 @@ body.block-editor-page.folded
 		overflow-y: hidden;
 	}
 }
-
-/* body.block-editor-page .widgets-acf-modal-overlay {
-	display: none;
-} */
 
 /*
  * widgets-acf Modal: Attachment Single Fix
