@@ -31,7 +31,7 @@ if(!class_exists('RemoteData')):
 			// label (string) Multiple words, can include spaces, visible when selecting a field type
             $this->label = __('Remote data', 'acf-rest');
             // category (string) basic | content | choice | relational | jquery | layout | CUSTOM GROUP NAME
-            $this->category = 'choice';
+            $this->category = 'relational';
             // defaults (array) Array of default settings which are merged into the field object. These are used later in settings
             $this->defaults = array(
 				'sub_fields'	=> array(),
@@ -190,13 +190,15 @@ if(!class_exists('RemoteData')):
             ?>
 
 			<div <?php acf_esc_attr_e($atts); ?>>
-
+			<!-- API Data -->
 			<?php acf_hidden_input(array('name' => $field['name'] . "[data]", 'value' => isset($values['data']) ? $values['data'] : '', 'data-values' => '')); ?>
+			<!-- Manual Data -->
 			<?php acf_hidden_input(array('name' => $field['name'] . "[manual]", 'value' => isset($values['manual']) ? $values['manual'] : '', 'data-manual' => '')); ?>
+			<!-- Sticky List -->
 			<?php acf_hidden_input(array('name' => $field['name'] . "[sticky]", 'value' => isset($values['sticky']) ? $values['sticky'] : 0, 'data-sticky' => '')); ?>
 
 			<div class="action-toolbar">
-				<button type="button" class="buttonAddManualPost" data-action="manual-new-post">Adicionar manual</button>
+				<button type="button" class="buttonAddManualPost disabled" data-action="manual-new-post" disabled>Adicionar manual</button>
 
 				<button type="button" class="buttonUpdateTaxonomies acf-js-tooltip" data-action="refresh" title="Atualizar" aria-label="Atualizar">
 					<svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" aria-hidden="true" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
@@ -335,6 +337,7 @@ if(!class_exists('RemoteData')):
 					<div class="widgets-acf-modal -fields">
 						<div class="widgets-acf-modal-wrapper">
 							<div class="widgets-acf-modal-content">
+								<div class="acf-notice-render"></div>
 								<?php $this->render_field_block($field); ?>
 							</div>
 						</div>
