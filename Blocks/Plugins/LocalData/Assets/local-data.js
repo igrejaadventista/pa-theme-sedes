@@ -767,6 +767,9 @@
 				// No results
 				$modalContent.html(data);
 				acf.do_action('append', $modalContent);
+
+				$modalContent.find('[data-name="link"] [data-name="add"], [data-name="link"] [data-name="edit"]').on('click', () => $('#wp-link-wrap').addClass('-no-label'));
+				$('#wp-link-close, #wp-link-submit, #wp-link-cancel button, #wp-link-backdrop').on('click', () => $('#wp-link-wrap').removeClass('-no-label'));
 			};
 
 			// Get results
