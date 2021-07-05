@@ -391,8 +391,8 @@
 }
 
 /* remove relation modal labels. Field name: url  */
-#link-selector #link-options .wp-link-text-field,
-[data-name="url"] span.link-title {
+#wp-link-wrap.-no-label .wp-link-text-field,
+.widgets-acf-modal[data-name="link"] span.link-title {
 	display: none !important;
 }
 

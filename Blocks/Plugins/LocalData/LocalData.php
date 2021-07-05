@@ -305,21 +305,10 @@ if (!class_exists('LocalData')) :
 		function format_value($value, $post_id, $field) {
 			$value['post_type'] = acf_get_array($field['post_type']);
 			$manual = json_decode($value['manual'], true);
-
+			$value['data'] = array();
+			
 			if(!is_admin()):
 				$stickys = explode(',', $value['sticky']);
-
-				if(!empty($stickys)):
-					foreach($stickys as $sticky):
-						if(substr($sticky, 0, 1) !== "m")
-							continue;
-
-						$key = array_search($sticky, array_column(json_decode(json_encode($manual), TRUE), 'id'));
-
-						if($key >= 0)
-							$value['data'][] = $manual[$key];
-					endforeach;
-				endif;
 
 				$data = $this->getData([
 					'limit' => $value['limit'],
@@ -327,7 +316,21 @@ if (!class_exists('LocalData')) :
 					'post_type' => !empty($value['post_type_filter']) ? $value['post_type_filter'] : $value['post_type'],
 				]);
 
-				$value['data'] = array_merge($value['data'], $data['results']);
+				$posts = array_merge($manual, $data['results']);
+				
+				if(!empty($stickys)):
+					foreach($stickys as $sticky):
+						$key = array_search($sticky, array_column(json_decode(json_encode($posts), TRUE), 'id'));
+
+						if($key >= 0)
+							$value['data'][] = $posts[$key];
+					endforeach;
+				endif;
+				
+				foreach($value['data'] as $key => $postValue)
+					unset($posts[$key]);
+
+				$value['data'] = array_merge($value['data'], $posts);
 			endif;
 
 			return $value;
