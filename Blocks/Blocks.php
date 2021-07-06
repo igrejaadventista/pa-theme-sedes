@@ -2,9 +2,13 @@
 
 namespace Blocks;
 
+use Blocks\PAApps\PAApps;
+use Blocks\PAListButtons\PAListButtons;
+use Blocks\PAMagazines\PAMagazines;
 use \Blocks\PACarouselFeature\PACarouselFeature;
 use \Blocks\PACategoryFeature\PACategoryFeature;
 use Blocks\PAFacebookFeature\PAFacebookFeature;
+use Blocks\PAOtherSlidesFeature\PAOtherSlidesFeature;
 use Blocks\PATwitterFeature\PATwitterFeature;
 
 /**
@@ -37,7 +41,11 @@ class Blocks {
 			PACarouselFeature::class,
 			PATwitterFeature::class,
 			PAFacebookFeature::class,
-			PACategoryFeature::class
+			PACategoryFeature::class,
+			PAOtherSlidesFeature::class,
+			PAApps::class,
+			PAMagazines::class,
+			PAListButtons::class,
 		];
 	
 		// Merge registered blocks with new blocks
@@ -75,6 +83,7 @@ class Blocks {
 	}
 
 	public function registerPlugins() {
+		include_once('Plugins/LocalData/LocalData.php');
 		include_once('Plugins/RemoteData/RemoteData.php');
 	}
 
