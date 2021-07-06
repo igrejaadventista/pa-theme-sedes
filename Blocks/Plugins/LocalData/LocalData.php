@@ -560,6 +560,19 @@ if (!class_exists('LocalData')) :
 					'name' => 'link',
 					'type' => 'link',
 					'required' => 1,
+					'wrapper' => array(
+						'width' => 50,
+					)
+				),
+				array(
+					'key' => $options['field_key'] . '_thumbnail',
+					'label' => 'Thumbnail',
+					'name' => 'featured_media_url',
+					'type' => 'image',
+					'required' => 0,
+					'wrapper' => array(
+						'width' => 50,
+					)
 				),
 				array(
 					'key' => $options['field_key'] . '_content',
@@ -568,13 +581,6 @@ if (!class_exists('LocalData')) :
 					'type' => 'textarea',
 					'rows' => 3,
 					'required' => 0,
-				),
-				array(
-					'key' => $options['field_key'] . '_thumbnail',
-					'label' => 'Thumbnail',
-					'name' => 'featured_media_url',
-					'type' => 'image',
-					'required' => 1,
 				)
 			);
 	
