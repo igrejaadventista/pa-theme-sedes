@@ -9,6 +9,7 @@ use \Blocks\PACarouselFeature\PACarouselFeature;
 use Blocks\PAFacebookFeature\PAFacebookFeature;
 use Blocks\PAOtherSlidesFeature\PAOtherSlidesFeature;
 use Blocks\PATwitterFeature\PATwitterFeature;
+use Blocks\PASpotlightCarouselFeature\PASpotlightCarouselFeature;
 
 /**
  * Blocks Register blocks and manage settings
@@ -19,16 +20,16 @@ class Blocks {
         \add_filter('acf_gutenblocks/blocks', [$this, 'registerBlocks']);
 		\add_filter('acf_gutenblocks/render_block_frontend_path', [$this, 'blocksFrontendPath']);
 		\add_filter('acf_gutenblocks/blade_engine_callable', [$this, 'bladeEngineCallable']);
-		
+
 		\add_filter('blade/view/paths', [$this, 'bladeViewPaths']);
 
 		\add_action('acf/include_field_types', 	array($this, 'registerPlugins'));
 		\add_action('enqueue_block_editor_assets', array($this, 'enqueueAssets'));
 		\add_filter('block_categories', array($this, 'addCategory'));
-		
+
 		require_once('Directives.php');
     }
-	
+
 	/**
 	 * registerBlocks Import and register new blocks
 	 *
@@ -44,12 +45,13 @@ class Blocks {
 			PAAppsFeature::class,
 			PAMagazinesFeature::class,
 			PAListButtons::class,
+			PASpotlightCarouselFeature::class,
 		];
-	
+
 		// Merge registered blocks with new blocks
 		return array_merge($blocks, $newBlocks);
 	}
-	
+
 	/**
 	 * blocksFrontendPath Set blocks view path
 	 *
@@ -60,7 +62,7 @@ class Blocks {
 		// Remove file extension and unnecessary part of path
 		return str_replace('.blade.php', '', strstr($path, 'Blocks'));
 	}
-	
+
 	/**
 	 * bladeEngineCallable Set callable to render blade templates
 	 *
@@ -69,7 +71,7 @@ class Blocks {
 	public function bladeEngineCallable(): string {
 		return '\Blocks\block';
 	}
-	
+
 	/**
 	 * bladeViewPaths Set base path to blade views
 	 *

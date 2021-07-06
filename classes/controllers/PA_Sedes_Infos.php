@@ -4,12 +4,12 @@ function get_info_sedes(){
 
 	$sedes_sede = get_field('ct_headquarter', 'option');
 
-	if(!$sedes_sede){
-		$blog_id = get_main_site_id();
-		switch_to_blog($blog_id);
-			$sedes_sede = get_field('ct_headquarter', 'option') ?: (object)['name' => "Default", 'slug'=> 'default'];
-		restore_current_blog();
-	}
+	// if(!$sedes_sede){
+	// 	$blog_id = get_main_site_id();
+	// 	switch_to_blog($blog_id);
+	// 		$sedes_sede = get_field('ct_headquarter', 'option') ?: (object)['name' => "Default", 'slug'=> 'default'];
+	// 	restore_current_blog();
+	// }
 
 	return $sedes_sede;
 }
@@ -104,9 +104,9 @@ function get_info_instagram(){
 function get_info_lang(){
 
 	if(defined('WPLANG')){
-		
-		$lang = WPLANG;	
-		
+
+		$lang = WPLANG;
+
 	}elseif(get_locale()){
 		$lang = get_locale();
 	}
