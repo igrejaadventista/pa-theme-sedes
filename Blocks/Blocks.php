@@ -3,6 +3,7 @@
 namespace Blocks;
 
 use Blocks\PAAppsFeature\PAAppsFeature;
+use Blocks\PAListButtons\PAListButtons;
 use Blocks\PAMagazinesFeature\PAMagazinesFeature;
 use \Blocks\PACarouselFeature\PACarouselFeature;
 use Blocks\PAFacebookFeature\PAFacebookFeature;
@@ -42,6 +43,7 @@ class Blocks {
 			PAOtherSlidesFeature::class,
 			PAAppsFeature::class,
 			PAMagazinesFeature::class,
+			PAListButtons::class,
 		];
 	
 		// Merge registered blocks with new blocks
@@ -79,6 +81,7 @@ class Blocks {
 	}
 
 	public function registerPlugins() {
+		include_once('Plugins/LocalData/LocalData.php');
 		include_once('Plugins/RemoteData/RemoteData.php');
 	}
 
