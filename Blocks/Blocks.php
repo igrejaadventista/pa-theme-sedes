@@ -4,7 +4,7 @@ namespace Blocks;
 
 use Blocks\PAAppsFeature\PAAppsFeature;
 use Blocks\PAListButtons\PAListButtons;
-use Blocks\PAMagazinesFeature\PAMagazinesFeature;
+use Blocks\PAMagazines\PAMagazines;
 use \Blocks\PACarouselFeature\PACarouselFeature;
 use Blocks\PAFacebookFeature\PAFacebookFeature;
 use Blocks\PAOtherSlidesFeature\PAOtherSlidesFeature;
@@ -42,7 +42,7 @@ class Blocks {
 			PAFacebookFeature::class,
 			PAOtherSlidesFeature::class,
 			PAAppsFeature::class,
-			PAMagazinesFeature::class,
+			PAMagazines::class,
 			PAListButtons::class,
 		];
 	

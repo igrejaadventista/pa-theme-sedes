@@ -36,10 +36,8 @@ class PAAppsFeature extends Block {
 		return 
 			[
 		        Text::make('Título', 'title'),
-		        Text::make('Título do botão', 'buttonTitle'),
                 Textarea::make('Descrição','description'),
-				Link::make('Link de destino do botão', 'url')
-				    ->returnFormat('url'),
+				Link::make('Botão', 'url'),
 			];
 	}
 	    
