@@ -6,6 +6,7 @@ use Blocks\PAApps\PAApps;
 use Blocks\PAListButtons\PAListButtons;
 use Blocks\PAMagazines\PAMagazines;
 use \Blocks\PACarouselFeature\PACarouselFeature;
+use \Blocks\PAListIcons\PAListIcons;
 use Blocks\PAFacebookFeature\PAFacebookFeature;
 use Blocks\PAOtherSlidesFeature\PAOtherSlidesFeature;
 use Blocks\PATwitterFeature\PATwitterFeature;
@@ -40,6 +41,7 @@ class Blocks {
 			PACarouselFeature::class,
 			PATwitterFeature::class,
 			PAFacebookFeature::class,
+			PAListIcons::class,
 			PAOtherSlidesFeature::class,
 			PAApps::class,
 			PAMagazines::class,
