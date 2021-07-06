@@ -488,10 +488,11 @@ body.widgets-acf-modal-opened {
 	-ms-flex-direction: column;
 	flex-direction: column;
 	width: calc(100vw - 60px);
-	max-width: 1100px;
+	max-width: 860px !important;
 	max-height: calc(100vh - 60px);
 	position: relative;
 	height: 90vh;
+	margin: auto auto !important;
 }
 
 .widgets-acf-modal.-open.widgets-acf-modal-sub
