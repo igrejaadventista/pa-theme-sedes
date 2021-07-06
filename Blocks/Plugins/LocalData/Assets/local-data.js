@@ -589,6 +589,8 @@
 					else if(element.featured_media_url.hasOwnProperty('pa_block_render'))
 						content += this.empty(element.featured_media_url['pa_block_render']) ? '<div class="thumb"></div>' : `<img src="${element.featured_media_url['pa_block_render']}" alt="Thumbnail" />`;
 				}
+				else
+					content += '<div class="thumb"></div>';
 
 					content += `<div class="walker__item">`;
 						content += `<div>${acf.escHtml(element.title.rendered)}</div>`;
@@ -829,21 +831,29 @@
 				title: {
 					rendered: values.title,
 				},
-				featured_media_url: {
-					id: values.featured_media_url.id,
-					pa_block_render: values.featured_media_url.url,
-				},
-				content: {
-					rendered: values.content,
-				},
 				link: values.link,
 			};
 
 			delete values.title;
-			delete values.featured_media_url;
-			delete values.content;
 			delete values.link;
 
+			if(values.hasOwnProperty('featured_media_url')) {
+				createNewFields.featured_media_url = {
+					id: values.featured_media_url.id,
+					pa_block_render: values.featured_media_url.url,
+				};
+
+				delete values.featured_media_url;
+			}
+
+			if(values.hasOwnProperty('content')) {
+				createNewFields.content = {
+					rendered: values.content,
+				};
+
+				delete values.content;
+			}
+		
 			return $.extend(createNewFields, values);
 		},
 

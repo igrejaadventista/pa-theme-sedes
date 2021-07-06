@@ -545,26 +545,27 @@ if (!class_exists('LocalData')) :
 		function getSubfields($options) {
 			$field = acf_get_field($options['field_key']);
 
-			array_unshift(
-				$field['sub_fields'],
-				array(
-					'key' => $options['field_key'] . '_title',
-					'label' => 'Título',
-					'name' => 'title',
-					'type' => 'text',
-					'required' => 1,
-				),
-				array(
-					'key' => $options['field_key'] . '_link',
-					'label' => 'Link',
-					'name' => 'link',
-					'type' => 'link',
-					'required' => 1,
-					'wrapper' => array(
-						'width' => 50,
-					)
-				),
-				array(
+			$fixedFields = array();
+			$fixedFields[] = array(
+				'key' => $options['field_key'] . '_title',
+				'label' => 'Título',
+				'name' => 'title',
+				'type' => 'text',
+				'required' => 1,
+			);
+			$fixedFields[] = array(
+				'key' => $options['field_key'] . '_link',
+				'label' => 'Link',
+				'name' => 'link',
+				'type' => 'link',
+				'required' => 1,
+				'wrapper' => array(
+					'width' => 50,
+				)
+			);
+
+			if(empty($field['hide_fields']) || !in_array('featured_media_url', $field['hide_fields'])):
+				$fixedFields[] = array(
 					'key' => $options['field_key'] . '_thumbnail',
 					'label' => 'Thumbnail',
 					'name' => 'featured_media_url',
@@ -573,16 +574,22 @@ if (!class_exists('LocalData')) :
 					'wrapper' => array(
 						'width' => 50,
 					)
-				),
-				array(
+				);
+			endif;
+
+			if(empty($field['hide_fields']) || !in_array('content', $field['hide_fields'])):
+				$fixedFields[] = array(
 					'key' => $options['field_key'] . '_content',
 					'label' => 'Resumo',
 					'name' => 'content',
 					'type' => 'textarea',
 					'rows' => 3,
 					'required' => 0,
-				)
-			);
+				);
+			endif;
+
+			for($i = count($fixedFields) - 1; $i > -1; --$i)
+				array_unshift($field['sub_fields'], $fixedFields[$i]);
 	
 			// load values
 			if(isset($options['data'])):

@@ -34,7 +34,8 @@ class PAMagazines extends Block {
 			Text::make('Título', 'title'),
 			LocalData::make('Itens', 'items')
 				->postTypes(['post'])
-				->initialLimit(5),		
+				->initialLimit(5)
+				->hideFields(['content']),		
 		];
 	}
 	    
