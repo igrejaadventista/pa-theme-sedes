@@ -65,7 +65,8 @@ class PAListItems extends Block {
 
 			LocalData::make('Itens', 'items')
 			->postTypes(['post', 'projetos'])
-			->initialLimit(3),
+			->initialLimit(3)
+			->hideFields(['content']),
 		
 			TrueFalse::make('Mais conteúdo', 'enable_link')
 				->stylisedUi('Habilitar', 'Desabilitar')

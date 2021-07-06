@@ -2,10 +2,11 @@
 
 namespace Blocks;
 
-use Blocks\PAAppsFeature\PAAppsFeature;
+use Blocks\PAApps\PAApps;
 use Blocks\PAListButtons\PAListButtons;
 use Blocks\PAMagazines\PAMagazines;
 use \Blocks\PACarouselFeature\PACarouselFeature;
+use \Blocks\PAListIcons\PAListIcons;
 use Blocks\PAFacebookFeature\PAFacebookFeature;
 use Blocks\PAListItems\PAListItems;
 use Blocks\PATwitterFeature\PATwitterFeature;
@@ -40,8 +41,9 @@ class Blocks {
 			PACarouselFeature::class,
 			PATwitterFeature::class,
 			PAFacebookFeature::class,
+			PAListIcons::class,
 			PAListItems::class,
-			PAAppsFeature::class,
+			PAApps::class,
 			PAMagazines::class,
 			PAListButtons::class,
 		];
