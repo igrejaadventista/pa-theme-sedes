@@ -190,9 +190,11 @@
 		},
 
 		empty(data) {
-			if(typeof(data) == 'number' || typeof(data) == 'boolean') 
+			if(typeof(data) == 'boolean') 
+				return !data; 
+			if(typeof(data) == 'number') 
 				return false; 
-			if(typeof(data) == 'undefined' || data === null)
+			if(typeof(data) === 'undefined' || data === null)
 				return true; 
 			if(typeof(data.length) != 'undefined')
 				return data.length == 0;
@@ -583,9 +585,9 @@
 
 				if(element.hasOwnProperty('featured_media_url')) {
 					if(element.featured_media_url.hasOwnProperty('pa-block-preview'))
-						content += `<img src="${element.featured_media_url['pa-block-preview']}" alt="Thumbnail" />`;
+						content += this.empty(element.featured_media_url['pa-block-preview']) ? '<div class="thumb"></div>' : `<img src="${element.featured_media_url['pa-block-preview']}" alt="Thumbnail" />`;
 					else if(element.featured_media_url.hasOwnProperty('pa_block_render'))
-						content += `<img src="${element.featured_media_url['pa_block_render']}" alt="Thumbnail" />`;
+						content += this.empty(element.featured_media_url['pa_block_render']) ? '<div class="thumb"></div>' : `<img src="${element.featured_media_url['pa_block_render']}" alt="Thumbnail" />`;
 				}
 
 					content += `<div class="walker__item">`;

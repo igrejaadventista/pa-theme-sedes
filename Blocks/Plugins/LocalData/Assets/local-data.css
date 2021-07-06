@@ -327,7 +327,9 @@
 	border-right: #dfdfdf solid 1px;
 }
 
-.acf-local-data .acf-rel-item img {
+.acf-local-data .acf-rel-item img,
+.acf-local-data .acf-rel-item .thumb {
+	background-color: #f0f0f0;
 	height: 45px;
 	margin-right: 16px;
 	object-fit: cover;
