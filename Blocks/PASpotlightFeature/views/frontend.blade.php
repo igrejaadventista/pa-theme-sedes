@@ -22,10 +22,12 @@
                                             @endnotempty
                                             <figcaption
                                                 class="figure-caption position-absolute w-100 p-3 rounded-bottom">
-                                                @if (!empty($slide['cpt_label']))
-                                                    <span class="pa-tag rounded-sm mb-2">{!! $slide['cpt_label']['rendered'] !!}</span>
-                                                @endif
+                                                @notempty($slide['cpt_label'])
+                                                <span class="pa-tag rounded-sm mb-2">{!! $slide['cpt_label']['rendered'] !!}</span>
+                                                @endnotempty
+                                                @notempty($slide['title'])
                                                 <h3 class="h4 pt-2">{!! $slide['title']['rendered'] !!}</h3>
+                                                @endnotempty
                                             </figcaption>
                                         </figure>
                                     </div>

@@ -60,7 +60,9 @@ class PASpotlightFeature extends Block
 	{
 		return [
 			'title'		=> field('title'),
-			'slides'	=> field('items')['data'],
+			'slides'	=> array_filter(field('items')['data'], function ($value) {
+				return $value != 0;
+			}),
 		];
 	}
 }
