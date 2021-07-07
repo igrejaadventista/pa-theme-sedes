@@ -10,6 +10,7 @@ use Blocks\PAFacebookFeature\PAFacebookFeature;
 use Blocks\PAOtherSlidesFeature\PAOtherSlidesFeature;
 use Blocks\PATwitterFeature\PATwitterFeature;
 use Blocks\PASpotlightFeature\PASpotlightFeature;
+use Blocks\PASevenCastFeature\PASevenCastFeature;
 
 /**
  * Blocks Register blocks and manage settings
@@ -46,6 +47,7 @@ class Blocks {
 			PAMagazinesFeature::class,
 			PAListButtons::class,
 			PASpotlightFeature::class,
+			PASevenCastFeature::class,
 		];
 
 		// Merge registered blocks with new blocks

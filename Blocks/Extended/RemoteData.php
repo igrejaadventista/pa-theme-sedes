@@ -17,7 +17,7 @@ class RemoteData extends Field {
     use Wrapper;
 
     protected $type = 'remote_data';
-	
+
 	/**
 	 * endpoint Set the endpoint where information will be fetched
 	 *
@@ -29,7 +29,7 @@ class RemoteData extends Field {
 
         return $this;
     }
-	
+
 	/**
 	 * initialLimit Initial number of items to be returned
 	 *
@@ -41,7 +41,7 @@ class RemoteData extends Field {
 
         return $this;
     }
-	
+
 	/**
 	 * getFields Set which fields should be returned from the endpoint. The id and title fields are already returned automatically
 	 *
@@ -53,7 +53,7 @@ class RemoteData extends Field {
 
         return $this;
     }
-	
+
 	/**
 	 * filterTaxonomies Set which taxonomies will be available in filters
 	 *
@@ -65,7 +65,7 @@ class RemoteData extends Field {
 
         return $this;
     }
-	
+
 	/**
 	 * manualFields Additional manual fields
 	 *
