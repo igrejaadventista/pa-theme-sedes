@@ -61,8 +61,10 @@ class PACarouselFeature extends Block
 	public function with(): array
 	{
 		return [
-			'title'	 => field('title'),
-			'slides' => field('items')['data'],
+			'title'		=> field('title'),
+			'slides'	=> array_filter(field('items')['data'], function ($value) {
+				return $value != 0;
+			}),
 		];
 	}
 }

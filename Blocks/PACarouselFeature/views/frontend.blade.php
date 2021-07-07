@@ -3,7 +3,7 @@
 @else
 	@notempty($slides)
 		<div class="pa-widget pa-w-carousel-feature col col-md-4 mb-5">
-			<h2>{{ $title ?? 'Widget - Carousel - Feature' }}</h2>
+			<h2>{!! $title ?? 'Widget - Carousel - Feature' !!}</h2>
 			<div class="mt-4">
 				<div class="pa-glide-destaques">
 					<div class="glide__track" data-glide-el="track">
