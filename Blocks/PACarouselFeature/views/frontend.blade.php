@@ -10,20 +10,21 @@
 						<div class="glide__slides">
 							@foreach($slides as $slide)
 								<div class="glide__slide position-relative">
-									@notempty($slide['thumbnail'])
-										<img class="rounded img-fluid" src="{{ $slide['thumbnail']['url'] }}" alt="{{ $slide['thumbnail']['alt'] ?: 'Imagem do slide ' . $loop->iteration }}" />	
+									@notempty($slide['featured_media_url'])
+										<img class="rounded img-fluid" src="{{ $slide['featured_media_url']['pa_block_render'] }}" alt="{{ $slide['featured_media_url']['pa_block_render'] ?: 'Imagem do slide ' . $loop->iteration }}" />
 									@endnotempty
-									
+
 									@notempty($slide['title'])
-										<h3 class="card-title font-weight-bold h5 mt-4 pa-truncate-1">{!! $slide['title'] !!}</h3>	
+										<h3 class="card-title font-weight-bold h5 mt-4 pa-truncate-1">{!! $slide['title']['rendered'] !!}</h3>
 									@endnotempty
-									
+
 									@notempty($slide['excerpt'])
-										<p class="card-text pa-truncate-2">{!! $slide['excerpt'] !!}</p>
+										<p class="card-text pa-truncate-2">{!! $slide['excerpt']['rendered'] !!}</p>
 									@endnotempty
 
 									@notempty($slide['link'])
-										<a href="{{ $slide['link']['url'] }}" target="{{ $slide['link']['target'] ?: '_self' }}" class="stretched-link">
+										<a href="{{ isset($slide['link']) ? $slide['link']['url'] : get_permalink($slide['id']) }}"
+                                    target="{{ isset($slide['link']) && !empty($slide['link']['target']) ? $slide['link']['target'] : '_self' }}" class="stretched-link">
 											<span class="visually-hidden">{!! $slide['title'] ?: 'Link do slide' . $loop->iteration !!}</span>
 										</a>
 									@endnotempty
@@ -37,8 +38,8 @@
 								<i class="fas fa-circle fa-stack-2x"></i>
 								<i class="icon fas fa-arrow-left fa-stack-1x"></i>
 							</span>
-						</div>	
-					
+						</div>
+
 						<div class="mx-2 pa-slider-bullet" data-glide-el="controls[nav]">
 							@foreach($slides as $slide)
 								<i class="fas fa-circle fa-xs mx-1" data-glide-dir="={{ $loop->index }}"></i>

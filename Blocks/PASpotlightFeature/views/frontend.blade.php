@@ -1,5 +1,5 @@
 @if (is_admin())
-    <img class="img-preview" src="{{ get_template_directory_uri() }}/Blocks/PASpotlightCarouselFeature/preview.png" />
+    <img class="img-preview" src="{{ get_template_directory_uri() }}/Blocks/PASpotlightFeature/preview.png" />
 @else
     @notempty($slides)
     <div class="pa-widget pa-w-carousel-ministry col col-md-8 mb-5">

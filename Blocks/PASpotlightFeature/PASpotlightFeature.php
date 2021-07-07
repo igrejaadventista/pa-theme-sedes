@@ -1,6 +1,6 @@
 <?php
 
-namespace Blocks\PASpotlightCarouselFeature;
+namespace Blocks\PASpotlightFeature;
 
 use Blocks\Block;
 use Blocks\Extended\LocalData;
@@ -17,13 +17,13 @@ use WordPlate\Acf\Fields\Textarea;
 /**
  * PACarouselFeature Carousel feature block
  */
-class PASpotlightCarouselFeature extends Block
+class PASpotlightFeature extends Block
 {
 
 	public function __construct()
 	{
 		parent::__construct([
-			'title' 	  => 'IASD - Spotlight Carousel - Feature',
+			'title' 	  => 'IASD - Spotlight - Feature',
 			'description' => 'Destaques',
 			'category' 	  => 'pa-adventista',
 			'post_types'  => ['post', 'page'],

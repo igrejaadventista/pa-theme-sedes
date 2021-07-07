@@ -9,7 +9,7 @@ use \Blocks\PACarouselFeature\PACarouselFeature;
 use Blocks\PAFacebookFeature\PAFacebookFeature;
 use Blocks\PAOtherSlidesFeature\PAOtherSlidesFeature;
 use Blocks\PATwitterFeature\PATwitterFeature;
-use Blocks\PASpotlightCarouselFeature\PASpotlightCarouselFeature;
+use Blocks\PASpotlightFeature\PASpotlightFeature;
 
 /**
  * Blocks Register blocks and manage settings
@@ -45,7 +45,7 @@ class Blocks {
 			PAAppsFeature::class,
 			PAMagazinesFeature::class,
 			PAListButtons::class,
-			PASpotlightCarouselFeature::class,
+			PASpotlightFeature::class,
 		];
 
 		// Merge registered blocks with new blocks
