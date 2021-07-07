@@ -182,6 +182,10 @@
 	padding-left: 10px;
 }
 
+.acf-local-data .filters .filter.-limit label span {
+	width: 100px;
+}
+
 .acf-local-data .filters .filter.-limit input {
 	padding-left: 10px;
 }
@@ -334,6 +338,7 @@
 	margin-right: 16px;
 	object-fit: cover;
 	width: 70px;
+	font-size: 0;
 }
 
 .acf-local-data .selection .choices .acf-rel-item {

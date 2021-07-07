@@ -149,7 +149,7 @@
 		 */
 		$isExceeded(value) {
 			if(value)
-				this.$manualAddActionButton().addClass('disabled').attr('disabled', 'disabled').text('Quantidade atingido(a)!');
+				this.$manualAddActionButton().addClass('disabled').attr('disabled', 'disabled').text('Limite atingido!');
 			else
 				this.$manualAddActionButton().removeClass('disabled').removeAttr('disabled').text('Adicionar manual');
 		},
@@ -463,19 +463,15 @@
 				ajaxData[name] = this.get(name);
 
 			// Extra
-			ajaxData.action = 'acf/fields/localposts_data/query';
+			ajaxData.action = 'acf/fields/localposts_data/search';
 			ajaxData.field_key = this.get('key');
 			// posts to show
 			ajaxData.limit = 20;
-			// ajaxData.exclude = [];
+			ajaxData.exclude = [];
 
-			// exclude non items in list
-			// this.$valuesList().find('li').each((_, element) => ajaxData.exclude.push(element.dataset.id));
+			this.$valuesList().find('li').each((_, element) => ajaxData.exclude.push(element.dataset.id));
 
-			// Filter
-			ajaxData = acf.applyFilters('localposts_data_ajax_data', ajaxData, this);
-
-			return ajaxData;
+			return acf.applyFilters('localposts_data_ajax_data', ajaxData, this);
 		},
 
 		/**
@@ -509,10 +505,13 @@
 			};
 
 			const onSuccess = (json) => {
+				console.log(json);
 				// No results
-				if(!json || !json.results || !json.results.length)
+				if(!json || !json.results || !json.results.length) {
+					console.log(this.$choicesList());
 					// Add message
 					return this.$choicesList().append(`<li>${acf.__('No matches found')}</li>`);
+				}
 
 				// Get new results
 				const html = this.walkChoices(json.results, false);

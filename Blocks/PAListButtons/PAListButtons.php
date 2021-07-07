@@ -53,7 +53,7 @@ class PAListButtons extends Block {
 				->hideFields(['content', 'featured_media_url']),
 			
 			TrueFalse::make('Mais conteúdo', 'enable_link')
-				->stylisedUi('Habilitar', 'Desabilitar')
+				->stylisedUi('Habilitado', 'Desabilitado')
 				->wrapper([
 					'width' => 50,
 				]),

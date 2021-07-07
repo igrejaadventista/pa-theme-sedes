@@ -46,6 +46,9 @@ if (!class_exists('LocalData')) :
 			add_action('wp_ajax_acf/fields/localposts_data/query',				array($this, 'ajax_query'));
 			add_action('wp_ajax_nopriv_acf/fields/localposts_data/query',		array($this, 'ajax_query'));
 
+			add_action('wp_ajax_acf/fields/localposts_data/search',				array($this, 'ajax_search'));
+		    add_action('wp_ajax_nopriv_acf/fields/localposts_data/search',		array($this, 'ajax_search'));
+
 			add_action('wp_ajax_acf/fields/localposts_data/modal',				array($this, 'modalAjax'));
 
 			// Admin Scripts
@@ -411,7 +414,6 @@ if (!class_exists('LocalData')) :
 			$options = wp_parse_args($options, array(
 				'sticky'		=> '',
 				'post_id'		=> 0,
-				's'				=> '',
 				'field_key'		=> '',
 				'paged'			=> 1,
 				'post_type'		=> '',
@@ -433,14 +435,14 @@ if (!class_exists('LocalData')) :
 			$args['paged'] = intval($options['paged']);
 
 			// search
-			if ($options['s'] !== ''):
-				// strip slashes (search may be integer)
-				$s = wp_unslash(strval($options['s']));
+			// if ($options['s'] !== ''):
+			// 	// strip slashes (search may be integer)
+			// 	$s = wp_unslash(strval($options['s']));
 
-				// update vars
-				$args['s'] = $s;
-				$is_search = true;
-			endif;
+			// 	// update vars
+			// 	$args['s'] = $s;
+			// 	$is_search = true;
+			// endif;
 
 			$sticky = isset($options['sticky']) ? $options['sticky'] : 0;
 			$stickyItems = !empty($sticky) ? explode(',', $sticky) : [];
@@ -498,26 +500,24 @@ if (!class_exists('LocalData')) :
 				$args['posts_per_page'] = $args['posts_per_page'] - count($stickedArr);
 			endif;
 
-			// get queried posts
-			$posts = get_posts($args);
-			if(!empty($posts)):
-				foreach($posts as $post):
-					//  push data into $results
-					$results[] = $this->get_post_result(
-						$post->ID,
-						$post->post_date,
-						get_the_post_thumbnail_url($post->ID, 'medium'),
-						$post->post_title,
-						get_post_type_object(get_post_type($post->ID))->labels->singular_name,
-						$post->post_content
-						// $url
-					);
-				endforeach;
+			if(!empty($args['posts_per_page'])):
+				// get queried posts
+				$posts = get_posts($args);
+				if(!empty($posts)):
+					foreach($posts as $post):
+						//  push data into $results
+						$results[] = $this->get_post_result(
+							$post->ID,
+							$post->post_date,
+							get_the_post_thumbnail_url($post->ID, 'medium'),
+							$post->post_title,
+							get_post_type_object(get_post_type($post->ID))->labels->singular_name,
+							$post->post_content
+							// $url
+						);
+					endforeach;
+				endif;
 			endif;
-
-			// clean on limit reach
-			if($limit <= count($stickyItems))
-				$results = array(json_encode(0));
 
 			$mergedResults = array_merge($stickedArr, $results);
 
@@ -610,6 +610,105 @@ if (!class_exists('LocalData')) :
 					acf_render_field_wrap($sub_field);
 				endforeach;
 			echo '</div>';
+		}
+
+		/*
+		*  ajax_query
+		*
+		*  description
+		*
+		*  @type	function
+		*  @date	24/10/13
+		*  @since	5.0.0
+		*
+		*  @param	$post_id (int)
+		*  @return	$post_id (int)
+		*/
+		
+		function ajax_search() {
+			// validate
+			if(!acf_verify_ajax()) 
+				die();
+			
+			// get choices
+			$response = $this->get_ajax_search($_POST);
+			
+			// return
+			acf_send_ajax_results($response);	
+		}
+
+		/*
+		*  get_ajax_query
+		*
+		*  This function will return an array of data formatted for use in a select2 AJAX response
+		*
+		*  @type	function
+		*  @date	15/10/2014
+		*  @since	5.0.9
+		*
+		*  @param	$options (array)
+		*  @return	(array)
+		*/
+		
+		function get_ajax_search($options = array()) {
+			// defaults
+			$options = wp_parse_args($options, array(
+				'field_key'		=> '',
+				's'				=> '',
+			));
+			
+			// load field
+			$field = acf_get_field($options['field_key']);
+			if(!$field) 
+				return false;
+			
+			$results = array();
+			$queryArgs = array();
+
+			$sticky = isset($options['sticky']) ? $options['sticky'] : 0;
+ 
+			if(!empty($sticky) || isset($options['exclude'])):
+				$queryArgs['exclude'] = [];
+
+				if(isset($options['exclude']))
+					$queryArgs['exclude'] = array_merge($queryArgs['exclude'], $options['exclude']);
+				if(!empty($sticky))
+					$queryArgs['exclude'] = array_merge($queryArgs['exclude'], explode(',', $sticky));
+			endif;
+	
+			// search
+			if(!empty($options['s']))
+				// strip slashes (search may be integer)
+				$queryArgs['s'] = wp_unslash(strval($options['s']));
+
+			$queryArgs['post_type'] = $field['post_type'];
+
+			// die(var_dump($queryArgs)); 
+
+			$posts = get_posts($queryArgs);
+			if(!empty($posts)):
+				foreach($posts as $post):
+					//  push data into $results
+					$results[] = $this->get_post_result(
+						$post->ID,
+						$post->post_date,
+						get_the_post_thumbnail_url($post->ID, 'medium'),
+						$post->post_title,
+						get_post_type_object(get_post_type($post->ID))->labels->singular_name,
+						$post->post_content
+						// $url
+					);
+				endforeach;
+			endif;
+			
+			// vars
+			$response = array(
+				'results'	=> $results,
+				'data'		=> json_encode($results),
+			);
+			
+			// return
+			return $response;	
 		}
 
 	}
