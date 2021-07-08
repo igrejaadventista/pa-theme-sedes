@@ -190,10 +190,10 @@
 		},
 
 		empty(data) {
-			if(typeof(data) == 'number' || typeof(data) == 'boolean') 
-				return false; 
+			if(typeof(data) == 'number' || typeof(data) == 'boolean')
+				return false;
 			if(typeof(data) == 'undefined' || data === null)
-				return true; 
+				return true;
 			if(typeof(data.length) != 'undefined')
 				return data.length == 0;
 
@@ -560,7 +560,7 @@
 				mergeItems = mergeItems.filter((value) => {
 					return value != item;
 				});
-				
+
 				// check if array sticky input value is not empty
 				if(stickyItems[0] !== "" && typeof item !== 'undefined')
 					stickyOrder.push(item);
@@ -738,7 +738,7 @@
 
 		/**
 		 * Parse fields and collect data
-		 * 
+		 *
 		 * @param {jQuery} $modal The modal element
 		 * @param {string} data Values on edit data
 		 */
@@ -785,7 +785,7 @@
 
 		/**
 		 * Parse fields and collect data
-		 * 
+		 *
 		 * @param {jQuery} $modal The modal element
 		 * @param {string} id ID on edit data
 		 *
@@ -803,7 +803,7 @@
 					hasInvalid = true;
 					field.showError('Campo obrigatório');
 				}
-				
+
 				if(field.data.name == 'featured_media_url')
 					values[field.data.name] = {
 						id: field.getValue(),
@@ -858,7 +858,7 @@
 					let modalHeader = $modal.find('.widgets-acf-modal-title');
 					modalHeader.append('<button class="button button-primary button-sticky-add" data-name="manualSubmit">Adicionar</button>');
 					let buttonAdd = modalHeader.find('[data-name="manualSubmit"]');
-					
+
 					this.modalContent($modal);
 
 					// get existing input value data
@@ -1088,7 +1088,6 @@
 
 				args.onClose($target);
 			},
-
 		},
 
 	});

@@ -599,17 +599,14 @@
 				});
 
 				// check if array sticky input value is not empty
-				if(stickyItems[0] !== "")
+				if(stickyItems[0] !== "0")
 					stickyOrder.push(item);
 			});
 
 			// merge data objects if sticky values exists on input
-			// let mergedData = stickyOrder.length ? [].concat(stickyOrder, mergeItems) : mergeItems;
 			let mergedData = stickyOrder.length ? [].concat(stickyOrder, mergeItems) : mergeItems;
 
-			console.log(mergedData); // stickyOrder order undefined
-
-			mergeItems.forEach(element => {
+			mergedData.forEach(element => {
 				let content = `<li data-id="${acf.escAttr(element.id)}" data-date="${acf.escAttr(element.date)}"`;
 					content += `${element.id.toString().startsWith('m') ? ' data-manual' : ''}><span class="acf-rel-item">`;
 
