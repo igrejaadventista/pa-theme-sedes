@@ -547,75 +547,6 @@ if (!class_exists('RemoteData')) :
 			return $response;
 		}
 
-		function modalAjax()
-		{
-			// validate
-			if (!acf_verify_ajax())
-				die();
-
-			$this->getSubfields($_POST);
-
-			wp_die();
-		}
-
-		function getSubfields($options)
-		{
-			$field = acf_get_field($options['field_key']);
-
-			array_unshift(
-				$field['sub_fields'],
-				array(
-					'key' => $options['field_key'] . '_title',
-					'label' => 'Título',
-					'name' => 'title',
-					'type' => 'text',
-					'required' => 1,
-				),
-				array(
-					'key' => $options['field_key'] . '_thumbnail',
-					'label' => 'Thumbnail',
-					'name' => 'featured_media_url',
-					'type' => 'image',
-					'required' => 1,
-				),
-				array(
-					'key' => $options['field_key'] . '_content',
-					'label' => 'Resumo',
-					'name' => 'content',
-					'type' => 'textarea',
-					'rows' => 3,
-					'required' => 0,
-				),
-				array(
-					'key' => $options['field_key'] . '_link',
-					'label' => 'Link',
-					'name' => 'link',
-					'type' => 'link',
-					'required' => 0,
-				)
-			);
-
-			// load values
-			if (isset($options['data'])) :
-				foreach ($field['sub_fields'] as &$sub_field) :
-					if (isset($options['data'][$sub_field['name']])) :
-						if ($sub_field['name'] == 'title' || $sub_field['name'] == 'content')
-							$sub_field['value'] = $options['data'][$sub_field['name']]['rendered'];
-						elseif ($sub_field['name'] == 'featured_media_url')
-							$sub_field['value'] = $options['data'][$sub_field['name']]['id'];
-						else
-							$sub_field['value'] = $options['data'][$sub_field['name']];
-					endif;
-				endforeach;
-			endif;
-
-			echo '<div class="acf-fields -top -border">';
-			foreach ($field['sub_fields'] as &$sub_field) :
-				acf_render_field_wrap($sub_field);
-			endforeach;
-			echo '</div>';
-		}
-
 		function format_value($value, $post_id, $field)
 		{
 			$value['post_type'] = acf_get_array($field['post_type']);
@@ -855,6 +786,75 @@ if (!class_exists('RemoteData')) :
 
 			// return
 			return $response;
+		}
+
+		function modalAjax()
+		{
+			// validate
+			if (!acf_verify_ajax())
+				die();
+
+			$this->getSubfields($_POST);
+
+			wp_die();
+		}
+
+		function getSubfields($options)
+		{
+			$field = acf_get_field($options['field_key']);
+
+			array_unshift(
+				$field['sub_fields'],
+				array(
+					'key' => $options['field_key'] . '_title',
+					'label' => 'Título',
+					'name' => 'title',
+					'type' => 'text',
+					'required' => 1,
+				),
+				array(
+					'key' => $options['field_key'] . '_thumbnail',
+					'label' => 'Thumbnail',
+					'name' => 'featured_media_url',
+					'type' => 'image',
+					'required' => 1,
+				),
+				array(
+					'key' => $options['field_key'] . '_content',
+					'label' => 'Resumo',
+					'name' => 'content',
+					'type' => 'textarea',
+					'rows' => 3,
+					'required' => 0,
+				),
+				array(
+					'key' => $options['field_key'] . '_link',
+					'label' => 'Link',
+					'name' => 'link',
+					'type' => 'link',
+					'required' => 0,
+				)
+			);
+
+			// load values
+			if (isset($options['data'])) :
+				foreach ($field['sub_fields'] as &$sub_field) :
+					if (isset($options['data'][$sub_field['name']])) :
+						if ($sub_field['name'] == 'title' || $sub_field['name'] == 'content')
+							$sub_field['value'] = $options['data'][$sub_field['name']]['rendered'];
+						elseif ($sub_field['name'] == 'featured_media_url')
+							$sub_field['value'] = $options['data'][$sub_field['name']]['id'];
+						else
+							$sub_field['value'] = $options['data'][$sub_field['name']];
+					endif;
+				endforeach;
+			endif;
+
+			echo '<div class="acf-fields -top -border">';
+			foreach ($field['sub_fields'] as &$sub_field) :
+				acf_render_field_wrap($sub_field);
+			endforeach;
+			echo '</div>';
 		}
 	}
 
