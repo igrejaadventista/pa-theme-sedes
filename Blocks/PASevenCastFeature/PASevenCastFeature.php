@@ -46,7 +46,7 @@ class PASevenCastFeature extends Block
 				RemoteData::make('Itens', 'items')
 					->endpoint('https://v2-noticias.adventistas.org/pt/wp-json/wp/v2/posts')
 					// ->getFields([])
-					// ->filterTaxonomies([])
+					// ->filterTaxonomies(['xtt-pa-projetos', 'tt-pa-departamentos', 'xtt-pa-editorias'])
 					// ->manualFields([])
 					->initialLimit(4),
 			];
@@ -61,10 +61,7 @@ class PASevenCastFeature extends Block
 	{
 		return [
 			'title'	=> field('title'),
-			// 'items'	=> array_filter(field('items')['data'], function ($value) {
-			// 	return $value != 0;
-			// }),
-			'items'	=> field('items')['data']
+			'items'	=> json_decode(field('items')['data'], true)
 		];
 	}
 }

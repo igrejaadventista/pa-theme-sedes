@@ -547,41 +547,6 @@ if (!class_exists('RemoteData')) :
 			return $response;
 		}
 
-		function format_value($value, $post_id, $field)
-		{
-			$value['post_type'] = acf_get_array($field['post_type']);
-			$manual = json_decode($value['manual'], true);
-			$value['data'] = array();
-
-			if (!is_admin()) :
-				$stickys = explode(',', $value['sticky']);
-
-				$data = $this->getData([
-					'limit' => $value['limit'],
-					'sticky' => $value['sticky'],
-					'post_type' => !empty($value['post_type_filter']) ? $value['post_type_filter'] : $value['post_type'],
-				]);
-
-				$posts = array_merge($manual, $data['results']);
-
-				if (!empty($stickys)) :
-					foreach ($stickys as $sticky) :
-						$key = array_search($sticky, array_column(json_decode(json_encode($posts), TRUE), 'id'));
-
-						if ($key >= 0)
-							$value['data'][] = $posts[$key];
-					endforeach;
-				endif;
-
-				foreach ($value['data'] as $key => $postValue)
-					unset($posts[$key]);
-
-				$value['data'] = array_merge($value['data'], $posts);
-			endif;
-
-			return $value;
-		}
-
 		/*
 		*  ajax_query
 		*

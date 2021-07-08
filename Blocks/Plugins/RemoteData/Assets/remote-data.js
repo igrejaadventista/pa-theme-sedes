@@ -266,6 +266,9 @@
 			// Clear search field
 			this.$searchInput().val('');
 
+			// Remove Add manual button node
+			// this.$control().find(this.$manualAddActionButton()).remove();
+
 			// Add sortable
 			this.$stickyList().sortable({
 				items:					'li',
@@ -887,7 +890,9 @@
 		 * @param {*} $el
 		 */
 		onClickAddManualPost(e, $el) {
-			var $modal = this.$control().find('.widgets-acf-modal.-fields');
+			const $modal = this.$control().find('.widgets-acf-modal.-fields');
+
+			// console.log(this)
 
 			// Open modal
 			this.modal.open($modal, {
