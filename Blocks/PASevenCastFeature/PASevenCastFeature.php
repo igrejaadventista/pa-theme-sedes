@@ -10,7 +10,10 @@ use WordPlate\Acf\Fields\PageLink;
 use WordPlate\Acf\Fields\Image;
 use WordPlate\Acf\Fields\Repeater;
 use WordPlate\Acf\Fields\Text;
+use WordPlate\Acf\ConditionalLogic;
+use WordPlate\Acf\Fields\Link;
 use WordPlate\Acf\Fields\Textarea;
+use WordPlate\Acf\Fields\TrueFalse;
 
 /**
  * Class PASevenCastFeature
@@ -45,10 +48,23 @@ class PASevenCastFeature extends Block
 				Text::make('Título', 'title'),
 				RemoteData::make('Itens', 'items')
 					->endpoint('https://v2-noticias.adventistas.org/pt/wp-json/wp/v2/posts')
-					// ->getFields([])
-					// ->filterTaxonomies(['xtt-pa-projetos', 'tt-pa-departamentos', 'xtt-pa-editorias'])
+					->getFields(['featured_media_url'])
+					->filterTaxonomies(['xtt-pa-projetos', 'xtt-pa-departamentos', 'xtt-pa-editorias'])
 					// ->manualFields([])
 					->initialLimit(4),
+
+				TrueFalse::make('Mais conteúdo', 'enable_link')
+					->stylisedUi('Habilitar', 'Desabilitar')
+					->wrapper([
+						'width' => 50,
+					]),
+				Link::make('Link', 'link')
+					->conditionalLogic([
+						ConditionalLogic::if('enable_link')->equals(1)
+					])
+					->wrapper([
+						'width' => 50,
+					]),
 			];
 	}
 
@@ -60,8 +76,10 @@ class PASevenCastFeature extends Block
 	public function with(): array
 	{
 		return [
-			'title'	=> field('title'),
-			'items'	=> json_decode(field('items')['data'], true)
+			'title'			=> field('title'),
+			'items'			=> json_decode(field('items')['data'], true),
+			'enable_link' 	=> field('enable_link'),
+			'link'			=> field('link')
 		];
 	}
 }
