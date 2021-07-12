@@ -48,7 +48,7 @@ class PASevenCastFeature extends Block
 				Text::make('Título', 'title'),
 				RemoteData::make('Itens', 'items')
 					->endpoint('https://v2-noticias.adventistas.org/pt/wp-json/wp/v2/posts')
-					->getFields(['featured_media_url'])
+					// ->getFields([])
 					->filterTaxonomies(['xtt-pa-projetos', 'xtt-pa-departamentos', 'xtt-pa-editorias'])
 					// ->manualFields([])
 					->initialLimit(4),

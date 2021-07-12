@@ -195,8 +195,11 @@ if (!class_exists('RemoteData')) :
 		?>
 
 			<div <?php acf_esc_attr_e($atts); ?>>
+				<!-- API Data -->
 				<?php acf_hidden_input(array('name' => $field['name'] . "[data]", 'value' => isset($values['data']) ? $values['data'] : '', 'data-values' => '')); ?>
+				<!-- Manual Data -->
 				<?php acf_hidden_input(array('name' => $field['name'] . "[manual]", 'value' => isset($values['manual']) ? $values['manual'] : '', 'data-manual' => '')); ?>
+				<!-- Sticky List -->
 				<?php acf_hidden_input(array('name' => $field['name'] . "[sticky]", 'value' => isset($values['sticky']) ? $values['sticky'] : 0, 'data-sticky' => '')); ?>
 
 				<div class="action-toolbar">
@@ -414,138 +417,9 @@ if (!class_exists('RemoteData')) :
 			return $response_code === 200;
 		}
 
-		/**
-		 * getData
-		 *
-		 * @param  mixed $options
-		 * @return void
-		 */
-		function getData($options = array())
-		{
-			// defaults
-			$options = wp_parse_args($options, array(
-				'sticky'		=> '',
-				'post_id'		=> 0,
-				's'				=> '',
-				'field_key'		=> '',
-				'paged'			=> 1,
-				'post_type'		=> '',
-			));
-
-			// load field
-			$field = acf_get_field($options['field_key']);
-
-			if (!$field)
-				return false;
-
-			// vars
-			$results = [];
-			$args = [];
-			$s = false;
-			$is_search = false;
-
-			// paged
-			$args['paged'] = intval($options['paged']);
-
-			// search
-			if ($options['s'] !== '') :
-				// strip slashes (search may be integer)
-				$s = wp_unslash(strval($options['s']));
-
-				// update vars
-				$args['s'] = $s;
-				$is_search = true;
-			endif;
-
-			$sticky = isset($options['sticky']) ? $options['sticky'] : 0;
-			$stickyItems = !empty($sticky) ? explode(',', $sticky) : [];
-
-			$stickyItemsFilter = array_filter($stickyItems, function ($v) {
-				return substr($v, 0, 1) !== 'm';
-			});
-
-			$limit = isset($options['limit']) ? $options['limit'] : $field['limit'];
-			$args['posts_per_page'] = (int)$limit;
-			$args['posts_per_page'] = $args['posts_per_page'] - (count($stickyItems) - count($stickyItemsFilter));
-
-			// filter by post types
-			if (!empty($options['post_type']))
-				// selected
-				$args['post_type'] = acf_get_array($options['post_type']);
-			elseif (!empty($field['post_type']))
-				// default
-				$args['post_type'] = acf_get_array($field['post_type']);
-			else
-				$args['post_type'] = acf_get_post_types();
-
-			// perform search query
-			if ($is_search && empty($args['orderby']) && isset($args['s']))
-				$args['s'] = $s;
-
-			$stickedArr = [];
-			if (!empty($stickyItemsFilter)) :
-				// get array of values from sticky posts
-				$stickyIds = array_values($stickyItemsFilter);
-
-				// exclude sticked posts from query
-				$args['exclude'] = $stickyIds;
-
-				// return only sticked array items
-				$stickedPosts = get_posts(array(
-					'include'	=> $stickyIds,
-					'post_type'	=> get_post_types(),
-				));
-
-				foreach ($stickedPosts as $post) :
-					//  push data into $results
-					$stickedArr[] = $this->get_post_result(
-						$post->ID,
-						$post->post_date,
-						get_the_post_thumbnail_url($post->ID, 'medium'),
-						$post->post_title,
-						get_post_type_object(get_post_type($post->ID))->labels->singular_name,
-						$post->post_content
-						// $url
-					);
-				endforeach;
-
-				// remove sticked posts from results...
-				$args['posts_per_page'] = $args['posts_per_page'] - count($stickedArr);
-			endif;
-
-			// get queried posts
-			$posts = get_posts($args);
-			if (!empty($posts)) :
-				foreach ($posts as $post) :
-					//  push data into $results
-					$results[] = $this->get_post_result(
-						$post->ID,
-						$post->post_date,
-						get_the_post_thumbnail_url($post->ID, 'medium'),
-						$post->post_title,
-						get_post_type_object(get_post_type($post->ID))->labels->singular_name,
-						$post->post_content
-						// $url
-					);
-				endforeach;
-			endif;
-
-			// clean on limit reach
-			if ($limit <= count($stickyItems))
-				$results = array(json_encode(0));
-
-			$mergedResults = array_merge($stickedArr, $results);
-
-			// vars
-			$response = array(
-				'results'	=> $mergedResults,
-				'limit'		=> $args['posts_per_page'],
-				'data'		=> json_encode($mergedResults),
-			);
-
-			// return
-			return $response;
-		}
+		// public function load_value($value, $post_id, $field) {
+		//     return json_decode($value['data'], true);
+		// }
 
 		/*
 		*  ajax_query
@@ -751,75 +625,6 @@ if (!class_exists('RemoteData')) :
 
 			// return
 			return $response;
-		}
-
-		function modalAjax()
-		{
-			// validate
-			if (!acf_verify_ajax())
-				die();
-
-			$this->getSubfields($_POST);
-
-			wp_die();
-		}
-
-		function getSubfields($options)
-		{
-			$field = acf_get_field($options['field_key']);
-
-			array_unshift(
-				$field['sub_fields'],
-				array(
-					'key' => $options['field_key'] . '_title',
-					'label' => 'Título',
-					'name' => 'title',
-					'type' => 'text',
-					'required' => 1,
-				),
-				array(
-					'key' => $options['field_key'] . '_thumbnail',
-					'label' => 'Thumbnail',
-					'name' => 'featured_media_url',
-					'type' => 'image',
-					'required' => 1,
-				),
-				array(
-					'key' => $options['field_key'] . '_content',
-					'label' => 'Resumo',
-					'name' => 'content',
-					'type' => 'textarea',
-					'rows' => 3,
-					'required' => 0,
-				),
-				array(
-					'key' => $options['field_key'] . '_link',
-					'label' => 'Link',
-					'name' => 'link',
-					'type' => 'link',
-					'required' => 0,
-				)
-			);
-
-			// load values
-			if (isset($options['data'])) :
-				foreach ($field['sub_fields'] as &$sub_field) :
-					if (isset($options['data'][$sub_field['name']])) :
-						if ($sub_field['name'] == 'title' || $sub_field['name'] == 'content')
-							$sub_field['value'] = $options['data'][$sub_field['name']]['rendered'];
-						elseif ($sub_field['name'] == 'featured_media_url')
-							$sub_field['value'] = $options['data'][$sub_field['name']]['id'];
-						else
-							$sub_field['value'] = $options['data'][$sub_field['name']];
-					endif;
-				endforeach;
-			endif;
-
-			echo '<div class="acf-fields -top -border">';
-			foreach ($field['sub_fields'] as &$sub_field) :
-				acf_render_field_wrap($sub_field);
-			endforeach;
-			echo '</div>';
 		}
 	}
 
