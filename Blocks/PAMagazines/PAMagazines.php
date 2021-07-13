@@ -31,7 +31,8 @@ class PAMagazines extends Block {
 	 */
 	protected function setFields(): array {
 		return [
-			Text::make('Título', 'title'),
+			Text::make('Título', 'title')
+				->defaultValue('IASD - Revistas'),
 			LocalData::make('Itens', 'items')
 				->postTypes(['post'])
 				->initialLimit(5)
