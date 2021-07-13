@@ -149,7 +149,7 @@
 		 */
 		$isExceeded(value) {
 			if(value)
-				this.$manualAddActionButton().addClass('disabled').attr('disabled', 'disabled').text('Quantidade atingido(a)!');
+				this.$manualAddActionButton().addClass('disabled').attr('disabled', 'disabled').text('Limite atingido!');
 			else
 				this.$manualAddActionButton().removeClass('disabled').removeAttr('disabled').text('Adicionar manual');
 		},
@@ -190,10 +190,12 @@
 		},
 
 		empty(data) {
-			if(typeof(data) == 'number' || typeof(data) == 'boolean')
-				return false;
-			if(typeof(data) == 'undefined' || data === null)
-				return true;
+			if(typeof(data) == 'boolean') 
+				return !data; 
+			if(typeof(data) == 'number') 
+				return false; 
+			if(typeof(data) === 'undefined' || data === null)
+				return true; 
 			if(typeof(data.length) != 'undefined')
 				return data.length == 0;
 
@@ -461,19 +463,15 @@
 				ajaxData[name] = this.get(name);
 
 			// Extra
-			ajaxData.action = 'acf/fields/localposts_data/query';
+			ajaxData.action = 'acf/fields/localposts_data/search';
 			ajaxData.field_key = this.get('key');
 			// posts to show
 			ajaxData.limit = 20;
-			// ajaxData.exclude = [];
+			ajaxData.exclude = [];
 
-			// exclude non items in list
-			// this.$valuesList().find('li').each((_, element) => ajaxData.exclude.push(element.dataset.id));
+			this.$valuesList().find('li').each((_, element) => ajaxData.exclude.push(element.dataset.id));
 
-			// Filter
-			ajaxData = acf.applyFilters('localposts_data_ajax_data', ajaxData, this);
-
-			return ajaxData;
+			return acf.applyFilters('localposts_data_ajax_data', ajaxData, this);
 		},
 
 		/**
@@ -507,10 +505,13 @@
 			};
 
 			const onSuccess = (json) => {
+				console.log(json);
 				// No results
-				if(!json || !json.results || !json.results.length)
+				if(!json || !json.results || !json.results.length) {
+					console.log(this.$choicesList());
 					// Add message
 					return this.$choicesList().append(`<li>${acf.__('No matches found')}</li>`);
+				}
 
 				// Get new results
 				const html = this.walkChoices(json.results, false);
@@ -583,10 +584,12 @@
 
 				if(element.hasOwnProperty('featured_media_url')) {
 					if(element.featured_media_url.hasOwnProperty('pa-block-preview'))
-						content += `<img src="${element.featured_media_url['pa-block-preview']}" alt="Thumbnail" />`;
+						content += this.empty(element.featured_media_url['pa-block-preview']) ? '<div class="thumb"></div>' : `<img src="${element.featured_media_url['pa-block-preview']}" alt="Thumbnail" />`;
 					else if(element.featured_media_url.hasOwnProperty('pa_block_render'))
-						content += `<img src="${element.featured_media_url['pa_block_render']}" alt="Thumbnail" />`;
+						content += this.empty(element.featured_media_url['pa_block_render']) ? '<div class="thumb"></div>' : `<img src="${element.featured_media_url['pa_block_render']}" alt="Thumbnail" />`;
 				}
+				else
+					content += '<div class="thumb"></div>';
 
 					content += `<div class="walker__item">`;
 						content += `<div>${acf.escHtml(element.title.rendered)}</div>`;
@@ -827,21 +830,29 @@
 				title: {
 					rendered: values.title,
 				},
-				featured_media_url: {
-					id: values.featured_media_url.id,
-					pa_block_render: values.featured_media_url.url,
-				},
-				content: {
-					rendered: values.content,
-				},
 				link: values.link,
 			};
 
 			delete values.title;
-			delete values.featured_media_url;
-			delete values.content;
 			delete values.link;
 
+			if(values.hasOwnProperty('featured_media_url')) {
+				createNewFields.featured_media_url = {
+					id: values.featured_media_url.id,
+					pa_block_render: values.featured_media_url.url,
+				};
+
+				delete values.featured_media_url;
+			}
+
+			if(values.hasOwnProperty('content')) {
+				createNewFields.content = {
+					rendered: values.content,
+				};
+
+				delete values.content;
+			}
+		
 			return $.extend(createNewFields, values);
 		},
 

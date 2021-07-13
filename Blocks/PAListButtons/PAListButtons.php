@@ -49,10 +49,11 @@ class PAListButtons extends Block {
 			Text::make('Título', 'title'),
 			LocalData::make('Itens', 'items')
 				->postTypes(['projetos'])
-				->initialLimit(4),
-
+				->initialLimit(4)
+				->hideFields(['content', 'featured_media_url']),
+			
 			TrueFalse::make('Mais conteúdo', 'enable_link')
-				->stylisedUi('Habilitar', 'Desabilitar')
+				->stylisedUi('Habilitado', 'Desabilitado')
 				->wrapper([
 					'width' => 50,
 				]),

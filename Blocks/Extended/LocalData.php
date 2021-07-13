@@ -54,4 +54,16 @@ class LocalData extends Field {
         return $this;
     }
 
+	/**
+	 * hideFields Hide fixed fields, except title and link
+	 *
+	 * @param  array $values Fields array
+	 * @return self
+	 */
+	public function hideFields(array $values): self {
+        $this->config->set('hide_fields', $values);
+
+        return $this;
+    }
+
 }
