@@ -14,6 +14,10 @@
 	top: -38px;
 }
 
+/* .acf-remote-data.acf-relationship .action-toolbar .buttonAddManualPost {
+	display: none;
+} */
+
 .acf-notice-render.show {
 	margin-bottom: 45px;
 }
