@@ -39,13 +39,17 @@
 				</div>
 			</div>
 
-			<a 
-				href="{{ $link['url'] ?? '#' }}" 
-				target="{{ $link['target'] ?? '_self' }}"
-				class="btn btn-primary btn-block mt-4"
-			>
-				{!! $link['title'] !!}
-			</a>
+			@notempty($link)
+				@notempty($link['title'])
+					<a 
+						href="{{ $link['url'] ?? '#' }}" 
+						target="{{ $link['target'] ?? '_self' }}"
+						class="btn btn-primary btn-block mt-4"
+					>
+						{!! $link['title'] !!}
+					</a>
+				@endnotempty
+			@endnotempty
 		</div>
 	</div>
 @endif
