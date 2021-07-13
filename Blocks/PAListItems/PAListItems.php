@@ -61,7 +61,8 @@ class PAListItems extends Block {
 	 */
 	protected function setFields(): array {
 		return [
-			Text::make('Título', 'title'),
+			Text::make('Título', 'title')
+				->defaultValue('IASD - Lista itens'),
 
 			LocalData::make('Itens', 'items')
 			->postTypes(['post', 'projetos'])
