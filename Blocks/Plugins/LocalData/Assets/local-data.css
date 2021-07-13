@@ -1,4 +1,4 @@
-.acf-relationship .selection {
+.acf-local-data.acf-relationship .selection {
 	display: flex;
 }
 
@@ -183,7 +183,7 @@
 }
 
 .acf-local-data .filters .filter.-limit label span {
-	width: 100px;
+	width: 112px;
 }
 
 .acf-local-data .filters .filter.-limit input {
@@ -231,7 +231,7 @@
 	top: -36px;
 }
 
-.acf-local-data .acf-notice {
+.acf-field-localposts-data .acf-input > .acf-notice {
 	left: 0;
 	padding: 7px 40px 7px 12px;
 	position: absolute;
@@ -240,7 +240,11 @@
 	z-index: 1;
 }
 
-.acf-local-data .acf-notice .acf-notice-dismiss {
+.acf-field-localposts-data .acf-input > .acf-notice p {
+	margin: 6px !important;
+}
+
+.acf-field-localposts-data .acf-input > .acf-notice .acf-notice-dismiss {
 	top: 50%;
 	transform: translateY(-50%);
 }

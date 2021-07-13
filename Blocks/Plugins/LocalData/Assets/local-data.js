@@ -243,6 +243,10 @@
 
 			// Bind "in view"
 			acf.onceInView(this.$el, delayed);
+			this.$limitInput().on('change', () => {
+				if(this.$limitInput().val() < this.stickyItems().length)
+					this.$limitInput().val(this.stickyItems().length);
+			});
 		},
 
 		/**
@@ -345,7 +349,7 @@
 			ajaxData.post_type = selectedPostType;
 			ajaxData.field_key = this.get('key');
 			ajaxData.sticky = this.get('sticky');
-			ajaxData.limit = this.get('limit');
+			ajaxData.limit = this.get('limit') < this.stickyItems().length ? this.stickyItems().length : this.get('limit');
 
 			return acf.applyFilters('localposts_data_ajax_data', ajaxData, this);
 		},
@@ -385,7 +389,7 @@
 				// Stop if No (local cpt data) results
 				if(!json || !json.results || !json.results.length)
 					// Add message
-					return this.$valuesList().append(`<li>${acf.__('No matches found')}</li>`);
+					this.$valuesList().append(`<li>${acf.__('No matches found')}</li>`);
 
 				// Get new results
 				const html = this.walkChoices(json.results);
@@ -596,10 +600,7 @@
 			this.$isExceeded(validateLimit);
 
 			// validate on qtd change
-			this.$limitInput().change((e) => {
-				let exceededLimit = stickyItems.length >= e.target.value ? true : false;
-				this.$isExceeded(exceededLimit);
-			});
+			this.$limitInput().change((e) => this.$isExceeded(stickyItems.length >= e.target.value));
 
 			return {
 				list: list,
@@ -634,7 +635,7 @@
 			if(this.stickyItems().length == limit) {
 				// Add notice
 				this.showNotice({
-					text: `Limite máximo de ${limit} ite${limit == 1 ? 'm' : 'ns' } alcançado`,
+					text: `Limite máximo de ${limit} ite${limit == 1 ? 'm' : 'ns' } atingido`,
 					type: 'warning',
 				});
 
