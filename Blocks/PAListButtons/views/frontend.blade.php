@@ -8,8 +8,8 @@
 			<ul class="list-unstyled mt-4">
 				@foreach($items as $item)
 					<li class="pa-widget-button h-25 mb-4">
-						<a 
-							href="{{ isset($item['link']) ? $item['link']['url'] : get_permalink($item['id']) }}" 
+						<a
+							href="{{ isset($item['link']) ? $item['link']['url'] : get_permalink($item['id']) }}"
 							target="{{ isset($item['link']) && !empty($item['link']['target']) ? $item['link']['target'] : '_self' }}"
 							class="d-block d-flex px-4 align-items-center rounded fw-bold"
 						>
@@ -23,8 +23,8 @@
 		@endnotempty
 
 		@notempty($enable_link)
-			<a 
-				href="{{ $link['url'] ?? '#' }}" 
+			<a
+				href="{{ $link['url'] ?? '#' }}"
 				target="{{ $link['target'] ?? '_self' }}"
 				class="pa-all-content"
 			>

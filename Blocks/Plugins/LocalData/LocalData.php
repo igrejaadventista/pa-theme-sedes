@@ -242,7 +242,7 @@ if (!class_exists('LocalData')) :
 						&& count($filter_post_type_choices) > 2
 					) : ?>
 						<div class="filter -post_type filter__post_type">
-							<?php 
+							<?php
 							acf_select_input(
 								array(
 									'name' => $field['name'] . "[post_type_filter]",
@@ -309,7 +309,7 @@ if (!class_exists('LocalData')) :
 			$value['post_type'] = acf_get_array($field['post_type']);
 			$manual = json_decode($value['manual'], true);
 			$value['data'] = array();
-			
+
 			if(!is_admin()):
 				$stickys = explode(',', $value['sticky']);
 
@@ -329,7 +329,7 @@ if (!class_exists('LocalData')) :
 							$value['data'][] = $posts[$key];
 					endforeach;
 				endif;
-				
+
 				foreach($value['data'] as $key => $postValue)
 					unset($posts[$key]);
 
@@ -402,7 +402,7 @@ if (!class_exists('LocalData')) :
 			// return
 			return $result;
 		}
-		
+
 		/**
 		 * getData
 		 *
@@ -421,8 +421,8 @@ if (!class_exists('LocalData')) :
 
 			// load field
 			$field = acf_get_field($options['field_key']);
-			
-			if(!$field) 
+
+			if(!$field)
 				return false;
 
 			// vars
@@ -604,7 +604,7 @@ if (!class_exists('LocalData')) :
 					endif;
 				endforeach;
 			endif;
-	
+
 			echo '<div class="acf-fields -top -border">';
 				foreach($field['sub_fields'] as &$sub_field):
 					acf_render_field_wrap($sub_field);
