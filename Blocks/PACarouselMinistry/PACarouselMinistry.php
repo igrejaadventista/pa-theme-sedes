@@ -1,30 +1,21 @@
 <?php
 
-namespace Blocks\PASpotlightFeature;
+namespace Blocks\PACarouselMinistry;
 
 use Blocks\Block;
 use Blocks\Extended\LocalData;
-
-use WordPlate\Acf\ConditionalLogic;
-use WordPlate\Acf\Fields\Image;
-use WordPlate\Acf\Fields\Link;
-use WordPlate\Acf\Fields\Relationship;
-use WordPlate\Acf\Fields\TrueFalse;
-use WordPlate\Acf\Fields\Repeater;
 use WordPlate\Acf\Fields\Text;
-use WordPlate\Acf\Fields\Textarea;
 
 /**
- * PACarouselFeature Carousel feature block
+ * Class PACarouselMinistry
+ * @package Blocks\PACarouselMinistry
  */
-class PASpotlightFeature extends Block
-{
+class PACarouselMinistry extends Block {
 
-	public function __construct()
-	{
+	public function __construct() {
 		parent::__construct([
-			'title' 	  => 'IASD - Spotlight - Feature',
-			'description' => 'Destaques',
+			'title' 	  => 'IASD - Carousel - Ministry',
+			'description' => '',
 			'category' 	  => 'pa-adventista',
 			'post_types'  => ['post', 'page'],
 			'keywords' 	  => ['spotlight', 'carousel', 'slider'],
@@ -39,16 +30,18 @@ class PASpotlightFeature extends Block
 	 *
 	 * @return array Fields array
 	 */
-	protected function setFields(): array
-	{
-		return
-			[
-				Text::make('Título', 'title'),
-				LocalData::make('Itens', 'items')
-					->postTypes(['post', 'projetos', 'lideres', 'revistas'])
-					// ->manualFields([Text::make('Título', 'title')])
-					->initialLimit(4),
-			];
+	protected function setFields(): array {
+		return [
+			Text::make('Título', 'title')
+				->defaultValue('IASD - Carousel - Ministry'),
+			LocalData::make('Itens', 'items')
+				->postTypes(['post', 'projetos', 'lideres', 'revistas'])
+				->hideFields(['content'])
+				->manualFields([
+					Text::make('Tag', 'tag')
+				])
+				->initialLimit(4),
+		];
 	}
 
 	/**
@@ -56,13 +49,10 @@ class PASpotlightFeature extends Block
 	 *
 	 * @return array
 	 */
-	public function with(): array
-	{
+	public function with(): array {
 		return [
-			'title'		=> field('title'),
-			'slides'	=> array_filter(field('items')['data'], function ($value) {
-				return $value != 0;
-			}),
+			'title'	=> field('title'),
+			'items'	=> field('items')['data'],
 		];
 	}
 }

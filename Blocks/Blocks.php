@@ -10,7 +10,7 @@ use Blocks\PAListIcons\PAListIcons;
 use Blocks\PAFacebook\PAFacebook;
 use Blocks\PAListItems\PAListItems;
 use Blocks\PATwitter\PATwitter;
-use Blocks\PASpotlightFeature\PASpotlightFeature;
+use Blocks\PACarouselMinistry\PACarouselMinistry;
 use Blocks\PASevenCastFeature\PASevenCastFeature;
 
 /**
@@ -48,7 +48,7 @@ class Blocks {
 			PAApps::class,
 			PAMagazines::class,
 			PAListButtons::class,
-			PASpotlightFeature::class,
+			PACarouselMinistry::class,
 			PASevenCastFeature::class,
 		];
 

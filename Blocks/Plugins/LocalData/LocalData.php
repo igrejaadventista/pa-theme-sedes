@@ -211,8 +211,8 @@ if (!class_exists('LocalData')) :
 				<?php acf_hidden_input(array('name' => $field['name'] . "[sticky]", 'value' => isset($values['sticky']) ? $values['sticky'] : '', 'data-sticky' => '')); ?>
 
 				<div class="action-toolbar">
-					<button type="button" class="buttonAddManualPost disabled" data-action="manual-new-post" disabled>Adicionar manual</button>
-					<button type="button" class="buttonUpdateTaxonomies acf-js-tooltip" data-action="refresh" title="Atualizar" aria-label="Atualizar">
+					<button type="button" class="buttonAddManualPost disabled acf-js-tooltip" data-action="manual-new-post" title="Adicionar item de forma manual" disabled>Adicionar</button>
+					<button type="button" class="buttonUpdateTaxonomies acf-js-tooltip" data-action="refresh" title="Atualizar resultados" aria-label="Atualizar resultados">
 						<svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" aria-hidden="true" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
 							<polyline points="23 4 23 10 17 10"></polyline>
 							<polyline points="1 20 1 14 7 14"></polyline>
@@ -241,7 +241,7 @@ if (!class_exists('LocalData')) :
 						in_array('post_type', $filters)
 						&& count($filter_post_type_choices) > 2
 					) : ?>
-						<div class="filter -post_type filter__post_type">
+						<div class="filter -post_type filter__post_type acf-js-tooltip" title="Filtrar por tipo de post.<br />Obs: itens fixados não são afetados por esse filtro.">
 							<?php
 							acf_select_input(
 								array(
@@ -271,7 +271,6 @@ if (!class_exists('LocalData')) :
 					<div class="widgets-acf-modal-wrapper">
 						<div class="widgets-acf-modal-content">
 							<div class="acf-notice-render"></div>
-							<?php //$this->getSubfields($field); ?>
 						</div>
 					</div>
 				</div>
