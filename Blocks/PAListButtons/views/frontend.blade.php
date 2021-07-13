@@ -2,7 +2,9 @@
 	<img class="img-preview" src="{{ get_template_directory_uri() }}/Blocks/PAListButtons/preview.png"/>
 @else
 	<div class="pa-widget pa-w-list-buttons">
-		<h2>{!! $title ? $title : 'Widget - List' !!}</h2>
+		@notempty($title)
+			<h2>{!! $title !!}</h2>
+		@endnotempty
 
 		@notempty($items)
 			<ul class="list-unstyled mt-4">
