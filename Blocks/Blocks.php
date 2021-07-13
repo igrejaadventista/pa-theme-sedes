@@ -7,7 +7,7 @@ use Blocks\PAListButtons\PAListButtons;
 use Blocks\PAMagazines\PAMagazines;
 use \Blocks\PACarouselFeature\PACarouselFeature;
 use \Blocks\PAListIcons\PAListIcons;
-use Blocks\PAFacebookFeature\PAFacebookFeature;
+use Blocks\PAFacebook\PAFacebook;
 use Blocks\PAListItems\PAListItems;
 use Blocks\PATwitter\PATwitter;
 
@@ -40,7 +40,7 @@ class Blocks {
 		$newBlocks = [
 			PACarouselFeature::class,
 			PATwitter::class,
-			PAFacebookFeature::class,
+			PAFacebook::class,
 			PAListIcons::class,
 			PAListItems::class,
 			PAApps::class,

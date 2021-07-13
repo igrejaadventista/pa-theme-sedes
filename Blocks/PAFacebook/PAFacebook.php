@@ -1,20 +1,21 @@
 <?php
 
-namespace Blocks\PAFacebookFeature;
+namespace Blocks\PAFacebook;
 
 use Blocks\Block;
 use WordPlate\Acf\Fields\Text;
 use WordPlate\Acf\Fields\Url;
 
 /**
- * PAFacebookFeature Facebook feature block
+ * Class PAFacebook
+ * @package Blocks\PAFacebook
  */
-class PAFacebookFeature extends Block {
+class PAFacebook extends Block {
 
     public function __construct() {
 		// Set block settings
         parent::__construct([
-            'title' 	  => 'IASD - Facebook - Feature',
+            'title' 	  => 'IASD - Facebook',
             'description' => 'Facebook Widget',
             'category' 	  => 'pa-adventista',
             'post_types'  => ['post', 'page'],
@@ -36,7 +37,8 @@ class PAFacebookFeature extends Block {
 	protected function setFields(): array {
 		return 
 			[
-				Text::make('Título', 'title'),
+				Text::make('Título', 'title')
+					->defaultValue('IASD - Facebook'),
                 Url::make('Url', 'url'),
 			];
 	}
