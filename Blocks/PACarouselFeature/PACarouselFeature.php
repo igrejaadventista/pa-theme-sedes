@@ -3,26 +3,16 @@
 namespace Blocks\PACarouselFeature;
 
 use Blocks\Block;
-use Blocks\Fields\Source;
 use Blocks\Extended\LocalData;
-
-use WordPlate\Acf\ConditionalLogic;
-use WordPlate\Acf\Fields\Accordion;
-use WordPlate\Acf\Fields\Image;
-use WordPlate\Acf\Fields\Link;
-use WordPlate\Acf\Fields\Relationship;
-use WordPlate\Acf\Fields\Repeater;
 use WordPlate\Acf\Fields\Text;
-use WordPlate\Acf\Fields\Textarea;
 
 /**
- * PACarouselFeature Carousel feature block
+ * Class PACarouselFeature
+ * @package Blocks\PACarouselFeature
  */
-class PACarouselFeature extends Block
-{
+class PACarouselFeature extends Block {
 
-	public function __construct()
-	{
+	public function __construct() {
 		// Set block settings
 		parent::__construct([
 			'title' 	  => 'IASD - Carousel - Feature',
@@ -41,16 +31,15 @@ class PACarouselFeature extends Block
 	 *
 	 * @return array Fields array
 	 */
-	protected function setFields(): array
-	{
-		return
-			[
-				Text::make('Título', 'title'),
-				LocalData::make('Itens', 'items')
-					->postTypes(['post'])
-					// ->manualFields([Text::make('Título', 'title')])
-					->initialLimit(4),
-			];
+	protected function setFields(): array {
+		return [
+			Text::make('Título', 'title')
+				->defaultValue('IASD - Carousel - Feature'),
+
+			LocalData::make('Itens', 'items')
+				->postTypes(['post'])
+				->initialLimit(4),
+		];
 	}
 
 	/**
@@ -58,13 +47,11 @@ class PACarouselFeature extends Block
 	 *
 	 * @return array
 	 */
-	public function with(): array
-	{
+	public function with(): array {
 		return [
-			'title'		=> field('title'),
-			'slides'	=> array_filter(field('items')['data'], function ($value) {
-				return $value != 0;
-			}),
+			'title'	 => field('title'),
+			'items' => field('items')['data'],
 		];
 	}
+
 }

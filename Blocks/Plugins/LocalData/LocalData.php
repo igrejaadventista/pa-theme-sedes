@@ -392,7 +392,7 @@ if (!class_exists('LocalData')) :
 				'featured_media_url' 	=> array(
 					'pa_block_render' 	=> $img
 				),
-				'excerpt' 				=> array(
+				'content' 				=> array(
 					'rendered' 			=> $excerpt
 				),
 				'url' => $url
