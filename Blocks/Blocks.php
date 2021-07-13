@@ -9,7 +9,7 @@ use \Blocks\PACarouselFeature\PACarouselFeature;
 use \Blocks\PAListIcons\PAListIcons;
 use Blocks\PAFacebookFeature\PAFacebookFeature;
 use Blocks\PAListItems\PAListItems;
-use Blocks\PATwitterFeature\PATwitterFeature;
+use Blocks\PATwitter\PATwitter;
 
 /**
  * Blocks Register blocks and manage settings
@@ -39,7 +39,7 @@ class Blocks {
 	public function registerBlocks(array $blocks): array {
 		$newBlocks = [
 			PACarouselFeature::class,
-			PATwitterFeature::class,
+			PATwitter::class,
 			PAFacebookFeature::class,
 			PAListIcons::class,
 			PAListItems::class,

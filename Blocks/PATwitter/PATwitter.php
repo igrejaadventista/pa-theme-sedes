@@ -1,20 +1,21 @@
 <?php
 
-namespace Blocks\PATwitterFeature;
+namespace Blocks\PATwitter;
 
 use Blocks\Block;
 use WordPlate\Acf\Fields\Text;
 use WordPlate\Acf\Fields\Url;
 
 /**
- * PATwitterFeature Carousel feature block
+ * Class PATwitter
+ * @package Blocks\PATwitter
  */
-class PATwitterFeature extends Block {
+class PATwitter extends Block {
 
     public function __construct() {
 		// Set block settings
         parent::__construct([
-            'title' 	  => 'IASD - Twitter - Feature',
+            'title' 	  => 'IASD - Twitter',
             'description' => 'Twitter Widget',
             'category' 	  => 'pa-adventista',
             'post_types'  => ['post', 'page'],
@@ -31,7 +32,8 @@ class PATwitterFeature extends Block {
 	protected function setFields(): array {
 		return 
 			[
-				Text::make('Título', 'title'),
+				Text::make('Título', 'title')
+					->defaultValue('IASD - Twitter'),
                 Url::make('Url', 'url'),
 			];
 	}
