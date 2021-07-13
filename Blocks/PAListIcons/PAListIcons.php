@@ -57,18 +57,17 @@ class PAListIcons extends Block {
 	 */
 	protected function setFields(): array {
 		return [
-			Text::make('Título', 'title'),
+			Text::make('Título', 'title')
+				->defaultValue('IASD - Lista ícones'),
 			Repeater::make('Itens', 'items')
 				->fields([
 					Text::make('Ícone', 'icon')
 						->instructions('Acesse esse <a href="https://fontawesome.com/v5.15/icons?d=gallery&p=2&s=solid&m=free" target="_blank">link</a>, selecione um ícone e insira a classe aqui')
 						->placeholder('fas fa-ad')
-						->required()
 						->wrapper([
 							'width' => 50,
 						]),
 					Link::make('Link', 'link')
-						->required()
 						->wrapper([
 							'width' => 50,
 						]),

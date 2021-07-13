@@ -3,16 +3,16 @@
 namespace Blocks\Plugins\LocalData;
 
 // exit if accessed directly
-if (!defined('ABSPATH')) exit;
+if(!defined('ABSPATH')) 
+	exit;
 
 // check if class already exists
-if (!class_exists('LocalData')) :
+if(!class_exists('LocalData')):
 
 	/**
-	 * Class acf_field_rest
+	 * Class LocalData
 	 */
-	class LocalData extends \acf_field
-	{
+	class LocalData extends \acf_field {
 
 		/**
 		 *  __construct
@@ -26,35 +26,19 @@ if (!class_exists('LocalData')) :
 		 *  @return	n/a
 		 */
 		function __construct() {
-			// name (string) Single word, no spaces. Underscores allowed
 			$this->name = 'localposts_data';
-			// label (string) Multiple words, can include spaces, visible when selecting a field type
-			$this->label = __('Local data', 'acf-rest');
-			// category (string) basic | content | choice | relational | jquery | layout | CUSTOM GROUP NAME
+			$this->label = __('Local data', 'acf-local-data');
 			$this->category = 'relational';
-			// defaults (array) Array of default settings which are merged into the field object. These are used later in settings
 			$this->defaults = array(
 				'sub_fields'		=> [],
 				'post_type'			=> [],
-				'min' 				=> 0,
-				'max' 				=> 0,
 				'filters'			=> ['post_type'],
-				'return_format'		=> 'object'
 			);
 			$this->have_rows = 'single';
 
-			add_action('wp_ajax_acf/fields/localposts_data/query',				array($this, 'ajax_query'));
-			add_action('wp_ajax_nopriv_acf/fields/localposts_data/query',		array($this, 'ajax_query'));
-
-			add_action('wp_ajax_acf/fields/localposts_data/search',				array($this, 'ajax_search'));
-		    add_action('wp_ajax_nopriv_acf/fields/localposts_data/search',		array($this, 'ajax_search'));
-
-			add_action('wp_ajax_acf/fields/localposts_data/modal',				array($this, 'modalAjax'));
-
-			// Admin Scripts
-			\add_action('admin_enqueue_scripts', function () {
-				\wp_enqueue_script('acf-local-fields.js', get_template_directory_uri() . '/Blocks/Plugins/LocalData/Assets/local-fields.js', ['jquery'], null, true);
-			});
+			\add_action('wp_ajax_acf/fields/localposts_data/query',	array($this, 'queryAjax'));
+			\add_action('wp_ajax_acf/fields/localposts_data/search',	array($this, 'searchAjax'));
+			\add_action('wp_ajax_acf/fields/localposts_data/modal',	array($this, 'modalAjax'));
 
 			// do not delete!
 			parent::__construct();
@@ -73,8 +57,8 @@ if (!class_exists('LocalData')) :
 		 *  @return	$post_id (int)
 		 */
 		function input_admin_enqueue_scripts() {
-			\wp_enqueue_style('acf-local-data-css', get_template_directory_uri() . '/Blocks/Plugins/LocalData/Assets/local-data.css', false);
-			\wp_enqueue_script('acf-local-data.js', get_template_directory_uri() . '/Blocks/Plugins/LocalData/Assets/local-data.js', ['jquery'], null, true);
+			\wp_enqueue_style('acf-local-data-css', \get_template_directory_uri() . '/Blocks/Plugins/LocalData/Assets/local-data.css', false);
+			\wp_enqueue_script('acf-local-data.js', \get_template_directory_uri() . '/Blocks/Plugins/LocalData/Assets/local-data.js', ['jquery'], null, true);
 		}
 
 		/**
@@ -89,24 +73,18 @@ if (!class_exists('LocalData')) :
 		 *  @param	$field (array) the $field being edited
 		 *  @return	n/a
 		 */
-		function render_field_settings($field)
-		{
-
-			// vars
-			$field['min'] = empty($field['min']) ? '' : $field['min'];
-			$field['max'] = empty($field['max']) ? '' : $field['max'];
-
+		function render_field_settings($field) {
 			$field['limit'] = empty($field['limit']) ? '' : $field['limit'];
 
-			acf_hidden_input(array('type' => 'hidden', 'name' => $field['prefix'] . '[sticky]', 'value' => '0'));
+			\acf_hidden_input(array('type' => 'hidden', 'name' => $field['prefix'] . '[sticky]', 'value' => '0'));
 
 			$choices = [];
-			if (!empty($field['fields'])) :
+			if(!empty($field['fields'])) :
 				foreach ($field['fields'] as $value)
 					$choices[$value] = $value;
 			endif;
 
-			acf_render_field_setting($field, array(
+			\acf_render_field_setting($field, array(
 				'label'			=> __('Quantidade', 'acf'),
 				'instructions'	=> 'Quantidade de itens a ser retornado',
 				'type'			=> 'number',
@@ -118,52 +96,34 @@ if (!class_exists('LocalData')) :
 			));
 
 			// filter (by post types)
-			acf_render_field_setting($field, array(
+			\acf_render_field_setting($field, array(
 				'label'			=> __('Filter by Post Type', 'acf'),
 				'instructions'	=> '',
 				'type'			=> 'select',
 				'name'			=> 'post_type',
-				'choices'		=> acf_get_pretty_post_types(),
+				'choices'		=> \acf_get_pretty_post_types(),
 				'multiple'		=> 1,
 				'ui'			=> 1,
 				'allow_null'	=> 1,
 				'placeholder'	=> __("All post types", 'acf'),
 			));
 
-			// min
-			// acf_render_field_setting($field, array(
-			// 	'label'			=> __('Minimum posts', 'acf'),
-			// 	'instructions'	=> '',
-			// 	'type'			=> 'number',
-			// 	'name'			=> 'min',
-			// 	'value'			=> 1,
-			// 	'min'			=> 1
-			// ));
-
-
-			// // max
-			// acf_render_field_setting($field, array(
-			// 	'label'			=> __('Maximum posts', 'acf'),
-			// 	'instructions'	=> '',
-			// 	'type'			=> 'number',
-			// 	'name'			=> 'max',
-			// ));
-
 			// vars
 			$args = array(
 				'fields'	=> $field['sub_fields'],
 				'parent'	=> $field['ID']
 			);
-?>
-			<tr class="acf-field acf-field-setting-sub_fields" data-setting="group" data-name="sub_fields">
-				<td class="acf-label">
-					<label><?= __('Campos de conteúdo manual', 'acf'); ?></label>
-				</td>
-				<td class="acf-input">
-					<?php acf_get_view('field-group-fields', $args); ?>
-				</td>
-			</tr>
-		<?php
+			
+			?>
+				<tr class="acf-field acf-field-setting-sub_fields" data-setting="group" data-name="sub_fields">
+					<td class="acf-label">
+						<label><?= __('Campos de conteúdo manual', 'acf'); ?></label>
+					</td>
+					<td class="acf-input">
+						<?php \acf_get_view('field-group-fields', $args); ?>
+					</td>
+				</tr>
+			<?php
 		}
 
 		/**
@@ -188,95 +148,90 @@ if (!class_exists('LocalData')) :
 			$filter_post_type_choices = array();
 
 			// post_type filter
-			if (in_array('post_type', $filters)) {
+			if(in_array('post_type', $filters)):
 				$filter_post_type_choices = array(
-					// ''	=> __('Select post type', 'acf')
 					''	=> 'Filtros'
 				) + acf_get_pretty_post_types($post_type);
-			}
+			endif;
 
 			// div attributes
 			$atts = array(
 				'id'				=> $field['id'],
 				'class'				=> "acf-local-data acf-relationship {$field['class']}",
-				'min' 				=> $field['min'],
-				'max' 				=> $field['max'],
 				'data-s'			=> '',
-				'data-paged'		=> 1,
 				'data-post_type'	=> '',
 			);
-		?>
-			<div <?php acf_esc_attr_e($atts); ?>>
-				<?php acf_hidden_input(array('name' => $field['name'] . "[manual]", 'value' => isset($values['manual']) ? $values['manual'] : '', 'data-manual' => '')); ?>
-				<?php acf_hidden_input(array('name' => $field['name'] . "[sticky]", 'value' => isset($values['sticky']) ? $values['sticky'] : '', 'data-sticky' => '')); ?>
+			?>
+				<div <?php acf_esc_attr_e($atts); ?>>
+					<?php acf_hidden_input(array('name' => $field['name'] . "[manual]", 'value' => isset($values['manual']) ? $values['manual'] : '', 'data-manual' => '')); ?>
+					<?php acf_hidden_input(array('name' => $field['name'] . "[sticky]", 'value' => isset($values['sticky']) ? $values['sticky'] : '', 'data-sticky' => '')); ?>
 
-				<div class="action-toolbar">
-					<button type="button" class="buttonAddManualPost disabled" data-action="manual-new-post" disabled>Adicionar manual</button>
-					<button type="button" class="buttonUpdateTaxonomies acf-js-tooltip" data-action="refresh" title="Atualizar" aria-label="Atualizar">
-						<svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" aria-hidden="true" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
-							<polyline points="23 4 23 10 17 10"></polyline>
-							<polyline points="1 20 1 14 7 14"></polyline>
-							<path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
-						</svg>
-					</button>
-				</div>
-
-				<div class="filters -f3">
-
-					<div class="filter -search">
-						<?php /* search filters */
-						acf_text_input(array('placeholder' => __('Search...', 'acf'), 'data-filter' => 's')); ?>
-						<i class="acf-loading"></i>
-						<a href="#" class="button-clear acf-icon -cancel acf-js-tooltip" data-action="clear" title="Limpar"></a>
+					<div class="action-toolbar">
+						<button type="button" class="buttonAddManualPost disabled acf-js-tooltip" data-action="manual-new-post" title="Adicionar item de forma manual" disabled>Adicionar</button>
+						<button type="button" class="buttonUpdateTaxonomies acf-js-tooltip" data-action="refresh" title="Atualizar resultados" aria-label="Atualizar resultados">
+							<svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" aria-hidden="true" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+								<polyline points="23 4 23 10 17 10"></polyline>
+								<polyline points="1 20 1 14 7 14"></polyline>
+								<path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+							</svg>
+						</button>
 					</div>
 
-					<div class="filter -limit">
-						<label>
-							<span class="acf-js-tooltip" title="Quantidade de itens a ser exibido.">Quantidade</span>
-							<?php acf_text_input(array('name' => $field['name'] . "[limit]", 'value' => isset($values['limit']) ? $values['limit'] : $field['limit'], 'type' => 'number', 'step' => 1, 'min' => 1, 'max' => 100, 'data-limit' => '', 'data-filter' => 'limit')); ?>
-						</label>
-					</div>
+					<div class="filters -f3">
 
-					<?php if (
-						in_array('post_type', $filters)
-						&& count($filter_post_type_choices) > 2
-					) : ?>
-						<div class="filter -post_type filter__post_type">
-							<?php
-							acf_select_input(
-								array(
-									'name' => $field['name'] . "[post_type_filter]",
-									'choices' => $filter_post_type_choices,
-									'value' => isset($values['post_type_filter']) ? $values['post_type_filter'] : '',
-									'data-filter' => 'post_type'
-								)
-							);
-							?>
+						<div class="filter -search">
+							<?php /* search filters */
+							acf_text_input(array('placeholder' => __('Search...', 'acf'), 'data-filter' => 's')); ?>
+							<i class="acf-loading"></i>
+							<a href="#" class="button-clear acf-icon -cancel acf-js-tooltip" data-action="clear" title="Limpar"></a>
 						</div>
-					<?php endif ?>
 
-				</div>
+						<div class="filter -limit">
+							<label>
+								<span class="acf-js-tooltip" title="Quantidade de itens a ser exibido.">Quantidade</span>
+								<?php acf_text_input(array('name' => $field['name'] . "[limit]", 'value' => isset($values['limit']) ? $values['limit'] : $field['limit'], 'type' => 'number', 'step' => 1, 'min' => 1, 'max' => 100, 'data-limit' => '', 'data-filter' => 'limit')); ?>
+							</label>
+						</div>
 
-				<div class="selection">
-					<div class="choices">
-						<ul class="acf-bl list local-list choices-list"></ul>
+						<?php if (
+							in_array('post_type', $filters)
+							&& count($filter_post_type_choices) > 2
+						) : ?>
+							<div class="filter -post_type filter__post_type acf-js-tooltip" title="Filtrar por tipo de post.<br />Obs: itens fixados não são afetados por esse filtro.">
+								<?php
+								acf_select_input(
+									array(
+										'name' => $field['name'] . "[post_type_filter]",
+										'choices' => $filter_post_type_choices,
+										'value' => isset($values['post_type_filter']) ? $values['post_type_filter'] : '',
+										'data-filter' => 'post_type',
+									)
+								);
+								?>
+							</div>
+						<?php endif ?>
+
 					</div>
-					<div class="values">
-						<ul class="acf-bl list sticky-list"></ul>
-						<ul class="acf-bl list values-list"></ul>
-					</div>
-				</div>
 
-				<div class="widgets-acf-modal -fields">
-					<div class="widgets-acf-modal-wrapper">
-						<div class="widgets-acf-modal-content">
-							<div class="acf-notice-render"></div>
-							<?php //$this->getSubfields($field); ?>
+					<div class="selection">
+						<div class="choices">
+							<ul class="acf-bl list local-list choices-list"></ul>
+						</div>
+						<div class="values">
+							<ul class="acf-bl list sticky-list"></ul>
+							<ul class="acf-bl list values-list"></ul>
 						</div>
 					</div>
-				</div>
-			</div><!-- End: -->
-<?php
+
+					<div class="widgets-acf-modal -fields">
+						<div class="widgets-acf-modal-wrapper">
+							<div class="widgets-acf-modal-content">
+								<div class="acf-notice-render"></div>
+							</div>
+						</div>
+					</div>
+				</div><!-- End: -->
+			<?php
 		}
 
 		/**
@@ -293,15 +248,12 @@ if (!class_exists('LocalData')) :
 		 *  @return	$field - the field array holding all the field options
 		 */
 
-		function load_field($field)
-		{
+		function load_field($field) {
 			$sub_fields = acf_get_fields($field);
 
-			// append
-			if ($sub_fields)
+			if($sub_fields)
 				$field['sub_fields'] = $sub_fields;
 
-			// return
 			return $field;
 		}
 
@@ -352,21 +304,17 @@ if (!class_exists('LocalData')) :
 		 *  @return	$post_id (int)
 		 */
 
-		function ajax_query()
-		{
+		function queryAjax() {
 			// validate
-			if (!acf_verify_ajax())
+			if(!acf_verify_ajax())
 				die();
 
-			// get choices
 			$response = $this->getData($_POST);
-
-			// return
 			acf_send_ajax_results($response);
 		}
 
 		/**
-		 *  get_post_result
+		 *  parsePost
 		 *
 		 *  This function will return an array containing id, text and maybe description data
 		 *
@@ -378,29 +326,23 @@ if (!class_exists('LocalData')) :
 		 *  @param	$text (string)
 		 *  @return	(array)
 		 */
-		function get_post_result($id, $date, $img, $title, $cpt, $excerpt, $url = null)
-		{
-			// vars
-			$result = array(
-				'id' 					=> $id,
-				'date' 					=> $date,
+		function parsePost($post) {
+			return array(
+				'id' 					=> $post->ID,
+				'date' 					=> $post->post_date,
 				'title' 				=> array(
-					'rendered' 			=> $title
+					'rendered' 			=> $post->post_title,
 				),
 				'cpt_label'				=> array(
-					'rendered'			=> $cpt
+					'rendered'			=> \get_post_type_object(\get_post_type($post->ID))->labels->singular_name,
 				),
 				'featured_media_url' 	=> array(
-					'pa_block_render' 	=> $img
+					'pa_block_render' 	=> \get_the_post_thumbnail_url($post->ID, 'medium'),
 				),
-				'excerpt' 				=> array(
-					'rendered' 			=> $excerpt
+				'content' 				=> array(
+					'rendered' 			=> $post->post_excerpt,
 				),
-				'url' => $url
 			);
-
-			// return
-			return $result;
 		}
 
 		/**
@@ -428,21 +370,9 @@ if (!class_exists('LocalData')) :
 			// vars
 			$results = [];
 			$args = [];
-			$s = false;
-			$is_search = false;
 
 			// paged
 			$args['paged'] = intval($options['paged']);
-
-			// search
-			// if ($options['s'] !== ''):
-			// 	// strip slashes (search may be integer)
-			// 	$s = wp_unslash(strval($options['s']));
-
-			// 	// update vars
-			// 	$args['s'] = $s;
-			// 	$is_search = true;
-			// endif;
 
 			$sticky = isset($options['sticky']) ? $options['sticky'] : 0;
 			$stickyItems = !empty($sticky) ? explode(',', $sticky) : [];
@@ -465,9 +395,6 @@ if (!class_exists('LocalData')) :
 			else
 				$args['post_type'] = acf_get_post_types();
 
-			// perform search query
-			if($is_search && empty($args['orderby']) && isset($args['s']))
-				$args['s'] = $s;
 
 			$stickedArr = [];
 			if(!empty($stickyItemsFilter)):
@@ -483,39 +410,21 @@ if (!class_exists('LocalData')) :
 					'post_type'	=> get_post_types(),
 				));
 
-				foreach($stickedPosts as $post):
+				foreach($stickedPosts as $post)
 					//  push data into $results
-					$stickedArr[] = $this->get_post_result(
-						$post->ID,
-						$post->post_date,
-						get_the_post_thumbnail_url($post->ID, 'medium'),
-						$post->post_title,
-						get_post_type_object(get_post_type($post->ID))->labels->singular_name,
-						$post->post_content
-						// $url
-					);
-				endforeach;
+					$stickedArr[] = $this->parsePost($post);
 
 				// remove sticked posts from results...
 				$args['posts_per_page'] = $args['posts_per_page'] - count($stickedArr);
 			endif;
 
-			if(!empty($args['posts_per_page'])):
+			if($args['posts_per_page'] > 0):
 				// get queried posts
 				$posts = get_posts($args);
 				if(!empty($posts)):
-					foreach($posts as $post):
+					foreach($posts as $post)
 						//  push data into $results
-						$results[] = $this->get_post_result(
-							$post->ID,
-							$post->post_date,
-							get_the_post_thumbnail_url($post->ID, 'medium'),
-							$post->post_title,
-							get_post_type_object(get_post_type($post->ID))->labels->singular_name,
-							$post->post_content
-							// $url
-						);
-					endforeach;
+						$results[] = $this->parsePost($post);
 				endif;
 			endif;
 
@@ -625,15 +534,12 @@ if (!class_exists('LocalData')) :
 		*  @return	$post_id (int)
 		*/
 		
-		function ajax_search() {
+		function searchAjax() {
 			// validate
 			if(!acf_verify_ajax()) 
 				die();
 			
-			// get choices
-			$response = $this->get_ajax_search($_POST);
-			
-			// return
+			$response = $this->getSearchData($_POST);
 			acf_send_ajax_results($response);	
 		}
 
@@ -650,11 +556,11 @@ if (!class_exists('LocalData')) :
 		*  @return	(array)
 		*/
 		
-		function get_ajax_search($options = array()) {
+		function getSearchData($options = array()) {
 			// defaults
 			$options = wp_parse_args($options, array(
-				'field_key'		=> '',
-				's'				=> '',
+				'field_key'	=> '',
+				's'			=> '',
 			));
 			
 			// load field
@@ -683,21 +589,11 @@ if (!class_exists('LocalData')) :
 
 			$queryArgs['post_type'] = $field['post_type'];
 
-			// die(var_dump($queryArgs)); 
-
 			$posts = get_posts($queryArgs);
 			if(!empty($posts)):
 				foreach($posts as $post):
 					//  push data into $results
-					$results[] = $this->get_post_result(
-						$post->ID,
-						$post->post_date,
-						get_the_post_thumbnail_url($post->ID, 'medium'),
-						$post->post_title,
-						get_post_type_object(get_post_type($post->ID))->labels->singular_name,
-						$post->post_content
-						// $url
-					);
+					$results[] = $this->parsePost($post);
 				endforeach;
 			endif;
 			

@@ -5,12 +5,12 @@ namespace Blocks;
 use Blocks\PAApps\PAApps;
 use Blocks\PAListButtons\PAListButtons;
 use Blocks\PAMagazines\PAMagazines;
-use \Blocks\PACarouselFeature\PACarouselFeature;
-use \Blocks\PAListIcons\PAListIcons;
-use Blocks\PAFacebookFeature\PAFacebookFeature;
+use Blocks\PACarouselFeature\PACarouselFeature;
+use Blocks\PAListIcons\PAListIcons;
+use Blocks\PAFacebook\PAFacebook;
 use Blocks\PAListItems\PAListItems;
-use Blocks\PATwitterFeature\PATwitterFeature;
-use Blocks\PASpotlightFeature\PASpotlightFeature;
+use Blocks\PATwitter\PATwitter;
+use Blocks\PACarouselMinistry\PACarouselMinistry;
 use Blocks\PASevenCastFeature\PASevenCastFeature;
 
 /**
@@ -41,14 +41,14 @@ class Blocks {
 	public function registerBlocks(array $blocks): array {
 		$newBlocks = [
 			PACarouselFeature::class,
-			PATwitterFeature::class,
-			PAFacebookFeature::class,
+			PATwitter::class,
+			PAFacebook::class,
 			PAListIcons::class,
 			PAListItems::class,
 			PAApps::class,
 			PAMagazines::class,
 			PAListButtons::class,
-			PASpotlightFeature::class,
+			PACarouselMinistry::class,
 			PASevenCastFeature::class,
 		];
 

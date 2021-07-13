@@ -2,7 +2,9 @@
 	<img class="img-preview" src="{{ get_template_directory_uri() }}/Blocks/PAApps/preview.png" />
 @else
 	<div class="pa-widget pa-w-apps">
-		<h2>{!! $title ?? 'Widget - APPs' !!}</h2>
+		@notempty($title)
+			<h2>{!! $title !!}</h2>
+		@endnotempty
 
 		<div class="pa-w-apps rounded p-4 mt-4 bg-light">
 			<span class="fa-stack fa-3x">
@@ -37,13 +39,17 @@
 				</div>
 			</div>
 
-			<a 
-				href="{{ $link['url'] ?? '#' }}" 
-				target="{{ $link['target'] ?? '_self' }}"
-				class="btn btn-primary btn-block mt-4"
-			>
-				{!! $link['title'] !!}
-			</a>
+			@notempty($link)
+				@notempty($link['title'])
+					<a 
+						href="{{ $link['url'] ?? '#' }}" 
+						target="{{ $link['target'] ?? '_self' }}"
+						class="btn btn-primary btn-block mt-4"
+					>
+						{!! $link['title'] !!}
+					</a>
+				@endnotempty
+			@endnotempty
 		</div>
 	</div>
 @endif

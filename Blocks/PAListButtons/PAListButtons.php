@@ -46,7 +46,8 @@ class PAListButtons extends Block {
 	 */
 	protected function setFields(): array {
 		return [
-			Text::make('Título', 'title'),
+			Text::make('Título', 'title')
+				->defaultValue('IASD - Lista em botões'),
 			LocalData::make('Itens', 'items')
 				->postTypes(['projetos'])
 				->initialLimit(4)
