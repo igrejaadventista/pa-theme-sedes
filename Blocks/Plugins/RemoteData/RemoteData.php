@@ -451,17 +451,17 @@ if(!class_exists('RemoteData')):
 		*  @return	(array)
 		*/
 		function getData($options = array()) {
+			// load field
+			$field = acf_get_field($options['field_key']);
+			if(!$field)
+				return false;
+
 			// defaults
 			$options = wp_parse_args($options, array(
 				'endpoint'	=> !empty($field['endpoints']) ? $field['endpoints'] : '',
 				'field_key'	=> '',
 				'sticky'	=> '',
 			));
-
-			// load field
-			$field = acf_get_field($options['field_key']);
-			if(!$field)
-				return false;
 
 			$results = [];
 			$url = $options['endpoint'];
@@ -633,17 +633,17 @@ if(!class_exists('RemoteData')):
 		*/
 
 		function getSearchData($options = array()) {
+			// load field
+			$field = acf_get_field($options['field_key']);
+			if(!$field)
+				return false;
+
 			// defaults
 			$options = wp_parse_args($options, array(
 				'endpoint'	=> !empty($field['endpoints']) ? $field['endpoints'] : '',
 				'field_key'	=> '',
 				's'			=> '',
 			));
-
-			// load field
-			$field = acf_get_field($options['field_key']);
-			if(!$field)
-				return false;
 
 			$results = [];
 			$url = $options['endpoint'];
