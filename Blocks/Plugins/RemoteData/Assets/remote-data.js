@@ -195,7 +195,7 @@
 		 * @return {Array} Sticky items array
 		 */
 		stickyItems() {
-			return this.$stickyInput().val().split(',');
+			return this.empty(this.$stickyInput().val()) ? [] : this.$stickyInput().val().split(',');
 		},
 
 		empty(data) {
@@ -283,6 +283,12 @@
 		onChangeFilter(e, $el) {
 			const val = $el.val().trim();
 			const filter = $el.data('filter');
+
+			if(this.empty(val)) {
+				if(filter == 's')
+					this.onClickClear();
+				return;
+			}
 
 			// Update attr
 			this.set(filter, val);
@@ -538,11 +544,6 @@
 		 * Walk results and create html
 		 */
 		walkChoices(data, sticky = true) {
-			// collapse search after sticky
-			this.$choicesList().html('');
-			this.$choices().removeClass('active');
-			this.$buttonClear().removeClass('active');
-
 			const stickyItems = this.stickyItems();
 
 			let list = '';
@@ -704,31 +705,10 @@
 		 * Sort sticky items
 		 */
 		sortValues() {
-			const results = this.get('results');
-			// api fields
-			const values = JSON.parse(this.$valuesInput().val());
-			// manual fields
-			const valuesManual = this.$manualInput().val() !== '' ? JSON.parse(this.$manualInput().val()) : [];
-			const valuesMerged = [].concat(values, valuesManual);
-
-			let sortedValues = [];
-
 			// clean sticky input
 			this.$stickyInput().val('');
 
-			this.$stickyList().find('li').each((_, element) => {
-				let elementValue;
-
-				if(typeof element.dataset.fromSearch != 'undefined')
-					elementValue = results.find(value => value.id == element.dataset.id);
-				else
-					elementValue = valuesMerged.find(value => value.id == element.dataset.id);
-
-				if(elementValue) {
-					sortedValues.push(elementValue);
-					this.$stickyInput().val(`${this.$stickyInput().val()},${elementValue.id}`).trigger('change');
-				}
-			});
+			this.$stickyList().find('li').each((_, element) => this.$stickyInput().val(`${this.$stickyInput().val()},${element.dataset.id}`));
 
 			// remove first comma from sticky items
 			this.$stickyInput().val(this.$stickyInput().val().replace(/(^\,+|\,+$)/mg, '')).trigger('change');
