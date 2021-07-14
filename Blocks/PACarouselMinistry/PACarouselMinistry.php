@@ -35,7 +35,7 @@ class PACarouselMinistry extends Block {
 			Text::make('Título', 'title')
 				->defaultValue('IASD - Carousel - Ministry'),
 			LocalData::make('Itens', 'items')
-				->postTypes(['post', 'projetos', 'lideres', 'revistas'])
+				->postTypes(['post', 'projetos'])
 				->hideFields(['content'])
 				->manualFields([
 					Text::make('Tag', 'tag')
