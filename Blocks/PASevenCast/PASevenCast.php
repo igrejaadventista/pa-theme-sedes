@@ -1,32 +1,25 @@
 <?php
 
-namespace Blocks\PASevenCastFeature;
+namespace Blocks\PASevenCast;
 
 use Blocks\Block;
-use Blocks\Fields\Source;
 use Blocks\Extended\RemoteData;
-
-use WordPlate\Acf\Fields\PageLink;
-use WordPlate\Acf\Fields\Image;
-use WordPlate\Acf\Fields\Repeater;
 use WordPlate\Acf\Fields\Text;
 use WordPlate\Acf\ConditionalLogic;
 use WordPlate\Acf\Fields\Link;
-use WordPlate\Acf\Fields\Textarea;
 use WordPlate\Acf\Fields\TrueFalse;
 
 /**
- * Class PASevenCastFeature
- * @package Blocks\PAAppsFeature
+ * Class PASevenCast
+ * @package Blocks\PASevenCast
  */
-class PASevenCastFeature extends Block
-{
-	public function __construct()
-	{
+class PASevenCast extends Block {
+
+	public function __construct() {
 		// Set block settings
 		parent::__construct([
-			'title' 	  => 'IASD - 7Cast - Feature',
-			'description' => 'App',
+			'title' 	  => 'IASD - 7Cast',
+			'description' => 'Lista de podcasts',
 			'category' 	  => 'pa-adventista',
 			'post_types'  => ['post', 'page'],
 			'keywords' 	  => ['pod', 'cast', '7', 'seven'],
@@ -41,31 +34,28 @@ class PASevenCastFeature extends Block
 	 *
 	 * @return array Fields array
 	 */
-	protected function setFields(): array
-	{
-		return
-			[
-				Text::make('Título', 'title'),
-				RemoteData::make('Itens', 'items')
-					->endpoints(['https://v2-noticias.adventistas.org/pt/wp-json/wp/v2/posts', 'https://api.adventistas.org/noticias/pt/posts'])
-					// ->getFields([])
-					->filterTaxonomies(['xtt-pa-projetos', 'xtt-pa-departamentos', 'xtt-pa-editorias'])
-					// ->manualFields([])
-					->initialLimit(4),
+	protected function setFields(): array {
+		return [
+			Text::make('Título', 'title')
+				->defaultValue('IASD - 7Cast'),
 
-				TrueFalse::make('Mais conteúdo', 'enable_link')
-					->stylisedUi('Habilitar', 'Desabilitar')
-					->wrapper([
-						'width' => 50,
-					]),
-				Link::make('Link', 'link')
-					->conditionalLogic([
-						ConditionalLogic::if('enable_link')->equals(1)
-					])
-					->wrapper([
-						'width' => 50,
-					]),
-			];
+			RemoteData::make('Itens', 'items')
+				->endpoints(['https://api.adv.st/7cast/pt/pa-blocks'])
+				->initialLimit(4),
+
+			TrueFalse::make('Mais conteúdo', 'enable_link')
+				->stylisedUi('Habilitar', 'Desabilitar')
+				->wrapper([
+					'width' => 50,
+				]),
+			Link::make('Link', 'link')
+				->conditionalLogic([
+					ConditionalLogic::if('enable_link')->equals(1)
+				])
+				->wrapper([
+					'width' => 50,
+				]),
+		];
 	}
 
 	/**
@@ -73,11 +63,10 @@ class PASevenCastFeature extends Block
 	 *
 	 * @return array
 	 */
-	public function with(): array
-	{
+	public function with(): array {
 		return [
 			'title'			=> field('title'),
-			'items'			=> json_decode(field('items')['data'], true),
+			'items'			=> field('items')['data'],
 			'enable_link' 	=> field('enable_link'),
 			'link'			=> field('link')
 		];

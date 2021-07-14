@@ -11,7 +11,7 @@ use Blocks\PAFacebook\PAFacebook;
 use Blocks\PAListItems\PAListItems;
 use Blocks\PATwitter\PATwitter;
 use Blocks\PACarouselMinistry\PACarouselMinistry;
-use Blocks\PASevenCastFeature\PASevenCastFeature;
+use Blocks\PASevenCast\PASevenCast;
 
 /**
  * Blocks Register blocks and manage settings
@@ -49,7 +49,7 @@ class Blocks {
 			PAMagazines::class,
 			PAListButtons::class,
 			PACarouselMinistry::class,
-			PASevenCastFeature::class,
+			PASevenCast::class,
 		];
 
 		// Merge registered blocks with new blocks
