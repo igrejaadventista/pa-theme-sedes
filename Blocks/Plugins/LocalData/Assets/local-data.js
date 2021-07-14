@@ -186,7 +186,7 @@
 		 * @return {Array} Sticky items array
 		 */
 		stickyItems() {
-			return this.$stickyInput().val().split(',');
+			return this.empty(this.$stickyInput().val()) ? [] : this.$stickyInput().val().split(',');
 		},
 
 		empty(data) {
@@ -263,6 +263,12 @@
 		onChangeFilter(e, $el) {
 			const val = $el.val().trim();
 			const filter = $el.data('filter');
+
+			if(this.empty(val)) {
+				if(filter == 's')
+					this.onClickClear();
+				return;
+			}
 
 			// Update attr
 			this.set(filter, val);
@@ -494,11 +500,9 @@
 
 			const onSuccess = (json) => {
 				// No results
-				if(!json || !json.results || !json.results.length) {
-					console.log(this.$choicesList());
+				if(!json || !json.results || !json.results.length)
 					// Add message
 					return this.$choicesList().append(`<li>${acf.__('No matches found')}</li>`);
-				}
 
 				// Get new results
 				const html = this.walkChoices(json.results, false);
@@ -518,7 +522,7 @@
 				success:	onSuccess,
 				complete:	onComplete,
 			});
-
+			
 			this.set('xhr', xhr);
 		},
 
@@ -526,11 +530,6 @@
 		 * Walk results and create html
 		 */
 		walkChoices(data, sticky = true) {
-			// collapse search after sticky
-			this.$choicesList().html('');
-			this.$choices().removeClass('active');
-			this.$buttonClear().removeClass('active');
-
 			const stickyItems = this.stickyItems();
 
 			let list = '';
@@ -653,7 +652,7 @@
 
 			this.$stickyList().append(html);
 			this.sortValues();
-			this.fetch();
+			this.fetch();	
 		},
 
 		/**
@@ -686,31 +685,10 @@
 		 * Sort sticky items
 		 */
 		sortValues() {
-			const results = this.get('xhr');
-
-			const valuesLocal = results.readyState === 4 ? JSON.parse(results.responseJSON.data) : [];
-			const valuesManual = this.$manualInput().val() !== '' ? JSON.parse(this.$manualInput().val()) : [];
-			const valuesMerged = [].concat(valuesLocal, valuesManual);
-
-			let sortedValues = [];
-
 			// clean sticky input
-			this.$stickyInput().val('').trigger('change');
+			this.$stickyInput().val('');
 
-			this.$stickyList().find('li').each((_, element) => {
-				let elementValue;
-
-				if(typeof element.dataset.fromSearch != 'undefined') {
-					elementValue = valuesLocal.find(value => value.id == element.dataset.id);
-				} else {
-					elementValue = valuesMerged.find(value => value.id == element.dataset.id);
-				}
-
-				if(elementValue) {
-					sortedValues.push(elementValue);
-					this.$stickyInput().val(`${this.$stickyInput().val()},${elementValue.id}`).trigger('change');
-				}
-			});
+			this.$stickyList().find('li').each((_, element) => this.$stickyInput().val(`${this.$stickyInput().val()},${element.dataset.id}`));
 
 			// remove first comma from sticky items
 			this.$stickyInput().val(this.$stickyInput().val().replace(/(^\,+|\,+$)/mg, '')).trigger('change');
