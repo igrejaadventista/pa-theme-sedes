@@ -227,11 +227,19 @@
 		},
 
 		/**
+		 * Get current endpoint value
+		 */
+		 getEndpoint() {
+			return this.$control().find('[data-filter="endpoint"]').val();
+		},
+
+		/**
 		 * Initialize plugin
 		 */
 		initialize() {
 			// Set limit and sticky values
 			this.set('limit', this.$limitInput().val());
+			this.set('endpoint', this.getEndpoint());
 			this.set('sticky', this.$stickyInput().val());
 
 			// Clear search field
@@ -358,6 +366,7 @@
 		 * Load fetch data
 		 */
 		getAjaxData() {
+			console.log(this.get('endpoint'))
 			// Load data based on element attributes
 			let ajaxData = this.$control().data();
 
@@ -373,6 +382,7 @@
 			ajaxData.limit = this.get('limit');
 			ajaxData.taxonomies = this.get('taxonomies');
 			ajaxData.terms = this.get('terms');
+			ajaxData.endpoint = this.get('endpoint');
 
 			return acf.applyFilters('remote_data_ajax_data', ajaxData, this);
 		},

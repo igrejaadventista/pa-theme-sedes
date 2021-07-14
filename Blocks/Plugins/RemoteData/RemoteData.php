@@ -33,6 +33,7 @@ if(!class_exists('RemoteData')):
 			$this->defaults = array(
 				'sub_fields'	=> array(),
 				'endpoint' 		=> '',
+				'filters'		=> ['endpoint'],
 			);
 			$this->have_rows = 'single';
 
@@ -87,15 +88,19 @@ if(!class_exists('RemoteData')):
 					$choices[$value] = $value;
 			endif;
 
-			\acf_hidden_input(array('type' => 'hidden', 'name' => $field['prefix'] . '[sticky]', 'value' => '0'));
+			// \acf_hidden_input(array('type' => 'hidden', 'name' => $field['prefix'] . '[sticky]', 'value' => '0'));
 
 			\acf_render_field_setting($field, array(
-				'label'		   => __('Endpoint', 'acf'),
-				'instructions' => __('Defina o endpoint de onde as informações serão buscadas', 'acf'),
-				'type' 		   => 'url',
-				'name' 		   => 'endpoint',
+				'label'		   => __('Endpoints', 'acf'),
+				'instructions' => __('Defina os endpoints de onde as informações serão buscadas', 'acf'),
+				'type' 		   => 'select',
+				'name' 		   => 'endpoints',
 				'placeholder'  => 'https://website.com/wp-json/wp/v2/posts',
+				'multiple'	   => 1,
+				'ui'		   => 1,
+				'allow_null'   => 0,
 				'required'	   => 1,
+				'placeholder'  => __('Digite as urls', 'acf'),
 			));
 
 			\acf_render_field_setting($field, array(
@@ -172,6 +177,13 @@ if(!class_exists('RemoteData')):
         */
 		function render_field($field) {
 			$values = get_field($field['key']);
+			$endpoints = acf_get_array($field['endpoints']);
+			$endpointsChoices = array();
+
+			if(!empty($endpoints)):
+				foreach($endpoints as $endpoint)
+					$endpointsChoices[$endpoint] = $endpoint;
+			endif;
 
 			// div attributes
 			$atts = array(
@@ -215,6 +227,21 @@ if(!class_exists('RemoteData')):
 							<?php acf_text_input(array('name' => $field['name'] . "[limit]", 'value' => isset($values['limit']) ? $values['limit'] : $field['limit'], 'type' => 'number', 'step' => 1, 'min' => 1, 'max' => 100, 'data-limit' => '', 'data-filter' => 'limit')); ?>
 						</label>
 					</div>
+
+					<?php if(count($endpointsChoices) > 1): ?>
+						<div class="filter -endpoint filter__endpoint acf-js-tooltip" title="Filtrar por tipo de post.<br />Obs: itens fixados não são afetados por esse filtro.">
+							<?php
+								acf_select_input(
+									array(
+										'name' => $field['name'] . "[endpoint]",
+										'choices' => $endpointsChoices,
+										'value' => isset($values['endpoint']) ? $values['endpoint'] : (!empty($endpointsChoices) ? $endpointsChoices[0] : ''),
+										'data-filter' => 'endpoint',
+									)
+								);
+							?>
+						</div>
+					<?php endif ?>
 
 					<?php if (!empty($field['taxonomies'])) : ?>
 						<div class="filter -taxonomies">
@@ -426,9 +453,9 @@ if(!class_exists('RemoteData')):
 		function getData($options = array()) {
 			// defaults
 			$options = wp_parse_args($options, array(
-				'endpoint'		=> '',
-				'field_key'		=> '',
-				'sticky'		=> '',
+				'endpoint'	=> !empty($field['endpoints']) ? $field['endpoints'] : '',
+				'field_key'	=> '',
+				'sticky'	=> '',
 			));
 
 			// load field
@@ -437,7 +464,7 @@ if(!class_exists('RemoteData')):
 				return false;
 
 			$results = [];
-			$url = $field['endpoint'];
+			$url = $options['endpoint'];
 			$queryArgs = ['_fields' => 'id,title,date,featured_media_url'];
 
 			$sticky = isset($options['sticky']) ? $options['sticky'] : 0;
@@ -608,9 +635,9 @@ if(!class_exists('RemoteData')):
 		function getSearchData($options = array()) {
 			// defaults
 			$options = wp_parse_args($options, array(
-				'endpoint'		=> '',
-				'field_key'		=> '',
-				's'				=> '',
+				'endpoint'	=> !empty($field['endpoints']) ? $field['endpoints'] : '',
+				'field_key'	=> '',
+				's'			=> '',
 			));
 
 			// load field
@@ -619,7 +646,7 @@ if(!class_exists('RemoteData')):
 				return false;
 
 			$results = [];
-			$url = $field['endpoint'];
+			$url = $options['endpoint'];
 			$queryArgs = ['_fields' => 'id,title,date,featured_media_url'];
 
 			$sticky = isset($options['sticky']) ? $options['sticky'] : 0;

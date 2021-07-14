@@ -19,13 +19,13 @@ class RemoteData extends Field {
     protected $type = 'remote_data';
 
 	/**
-	 * endpoint Set the endpoint where information will be fetched
+	 * endpoints Set the endpoints where information will be fetched
 	 *
-	 * @param  string $value Endpoint url
+	 * @param  array $values Endpoints urls
 	 * @return self
 	 */
-	public function endpoint(string $value): self {
-        $this->config->set('endpoint', $value);
+	public function endpoints(array $values): self {
+        $this->config->set('endpoints', $values);
 
         return $this;
     }

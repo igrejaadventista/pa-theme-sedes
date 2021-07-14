@@ -76,7 +76,7 @@ if(!class_exists('LocalData')):
 		function render_field_settings($field) {
 			$field['limit'] = empty($field['limit']) ? '' : $field['limit'];
 
-			\acf_hidden_input(array('type' => 'hidden', 'name' => $field['prefix'] . '[sticky]', 'value' => '0'));
+			// \acf_hidden_input(array('type' => 'hidden', 'name' => $field['prefix'] . '[sticky]', 'value' => '0'));
 
 			\acf_render_field_setting($field, array(
 				'label'			=> __('Quantidade', 'acf'),
@@ -189,7 +189,7 @@ if(!class_exists('LocalData')):
 
 						<?php if (
 							in_array('post_type', $filters)
-							&& count($filter_post_type_choices) > 2
+							&& count($filter_post_type_choices) > 1
 						) : ?>
 							<div class="filter -post_type filter__post_type acf-js-tooltip" title="Filtrar por tipo de post.<br />Obs: itens fixados não são afetados por esse filtro.">
 								<?php

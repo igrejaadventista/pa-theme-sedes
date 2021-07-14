@@ -3,8 +3,9 @@
 		return;
 	
     acf.add_filter('select2_args', function(args, $select, settings, field, instance) {
+		console.log(field.data('name'));
         // do something to args
-        if(field.data('name') == 'fields')
+        if(field.data('name') == 'fields' || field.data('name') == 'endpoints')
             args.tags = true;
     
         // return
