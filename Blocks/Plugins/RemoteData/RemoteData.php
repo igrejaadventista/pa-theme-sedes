@@ -458,7 +458,7 @@ if(!class_exists('RemoteData')):
 
 			// defaults
 			$options = wp_parse_args($options, array(
-				'endpoint'	=> !empty($field['endpoints']) ? $field['endpoints'] : '',
+				'endpoint'	=> !empty($field['endpoints']) ? $field['endpoints'][0] : '',
 				'field_key'	=> '',
 				'sticky'	=> '',
 			));
@@ -640,7 +640,7 @@ if(!class_exists('RemoteData')):
 
 			// defaults
 			$options = wp_parse_args($options, array(
-				'endpoint'	=> !empty($field['endpoints']) ? $field['endpoints'] : '',
+				'endpoint'	=> !empty($field['endpoints']) ? $field['endpoints'][0] : '',
 				'field_key'	=> '',
 				's'			=> '',
 			));
