@@ -554,6 +554,7 @@ if(!class_exists('LocalData')):
 			$options = wp_parse_args($options, array(
 				'field_key'	=> '',
 				's'			=> '',
+				'limit'     => -1,
 			));
 			
 			// load field
@@ -579,6 +580,9 @@ if(!class_exists('LocalData')):
 			if(!empty($options['s']))
 				// strip slashes (search may be integer)
 				$queryArgs['s'] = wp_unslash(strval($options['s']));
+
+			if(!empty($options['limit']))
+				$queryArgs['posts_per_page '] = wp_unslash(strval($options['limit']));
 
 			$queryArgs['post_type'] = $field['post_type'];
 
