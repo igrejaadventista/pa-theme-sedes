@@ -36,9 +36,9 @@ if(!class_exists('LocalData')):
 			);
 			$this->have_rows = 'single';
 
-			\add_action('wp_ajax_acf/fields/localposts_data/query',	array($this, 'queryAjax'));
-			\add_action('wp_ajax_acf/fields/localposts_data/search',	array($this, 'searchAjax'));
-			\add_action('wp_ajax_acf/fields/localposts_data/modal',	array($this, 'modalAjax'));
+			\add_action('wp_ajax_acf/fields/localposts_data/query',	 array($this, 'queryAjax'));
+			\add_action('wp_ajax_acf/fields/localposts_data/search', array($this, 'searchAjax'));
+			\add_action('wp_ajax_acf/fields/localposts_data/modal',	 array($this, 'modalAjax'));
 
 			// do not delete!
 			parent::__construct();
@@ -77,12 +77,6 @@ if(!class_exists('LocalData')):
 			$field['limit'] = empty($field['limit']) ? '' : $field['limit'];
 
 			\acf_hidden_input(array('type' => 'hidden', 'name' => $field['prefix'] . '[sticky]', 'value' => '0'));
-
-			$choices = [];
-			if(!empty($field['fields'])) :
-				foreach ($field['fields'] as $value)
-					$choices[$value] = $value;
-			endif;
 
 			\acf_render_field_setting($field, array(
 				'label'			=> __('Quantidade', 'acf'),
@@ -168,6 +162,7 @@ if(!class_exists('LocalData')):
 
 					<div class="action-toolbar">
 						<button type="button" class="buttonAddManualPost disabled acf-js-tooltip" data-action="manual-new-post" title="Adicionar item de forma manual" disabled>Adicionar</button>
+						
 						<button type="button" class="buttonUpdateTaxonomies acf-js-tooltip" data-action="refresh" title="Atualizar resultados" aria-label="Atualizar resultados">
 							<svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" aria-hidden="true" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
 								<polyline points="23 4 23 10 17 10"></polyline>
@@ -178,7 +173,6 @@ if(!class_exists('LocalData')):
 					</div>
 
 					<div class="filters -f3">
-
 						<div class="filter -search">
 							<?php /* search filters */
 							acf_text_input(array('placeholder' => __('Search...', 'acf'), 'data-filter' => 's')); ?>
@@ -437,7 +431,6 @@ if(!class_exists('LocalData')):
 				'data'		=> json_encode($mergedResults),
 			);
 
-			// return
 			return $response;
 		}
 
@@ -603,7 +596,6 @@ if(!class_exists('LocalData')):
 				'data'		=> json_encode($results),
 			);
 			
-			// return
 			return $response;	
 		}
 

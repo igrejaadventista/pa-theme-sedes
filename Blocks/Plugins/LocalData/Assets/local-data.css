@@ -62,7 +62,6 @@
 	min-width: 45px;
 	width: 45px;
 	min-height: 8vh;
-
 	position: absolute;
 	right: 0;
 	z-index: 10;
@@ -75,11 +74,6 @@
 	svg {
 	color: #fff;
 	fill: #fff;
-}
-
-.acf-local-data.acf-relationship .action-toolbar button.buttonUpdateTaxonomies {
-	background: #007cba;
-	color: #fff;
 }
 
 .acf-local-data.acf-relationship .action-toolbar button:active {
@@ -281,56 +275,6 @@
 	display: flex;
 }
 
-.acf-local-data .taxonomies-selection {
-	background: #f9f9f9;
-	border-bottom: #ccd0d4 solid 1px;
-	display: none;
-	padding: 10px;
-}
-
-.acf-local-data .taxonomies-selection .add-container,
-.acf-local-data .taxonomies-selection .taxonomy-row {
-	align-items: center;
-	display: flex;
-	justify-content: center;
-}
-
-.acf-local-data .taxonomies-selection .taxonomy-row {
-	margin-bottom: 16px;
-}
-
-.acf-local-data .taxonomies-selection .taxonomy-row > * {
-	margin: 0 4px;
-}
-
-.acf-local-data .taxonomies-selection .taxonomy-row label {
-	width: 40%;
-}
-
-.acf-local-data
-	.select2-container--default
-	.select2-selection--single,
-.acf-local-data
-	.select2-container--default
-	.select2-selection--multiple {
-	min-height: 32px;
-	width: 100%;
-}
-
-.acf-local-data .remove-taxonomy-filter {
-	margin-top: 20px !important;
-}
-
-.acf-local-data .select2-container {
-	width: 100% !important;
-}
-
-[data-action="add-taxonomy"].disabled {
-	cursor: not-allowed;
-	opacity: 0.6;
-	pointer-events: none;
-}
-
 .acf-local-data .selection .choices.active {
 	border-right: #dfdfdf solid 1px;
 }
@@ -360,7 +304,7 @@
 	color: inherit;
 }
 
-.walker__item .badge__pill {
+.acf-local-data .walker__item .badge__pill {
 	display: inline-block;
 	padding: 0;
 	font-size: 10px;
@@ -374,22 +318,22 @@
 	margin-top: 5px;
 }
 
-.sticky-list .acf-rel-item:hover .badge__pill,
-.choices-list .acf-rel-item:hover .badge__pill {
+.acf-local-data .sticky-list .acf-rel-item:hover .badge__pill,
+.acf-local-data .choices-list .acf-rel-item:hover .badge__pill {
 	color: #fff;
 }
 
-.filter__post_type {
+.acf-local-data .filter__post_type {
 	max-width: 20%;
 	min-width: 10%;
 }
 
-.filter__post_type select:active,
-.filter__post_type select:focus {
+.acf-local-data .filter__post_type select:active,
+.acf-local-data .filter__post_type select:focus {
 	border-color: #ccd0d4;
 }
 
-.filter__post_type select {
+.acf-local-data .filter__post_type select {
 	border-left: 1px solid #ccd0d4;
 	border-radius: 0;
 	border-top: 0;
@@ -397,13 +341,13 @@
 	border-right: 0;
 }
 
-.filter__post_type select option:first-child {
+.acf-local-data .filter__post_type select option:first-child {
 	color: #72777c;
 }
 
 /* remove relation modal labels. Field name: url  */
 #wp-link-wrap.-no-label .wp-link-text-field,
-.widgets-acf-modal[data-name="link"] span.link-title {
+.acf-local-data .widgets-acf-modal[data-name="link"] span.link-title {
 	display: none !important;
 }
 
@@ -554,6 +498,7 @@ body.block-editor-page .edit-post-layout .acf-local-data .widgets-acf-modal.-ope
 
 body.block-editor-page
 	.edit-post-layout
+	.acf-local-data
 	.widgets-acf-modal.-open
 	> .widgets-acf-modal-wrapper {
 	margin-top: 88px;
@@ -565,6 +510,7 @@ body.block-editor-page
 
 body.block-editor-page
 	.edit-post-layout
+	.acf-local-data
 	.widgets-acf-modal.-open
 	> .widgets-acf-modal-wrapper
 	> .widgets-acf-modal-content
@@ -574,6 +520,7 @@ body.block-editor-page
 
 body.block-editor-page
 	.edit-post-layout
+	.acf-local-data
 	.widgets-acf-modal.-open
 	> .widgets-acf-modal-wrapper
 	> .widgets-acf-modal-content
@@ -595,6 +542,7 @@ body.block-editor-page
 @media only screen and (max-width: 1080px) {
 	body.block-editor-page
 		.edit-post-layout
+		.acf-local-data
 		.widgets-acf-modal.-open
 		> .widgets-acf-modal-wrapper {
 		margin-top: 88px;
@@ -603,6 +551,7 @@ body.block-editor-page
 
 body.block-editor-page
 	.edit-post-layout
+	.acf-local-data
 	.widgets-acf-modal.-open
 	> .widgets-acf-modal-wrapper {
 	max-width: calc(100vw - 700px);
@@ -611,6 +560,7 @@ body.block-editor-page
 
 body.block-editor-page.folded
 	.edit-post-layout
+	.acf-local-data
 	.widgets-acf-modal.-open
 	> .widgets-acf-modal-wrapper {
 	max-width: calc(100vw - 36px);
@@ -620,6 +570,7 @@ body.block-editor-page.folded
 @media only screen and (max-width: 960px) {
 	body.block-editor-page.auto-fold
 		.edit-post-layout
+		.acf-local-data
 		.widgets-acf-modal.-open
 		> .widgets-acf-modal-wrapper {
 		max-width: calc(100vw - 36px);
@@ -630,6 +581,7 @@ body.block-editor-page.folded
 @media only screen and (max-width: 782px) {
 	body.block-editor-page.auto-fold
 		.edit-post-layout
+		.acf-local-data
 		.widgets-acf-modal.-open
 		> .widgets-acf-modal-wrapper {
 		max-width: 100vw;
@@ -640,30 +592,8 @@ body.block-editor-page.folded
 
 body.block-editor-page.folded
 	.edit-post-layout.is-sidebar-opened
+	.acf-local-data
 	.widgets-acf-modal.-open
 	> .widgets-acf-modal-wrapper {
 	max-width: calc(100vw - 316px);
-}
-
-@media (min-width: 600px) {
-	body.block-editor-page.widgets-acf-modal-opened .edit-post-layout__content {
-		overflow-y: hidden;
-	}
-}
-
-/*
- * widgets-acf Modal: Attachment Single Fix
- */
-body.wp-admin.upload-php.widgets-acf-modal-opened
-	> div:not([style*="display: none;"])
-	> .media-modal.wp-core-ui:not(.acf-media-modal):before {
-	content: "";
-	display: block;
-	position: absolute;
-	background: rgba(0, 0, 0, 0.7);
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	z-index: 10000;
 }

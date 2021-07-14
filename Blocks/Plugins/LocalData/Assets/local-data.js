@@ -11,7 +11,6 @@
 			'click .choices-list li': 				 	'onClickAdd',
 			'click [data-action="refresh"]': 		 	'fetch',
 			'click [data-action="manual-new-post"]': 	'onClickAddManualPost',
-			'click [data-action="modal-alert-dismiss"]':'onCloseModalDismiss',
 			'click [data-action="edit-manual"]': 		'onEditManual',
 		},
 
@@ -295,7 +294,8 @@
 				this.sortValues();
 				// Update the list to validate the allowed quantity of items
 				this.fetch(); // update data list on sticky item
-			} else {
+			} 
+			else {
 				if($li[0].hasAttribute('data-manual')) {
 					const manualAttr = JSON.parse(this.$manualInput().val());
 					// get sticky item id
@@ -306,9 +306,7 @@
 				}
 
 				this.$choicesList().find(`[data-id="${$li.data('id')}"]`).removeClass('disabled');
-
 				$li.remove();
-
 				this.sortValues();
 				this.fetch();
 			}
@@ -486,19 +484,15 @@
 			const onComplete = () => {
 				this.set('loading', false);
 				this.$searchLoading().removeClass('active');
-
 				this.$choices().addClass('active');
-
 				this.$buttonClear().addClass('active');
 			};
 
 			const onSuccess = (json) => {
 				// No results
-				if(!json || !json.results || !json.results.length) {
-					console.log(this.$choicesList());
+				if(!json || !json.results || !json.results.length)
 					// Add message
 					return this.$choicesList().append(`<li>${acf.__('No matches found')}</li>`);
-				}
 
 				// Get new results
 				const html = this.walkChoices(json.results, false);
@@ -559,7 +553,7 @@
 
 			mergedData.forEach(element => {
 				// results has empty
-				if (Object.values(element).includes("0"))
+				if(Object.values(element).includes("0"))
 					return this.$valuesList().append(`<li>${acf.__('No matches found')}</li>`);
 
 				// html
@@ -578,10 +572,10 @@
 				else
 					content += '<div class="thumb"></div>';
 
-					content += `<div class="walker__item">`;
-						content += `<div>${acf.escHtml(element.title.rendered)}</div>`;
-						content += `${element.id.toString().startsWith('m') ? '' : `<div class="badge__pill">${element.cpt_label.rendered}</div>`}`;
-					content += `</div>`;
+				content += `<div class="walker__item">`;
+					content += `<div>${acf.escHtml(element.title.rendered)}</div>`;
+					content += `${element.id.toString().startsWith('m') ? '' : `<div class="badge__pill">${element.cpt_label.rendered}</div>`}`;
+				content += `</div>`;
 
 				content += `</span></li>`;
 
@@ -700,11 +694,10 @@
 			this.$stickyList().find('li').each((_, element) => {
 				let elementValue;
 
-				if(typeof element.dataset.fromSearch != 'undefined') {
+				if(typeof element.dataset.fromSearch != 'undefined')
 					elementValue = valuesLocal.find(value => value.id == element.dataset.id);
-				} else {
+				else
 					elementValue = valuesMerged.find(value => value.id == element.dataset.id);
-				}
 
 				if(elementValue) {
 					sortedValues.push(elementValue);
