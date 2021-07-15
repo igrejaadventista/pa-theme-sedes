@@ -363,6 +363,28 @@
 	display: none !important;
 }
 
+.acf-remote-data .filter__endpoint {
+	max-width: 20%;
+	min-width: 10%;
+}
+
+.acf-remote-data .filter__endpoint select:active,
+.acf-remote-data .filter__endpoint select:focus {
+	border-color: #ccd0d4;
+}
+
+.acf-remote-data .filter__endpoint select {
+	border-left: 1px solid #ccd0d4;
+	border-radius: 0;
+	border-top: 0;
+	border-bottom: 0;
+	border-right: 0;
+}
+
+.acf-remote-data .filter__endpoint select option:first-child {
+	color: #72777c;
+}
+
 /***** MODAL *****/
 
 .acf-remote-data .widgets-acf-modal {

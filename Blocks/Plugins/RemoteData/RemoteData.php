@@ -181,8 +181,10 @@ if(!class_exists('RemoteData')):
 			$endpointsChoices = array();
 
 			if(!empty($endpoints)):
-				foreach($endpoints as $endpoint)
-					$endpointsChoices[$endpoint] = $endpoint;
+				foreach($endpoints as $endpoint):
+					$endpointValues = explode('>', $endpoint);
+					$endpointsChoices[trim($endpointValues[0])] = trim($endpointValues[count($endpointValues) > 1 ? 1 : 0]);
+				endforeach;
 			endif;
 
 			// div attributes
@@ -229,7 +231,7 @@ if(!class_exists('RemoteData')):
 					</div>
 
 					<?php if(count($endpointsChoices) > 1): ?>
-						<div class="filter -endpoint filter__endpoint acf-js-tooltip" title="Filtrar por tipo de post.<br />Obs: itens fixados não são afetados por esse filtro.">
+						<div class="filter -endpoint filter__endpoint acf-js-tooltip" title="Filtrar por tipo de conteúdo.<br />Obs: itens fixados não são afetados por esse filtro.">
 							<?php
 								acf_select_input(
 									array(
@@ -494,12 +496,14 @@ if(!class_exists('RemoteData')):
 						$queryArgs["$taxonomy-tax"] = implode(',', $options['terms'][$key]);
 				endif;
 
-				$response = \wp_remote_get(\add_query_arg(array_merge($queryArgs, ['exclude' => $stickyItemsFilter, 'orderby' => 'date']), $url));
+				// die(var_dump(\add_query_arg(array_merge($queryArgs, ['exclude' => implode(',', $stickyItemsFilter), 'orderby' => 'date']), $url)));
+
+				$response = \wp_remote_get(\add_query_arg(array_merge($queryArgs, ['exclude' => implode(',', $stickyItemsFilter), 'orderby' => 'date']), $url));
 				$responseCode = \wp_remote_retrieve_response_code($response);
 				$responseData = \wp_remote_retrieve_body($response);
 
 				if($this->responseSuccess($responseCode))
-					$results = array_merge($results, json_decode($responseData, true));
+					$results = array_unique(array_merge($results, json_decode($responseData, true)), SORT_REGULAR);
 			endif;
 
 			// vars
