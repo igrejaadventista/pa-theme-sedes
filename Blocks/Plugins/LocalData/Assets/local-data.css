@@ -138,6 +138,7 @@
 
 .acf-local-data .filters .filter {
 	position: relative;
+	margin-left: auto;
 }
 
 .acf-local-data .filters .filter .acf-loading,
@@ -273,6 +274,10 @@
 
 .acf-local-data .filters {
 	display: flex;
+}
+
+.acf-local-data .filters:empty {
+	display: none !important;
 }
 
 .acf-local-data .selection .choices.active {
