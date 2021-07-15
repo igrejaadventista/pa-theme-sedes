@@ -66,4 +66,16 @@ class LocalData extends Field {
         return $this;
     }
 
+	/**
+	 * ManualItems Additional manual fields
+	 *
+	 * @param  bool $value Status
+	 * @return self
+	 */
+	public function ManualItems(bool $value): self {
+        $this->config->set('manual_items', intval($value));
+
+        return $this;
+    }
+
 }
