@@ -40,27 +40,30 @@
 							@endforeach
 						</div>
 					</div>
-					<div class="pa-slider-controle d-flex justify-content-between justify-content-xl-start align-items-center mt-4">
-						<div data-glide-el="controls">
-							<span class="fa-stack" data-glide-dir="&lt;">
-								<i class="fas fa-circle fa-stack-2x"></i>
-								<i class="icon fas fa-arrow-left fa-stack-1x"></i>
-							</span>
-						</div>
 
-						<div class="mx-2 pa-slider-bullet" data-glide-el="controls[nav]">
-							@foreach($items as $item)
-								<i class="fas fa-circle fa-xs mx-1" data-glide-dir="={{ $loop->index }}"></i>
-							@endforeach
-						</div>
+					@if(count($items) > 1)
+						<div class="pa-slider-controle d-flex justify-content-between justify-content-xl-start align-items-center mt-4">
+							<div data-glide-el="controls">
+								<span class="fa-stack" data-glide-dir="&lt;">
+									<i class="fas fa-circle fa-stack-2x"></i>
+									<i class="icon fas fa-arrow-left fa-stack-1x"></i>
+								</span>
+							</div>
 
-						<div data-glide-el="controls">
-							<span class="fa-stack" data-glide-dir="&gt;">
-								<i class="fas fa-circle fa-stack-2x"></i>
-								<i class="icon fas fa-arrow-right fa-stack-1x"></i>
-							</span>
+							<div class="mx-2 pa-slider-bullet" data-glide-el="controls[nav]">
+								@foreach($items as $item)
+									<i class="fas fa-circle fa-xs mx-1" data-glide-dir="={{ $loop->index }}"></i>
+								@endforeach
+							</div>
+
+							<div data-glide-el="controls">
+								<span class="fa-stack" data-glide-dir="&gt;">
+									<i class="fas fa-circle fa-stack-2x"></i>
+									<i class="icon fas fa-arrow-right fa-stack-1x"></i>
+								</span>
+							</div>
 						</div>
-					</div>
+					@endif
 				</div>
 			</div>
 		@endnotempty

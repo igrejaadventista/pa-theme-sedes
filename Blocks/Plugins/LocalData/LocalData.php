@@ -30,9 +30,10 @@ if(!class_exists('LocalData')):
 			$this->label = __('Local data', 'acf-local-data');
 			$this->category = 'relational';
 			$this->defaults = array(
-				'sub_fields'		=> [],
-				'post_type'			=> [],
-				'filters'			=> ['post_type'],
+				'sub_fields'   => [],
+				'post_type'	   => [],
+				'filters'	   => ['post_type'],
+				'manual_items' => 1,
 			);
 			$this->have_rows = 'single';
 
@@ -102,6 +103,14 @@ if(!class_exists('LocalData')):
 				'placeholder'	=> __("All post types", 'acf'),
 			));
 
+			\acf_render_field_setting($field, array(
+				'label'			=> __('Habilitar conteúdo manual?', 'acf'),
+				'type'			=> 'true_false',
+				'name'			=> 'manual_items',
+				'ui'			=> 1,
+				'default_value'	=> 1,
+			));
+
 			// vars
 			$args = array(
 				'fields'	=> $field['sub_fields'],
@@ -161,7 +170,9 @@ if(!class_exists('LocalData')):
 					<?php acf_hidden_input(array('name' => $field['name'] . "[sticky]", 'value' => isset($values['sticky']) ? $values['sticky'] : '', 'data-sticky' => '')); ?>
 
 					<div class="action-toolbar">
-						<button type="button" class="buttonAddManualPost disabled acf-js-tooltip" data-action="manual-new-post" title="Adicionar item de forma manual" disabled>Adicionar</button>
+						<?php if(!empty($field['manual_items'])): ?>
+							<button type="button" class="buttonAddManualPost disabled acf-js-tooltip" data-action="manual-new-post" title="Adicionar item de forma manual" disabled>Adicionar</button>
+						<?php endif; ?>
 						
 						<button type="button" class="buttonUpdateTaxonomies acf-js-tooltip" data-action="refresh" title="Atualizar resultados" aria-label="Atualizar resultados">
 							<svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" aria-hidden="true" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -203,7 +214,7 @@ if(!class_exists('LocalData')):
 								);
 								?>
 							</div>
-						<?php endif ?>
+						<?php endif; ?>
 
 					</div>
 
@@ -217,13 +228,15 @@ if(!class_exists('LocalData')):
 						</div>
 					</div>
 
-					<div class="widgets-acf-modal -fields">
-						<div class="widgets-acf-modal-wrapper">
-							<div class="widgets-acf-modal-content">
-								<div class="acf-notice-render"></div>
+					<?php if(!empty($field['manual_items'])): ?>
+						<div class="widgets-acf-modal -fields">
+							<div class="widgets-acf-modal-wrapper">
+								<div class="widgets-acf-modal-content">
+									<div class="acf-notice-render"></div>
+								</div>
 							</div>
 						</div>
-					</div>
+					<?php endif; ?>
 				</div><!-- End: -->
 			<?php
 		}

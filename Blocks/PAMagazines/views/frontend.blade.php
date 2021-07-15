@@ -29,17 +29,19 @@
 							</div>
 						</div>
 
-						<div class="pa-slider-controle pa-controle-left" data-glide-el="controls">
-							<div data-glide-dir="&lt;">
-								<i class="fas fa-angle-left fa-3x"></i>
+						@if(count($items) > 1)
+							<div class="pa-slider-controle pa-controle-left" data-glide-el="controls">
+								<div data-glide-dir="&lt;">
+									<i class="fas fa-angle-left fa-3x"></i>
+								</div>
 							</div>
-						</div>
 
-						<div class="pa-slider-controle pa-controle-right" data-glide-el="controls">
-							<div data-glide-dir="&gt;">
-								<i class="fas fa-angle-right fa-3x"></i>
+							<div class="pa-slider-controle pa-controle-right" data-glide-el="controls">
+								<div data-glide-dir="&gt;">
+									<i class="fas fa-angle-right fa-3x"></i>
+								</div>
 							</div>
-						</div>
+						@endif
 					</div>
 				</div>
 			</div>

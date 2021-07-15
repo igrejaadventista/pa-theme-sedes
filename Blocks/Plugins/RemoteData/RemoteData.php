@@ -33,6 +33,7 @@ if(!class_exists('RemoteData')):
 			$this->defaults = array(
 				'sub_fields'	=> array(),
 				'endpoint' 		=> '',
+				'manual_items'  => 1,
 				'filters'		=> ['endpoint'],
 			);
 			$this->have_rows = 'single';
@@ -88,8 +89,6 @@ if(!class_exists('RemoteData')):
 					$choices[$value] = $value;
 			endif;
 
-			// \acf_hidden_input(array('type' => 'hidden', 'name' => $field['prefix'] . '[sticky]', 'value' => '0'));
-
 			\acf_render_field_setting($field, array(
 				'label'		   => __('Endpoints', 'acf'),
 				'instructions' => __('Defina os endpoints de onde as informações serão buscadas', 'acf'),
@@ -144,6 +143,14 @@ if(!class_exists('RemoteData')):
 				'placeholder'	=> __('Selecione as taxonomias', 'acf'),
 			));
 
+			\acf_render_field_setting($field, array(
+				'label'			=> __('Habilitar conteúdo manual?', 'acf'),
+				'type'			=> 'true_false',
+				'name'			=> 'manual_items',
+				'ui'			=> 1,
+				'default_value'	=> 1,
+			));
+
 			// vars
 			$args = array(
 				'fields' => $field['sub_fields'],
@@ -181,8 +188,10 @@ if(!class_exists('RemoteData')):
 			$endpointsChoices = array();
 
 			if(!empty($endpoints)):
-				foreach($endpoints as $endpoint)
-					$endpointsChoices[$endpoint] = $endpoint;
+				foreach($endpoints as $endpoint):
+					$endpointValues = explode('>', $endpoint);
+					$endpointsChoices[trim($endpointValues[0])] = trim($endpointValues[count($endpointValues) > 1 ? 1 : 0]);
+				endforeach;
 			endif;
 
 			// div attributes
@@ -203,7 +212,9 @@ if(!class_exists('RemoteData')):
 				<?php acf_hidden_input(array('name' => $field['name'] . "[sticky]", 'value' => isset($values['sticky']) ? $values['sticky'] : '', 'data-sticky' => '')); ?>
 
 				<div class="action-toolbar">
-					<button type="button" class="buttonAddManualPost disabled acf-js-tooltip" data-action="manual-new-post" title="Adicionar item de forma manual" disabled>Adicionar</button>
+					<?php if(!empty($field['manual_items'])): ?>
+						<button type="button" class="buttonAddManualPost disabled acf-js-tooltip" data-action="manual-new-post" title="Adicionar item de forma manual" disabled>Adicionar</button>
+					<?php endif; ?>
 
 					<button type="button" class="buttonUpdateTaxonomies acf-js-tooltip" data-action="refresh" title="Atualizar resultados" aria-label="Atualizar resultados">
 						<svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" aria-hidden="true" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -229,7 +240,7 @@ if(!class_exists('RemoteData')):
 					</div>
 
 					<?php if(count($endpointsChoices) > 1): ?>
-						<div class="filter -endpoint filter__endpoint acf-js-tooltip" title="Filtrar por tipo de post.<br />Obs: itens fixados não são afetados por esse filtro.">
+						<div class="filter -endpoint filter__endpoint acf-js-tooltip" title="Filtrar por tipo de conteúdo.<br />Obs: itens fixados não são afetados por esse filtro.">
 							<?php
 								acf_select_input(
 									array(
@@ -340,12 +351,14 @@ if(!class_exists('RemoteData')):
 					</div>
 				</div>
 
-				<div class="widgets-acf-modal -fields">
-					<div class="widgets-acf-modal-wrapper">
-						<div class="widgets-acf-modal-content">
+				<?php if(!empty($field['manual_items'])): ?>
+					<div class="widgets-acf-modal -fields">
+						<div class="widgets-acf-modal-wrapper">
+							<div class="widgets-acf-modal-content">
+							</div>
 						</div>
 					</div>
-				</div>
+				<?php endif; ?>
 			</div><!-- End: -->
 			<?php
 		}
@@ -373,39 +386,33 @@ if(!class_exists('RemoteData')):
 			return $field;
 		}
 
-		// function format_value($value, $post_id, $field) {
-		// 	$value['post_type'] = acf_get_array($field['post_type']);
-		// 	$manual = json_decode($value['manual'], true);
-		// 	$value['data'] = array();
-
-		// 	if(!is_admin()):
-		// 		$stickys = explode(',', $value['sticky']);
-
-		// 		$data = $this->getData([
-		// 			'limit' => $value['limit'],
-		// 			'sticky' => $value['sticky'],
-		// 			'post_type' => !empty($value['post_type_filter']) ? $value['post_type_filter'] : $value['post_type'],
-		// 		]);
-
-		// 		$posts = empty($manual) ? $data['results'] : array_merge($manual, $data['results']);
+		function format_value($value, $post_id, $field) {
+			if(is_admin())
+				return $value;
 				
-		// 		if(!empty($stickys)):
-		// 			foreach($stickys as $sticky):
-		// 				$key = array_search($sticky, array_column(json_decode(json_encode($posts), TRUE), 'id'));
+			$manual = json_decode($value['manual'], true);
+			$data = json_decode($value['data'], true);
+			$value['data'] = array();
+			$stickys = explode(',', $value['sticky']);
 
-		// 				if($key >= 0)
-		// 					$value['data'][] = $posts[$key];
-		// 			endforeach;
-		// 		endif;
+			$posts = empty($manual) ? $data : array_merge($manual, $data);
+			
+			if(!empty($stickys)):
+				foreach($stickys as $sticky):
+					$key = array_search($sticky, array_column(json_decode(json_encode($posts), TRUE), 'id'));
 
-		// 		foreach($value['data'] as $key => $postValue)
-		// 			unset($posts[$key]);
+					if($key >= 0)
+						$value['data'][] = $posts[$key];
+				endforeach;
+			endif;
 
-		// 		$value['data'] = array_merge($value['data'], $posts);
-		// 	endif;
+			foreach($value['data'] as $key => $postValue)
+				unset($posts[$key]);
 
-		// 	return $value;
-		// }
+			$value['data'] = array_unique(array_merge($value['data'], $data), SORT_REGULAR);
+
+			return $value;
+		}
 
 		/**
 		 * @param $response_code
@@ -500,12 +507,12 @@ if(!class_exists('RemoteData')):
 						$queryArgs["$taxonomy-tax"] = implode(',', $options['terms'][$key]);
 				endif;
 
-				$response = \wp_remote_get(\add_query_arg(array_merge($queryArgs, ['exclude' => $stickyItemsFilter, 'orderby' => 'date']), $url));
+				$response = \wp_remote_get(\add_query_arg(array_merge($queryArgs, ['exclude' => implode(',', $stickyItemsFilter), 'orderby' => 'date']), $url));
 				$responseCode = \wp_remote_retrieve_response_code($response);
 				$responseData = \wp_remote_retrieve_body($response);
 
 				if($this->responseSuccess($responseCode))
-					$results = array_merge($results, json_decode($responseData, true));
+					$results = array_unique(array_merge($results, json_decode($responseData, true)), SORT_REGULAR);
 			endif;
 
 			// vars
