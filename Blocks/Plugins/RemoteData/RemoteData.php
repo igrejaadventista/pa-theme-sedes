@@ -35,6 +35,9 @@ if(!class_exists('RemoteData')):
 				'endpoint' 		=> '',
 				'manual_items'  => 1,
 				'filters'		=> ['endpoint'],
+				'search_filter' => 1,
+				'limit_filter'  => 1,
+				'can_sticky'	=> 1,
 			);
 			$this->have_rows = 'single';
 
@@ -144,6 +147,30 @@ if(!class_exists('RemoteData')):
 			));
 
 			\acf_render_field_setting($field, array(
+				'label'			=> __('Habilitar Busca?', 'acf'),
+				'type'			=> 'true_false',
+				'name'			=> 'search_filter',
+				'ui'			=> 1,
+				'default_value'	=> 1,
+			));
+
+			\acf_render_field_setting($field, array(
+				'label'			=> __('Habilitar quantidade de itens?', 'acf'),
+				'type'			=> 'true_false',
+				'name'			=> 'limit_filter',
+				'ui'			=> 1,
+				'default_value'	=> 1,
+			));
+
+			\acf_render_field_setting($field, array(
+				'label'			=> __('Habilitar fixar itens?', 'acf'),
+				'type'			=> 'true_false',
+				'name'			=> 'can_sticky',
+				'ui'			=> 1,
+				'default_value'	=> 1,
+			));
+
+			\acf_render_field_setting($field, array(
 				'label'			=> __('Habilitar conteúdo manual?', 'acf'),
 				'type'			=> 'true_false',
 				'name'			=> 'manual_items',
@@ -196,9 +223,10 @@ if(!class_exists('RemoteData')):
 
 			// div attributes
 			$atts = array(
-				'id'		 => $field['id'],
-				'class'		 => "acf-remote-data acf-relationship {$field['class']}",
-				'data-s'	 => '',
+				'id'		 	  => $field['id'],
+				'class'		 	  => "acf-remote-data acf-relationship {$field['class']}",
+				'data-s'	 	  => '',
+				'data-can_sticky' => $field['can_sticky'],
 			);
 
 			?>
@@ -226,18 +254,22 @@ if(!class_exists('RemoteData')):
 				</div>
 
 				<div class="filters -f3">
-					<div class="filter -search">
-						<?php acf_text_input(array('placeholder' => __('Search...', 'acf'), 'data-filter' => 's')); ?>
-						<i class="acf-loading"></i>
-						<a href="#" class="button-clear acf-icon -cancel acf-js-tooltip" data-action="clear" title="Limpar"></a>
-					</div>
+					<?php if(!empty($field['search_filter'])): ?>
+						<div class="filter -search">
+							<?php acf_text_input(array('placeholder' => __('Search...', 'acf'), 'data-filter' => 's')); ?>
+							<i class="acf-loading"></i>
+							<a href="#" class="button-clear acf-icon -cancel acf-js-tooltip" data-action="clear" title="Limpar"></a>
+						</div>
+					<?php endif; ?>
 
-					<div class="filter -limit">
-						<label>
-							<span class="acf-js-tooltip" title="Quantidade de itens a ser exibido.">Quantidade</span>
-							<?php acf_text_input(array('name' => $field['name'] . "[limit]", 'value' => isset($values['limit']) ? $values['limit'] : $field['limit'], 'type' => 'number', 'step' => 1, 'min' => 1, 'max' => 100, 'data-limit' => '', 'data-filter' => 'limit')); ?>
-						</label>
-					</div>
+					<?php if(!empty($field['limit_filter'])): ?>
+						<div class="filter -limit">
+							<label>
+								<span class="acf-js-tooltip" title="Quantidade de itens a ser exibido.">Quantidade</span>
+								<?php acf_text_input(array('name' => $field['name'] . "[limit]", 'value' => isset($values['limit']) ? $values['limit'] : $field['limit'], 'type' => 'number', 'step' => 1, 'min' => 1, 'max' => 100, 'data-limit' => '', 'data-filter' => 'limit')); ?>
+							</label>
+						</div>
+					<?php endif; ?>
 
 					<?php if(count($endpointsChoices) > 1): ?>
 						<div class="filter -endpoint filter__endpoint acf-js-tooltip" title="Filtrar por tipo de conteúdo.<br />Obs: itens fixados não são afetados por esse filtro.">

@@ -8,7 +8,7 @@
 
 		@notempty($url)
 			<div class="mt-4 mh-50">
-				<a class="twitter-timeline" data-height="500" href="{{ $url }}"></a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+				<a class="twitter-timeline" data-height="500" href="{{ $url }}"></a>
 			</div>
 		@endnotempty
 	</div>

@@ -49,6 +49,8 @@ class PAFacebook extends Block {
      * @return array
      */
     public function with(): array {
+		wp_enqueue_script('facebook', 'https://connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v10.0', []);
+
         return [
             'title'  => field('title'),
 			'url' => field('url')

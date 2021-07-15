@@ -67,13 +67,49 @@ class LocalData extends Field {
     }
 
 	/**
-	 * ManualItems Additional manual fields
+	 * ManualItems Enable/disable manual items
 	 *
 	 * @param  bool $value Status
 	 * @return self
 	 */
 	public function manualItems(bool $value): self {
         $this->config->set('manual_items', intval($value));
+
+        return $this;
+    }
+
+	/**
+	 * searchFilter Enable/disable search
+	 *
+	 * @param  bool $value Status
+	 * @return self
+	 */
+	public function searchFilter(bool $value): self {
+        $this->config->set('search_filter', intval($value));
+
+        return $this;
+    }
+
+	/**
+	 * limitFilter Enable/disable limit
+	 *
+	 * @param  bool $value Status
+	 * @return self
+	 */
+	public function limitFilter(bool $value): self {
+        $this->config->set('limit_filter', intval($value));
+
+        return $this;
+    }
+
+	/**
+	 * canSticky Enable/disable sticky button
+	 *
+	 * @param  bool $value Status
+	 * @return self
+	 */
+	public function canSticky(bool $value): self {
+        $this->config->set('can_sticky', intval($value));
 
         return $this;
     }
