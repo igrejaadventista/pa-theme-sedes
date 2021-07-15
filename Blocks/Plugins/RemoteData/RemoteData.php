@@ -33,6 +33,7 @@ if(!class_exists('RemoteData')):
 			$this->defaults = array(
 				'sub_fields'	=> array(),
 				'endpoint' 		=> '',
+				'manual_items'  => 1,
 				'filters'		=> ['endpoint'],
 			);
 			$this->have_rows = 'single';
@@ -88,8 +89,6 @@ if(!class_exists('RemoteData')):
 					$choices[$value] = $value;
 			endif;
 
-			// \acf_hidden_input(array('type' => 'hidden', 'name' => $field['prefix'] . '[sticky]', 'value' => '0'));
-
 			\acf_render_field_setting($field, array(
 				'label'		   => __('Endpoints', 'acf'),
 				'instructions' => __('Defina os endpoints de onde as informações serão buscadas', 'acf'),
@@ -142,6 +141,14 @@ if(!class_exists('RemoteData')):
 				'ui'			=> 1,
 				'allow_null'	=> 0,
 				'placeholder'	=> __('Selecione as taxonomias', 'acf'),
+			));
+
+			\acf_render_field_setting($field, array(
+				'label'			=> __('Habilitar conteúdo manual?', 'acf'),
+				'type'			=> 'true_false',
+				'name'			=> 'manual_items',
+				'ui'			=> 1,
+				'default_value'	=> 1,
 			));
 
 			// vars
@@ -205,7 +212,9 @@ if(!class_exists('RemoteData')):
 				<?php acf_hidden_input(array('name' => $field['name'] . "[sticky]", 'value' => isset($values['sticky']) ? $values['sticky'] : '', 'data-sticky' => '')); ?>
 
 				<div class="action-toolbar">
-					<button type="button" class="buttonAddManualPost disabled acf-js-tooltip" data-action="manual-new-post" title="Adicionar item de forma manual" disabled>Adicionar</button>
+					<?php if(!empty($field['manual_items'])): ?>
+						<button type="button" class="buttonAddManualPost disabled acf-js-tooltip" data-action="manual-new-post" title="Adicionar item de forma manual" disabled>Adicionar</button>
+					<?php endif; ?>
 
 					<button type="button" class="buttonUpdateTaxonomies acf-js-tooltip" data-action="refresh" title="Atualizar resultados" aria-label="Atualizar resultados">
 						<svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" aria-hidden="true" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -342,12 +351,14 @@ if(!class_exists('RemoteData')):
 					</div>
 				</div>
 
-				<div class="widgets-acf-modal -fields">
-					<div class="widgets-acf-modal-wrapper">
-						<div class="widgets-acf-modal-content">
+				<?php if(!empty($field['manual_items'])): ?>
+					<div class="widgets-acf-modal -fields">
+						<div class="widgets-acf-modal-wrapper">
+							<div class="widgets-acf-modal-content">
+							</div>
 						</div>
 					</div>
-				</div>
+				<?php endif; ?>
 			</div><!-- End: -->
 			<?php
 		}
@@ -495,8 +506,6 @@ if(!class_exists('RemoteData')):
 					foreach($options['taxonomies'] as $key => $taxonomy)
 						$queryArgs["$taxonomy-tax"] = implode(',', $options['terms'][$key]);
 				endif;
-
-				// die(var_dump(\add_query_arg(array_merge($queryArgs, ['exclude' => implode(',', $stickyItemsFilter), 'orderby' => 'date']), $url)));
 
 				$response = \wp_remote_get(\add_query_arg(array_merge($queryArgs, ['exclude' => implode(',', $stickyItemsFilter), 'orderby' => 'date']), $url));
 				$responseCode = \wp_remote_retrieve_response_code($response);
