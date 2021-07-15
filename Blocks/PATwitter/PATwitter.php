@@ -44,6 +44,8 @@ class PATwitter extends Block {
      * @return array
      */
     public function with(): array {
+		wp_enqueue_script('twitter', 'https://platform.twitter.com/widgets.js', []);
+		
         return [
             'title'  => field('title'),
 			'url' => field('url')
