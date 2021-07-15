@@ -463,9 +463,11 @@ if(!class_exists('RemoteData')):
 			if(!$field)
 				return false;
 
+			$endpointValues = explode('>', $field['endpoints']);
+
 			// defaults
 			$options = wp_parse_args($options, array(
-				'endpoint'	=> !empty($field['endpoints']) ? $field['endpoints'][0] : '',
+				'endpoint'	=> !empty($endpointValues) ? trim($endpointValues[0]) : '',
 				'field_key'	=> '',
 				'sticky'	=> '',
 			));
@@ -645,9 +647,11 @@ if(!class_exists('RemoteData')):
 			if(!$field)
 				return false;
 
+			$endpointValues = explode('>', $field['endpoints']);
+
 			// defaults
 			$options = wp_parse_args($options, array(
-				'endpoint'	=> !empty($field['endpoints']) ? $field['endpoints'][0] : '',
+				'endpoint'	=> !empty($endpointValues) ? trim($endpointValues[0]) : '',
 				'field_key'	=> '',
 				's'			=> '',
 			));
