@@ -84,7 +84,7 @@ class RemoteData extends Field {
 	 * @param  bool $value Status
 	 * @return self
 	 */
-	public function ManualItems(bool $value): self {
+	public function manualItems(bool $value): self {
         $this->config->set('manual_items', intval($value));
 
         return $this;
