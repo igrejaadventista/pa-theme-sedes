@@ -373,39 +373,33 @@ if(!class_exists('RemoteData')):
 			return $field;
 		}
 
-		// function format_value($value, $post_id, $field) {
-		// 	$value['post_type'] = acf_get_array($field['post_type']);
-		// 	$manual = json_decode($value['manual'], true);
-		// 	$value['data'] = array();
-
-		// 	if(!is_admin()):
-		// 		$stickys = explode(',', $value['sticky']);
-
-		// 		$data = $this->getData([
-		// 			'limit' => $value['limit'],
-		// 			'sticky' => $value['sticky'],
-		// 			'post_type' => !empty($value['post_type_filter']) ? $value['post_type_filter'] : $value['post_type'],
-		// 		]);
-
-		// 		$posts = empty($manual) ? $data['results'] : array_merge($manual, $data['results']);
+		function format_value($value, $post_id, $field) {
+			if(is_admin())
+				return $value;
 				
-		// 		if(!empty($stickys)):
-		// 			foreach($stickys as $sticky):
-		// 				$key = array_search($sticky, array_column(json_decode(json_encode($posts), TRUE), 'id'));
+			$manual = json_decode($value['manual'], true);
+			$data = json_decode($value['data'], true);
+			$value['data'] = array();
+			$stickys = explode(',', $value['sticky']);
 
-		// 				if($key >= 0)
-		// 					$value['data'][] = $posts[$key];
-		// 			endforeach;
-		// 		endif;
+			$posts = empty($manual) ? $data : array_merge($manual, $data);
+			
+			if(!empty($stickys)):
+				foreach($stickys as $sticky):
+					$key = array_search($sticky, array_column(json_decode(json_encode($posts), TRUE), 'id'));
 
-		// 		foreach($value['data'] as $key => $postValue)
-		// 			unset($posts[$key]);
+					if($key >= 0)
+						$value['data'][] = $posts[$key];
+				endforeach;
+			endif;
 
-		// 		$value['data'] = array_merge($value['data'], $posts);
-		// 	endif;
+			foreach($value['data'] as $key => $postValue)
+				unset($posts[$key]);
 
-		// 	return $value;
-		// }
+			$value['data'] = array_unique(array_merge($value['data'], $data), SORT_REGULAR);
+
+			return $value;
+		}
 
 		/**
 		 * @param $response_code

@@ -77,7 +77,7 @@ class PASevenCastFeature extends Block
 	{
 		return [
 			'title'			=> field('title'),
-			'items'			=> json_decode(field('items')['data'], true),
+			'items'			=> field('items')['data'],
 			'enable_link' 	=> field('enable_link'),
 			'link'			=> field('link')
 		];
