@@ -202,7 +202,7 @@
 			if(typeof(data) == 'boolean') 
 				return !data; 
 			if(typeof(data) == 'number') 
-				return false; 
+				return data == 0; 
 			if(typeof(data) === 'undefined' || data === null)
 				return true; 
 			if(typeof(data.length) != 'undefined')
@@ -241,6 +241,7 @@
 			this.set('limit', this.$limitInput().val());
 			this.set('endpoint', this.getEndpoint());
 			this.set('sticky', this.$stickyInput().val());
+			this.set('canSticky', parseInt(this.$control().get(0).dataset.can_sticky));
 
 			// Clear search field
 			this.$searchInput().val('');
@@ -589,7 +590,8 @@
 				let content = `<li data-id="${acf.escAttr(element.id)}" data-date="${acf.escAttr(element.date)}"`;
 					content += `${element.id.toString().startsWith('m') ? ' data-manual' : ''}><span class="acf-rel-item">`;
 
-				if(sticky)
+				if(sticky && !this.empty(this.get('canSticky')) ||
+					sticky && this.empty(this.get('canSticky')) && stickyItems.includes(element.id.toString()))
 					content += '<a href="#" class="acf-icon -pin small dark acf-js-tooltip" data-action="sticky" title="Fixar/Desafixar item"></a>';
 
 				if(element.hasOwnProperty('featured_media_url')) {
