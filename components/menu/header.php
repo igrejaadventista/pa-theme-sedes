@@ -12,7 +12,7 @@
 				</a>
 			</div>
 			<div class="col d-flex flex-column justify-content-between">
-				<nav class="pa-menu-global ">
+				<nav class="pa-menu-global">
 					<ul class="nav justify-content-end">
 						<li class="nav-item">
 							<a class="nav-link active" aria-current="page" href="#">Adventistas</a>
