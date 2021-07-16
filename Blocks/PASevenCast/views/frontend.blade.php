@@ -14,14 +14,14 @@
 							<img 
 								src="{{ $item['featured_media_url']['pa_block_render'] }}" 
 								class="rounded"
-								style="min-width: 100px;border-radius: 4px" 
+								{{-- style="min-width: 100px;border-radius: 4px"  --}}
 								alt="Thumbnail"
 							/>
 						</div>
 					@endnotempty
 
 					@notempty($item['link'])
-						<a class="fw-normal text-decoration-none" href="{{ $item['link'] }}" href="{{ $item['target'] }}">
+						<a class="fw-normal text-decoration-none" href="{{ $item['link']['url'] }}" href="{{ $item['link']['target'] }}">
 							<div class="card-body p-0">
 								<svg viewBox="0 0 24 24" width="20" height="20" stroke="var(--bs-success)"
 									stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"
@@ -34,11 +34,11 @@
 								</svg>
 
 								@notempty($item['title'])
-									<h6 class="card-title text-dark fw-bold mb-1">{!! $item['title'] !!}</h6>
+									<h6 class="card-title text-dark fw-bold mb-1">{!! $item['title']['rendered'] !!}</h6>
 								@endnotempty	
 
 								@notempty($item['content'])
-									<p class="card-text text-muted mb-0" style="line-height: 1.2">{!! $item['content'] !!}</p>
+									<p class="card-text text-muted mb-0" style="line-height: 1.2">{!! $item['content']['rendered'] !!}</p>
 								@endnotempty
 							</div>
 						</a>
@@ -53,20 +53,12 @@
 				target="{{ $link['target'] ?? '_self' }}"
 				class="fw-normal text-success text-decoration-none"
 			>
-				{!! $link['title'] !!}
+				{!! $link['title'] !!}<svg viewBox="0 0 24 24" width="18"
+				height="18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+				stroke-linejoin="round">
+				<polyline points="9 18 15 12 9 6"></polyline>
+			</svg>
 			</a>
 		@endnotempty
-
-        {{-- @if($enable_link)
-            <a 
-				class="fw-normal text-success text-decoration-none" 
-				href="{{ $link['url'] ?? '#' }}"
-                target="{{ $link['target'] ?? '_self' }}">Ver mais podcasts <svg viewBox="0 0 24 24" width="18"
-                    height="18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
-                    stroke-linejoin="round">
-                    <polyline points="9 18 15 12 9 6"></polyline>
-                </svg></a>
-        @endif --}}
-
     </div>
 @endif

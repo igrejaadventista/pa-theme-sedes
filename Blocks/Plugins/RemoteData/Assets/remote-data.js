@@ -367,7 +367,6 @@
 		 * Load fetch data
 		 */
 		getAjaxData() {
-			console.log(this.get('endpoint'))
 			// Load data based on element attributes
 			let ajaxData = this.$control().data();
 

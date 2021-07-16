@@ -495,7 +495,10 @@ if(!class_exists('RemoteData')):
 			if(!$field)
 				return false;
 
-			$endpointValues = explode('>', $field['endpoints']);
+			$endpointValues = array();
+
+			if(!empty($field['endpoints']))
+				$endpointValues = explode('>', $field['endpoints'][0]);
 
 			// defaults
 			$options = wp_parse_args($options, array(
@@ -541,7 +544,12 @@ if(!class_exists('RemoteData')):
 						$queryArgs["$taxonomy-tax"] = implode(',', $options['terms'][$key]);
 				endif;
 
-				$response = \wp_remote_get(\add_query_arg(array_merge($queryArgs, ['exclude' => implode(',', $stickyItemsFilter), 'orderby' => 'date']), $url));
+				if(!empty($stickyItemsFilter))
+					$queryArgs['exclude'] = implode(',', $stickyItemsFilter);
+
+				// die(var_dump(\add_query_arg(array_merge($queryArgs, ['orderby' => 'date']), $url)));
+
+				$response = \wp_remote_get(\add_query_arg(array_merge($queryArgs, ['orderby' => 'date']), $url));
 				$responseCode = \wp_remote_retrieve_response_code($response);
 				$responseData = \wp_remote_retrieve_body($response);
 
@@ -679,7 +687,10 @@ if(!class_exists('RemoteData')):
 			if(!$field)
 				return false;
 
-			$endpointValues = explode('>', $field['endpoints']);
+			$endpointValues = array();
+
+			if(!empty($field['endpoints']))
+				$endpointValues = explode('>', $field['endpoints'][0]);
 
 			// defaults
 			$options = wp_parse_args($options, array(

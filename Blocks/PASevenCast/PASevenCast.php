@@ -41,7 +41,10 @@ class PASevenCast extends Block {
 
 			RemoteData::make('Itens', 'items')
 				->endpoints(['https://api.adv.st/7cast/pt/pa-blocks'])
-				->initialLimit(4),
+				->initialLimit(4)
+				->searchFilter(false)
+				->canSticky(false)
+				->manualItems(false),
 
 			TrueFalse::make('Mais conteúdo', 'enable_link')
 				->stylisedUi('Habilitar', 'Desabilitar')
