@@ -2,16 +2,17 @@
 
 namespace Blocks;
 
-use Blocks\PAAppsFeature\PAAppsFeature;
-use Blocks\PALatestNewsFeature\PALatestNewsFeature;
-use Blocks\PAMagazinesFeature\PAMagazinesFeature;
-use \Blocks\PACarouselFeature\PACarouselFeature;
-use Blocks\PAFacebookFeature\PAFacebookFeature;
-use Blocks\PAOtherSlidesFeature\PAOtherSlidesFeature;
-use Blocks\PAPostsFeature\PAPostsFeature;
-use Blocks\PARelatedVideosFeature\PARelatedVideosFeature;
-use Blocks\PATwitterFeature\PATwitterFeature;
-use Blocks\PAVideosFeature\PAVideosFeature;
+use Blocks\PAApps\PAApps;
+use Blocks\PAListButtons\PAListButtons;
+use Blocks\PAMagazines\PAMagazines;
+use Blocks\PACarouselFeature\PACarouselFeature;
+use Blocks\PAListIcons\PAListIcons;
+use Blocks\PAFacebook\PAFacebook;
+use Blocks\PAListItems\PAListItems;
+use Blocks\PATwitter\PATwitter;
+use Blocks\PACarouselMinistry\PACarouselMinistry;
+use Blocks\PARow\PARow;
+use Blocks\PASevenCast\PASevenCast;
 
 /**
  * Blocks Register blocks and manage settings
@@ -22,16 +23,16 @@ class Blocks {
         \add_filter('acf_gutenblocks/blocks', [$this, 'registerBlocks']);
 		\add_filter('acf_gutenblocks/render_block_frontend_path', [$this, 'blocksFrontendPath']);
 		\add_filter('acf_gutenblocks/blade_engine_callable', [$this, 'bladeEngineCallable']);
-		
+
 		\add_filter('blade/view/paths', [$this, 'bladeViewPaths']);
 
 		\add_action('acf/include_field_types', 	array($this, 'registerPlugins'));
 		\add_action('enqueue_block_editor_assets', array($this, 'enqueueAssets'));
 		\add_filter('block_categories', array($this, 'addCategory'));
-		
+
 		require_once('Directives.php');
     }
-	
+
 	/**
 	 * registerBlocks Import and register new blocks
 	 *
@@ -41,21 +42,22 @@ class Blocks {
 	public function registerBlocks(array $blocks): array {
 		$newBlocks = [
 			PACarouselFeature::class,
-			PATwitterFeature::class,
-			PAFacebookFeature::class,
-			PAOtherSlidesFeature::class,
-			PAAppsFeature::class,
-			PAMagazinesFeature::class,
-			PALatestNewsFeature::class,
-			PAPostsFeature::class,
-			PAVideosFeature::class,
-			PARelatedVideosFeature::class,
+			PATwitter::class,
+			PAFacebook::class,
+			PAListIcons::class,
+			PAListItems::class,
+			PAApps::class,
+			PAMagazines::class,
+			PAListButtons::class,
+			PACarouselMinistry::class,
+			PASevenCast::class,
+			PARow::class,
 		];
-	
+
 		// Merge registered blocks with new blocks
 		return array_merge($blocks, $newBlocks);
 	}
-	
+
 	/**
 	 * blocksFrontendPath Set blocks view path
 	 *
@@ -66,7 +68,7 @@ class Blocks {
 		// Remove file extension and unnecessary part of path
 		return str_replace('.blade.php', '', strstr($path, 'Blocks'));
 	}
-	
+
 	/**
 	 * bladeEngineCallable Set callable to render blade templates
 	 *
@@ -75,7 +77,7 @@ class Blocks {
 	public function bladeEngineCallable(): string {
 		return '\Blocks\block';
 	}
-	
+
 	/**
 	 * bladeViewPaths Set base path to blade views
 	 *
@@ -87,11 +89,14 @@ class Blocks {
 	}
 
 	public function registerPlugins() {
+		include_once('Plugins/LocalData/LocalData.php');
 		include_once('Plugins/RemoteData/RemoteData.php');
 	}
 
 	function enqueueAssets() {
-		wp_enqueue_style('blocks-stylesheet', get_template_directory_uri() . '/Blocks/assets/blocks.css', array(), \wp_get_theme()->get('Version'), 'all');
+		wp_enqueue_style('blocks-stylesheet', get_template_directory_uri() . '/Blocks/assets/styles/blocks.css', array(), \wp_get_theme()->get('Version'), 'all');
+
+		wp_enqueue_script('blocks-script', get_template_directory_uri() . '/Blocks/assets/scripts/blocks.js', array('wp-hooks', 'wp-blocks', 'wp-dom-ready'));
 	}
 
 	function addCategory($categories) {
