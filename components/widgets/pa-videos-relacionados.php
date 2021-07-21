@@ -1,8 +1,16 @@
+<?php
+
+if ( !isset( $n_itens ) ) {
+	$n_itens = "4";
+} 
+
+?>
+
 <div class="pa-widget pa-w-list-posts col col-md-8 mb-5">
 	<h2><?php echo $title ? $title : 'Widget - Relacionados - Videos'; ?></h2>
 	<div class="row mt-4">
 
-		<?php for($i = 1; $i <= $n_intes; $i++){ ?>
+		<?php for($i = 1; $i <= $n_itens; $i++){ ?>
 
 			<div class="col-4">
 				<div class="card mb-2 mb-xl-4 border-0">
@@ -20,5 +28,5 @@
 		<?php } ?>
 
 	</div>
-	<a href="" class="pa-all-content">Ver todas as notícias</a>
+	<a href="" class="pa-all-content">Ver todos os vídeos</a>
 </div>

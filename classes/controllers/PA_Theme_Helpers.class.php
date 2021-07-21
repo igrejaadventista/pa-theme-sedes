@@ -7,7 +7,7 @@ class PaThemeHelpers {
 		add_filter( 'the_content', [$this, 'addResponsiveCssClass'] );
 		add_action( 'wp_enqueue_scripts', [$this, 'registerAssets'] );
 		add_action( 'admin_enqueue_scripts', [$this, 'registerAssetsAdmin'] );
-		add_action( 'init', [$this, 'unregisterTaxonomy'] );
+		//add_action( 'init', [$this, 'unregisterTaxonomy'] );
 	}
 
 	function themeSupport() {
@@ -64,7 +64,7 @@ class PaThemeHelpers {
 	}
 
 	function registerAssets() {
-		wp_enqueue_style( 'bootstrap-style', 'https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css', null, null);
+		wp_enqueue_style( 'bootstrap-style', 'https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css', null, null);
 		wp_enqueue_style( 'google-fonts', 'https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap', null, null);
 		wp_enqueue_style( 'pa-theme-sedes-style', get_template_directory_uri(). '/style.css', null, null);
 		wp_enqueue_style( 'pa-theme-sedes-print', get_template_directory_uri() . '/print.css', null, null);
