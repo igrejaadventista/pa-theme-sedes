@@ -14,7 +14,7 @@ class PARow extends Block {
 		// Set block settings
         parent::__construct([
             'title' 	  => 'IASD - Row',
-            'description' => 'App',
+            'description' => 'Agrupa blocos IASD',
             'category' 	  => 'pa-adventista',
             'post_types'  => ['post', 'page'],
 			'keywords' 	  => ['app', 'download'],

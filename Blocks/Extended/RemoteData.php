@@ -126,4 +126,16 @@ class RemoteData extends Field {
         return $this;
     }
 
+	/**
+	 * filterFields Enable/disable filter fields returned by api
+	 *
+	 * @param  bool $value Status
+	 * @return self
+	 */
+	public function filterFields(bool $value): self {
+        $this->config->set('filter_fields', intval($value));
+
+        return $this;
+    }
+
 }
