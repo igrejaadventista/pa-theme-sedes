@@ -13,10 +13,9 @@
 			'click [data-action="add-taxonomy"]': 	 	'onClickAddTaxonomy',
 			'click [data-action="remove-taxonomy"]': 	'onClickRemoveTaxonomy',
 			'click [data-action="manual-new-post"]': 	'onClickAddManualPost',
-			'click [data-action="modal-alert-dismiss"]':'onCloseModalDismiss',
-			'click [data-action="edit-manual"]': 		'onEditManual',
+			'click [data-action="edit-manual"]': 		'onEditManual', 
 		},
-		
+
 		/**
 		 * Get jQuery control object
 		 *
@@ -73,41 +72,11 @@
 
 		/**
 		 * Get jquery manual item new action button
-		 * 
+		 *
 		 * @return {jQuery} jQuery values input object
 		 */
 		$manualAddActionButton() {
 			return this.$('[data-action="manual-new-post"]');
-		},
-
-		/**
-		 * Search for ACF fields using custom parameters
-		 * 
-		 * @param {*} slug name of field slug
-		 * @param {*} el dom elements
-		 * 
-		 * @returns {string}
-		 */
-		$acfInputName(slug, el = 'input') {
-			return this.$control().find('.acf-fields').find('[data-name=' + slug + ']').find(el);
-		},
-
-		/**
-		 * Validate individual fields on modal
-		 * 
-		 * @returns 
-		 */
-		$alertValidation() {
-			return this.$control().find('.widgets-acf-modal').find('[data-name="acf-modal-alert"]');
-		},
-
-		/**
-		 * Set alert component to the modal validation
-		 * 
-		 * @returns
-		 */
-		$setAlertValidation() {
-			return this.$control().find('.acf-notice-render').addClass('show').html('<div class="acf-notice -error acf-error-message" data-name="acf-modal-alert"><div class="alert-content"><span></span><button type="button" data-action="modal-alert-dismiss" aria-label="Fechar">&times;</button></div></div>');
 		},
 
 		/**
@@ -118,7 +87,7 @@
 		$buttonClear() {
 			return this.$control().find('.button-clear');
 		},
-		
+
 		/**
 		 * Get jQuery choices object
 		 *
@@ -154,7 +123,7 @@
 		$valuesList() {
 			return this.$('.values-list');
 		},
-		
+
 		/**
 		 * Get jQuery list items object
 		 *
@@ -167,13 +136,13 @@
 		/**
 		 * Disable add manual item button if matches
 		 */
-		$isExceeded(value) {
-			if(value)
-				this.$manualAddActionButton().addClass('disabled').attr('disabled', 'disabled').text('Quantidade atingido(a)!');
-			else
-				this.$manualAddActionButton().removeClass('disabled').removeAttr('disabled').text('Adicionar manual');
+		 $isExceeded(value) {
+			this.$manualAddActionButton()
+				.toggleClass('disabled', value)
+				.attr('disabled', (_, attr) => value ? 'disabled' : null)
+				.text(value ? 'Limite atingido!' : 'Adicionar');
 		},
-		
+
 		/**
 		 * Get jQuery item object by id
 		 *
@@ -226,7 +195,26 @@
 		 * @return {Array} Sticky items array
 		 */
 		stickyItems() {
-			return this.$stickyInput().val().split(',');
+			return this.empty(this.$stickyInput().val()) ? [] : this.$stickyInput().val().split(',');
+		},
+
+		empty(data) {
+			if(typeof(data) == 'boolean') 
+				return !data; 
+			if(typeof(data) == 'number') 
+				return data == 0; 
+			if(typeof(data) === 'undefined' || data === null)
+				return true; 
+			if(typeof(data.length) != 'undefined')
+				return data.length == 0;
+
+			var count = 0;
+			for(var i in data) {
+				if(data.hasOwnProperty(i))
+					count ++;
+			}
+
+			return count == 0;
 		},
 
 		/**
@@ -237,14 +225,23 @@
 		taxonomies() {
 			return this.$control().find('.taxonomies-selection').data('taxonomies');
 		},
-		
+
+		/**
+		 * Get current endpoint value
+		 */
+		 getEndpoint() {
+			return this.$control().find('[data-filter="endpoint"]').val();
+		},
+
 		/**
 		 * Initialize plugin
 		 */
 		initialize() {
 			// Set limit and sticky values
 			this.set('limit', this.$limitInput().val());
+			this.set('endpoint', this.getEndpoint());
 			this.set('sticky', this.$stickyInput().val());
+			this.set('canSticky', parseInt(this.$control().get(0).dataset.can_sticky));
 
 			// Clear search field
 			this.$searchInput().val('');
@@ -262,23 +259,25 @@
 			const delayed = this.proxy(acf.once(() => {
 				// Avoid browser remembering old scroll position
 				this.$valuesList('choices').scrollTop(0);
-				
+
 				// Fetch choices
 				this.fetch();
-
 				this.$taxonomyRow().not(':first').each((index) => this.initializeTaxonomyFilters($(this.$taxonomyRow().get(index + 1))));
-
 				this.checkTaxonomyFilters();
 			}));
-			
+
 			// Bind "interacted with"
 			this.$el.one('mouseover', delayed);
 			this.$el.one('focus', 'input', delayed);
-			
+
 			// Bind "in view"
 			acf.onceInView(this.$el, delayed);
+			this.$limitInput().on('change', () => {
+				if(this.$limitInput().val() < this.stickyItems().length)
+					this.$limitInput().val(this.stickyItems().length);
+			});
 		},
-		
+
 		/**
 		 * Don't submit form
 		 */
@@ -286,58 +285,51 @@
 			if(e.which == 13)
 				e.preventDefault();
 		},
-		
+
 		/**
 		 * On changes on filters
 		 */
 		onChangeFilter(e, $el) {
 			const val = $el.val().trim();
 			const filter = $el.data('filter');
-				
-			// Bail early if filter has not changed
-			if(this.get(filter) === val || val == '')
+
+			if(this.empty(val)) {
+				if(filter == 's')
+					this.onClickClear();
 				return;
-			
+			}
+
 			// Update attr
 			this.set(filter, val);
 
 			// Search must go through timeout
 			this.maybeFetch(filter);
 		},
-		
+
 		/**
 		 * On sticky items
 		 */
 		onClickSticky(e, $el) {
 			// Prevent default here because generic handler wont be triggered
 			e.preventDefault();
-			
+
 			const $span = $el.parent();
 			const $li = $span.parent();
 			const sticky = $li.parent().get(0) == this.$valuesList().get(0);
 
 			if(this.$stickyInput().val() == 0)
-				this.$stickyInput().val('');
+				this.$stickyInput().val('').trigger('change');
 
 			if(sticky) {
 				$li.appendTo(this.$stickyList());
 
 				// Update the list to validate the allowed quantity of items
-				if (e.type === 'click') {
-					let exceededLimit = (this.stickyItems().length + 1) >= parseInt(this.$limitInput().val()) ? true : false;
-					this.$isExceeded(exceededLimit);
-				}
-				// Update the list to validate the allowed quantity of items
-				this.fetch();
-
-				// validate on qtd change
-				// this.$limitInput().change((e) => {
-				// 	let exceededLimit = stickyItems.length >= e.target.value ? true : false;
-				// 	this.$isExceeded(exceededLimit);
-				// });
-
+				if(e.type === 'click')
+					this.$isExceeded((this.stickyItems().length + 1) >= parseInt(this.$limitInput().val()));
 
 				this.sortValues();
+				// Update the list to validate the allowed quantity of items
+				this.fetch(); // update data list on sticky item
 			}
 			else {
 				if ($li[0].hasAttribute('data-manual')) {
@@ -346,32 +338,31 @@
 					const manualId = $li.data('id');
 					const manualFilterId = manualAttr.filter(obj => obj.id != manualId);
 
-					this.$manualInput().val(JSON.stringify(manualFilterId));
+					this.$manualInput().val(JSON.stringify(manualFilterId)).trigger('change');
 				}
-				
-				this.$choicesList().find(`[data-id="${$li.data('id')}"]`).removeClass('disabled');
 
+				this.$choicesList().find(`[data-id="${$li.data('id')}"]`).removeClass('disabled');
 				$li.remove();
 				this.sortValues();
 				this.fetch();
 			}
 		},
-		
+
 		/**
 		 * Check if can fetch data
 		 */
-		maybeFetch(filter) {	
+		maybeFetch(filter) {
 			let timeout = this.get('timeout');
-			
+
 			// Abort timeout
 			if(timeout)
 				clearTimeout(timeout);
-			
+
 		    // Fetch
 		    timeout = this.setTimeout(filter == 's' ? this.search : this.fetch, 300);
 		    this.set('timeout', timeout);
 		},
-		
+
 		/**
 		 * Load fetch data
 		 */
@@ -383,7 +374,7 @@
 				ajaxData[name] = this.get(name);
 
 			this.saveTaxonomyFilters();
-			
+
 			// Extra
 			ajaxData.action = 'acf/fields/remote_data/query';
 			ajaxData.field_key = this.get('key');
@@ -391,10 +382,11 @@
 			ajaxData.limit = this.get('limit');
 			ajaxData.taxonomies = this.get('taxonomies');
 			ajaxData.terms = this.get('terms');
-			
+			ajaxData.endpoint = this.get('endpoint');
+
 			return acf.applyFilters('remote_data_ajax_data', ajaxData, this);
 		},
-		
+
 		/**
 		 * Fetch results
 		 */
@@ -403,47 +395,46 @@
 			let xhr = this.get('xhr');
 			if(xhr)
 				xhr.abort();
-			
+
 			const ajaxData = this.getAjaxData();
-			
+
 			// Clear html if is new query
 			const $list = this.$valuesList();
 			$list.empty();
-			
+
 			// Loading
 			const $loading = $(`<li class="-loading"><i class="acf-loading"></i>${acf.__('Loading')}</li>`);
 			$list.append($loading);
 			this.set('loading', true);
-			
+
 			const onComplete = () => {
 				this.set('loading', false);
 				$loading.remove();
 
 				// check if has manual values
 				let hasManualData = this.$manualInput().val() !== '' ? JSON.parse(this.$manualInput().val()) : [];
-				if (hasManualData.length) {
-					// add edit button to manual lists
-					this.$stickyList().find('li[data-manual] > .acf-rel-item').append('<button class="editManualButton" type="button" data-action="edit-manual" aria-label="Editar" title="Editar"><svg viewBox="0 0 24 24" width="10" height="10" stroke="currentColor" aria-label="hidden" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg></button>');
-				}
+				// add edit button to manual lists
+				if(hasManualData.length)
+					this.$stickyList().find('li[data-manual] > .acf-rel-item').append('<button class="editManualButton acf-js-tooltip" type="button" data-action="edit-manual" aria-label="Editar" title="Editar"><svg viewBox="0 0 24 24" width="10" height="10" stroke="currentColor" aria-label="hidden" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg></button>');
 			};
-			
+
 			const onSuccess = (json) => {
 				// No results
-				if(!json || !json.results || !json.results.length) {
+				if(!json || !json.results || !json.results.length)
 					// Add message
-					return this.$valuesList().append(`<li>${acf.__('No matches found')}</li>`);
-				}
+					this.$valuesList().append(`<li>${acf.__('No matches found')}</li>`);
 
 				// Get new results
 				const html = this.walkChoices(json.results);
-				
+
 				// Append
 				this.$stickyList().empty().append(html.stickyList);
 				$list.append(html.list);
 				this.$valuesInput().val(this.parseData(json.data));
 				this.sortList();
+				this.sortValues();
 			};
-			
+
 			// Get results
 		    xhr = $.ajax({
 		    	url:		acf.get('ajaxurl'),
@@ -454,7 +445,7 @@
 				success:	onSuccess,
 				complete:	onComplete,
 			});
-			
+
 			this.set('xhr', xhr);
 		},
 
@@ -473,7 +464,7 @@
 				if(element.hasOwnProperty('featured_media_url')) {
 					// Delete all except pa-block-render
 					Object.keys(element.featured_media_url).forEach((item) => {
-						if(item != 'pa_block_render') 
+						if(item != 'pa_block_render')
 							delete element.featured_media_url[item];
 					});
 				}
@@ -491,15 +482,15 @@
 
 			for(let name in ajaxData)
 				ajaxData[name] = this.get(name);
-			
+
 			// Extra
 			ajaxData.action = 'acf/fields/remote_data/search';
 			ajaxData.field_key = this.get('key');
 			ajaxData.exclude = [];
 
 			this.$valuesList().find('li').each((_, element) => ajaxData.exclude.push(element.dataset.id));
-			
-			// Filter			
+
+			// Filter
 			return acf.applyFilters('remote_data_search_data', ajaxData, this);
 		},
 
@@ -511,26 +502,26 @@
 			let xhr = this.get('xhr');
 			if(xhr)
 				xhr.abort();
-			
+
 			// Add to this.o
 			const ajaxData = this.getSearchData();
-			
+
 			// Clear html if is new query
 			const $list = this.$choicesList();
 			$list.empty();
-			
+
 			// Loading
 			this.$searchLoading().addClass('active');
 			this.$buttonClear().removeClass('active');
 			this.set('loading', true);
-			
+
 			const onComplete = () => {
 				this.set('loading', false);
 				this.$searchLoading().removeClass('active');
 				this.$choices().addClass('active');
 				this.$buttonClear().addClass('active');
 			};
-			
+
 			const onSuccess = (json) => {
 				// No results
 				if(!json || !json.results || !json.results.length)
@@ -539,12 +530,12 @@
 
 				// Get new results
 				const html = this.walkChoices(json.results, false);
-				
+
 				// Append
 				$list.append(html.list);
 				this.set('results', json.results);
 			};
-			
+
 			// Get results
 		    xhr = $.ajax({
 		    	url:		acf.get('ajaxurl'),
@@ -555,10 +546,10 @@
 				success:	onSuccess,
 				complete:	onComplete,
 			});
-			
+
 			this.set('xhr', xhr);
 		},
-		
+
 		/**
 		 * Walk results and create html
 		 */
@@ -577,32 +568,44 @@
 			stickyItems.forEach(elms => {
 				const item = mergeItems.find(item => item.id == elms);
 
-				mergeItems = mergeItems.filter(function(value) { 
+				mergeItems = mergeItems.filter((value) => {
 					return value != item;
 				});
 
 				// check if array sticky input value is not empty
-				if(stickyItems[0] !== "")
+				if(stickyItems[0] !== "" && typeof item !== 'undefined')
 					stickyOrder.push(item);
 			});
 
 			// merge data objects if sticky values exists on input
 			let mergedData = stickyOrder.length ? [].concat(stickyOrder, mergeItems) : mergeItems;
+
 			mergedData.forEach(element => {
+				// results has empty
+				if(Object.values(element).includes("0"))
+					return this.$valuesList().append(`<li>${acf.__('No matches found')}</li>`);
+
+				// html
 				let content = `<li data-id="${acf.escAttr(element.id)}" data-date="${acf.escAttr(element.date)}"`;
 					content += `${element.id.toString().startsWith('m') ? ' data-manual' : ''}><span class="acf-rel-item">`;
 
-				if(sticky)
+				if(sticky && !this.empty(this.get('canSticky')) ||
+					sticky && this.empty(this.get('canSticky')) && stickyItems.includes(element.id.toString()))
 					content += '<a href="#" class="acf-icon -pin small dark acf-js-tooltip" data-action="sticky" title="Fixar/Desafixar item"></a>';
 
 				if(element.hasOwnProperty('featured_media_url')) {
 					if(element.featured_media_url.hasOwnProperty('pa-block-preview'))
-						content += `<img src="${element.featured_media_url['pa-block-preview']}" />`;
+						content += this.empty(element.featured_media_url['pa-block-preview']) ? '<div class="thumb"></div>' : `<img src="${element.featured_media_url['pa-block-preview']}" alt="Thumbnail" />`;
 					else if(element.featured_media_url.hasOwnProperty('pa_block_render'))
-						content += `<img src="${element.featured_media_url['pa_block_render']}" />`;
+						content += this.empty(element.featured_media_url['pa_block_render']) ? '<div class="thumb"></div>' : `<img src="${element.featured_media_url['pa_block_render']}" alt="Thumbnail" />`;
 				}
-				
-				content += `${acf.escHtml(element.title.rendered)}</span></li>`;
+				else
+					content += '<div class="thumb"></div>';
+
+				content += `<div class="walker__item">`;
+				content += `<div>${acf.escHtml(element.title.rendered)}</div>`;
+				content += `</div>`;
+				content += `</span></li>`;
 
 				if(stickyItems.includes(element.id.toString()))
 					stickyList += content;
@@ -619,11 +622,8 @@
 			this.$isExceeded(validateLimit);
 
 			// validate on qtd change
-			this.$limitInput().change((e) => {
-				let exceededLimit = stickyItems.length >= e.target.value ? true : false;
-				this.$isExceeded(exceededLimit);
-			});
-			
+			this.$limitInput().change((e) => this.$isExceeded(stickyItems.length >= e.target.value));
+
 			return {
 				list: list,
 				stickyList: stickyList,
@@ -636,6 +636,7 @@
 		onClickClear() {
 			this.$searchInput().val('');
 			this.$choices().removeClass('active');
+			this.$valuesList().addClass('active');
 			this.$buttonClear().removeClass('active');
 			this.set('s', '');
 
@@ -645,26 +646,26 @@
 		/**
 		 * Add search result as sticky item
 		 */
-		onClickAdd(e, $el) {		
+		onClickAdd(e, $el) {
 			// Can be added?
 			if($el.hasClass('disabled'))
 				return false;
 
 			const limit = this.get('limit');
-			
+
 			// Validate
 			if(this.stickyItems().length == limit) {
 				// Add notice
 				this.showNotice({
-					text: `Limite máximo de ${limit} ite${limit == 1 ? 'm' : 'ns' } alcançado`,
+					text: `Limite máximo de ${limit} ite${limit == 1 ? 'm' : 'ns' } atingido`,
 					type: 'warning',
 				});
 
 				return false;
 			}
-			
+
 			$el.addClass('disabled');
-			
+
 			// Add
 			var html = this.newValue({
 				id: $el.data('id'),
@@ -680,14 +681,14 @@
 		/**
 		 * Show/hide taxonomies filters
 		 */
-		onClickToggleTaxonomies(e, $el) {		
+		onClickToggleTaxonomies(e, $el) {
 			$el.toggleClass('active')
 			this.$taxonomiesSelection().slideToggle();
 		},
 
 		/**
 		 * Create item html
-		 * 
+		 *
 		 * @param {object} props The item data
 		 * @return {string} Item html
 		 */
@@ -715,63 +716,151 @@
 		 * Sort sticky items
 		 */
 		sortValues() {
-			const results = this.get('results');
-			// api fields
-			const values = JSON.parse(this.$valuesInput().val());
-			// manual fields
-			const valuesManual = this.$manualInput().val() !== '' ? JSON.parse(this.$manualInput().val()) : [];
-			const valuesMerged = [].concat(values, valuesManual);
-
-			let sortedValues = [];
-
 			// clean sticky input
 			this.$stickyInput().val('');
 
-			this.$stickyList().find('li').each((_, element) => {
-				let elementValue;
-
-				if(typeof element.dataset.fromSearch != 'undefined')
-					elementValue = results.find(value => value.id == element.dataset.id);
-				else
-					elementValue = valuesMerged.find(value => value.id == element.dataset.id);
-
-				if(elementValue) {
-					sortedValues.push(elementValue);
-					this.$stickyInput().val(`${this.$stickyInput().val()},${elementValue.id}`);
-				}
-			});
-
-			// remote items
-			// this.$valuesList().find('li').each((_, element) => sortedValues.push(values.find(value => value.id == element.dataset.id)));
-
-			// this.$valuesInput().val(JSON.stringify(sortedValues));
+			this.$stickyList().find('li').each((_, element) => this.$stickyInput().val(`${this.$stickyInput().val()},${element.dataset.id}`));
 
 			// remove first comma from sticky items
-			this.$stickyInput().val(this.$stickyInput().val().replace(/(^\,+|\,+$)/mg, ''));
-			// this.$stickyInput().val(this.$stickyInput().val().substr(this.$stickyInput().val().indexOf(",") + 1));
-			
+			this.$stickyInput().val(this.$stickyInput().val().replace(/(^\,+|\,+$)/mg, '')).trigger('change');
 			this.set('sticky', this.$stickyInput().val());
 		},
 
 		/**
-		 * Add manual (local) items
-		 * 
-		 * @param {*} e 
-		 * @param {*} $el 
+		 * Parse fields and collect data
+		 *
+		 * @param {jQuery} $modal The modal element
+		 * @param {string} data Values on edit data
 		 */
-		onClickAddManualPost(e, $el) {
-			var $modal = this.$control().find('.widgets-acf-modal.-fields');
+		modalContent($modal, data = null) {
+			const $modalContent = $modal.find('.widgets-acf-modal-content');
+			const $loading = $(`<span class="-loading"><i class="acf-loading"></i>${acf.__('Loading')}</span>`);
+
+			$modalContent.empty();
+			$modalContent.append($loading);
+			this.set('loading', true);
+
+			const ajaxData = {
+				action: 'acf/fields/localposts_data/modal',
+				field_key: this.get('key'),
+			};
+
+			if(data)
+				ajaxData.data = data;
+
+			const onComplete = () => {
+				$loading.remove();
+				this.set('loading', false);
+			};
+
+			const onSuccess = (data) => {
+				// No results
+				$modalContent.html(data);
+				acf.do_action('append', $modalContent);
+
+				$modalContent.find('[data-name="link"] [data-name="add"], [data-name="link"] [data-name="edit"]').on('click', () => $('#wp-link-wrap').addClass('-no-label'));
+				$('#wp-link-close, #wp-link-submit, #wp-link-cancel button, #wp-link-backdrop').on('click', () => $('#wp-link-wrap').removeClass('-no-label'));
+			};
+
+			// Get results
+			$.ajax({
+				url:		acf.get('ajaxurl'),
+				type:		'post',
+				data:		acf.prepareForAjax(ajaxData),
+				context:	this,
+				success:	onSuccess,
+				complete:	onComplete,
+			});
+		},
+
+		/**
+		 * Parse fields and collect data
+		 *
+		 * @param {jQuery} $modal The modal element
+		 * @param {string} id ID on edit data
+		 *
+		 * @return {object} Object with data values
+		 */
+		parseModalFields($modal, id = null) {
+			const $fields = $modal.find('.acf-field');
+			let values = {};
+			let hasInvalid = false;
+
+			$fields.each((_, element) => {
+				const field = acf.getField($(element));
+
+				if(this.empty(field.getValue()) && element.dataset.required == 1) {
+					hasInvalid = true;
+					field.showError('Campo obrigatório');
+				}
+
+				if(field.data.name == 'featured_media_url')
+					values[field.data.name] = {
+						id: field.getValue(),
+						url: $(element).find('img').attr('src'),
+					};
+				else
+					values[field.data.name] = field.getValue();
+			});
+
+			if(hasInvalid)
+				return null;
+
+			const $date = new Date();
+
+			if(!id)
+				id = `m${$date.getUTCMilliseconds()}`;
+
+			let createNewFields = {
+				id: id,
+				date: $date.toISOString(),
+				title: {
+					rendered: values.title,
+				},
+				link: values.link,
+			};
+
+			delete values.title;
+			delete values.link;
+
+			if(values.hasOwnProperty('featured_media_url')) {
+				createNewFields.featured_media_url = {
+					id: values.featured_media_url.id,
+					pa_block_render: values.featured_media_url.url,
+				};
+
+				delete values.featured_media_url;
+			}
+
+			if(values.hasOwnProperty('content')) {
+				createNewFields.content = {
+					rendered: values.content,
+				};
+
+				delete values.content;
+			}
+
+			return $.extend(createNewFields, values);
+		},
+
+		/**
+		 * Add manual (local) items
+		 *
+		 * @param {*} e
+		 * @param {*} $el
+		 */
+		onClickAddManualPost() {
+			const $modal = this.$control().find('.widgets-acf-modal.-fields');
+
 			// Open modal
-			modal.open($modal, {
-				title: 'Manual',
+			this.modal.open($modal, {
+				title: 'Adicionar item',
 				onOpen: () => {
 					let modalHeader = $modal.find('.widgets-acf-modal-title');
 					modalHeader.append('<button class="button button-primary button-sticky-add" data-name="manualSubmit">Adicionar</button>');
 					let buttonAdd = modalHeader.find('[data-name="manualSubmit"]');
 
-					// remove alert
-					this.$alertValidation().parent().removeClass('show');
-					this.$alertValidation().remove();
+					this.modalContent($modal);
 
 					// get existing input value data
 					let currentData = this.$manualInput().val();
@@ -779,62 +868,28 @@
 					let newData = currentData.length ? JSON.parse(currentData) : [];
 					let existingSticky = this.$stickyInput();
 
-					// clear fields
-					this.$acfInputName('titulo').val('');
-					this.$acfInputName('thumbnail', '[data-name=remove]').click();
-					this.$acfInputName('excerpt', 'textarea').val('');
+					buttonAdd.click(() => {
+						const values = this.parseModalFields($modal);
 
-					buttonAdd.click((e) => {
-						// retrieves acf fields from modal
-						let title = this.$acfInputName('titulo').val();
-						let thumbnail = this.$acfInputName('thumbnail', 'img').attr('src');
-						let content = this.$acfInputName('excerpt', 'textarea').val();
+						if(!values)
+							return;
 
-						// alert component
-						this.$setAlertValidation();
-
-						// validate fields
-						if ('' === title) {
-							this.$alertValidation().find('span').text('Título é obrigatório.');
-							return false;
-						}
-						if ('' === thumbnail) {
-							this.$alertValidation().find('span').text('Tumbnail é obrigatório.');
-							return false;
-						}
-						if ('' === content) {
-							this.$alertValidation().find('span').text('Resumo é obrigatório.');
-							return false;
-						}
-
-						let createNewFields = {
-							id: `m${e.timeStamp}`,
-							date: new Date().toISOString(),
-							title: {
-								rendered: title
-							},
-							featured_media_url: {
-								'pa_block_render': thumbnail
-							},
-							content: {
-								rendered: content
-							},
-						};
-
-						newData.push(createNewFields);
+						newData.push(values);
 
 						// append updated values to input
-						this.$manualInput().val(JSON.stringify(newData));
+						this.$manualInput().val(JSON.stringify(newData)).trigger('change');
 
 						// get current values and add new one
-						existingSticky.val(`${existingSticky.val()},${createNewFields.id}`);
+						existingSticky.val(`${existingSticky.val()},${values.id}`);
 
 						// remove first comma from sticky items
-						this.$stickyInput().val(this.$stickyInput().val().replace(/(^\,+|\,+$)/mg, ''));
+						this.$stickyInput().val(this.$stickyInput().val().replace(/(^\,+|\,+$)/mg, '')).trigger('change');
 
 						this.set('sticky', this.$stickyInput().val());
+
 						this.fetch();
-						modal.close();
+
+						this.modal.close();
 					});
 				}
 			});
@@ -842,113 +897,73 @@
 
 		/**
 		 * Edit manual (local) items
-		 * 
-		 * @param {*} e 
-		 * @param {*} $el 
+		 *
+		 * @param {*} e
+		 * @param {*} $el
 		 */
 		onEditManual(e, $el) {
-			var $modal = this.$control().find('.widgets-acf-modal.-fields');
-
-			// remove alert
-			this.$alertValidation().parent().removeClass('show');
-			this.$alertValidation().remove();
+			const $modal = this.$control().find('.widgets-acf-modal.-fields');
 
 			// get current item id
-			var item_ID = $el.parent().parent().attr('data-id');
+			const item_ID = $el.parent().parent().attr('data-id');
 
-			modal.open($modal, {
+			this.modal.open($modal, {
 				title: 'Editar',
 				onOpen: () => {
 					// add header button action
 					let modalHeader = $modal.find('.widgets-acf-modal-title');
 					modalHeader.append('<button class="button button-primary button-sticky-add" data-name="editSubmit">Conlcuir</button>');
 					let buttonEdit = modalHeader.find('[data-name="editSubmit"]');
-
 					// get original data
 					let originalData = JSON.parse(this.$manualInput().val());
-
 					// get current item object by id
 					let editData = JSON.parse(this.$manualInput().val());
+
 					editData, editIndex = editData.findIndex(obj => obj.id == item_ID);
 
-					// fill current fields
-					this.$acfInputName('titulo').val(editData[editIndex].title.rendered);
-					this.$acfInputName('thumbnail', 'img').attr('src', editData[editIndex].featured_media_url.pa_block_render);
-					this.$acfInputName('thumbnail', '.acf-image-uploader').addClass('has-value');
-					this.$acfInputName('excerpt', 'textarea').val(editData[editIndex].content.rendered);
+					this.modalContent($modal, editData[editIndex]);
 
 					buttonEdit.click(() => {
-						let title = this.$acfInputName('titulo').val();
-						let thumbnail = this.$acfInputName('thumbnail', 'img').attr('src');
-						let content = this.$acfInputName('excerpt', 'textarea').val();
+						const values = this.parseModalFields($modal, item_ID);
 
-						// alert component
-						this.$setAlertValidation();
-
-						// validate fields
-						if ('' === title) {
-							this.$alertValidation().find('span').text('Título é obrigatório.');
-							return false;
-						}
-						if ('' === thumbnail) {
-							this.$alertValidation().find('span').text('Tumbnail é obrigatório.');
-							return false;
-						}
-						if ('' === content) {
-							this.$alertValidation().find('span').text('Resumo é obrigatório.');
-							return false;
-						}
+						if(!values)
+							return;
 
 						// update fields
-						editData[editIndex].title.rendered = title;
-						editData[editIndex].featured_media_url.pa_block_render = thumbnail;
-						editData[editIndex].content.rendered = content;
+						editData[editIndex] = values;
 
 						let updatedData = editData;
 
 						// check if objects is iqual
 						const objectsEqual = (oldValue, newValue) => {
-							return typeof oldValue === 'object' && Object.keys(oldValue).length > 0 
-							? Object.keys(oldValue).length === Object.keys(newValue).length 
+							return typeof oldValue === 'object' && Object.keys(oldValue).length > 0
+							? Object.keys(oldValue).length === Object.keys(newValue).length
 							&& Object.keys(oldValue).every(p => objectsEqual(oldValue[p], newValue[p])) : oldValue === newValue;
 						}
 
 						let compare = objectsEqual(originalData, updatedData);
-						if (!compare) {
+						if(!compare) {
 							// append updated values to input
-							this.$manualInput().val(JSON.stringify(updatedData));
-
-							// this.set('sticky', this.$stickyInput().val());
+							this.$manualInput().val(JSON.stringify(updatedData)).trigger('change');
 							this.fetch();
-							modal.close();
+							this.modal.close();
 						};
 
-						modal.close();
+						this.modal.close();
 					});
 				}
 			});
 		},
 
 		/**
-		 * Dismiss modal validation alert
-		 * 
-		 * @param {*} e 
-		 * @param {*} $el 
-		 */
-		onCloseModalDismiss() {
-			this.$alertValidation().parent().removeClass('show');
-			this.$alertValidation().remove();
-		},
-
-		/**
 		 * Add taxonomy row
 		 */
-		onClickAddTaxonomy(e, $el) {	
+		onClickAddTaxonomy(e, $el) {
 			if(Object.keys(this.taxonomies()).length == this.$taxonomyRow().not(':first').length)
 				return;
 
 			const $row = this.$taxonomyRow().first().clone();
-			
+
 			$row.insertBefore($el.parent()).slideDown();
 
 			this.initializeTaxonomyFilters($row, true);
@@ -958,9 +973,9 @@
 		/**
 		 * Remove taxonomy row
 		 */
-		onClickRemoveTaxonomy(e, $el) {		
-			$el.parent().slideUp(() => { 
-				$el.parent().remove(); 
+		onClickRemoveTaxonomy(e, $el) {
+			$el.parent().slideUp(() => {
+				$el.parent().remove();
 
 				this.$taxonomyRow().not(':first').each((index) => {
 					const $row = $(this.$taxonomyRow().get(index + 1));
@@ -1006,7 +1021,7 @@
 				}, []);
 
 				$.each(this.taxonomies(), (key, value) => {
-					$selectTaxonomy.append($('<option>', { 
+					$selectTaxonomy.append($('<option>', {
 						value: key,
 						text : value.label,
 						disabled: values.includes(key),
@@ -1016,14 +1031,14 @@
 
 			$selectTaxonomy.on('change', () => {
 				$selectTerms.find('option[value]').remove();
-				
+
 				$.each(this.taxonomies()[$selectTaxonomy.val()].terms, (key, value) => {
-					$selectTerms.append($('<option>', { 
+					$selectTerms.append($('<option>', {
 						value: key,
-						text : value, 
+						text : value,
 					}));
 				});
-				
+
 				$selectTaxonomy.find(`option[value="${$selectTaxonomy.val()}"]`).attr('selected', true);
 				$selectTerms.val('').trigger('change');
 				this.checkTaxonomyFilters();
@@ -1035,13 +1050,15 @@
 				$selectTaxonomy.trigger('change');
 
 			$selectTaxonomy.select2();
-			$selectTerms.select2();	
+			$selectTerms.select2();
 		},
 
 		/**
 		 * Check taxonomies filters on row added/removed
 		 */
 		checkTaxonomyFilters() {
+			if(!this.$buttonAddTaxonomy().length)
+				return;
 			// Enable/disable button
 			this.$buttonAddTaxonomy().toggleClass('disabled', Object.keys(this.taxonomies()).length == this.$taxonomyRow().not(':first').length);
 
@@ -1067,7 +1084,7 @@
 				$element.find('option').remove();
 
 				$.each(this.taxonomies(), (key, value) => {
-					$element.append($('<option>', { 
+					$element.append($('<option>', {
 						value: key,
 						text : value.label,
 						selected: elementValue == key,
@@ -1099,143 +1116,81 @@
 			this.set('taxonomies', taxonomies);
 			this.set('terms', terms);
 		},
-		
+
+		// Widgets Modal
+		modal: {
+			current: null,
+
+			// Open
+			open: ($target, args) => {
+				const modal = acf.getFieldType('remote_data').prototype.modal;
+
+				args = acf.parseArgs(args, {
+					title: '',
+					destroy: false,
+					onOpen: false,
+					onClose: false,
+				});
+
+				$target.addClass('-open');
+
+				if(!$target.find('> .widgets-acf-modal-wrapper').length)
+					$target.wrapInner('<div class="widgets-acf-modal-wrapper" />');
+
+				if(!$target.find('> .widgets-acf-modal-wrapper > .widgets-acf-modal-content').length)
+					$target.find('> .widgets-acf-modal-wrapper').wrapInner('<div class="widgets-acf-modal-content" />');
+
+				$target.find('> .widgets-acf-modal-wrapper').prepend('<div class="widgets-acf-modal-wrapper-overlay"></div><div class="widgets-acf-modal-title"><span class="title">' + args.title + '</span><button class="button button-secondary button-close">Cancelar</button></div>');
+
+				$target.find('.widgets-acf-modal-title .button-close').click((e) => {
+					e.preventDefault();
+					modal.close(args);
+				});
+
+				modal.current = $target;
+
+				modal.onOpen($target, args);
+
+				return $target;
+			},
+
+			// Close
+			close: (args) => {
+				const modal = acf.getFieldType('remote_data').prototype.modal;
+
+				args = acf.parseArgs(args, {
+					destroy: false,
+					onClose: false,
+				});
+
+				if(modal.current) {
+					modal.current.find('.widgets-acf-modal-title').remove();
+					modal.current.removeAttr('style');
+					modal.current.removeClass('-open');
+
+					if(args.destroy)
+						modal.current.remove();
+				}
+
+				modal.onClose(modal.current, args);
+			},
+
+			onOpen: ($target, args) => {
+				if(!args.onOpen || !(args.onOpen instanceof Function))
+					return;
+
+				args.onOpen($target);
+			},
+
+			onClose: ($target, args) => {
+				if(!args.onClose || !(args.onClose instanceof Function))
+					return;
+
+				args.onClose($target);
+			},
+		},
+
 	});
 
-	// Widgets Modal
-	//
-	window.modal = {
-        modals: [],
-        
-        // Open
-        open: function($target, args) {
-            var model = this;
-            
-            args = acf.parseArgs(args, {
-                title: '',
-                footer: false,
-                size: false,
-                destroy: false,
-                onOpen: false,
-                onClose: false,
-            });
-            
-            model.args = args;
-            
-            $target.addClass('-open');
-            
-            if(args.size)
-                $target.addClass('-' + args.size);
-            
-            if(!$target.find('> .widgets-acf-modal-wrapper').length)
-                $target.wrapInner('<div class="widgets-acf-modal-wrapper" />');
-            
-            if(!$target.find('> .widgets-acf-modal-wrapper > .widgets-acf-modal-content').length)
-                $target.find('> .widgets-acf-modal-wrapper').wrapInner('<div class="widgets-acf-modal-content" />');
-            
-            $target.find('> .widgets-acf-modal-wrapper').prepend('<div class="widgets-acf-modal-wrapper-overlay"></div><div class="widgets-acf-modal-title"><span class="title">' + args.title + '</span><button class="button button-secondary button-close">Cancelar</button></div>');
-            
-            $target.find('.widgets-acf-modal-title > .button-close').click(function(e) {
-                e.preventDefault();
-                model.close(args);
-            });
-            
-            if(args.footer) {
-                $target.find('> .widgets-acf-modal-wrapper').append('<div class="widgets-acf-modal-footer"><button class="button button-primary">' + args.footer + '</button></div>');
-                
-                $target.find('.widgets-acf-modal-footer > button').click(function(e){
-                    e.preventDefault();
-                    model.close(args);
-                });
-            }
-            
-            modal.modals.push($target);
-            
-            var $body = $('body');
-            
-            if(!$body.hasClass('widgets-acf-modal-opened')) {
-				var overlay = $('<div class="widgets-acf-modal-overlay" />');
-                
-				$body.addClass('widgets-acf-modal-opened').append(overlay);
-                
-                $body.find('.widgets-acf-modal-overlay').click(function(e) {
-                    e.preventDefault();
-                    model.close(model.args);
-                });
-                
-                $(window).keydown(function(e) {
-                    if(e.keyCode !== 27 || !$('body').hasClass('widgets-acf-modal-opened'))
-                        return;
-                    
-                    e.preventDefault();
-                    model.close(model.args);
-                });
-			}
-            
-            modal.multiple();
-            modal.onOpen($target, args);
-            
-            return $target;
-		},
-		
-        // Close
-		close: function(args) {
-            args = acf.parseArgs(args, {
-                destroy: false,
-                onClose: false,
-            });
-            
-            var $target = modal.modals.pop();
-			
-			$target.find('.widgets-acf-modal-wrapper-overlay').remove();
-			$target.find('.widgets-acf-modal-title').remove();
-			$target.find('.widgets-acf-modal-footer').remove();
-            
-			$target.removeAttr('style');
-            
-			//$target.removeClass('-open -small -medium -full');
-			$target.removeClass('-open');
-            
-            if(args.destroy)
-                $target.remove();
-                
-			if(!modal.modals.length) {
-				$('.widgets-acf-modal-overlay').remove();
-                $('body').removeClass('widgets-acf-modal-opened');
-			}
-            
-            modal.multiple();
-            modal.onClose($target, args);
-		},
-        
-        // Multiple
-        multiple: function() {
-            var last = modal.modals.length - 1;
-            
-            $.each(modal.modals, function(i) {
-                if(last == i) {
-                    $(this).removeClass('widgets-acf-modal-sub').css('margin-left', '');
-                    return;
-                }
-                
-                $(this).addClass('widgets-acf-modal-sub').css('margin-left',  - (500 / (i+1)));
-			});
-        },
-        
-        onOpen: function($target, args) {
-            if(!args.onOpen || !(args.onOpen instanceof Function))
-                return;
-            
-            args.onOpen($target);
-        },
-        
-        onClose: function($target, args) {
-            if(!args.onClose || !(args.onClose instanceof Function))
-                return;
-            
-            args.onClose($target);
-        }
-    };  
-	
 	acf.registerFieldType(Field);
 })(jQuery);

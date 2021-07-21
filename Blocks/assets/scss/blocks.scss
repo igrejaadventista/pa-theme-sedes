@@ -1,0 +1,62 @@
+@import "../node_modules/bootstrap/scss/functions";
+@import "../node_modules/bootstrap/scss/variables";
+@import "../node_modules/bootstrap/scss/mixins/breakpoints";
+@import "../node_modules/bootstrap/scss/mixins/container";
+@import "../node_modules/bootstrap/scss/mixins/grid";
+@import "../node_modules/bootstrap/scss/mixins/utilities";
+
+/* Main column width */
+.wp-block {
+    max-width: none;
+}
+
+.acf-block-preview .img-preview {
+	display: block;
+	margin: 0 auto;
+}
+
+.row .block-editor-block-list__layout .wp-block {
+	margin: 0;
+}
+
+.interface-interface-skeleton__content {
+	overflow-x: hidden;
+}
+
+.row .block-editor-inner-blocks .block-editor-block-list__layout {
+	@include make-row();
+
+	min-height: 100px;
+}
+
+[data-type="acf/p-a-apps"],
+[data-type="acf/p-a-carousel-feature"],
+[data-type="acf/p-a-facebook"],
+[data-type="acf/p-a-list-buttons"],
+[data-type="acf/p-a-list-icons"],
+[data-type="acf/p-a-list-items"],
+[data-type="acf/p-a-magazines"],
+[data-type="acf/p-a-seven-cast"],
+[data-type="acf/p-a-twitter"] {
+	@include make-col-ready();
+
+	@include media-breakpoint-up(md) {
+		@include make-col(4);
+	}
+}
+
+[data-type="acf/p-a-carousel-ministry"] {
+	@include make-col-ready();
+
+	@include media-breakpoint-up(md) {
+		@include make-col(8);
+	}
+}
+
+// [data-type="acf/p-a-facebook"][data-format="2/3"] {
+// 	@include make-col-ready();
+
+// 	@include media-breakpoint-up(md) {
+// 		@include make-col(8);
+// 	}
+// }

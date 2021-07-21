@@ -33,11 +33,20 @@ class Block extends AbstractBladeBlock {
 		]))->toArray();
 	}
 
-	function additionalArgs(array $args)
-	{
-		if ($args['name'] == "acf/$this->name") {
-			$args['example'] = $this->setExample();
-			$args['parent'] = ['core/column'];
+	function additionalArgs(array $args) {
+		if($args['name'] == "acf/$this->name") {
+			$args['example']  = $this->setExample();
+			$args['supports'] = array(
+                'align' => true,
+                'mode' => $args['name'] == "acf/p-a-row" ? false : 'auto',
+                'jsx' => true
+            );
+
+			if(!empty($this->setAllowedBlocks()))
+				$args['allowed_blocks'] = $this->setAllowedBlocks();
+
+			if($args['name'] != "acf/p-a-row")
+				$args['parent'] = ['acf/p-a-row'];
 		}
 
 		return $args;
@@ -58,6 +67,10 @@ class Block extends AbstractBladeBlock {
 	 * @return array Example data array
 	 */
 	protected function setExample(): array {
+		return [];
+	}
+
+	protected function setAllowedBlocks(): array {
 		return [];
 	}
 
