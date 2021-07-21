@@ -13,7 +13,7 @@ if(get_locale() == "pt_BR"){
 require(get_template_directory() . '/components/parent/header.php');
 ?>
 
-<div class="pa-search">
+<section class="pa-search">
 	<div class="container">
 		<div class="row">
 			<div class="col">
@@ -45,6 +45,6 @@ require(get_template_directory() . '/components/parent/header.php');
 			</div>
 		</div>
 	</div>
-</div>
+</section>
 
 <?php get_footer(); ?>

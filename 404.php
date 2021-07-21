@@ -1,5 +1,5 @@
 <?php get_header(); ?>
-	<div class="pa-404 py-5">
+	<section class="pa-404 py-5">
 		<div class="container">
 			<div class="row row-cols-auto py-md-5">
 				<div class="col-12 col-md-6 d-flex align-items-center justify-content-center">
@@ -23,6 +23,6 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	</section>
 
 <?php get_footer();?>

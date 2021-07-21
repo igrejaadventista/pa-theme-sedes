@@ -7,7 +7,7 @@ class PaThemeHelpers {
 		add_filter( 'the_content', [$this, 'addResponsiveCssClass'] );
 		add_action( 'wp_enqueue_scripts', [$this, 'registerAssets'] );
 		add_action( 'admin_enqueue_scripts', [$this, 'registerAssetsAdmin'] );
-		add_action( 'init', [$this, 'unregisterTaxonomy'] );
+		//add_action( 'init', [$this, 'unregisterTaxonomy'] );
 	}
 
 	function themeSupport() {

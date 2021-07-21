@@ -8,12 +8,16 @@
 	}
 }
 
-.pa-menu-global .nav {
-	a {
+.pa-menu-global  {
+	.nav-link {
 		color: gray;
 		text-transform: uppercase;
 		font-size: 0.9rem;
 	}
+}
+
+.dropdown-menu {
+	padding: 0;
 }
 
 .pa-menu-default .nav {
