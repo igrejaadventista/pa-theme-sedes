@@ -1,7 +1,7 @@
 @if(is_admin())
 	<img class="img-preview" src="{{ get_template_directory_uri() }}/Blocks/PAListNews/preview.png"/>
 @else
-	<div class="pa-widget pa-w-list-news col col-md-8 mb-5">
+	<div class="pa-widget pa-w-list-news col col-md-8 mb-5 ">
 		@notempty($title)
 			<h2>{!! $title !!}</h2>
 		@endnotempty
@@ -13,7 +13,6 @@
 						<a 
 							href="{{ isset($item['link']) ? (is_array($item['link']) ? $item['link']['url'] : $item['link']) : get_permalink($item['id']) }}"
 							target="{{ isset($item['link']) && is_array($item['link']) && !empty($item['link']['target']) ? $item['link']['target'] : '_self' }}" 
-							class="stretched-link"
 						>
 							<div class="row">
 								<div class="col-12 col-md-5">
@@ -21,7 +20,7 @@
 										<div class="ratio ratio-16x9">
 											<figure class="figure m-xl-0">
 												<img 
-													class="figure-img img-fluid rounded m-0 h-100"
+													class="figure-img img-fluid rounded m-0"
 													src="{{ isset($item['featured_media_url']) ? $item['featured_media_url']['pa_block_render'] : get_the_post_thumbnail_url($item['id'], 'medium') }}"
 													alt="{{ $item['title']['rendered'] }}" 
 												/>
