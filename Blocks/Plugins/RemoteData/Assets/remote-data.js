@@ -464,8 +464,12 @@
 				if(element.hasOwnProperty('featured_media_url')) {
 					// Delete all except pa-block-render
 					Object.keys(element.featured_media_url).forEach((item) => {
-						if(item != 'pa_block_render')
-							delete element.featured_media_url[item];
+						if(item == 'pa_block_render')
+							return;
+						if(item == 'pa-block-render')
+							element.featured_media_url.pa_block_render = element.featured_media_url[item];
+
+						delete element.featured_media_url[item];
 					});
 				}
 			});
@@ -598,6 +602,8 @@
 						content += this.empty(element.featured_media_url['pa-block-preview']) ? '<div class="thumb"></div>' : `<img src="${element.featured_media_url['pa-block-preview']}" alt="Thumbnail" />`;
 					else if(element.featured_media_url.hasOwnProperty('pa_block_render'))
 						content += this.empty(element.featured_media_url['pa_block_render']) ? '<div class="thumb"></div>' : `<img src="${element.featured_media_url['pa_block_render']}" alt="Thumbnail" />`;
+					else if(element.featured_media_url.hasOwnProperty('pa-block-render'))
+						content += this.empty(element.featured_media_url['pa-block-render']) ? '<div class="thumb"></div>' : `<img src="${element.featured_media_url['pa-block-render']}" alt="Thumbnail" />`;
 				}
 				else
 					content += '<div class="thumb"></div>';
@@ -823,7 +829,7 @@
 			delete values.title;
 			delete values.link;
 
-			if(values.hasOwnProperty('featured_media_url')) {
+			if(values.hasOwnProperty('featured_media_url')) {				
 				createNewFields.featured_media_url = {
 					id: values.featured_media_url.id,
 					pa_block_render: values.featured_media_url.url,
@@ -832,12 +838,12 @@
 				delete values.featured_media_url;
 			}
 
-			if(values.hasOwnProperty('content')) {
-				createNewFields.content = {
-					rendered: values.content,
+			if(values.hasOwnProperty('excerpt')) {
+				createNewFields.excerpt = {
+					rendered: values.excerpt,
 				};
 
-				delete values.content;
+				delete values.excerpt;
 			}
 
 			return $.extend(createNewFields, values);

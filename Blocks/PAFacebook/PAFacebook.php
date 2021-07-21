@@ -3,7 +3,6 @@
 namespace Blocks\PAFacebook;
 
 use Blocks\Block;
-use WordPlate\Acf\Fields\Select;
 use WordPlate\Acf\Fields\Text;
 use WordPlate\Acf\Fields\Url;
 
@@ -40,11 +39,6 @@ class PAFacebook extends Block {
 			[
 				Text::make('Título', 'title')
 					->defaultValue('IASD - Facebook'),
-				// Select::make('Formato', 'block_format')
-				// 	->choices([
-				// 		'1/3' => '1/3',
-				// 		'2/3' => '2/3',
-				// 	]),
                 Url::make('Url', 'url'),
 			];
 	}

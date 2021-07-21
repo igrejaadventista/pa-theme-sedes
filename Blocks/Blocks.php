@@ -11,6 +11,7 @@ use Blocks\PAFacebook\PAFacebook;
 use Blocks\PAListItems\PAListItems;
 use Blocks\PATwitter\PATwitter;
 use Blocks\PACarouselMinistry\PACarouselMinistry;
+use Blocks\PAListNews\PAListNews;
 use Blocks\PARow\PARow;
 use Blocks\PASevenCast\PASevenCast;
 
@@ -52,6 +53,7 @@ class Blocks {
 			PACarouselMinistry::class,
 			PASevenCast::class,
 			PARow::class,
+			PAListNews::class,
 		];
 
 		// Merge registered blocks with new blocks

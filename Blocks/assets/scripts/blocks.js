@@ -1,5 +1,7 @@
-(function() {
-	wp.data.subscribe(() => {
+
+
+(function(data) {
+	data.subscribe(() => {
 		const editor = wp.data.select('core/editor');
 		if(!editor)
 			return;
@@ -10,6 +12,7 @@
 			return;
 
 		blocks.forEach((block) => {
+			
 			if(block.attributes.name != "acf/p-a-row")
 				return;
 
@@ -50,4 +53,4 @@
 		});
 	});
 
-});
+})(wp.data);
