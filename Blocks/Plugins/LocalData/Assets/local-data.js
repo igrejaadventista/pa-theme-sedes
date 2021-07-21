@@ -799,12 +799,12 @@
 				delete values.featured_media_url;
 			}
 
-			if(values.hasOwnProperty('content')) {
-				createNewFields.content = {
-					rendered: values.content,
+			if(values.hasOwnProperty('excerpt')) {
+				createNewFields.excerpt = {
+					rendered: values.excerpt,
 				};
 
-				delete values.content;
+				delete values.excerpt;
 			}
 		
 			return $.extend(createNewFields, values);

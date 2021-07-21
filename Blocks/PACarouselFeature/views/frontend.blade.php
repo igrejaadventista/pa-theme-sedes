@@ -23,8 +23,8 @@
 										<h3 class="card-title font-weight-bold h5 mt-4 pa-truncate-1">{!! $item['title']['rendered'] !!}</h3>
 									@endnotempty
 
-									@notempty($item['content'])
-										<p class="card-text pa-truncate-2">{{ wp_strip_all_tags($item['content']['rendered']) }}</p>
+									@notempty($item['excerpt'])
+										<p class="card-text pa-truncate-2">{{ wp_strip_all_tags($item['excerpt']['rendered']) }}</p>
 									@endnotempty
 
 									@notempty($item['link'])

@@ -509,7 +509,7 @@ if(!class_exists('RemoteData')):
 
 			$results = [];
 			$url = $options['endpoint'];
-			$queryArgs = ['_fields' => 'id,title,date,featured_media_url'];
+			$queryArgs = ['_fields' => 'id,title,date,link'];
 
 			$sticky = isset($options['sticky']) ? $options['sticky'] : 0;
 			$stickyItems = !empty($sticky) ? explode(',', $sticky) : [];
@@ -701,7 +701,7 @@ if(!class_exists('RemoteData')):
 
 			$results = [];
 			$url = $options['endpoint'];
-			$queryArgs = ['_fields' => 'id,title,date,featured_media_url'];
+			$queryArgs = ['_fields' => 'id,title,date,link'];
 
 			$sticky = isset($options['sticky']) ? $options['sticky'] : 0;
 
