@@ -12,7 +12,7 @@
 					<form class="pt-4 pt-xl-3 d-flex flex-column align-items-stretch">
 						<div class="mb-3">
 							<label for="exampleInputEmail1" class="form-label">Buscar igreja</label>
-							<input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Busque por CEP, Cidade ou Bairro">
+							<input type="text" class="form-control" aria-describedby="emailHelp" placeholder="Busque por CEP, Cidade ou Bairro">
 						</div>
 						<button type="submit" class="btn btn-primary align-self-xl-start ">Pesquisar</button>
 					</form>

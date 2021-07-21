@@ -1,7 +1,7 @@
-.pa-footer{
-	background-color: var(--pa-color-gray06);
-
-	footer {
+footer {
+	&.pa-footer{
+		background-color: var(--pa-color-gray06);
+	
 		.pa-about-us, .pa-deptos {
 			border-bottom: 1px solid var(--pa-color-gray04);
 		} 
@@ -75,7 +75,6 @@
 				}
 			}
 		}
-	
 		.pa-copyright {
 			background-color: var(--pa-color-gray05);
 			font-size: 0.9rem;
