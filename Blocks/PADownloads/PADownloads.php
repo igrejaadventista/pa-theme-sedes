@@ -1,25 +1,21 @@
 <?php
 
-namespace Blocks\PADownloadFeature;
+namespace Blocks\PADownloads;
 
 use Blocks\Block;
-use Blocks\Fields\Source;
-use WordPlate\Acf\Fields\File;
-use WordPlate\Acf\Fields\Image;
-use WordPlate\Acf\Fields\Repeater;
+use Blocks\Extended\RemoteData;
 use WordPlate\Acf\Fields\Text;
-use WordPlate\Acf\Fields\Textarea;
 
 /**
- * Class PADownloadFeature
- * @package Blocks\PAAppsFeature
+ * Class PADownloads
+ * @package Blocks\PADownloads
  */
-class PADownloadFeature extends Block {
+class PADownloads extends Block {
 
     public function __construct() {
 		// Set block settings
         parent::__construct([
-            'title' 	  => 'IASD - Downloads - Feature',
+            'title' 	  => 'IASD - Downloads',
             'description' => 'App',
             'category' 	  => 'pa-adventista',
             'post_types'  => ['post', 'page'],
@@ -36,23 +32,13 @@ class PADownloadFeature extends Block {
 	 * @return array Fields array
 	 */
 	protected function setFields(): array {
-		return 
-			[
-				Source::make(),
-				Text::make('Título', 'title'),
-				Repeater::make('Arquivos', 'files')
-				        ->fields([
-					        Image::make('Thumbnail', 'thumbnail'),
-					        Text::make('Título', 'title'),
-					        Textarea::make('Resumo', 'excerpt'),
-					        File::make('Link', 'link')
-						        ->library('all')
-				        ])
-				        ->min(1)
-				        ->buttonLabel('Adicionar Arquivo')
-				        ->collapsed('title')
-				        ->layout('block')
-			];
+		return [
+			Text::make('Título', 'title'),
+			RemoteData::make('Itens', 'items')
+				->endpoints([
+					'https://api.adventistas.org/downloads/pt/posts > Posts',
+				]),
+		];
 	}
 	    
     /**
@@ -62,9 +48,8 @@ class PADownloadFeature extends Block {
      */
     public function with(): array {
         return [
-            'title'  => field('title'),
-            'files'  => field('files'),
-	        'teste' => 'um array'
+            'title' => field('title'),
+            'items' => field('items'),
         ];
     }
 }
