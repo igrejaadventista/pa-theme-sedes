@@ -11,6 +11,7 @@ use Blocks\PAFacebook\PAFacebook;
 use Blocks\PAListItems\PAListItems;
 use Blocks\PATwitter\PATwitter;
 use Blocks\PACarouselMinistry\PACarouselMinistry;
+use Blocks\PARow\PARow;
 use Blocks\PASevenCast\PASevenCast;
 
 /**
@@ -50,6 +51,7 @@ class Blocks {
 			PAListButtons::class,
 			PACarouselMinistry::class,
 			PASevenCast::class,
+			PARow::class,
 		];
 
 		// Merge registered blocks with new blocks
@@ -92,7 +94,9 @@ class Blocks {
 	}
 
 	function enqueueAssets() {
-		wp_enqueue_style('blocks-stylesheet', get_template_directory_uri() . '/Blocks/assets/blocks.css', array(), \wp_get_theme()->get('Version'), 'all');
+		wp_enqueue_style('blocks-stylesheet', get_template_directory_uri() . '/Blocks/assets/styles/blocks.css', array(), \wp_get_theme()->get('Version'), 'all');
+
+		wp_enqueue_script('blocks-script', get_template_directory_uri() . '/Blocks/assets/scripts/blocks.js', array('wp-hooks', 'wp-blocks', 'wp-dom-ready'));
 	}
 
 	function addCategory($categories) {
