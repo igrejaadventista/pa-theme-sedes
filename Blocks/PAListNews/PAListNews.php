@@ -65,6 +65,16 @@ class PAListNews extends Block {
 					'featured_media_url',
 					'excerpt',
 				])
+				->manualFields([
+					Text::make('Formato de post', 'post_format')
+						->wrapper([
+							'width' => 50,
+						]),
+					Text::make('Editoria', 'editorial')
+						->wrapper([
+							'width' => 50,
+						]),
+				])
 				->filterTaxonomies([
 					'xtt-pa-sedes',
 					'xtt-pa-editorias',
@@ -77,6 +87,16 @@ class PAListNews extends Block {
 			LocalData::make('Itens', 'items_local')
 				->initialLimit(4)
 				->postTypes(['post'])
+				->manualFields([
+					Text::make('Formato de post', 'post_format')
+						->wrapper([
+							'width' => 50,
+						]),
+					Text::make('Editoria', 'editorial')
+						->wrapper([
+							'width' => 50,
+						]),
+				])
 				->conditionalLogic([
 					ConditionalLogic::if('source')->equals('local')
 				]),
@@ -103,11 +123,11 @@ class PAListNews extends Block {
      */
     public function with(): array {
         return [
-			'block_type'  => field('block_type'),
-            'title'  	  => field('title'),
-			'items' 	  => field('source') == 'remote' ? field('items_remote')['data'] : field('items_local')['data'],
-			'enable_link' => field('enable_link'),
-			'link'    	  => field('link'),
+			'block_format' => field('block_format'),
+            'title'  	   => field('title'),
+			'items' 	   => field('source') == 'remote' ? field('items_remote')['data'] : field('items_local')['data'],
+			'enable_link'  => field('enable_link'),
+			'link'    	   => field('link'),
         ];
     }
 

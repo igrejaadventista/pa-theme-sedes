@@ -14,8 +14,7 @@ class Source {
 					'remote' => 'Remoto',
 					'local'  => 'Local',
 				])
-				->defaultValue('remote')
-				->required();
+				->defaultValue('remote');
 	}
 
 }

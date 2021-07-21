@@ -1,7 +1,11 @@
 @if(is_admin())
-	<img class="img-preview" src="{{ get_template_directory_uri() }}/Blocks/PAListNews/preview.png"/>
+	@if($block_format == '2/3')
+		<img class="img-preview" src="{{ get_template_directory_uri() }}/Blocks/PAListNews/preview-2-3.png"/>
+	@else
+		<img class="img-preview" src="{{ get_template_directory_uri() }}/Blocks/PAListNews/preview-1-3.png"/>
+	@endif
 @else
-	<div class="pa-widget pa-w-list-news col col-md-8 mb-5 ">
+	<div class="pa-widget pa-w-list-news col mb-5 {{ $block_format == '2/3' ? 'col-md-8' : 'col-md-4' }}">
 		@notempty($title)
 			<h2>{!! $title !!}</h2>
 		@endnotempty
@@ -24,9 +28,13 @@
 													src="{{ isset($item['featured_media_url']) ? $item['featured_media_url']['pa_block_render'] : get_the_post_thumbnail_url($item['id'], 'medium') }}"
 													alt="{{ $item['title']['rendered'] }}" 
 												/>
-												<figcaption class="pa-img-tag figure-caption text-uppercase rounded-right">
-													{!! $item['title']['rendered'] !!}
-												</figcaption>
+												{{-- TODO: Obter dados da editoria --}}
+												@if(($block_format == '2/3' && isset($item['editorial']) && !empty($editorial = $item['editorial'])) ||
+													$block_format == '2/3' && !empty($editorial = get_the_terms($item['id'], 'xtt-pa-editorias')))
+													<figcaption class="pa-img-tag figure-caption text-uppercase rounded-right d-none d-xl-block pa-truncate-3">
+														{{ is_array($editorial) ? $editorial[0]->name : $editorial }}
+													</figcaption>
+												@endif
 											</figure>
 										</div>
 									@endnotempty
@@ -34,13 +42,19 @@
 								
 								<div class="col-12 col-md-7">
 									<div class="card-body p-0">
-										{{-- <span class="pa-tag text-uppercase d-none d-xl-table-cell rounded">{{ $new['postType'] }}</span> --}}
+										{{-- TODO: Obter dados de formato de post --}}
+										@notempty($item['post_format'])
+											<span class="pa-tag text-uppercase d-none d-xl-table-cell rounded">{{ $item['post_format'] }}</span>
+										@endnotempty
+
 										@notempty($item['title'])
-											<h3 class="card-title fw-bold h5 mt-xl-2 pa-truncate-2">{!! $item['title']['rendered'] !!}</h3>
+											<h3 class="card-title mt-xl-2 {{ $block_format == '2/3' ? 'fw-bold h5' : 'h6' }}">{!! $item['title']['rendered'] !!}</h3>
 										@endnotempty
 
 										@notempty($item['excerpt'])
-											<p class="card-text pa-truncate-3">{{ wp_strip_all_tags($item['excerpt']['rendered']) }}</p>
+											@if($block_format == '2/3')
+												<p class="card-text d-none d-xl-block pa-truncate-3">{{ wp_strip_all_tags($item['excerpt']['rendered']) }}</p>
+											@endif
 										@endnotempty
 									</div>
 								</div>
