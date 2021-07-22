@@ -14,7 +14,7 @@
 							<div class="row">
 								@notempty($item['featured_media_url'])
 									<div class="col-4">
-										<div class="ratio ratio-16x9">
+										<div class="ratio ratio-1x1">
 											<figure class="figure m-xl-0">
 												<img
 													class="figure-img img-fluid rounded m-0" 

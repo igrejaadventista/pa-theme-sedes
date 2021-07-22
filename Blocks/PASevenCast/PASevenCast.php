@@ -4,10 +4,8 @@ namespace Blocks\PASevenCast;
 
 use Blocks\Block;
 use Blocks\Extended\RemoteData;
+use Blocks\Fields\MoreContent;
 use WordPlate\Acf\Fields\Text;
-use WordPlate\Acf\ConditionalLogic;
-use WordPlate\Acf\Fields\Link;
-use WordPlate\Acf\Fields\TrueFalse;
 
 /**
  * Class PASevenCast
@@ -33,31 +31,21 @@ class PASevenCast extends Block {
 	 * @return array Fields array
 	 */
 	protected function setFields(): array {
-		return [
-			Text::make('Título', 'title')
-				->defaultValue('IASD - 7Cast'),
+		return array_merge(
+			[
+				Text::make('Título', 'title')
+					->defaultValue('IASD - 7Cast'),
 
-			RemoteData::make('Itens', 'items')
-				->endpoints(['https://api.adv.st/7cast/pt/pa-blocks'])
-				->initialLimit(4)
-				->searchFilter(false)
-				->canSticky(false)
-				->manualItems(false)
-				->filterFields(false),
-
-			TrueFalse::make('Mais conteúdo', 'enable_link')
-				->stylisedUi('Habilitar', 'Desabilitar')
-				->wrapper([
-					'width' => 50,
-				]),
-			Link::make('Link', 'link')
-				->conditionalLogic([
-					ConditionalLogic::if('enable_link')->equals(1)
-				])
-				->wrapper([
-					'width' => 50,
-				]),
-		];
+				RemoteData::make('Itens', 'items')
+					->endpoints(['https://api.adv.st/7cast/pt/pa-blocks'])
+					->initialLimit(4)
+					->searchFilter(false)
+					->canSticky(false)
+					->manualItems(false)
+					->filterFields(false),			
+			],
+			MoreContent::make()
+		);
 	}
 
 	/**
