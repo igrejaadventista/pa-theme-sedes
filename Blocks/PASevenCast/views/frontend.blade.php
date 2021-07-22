@@ -34,8 +34,8 @@
 											<h3 class="card-title h6 fw-bolder m-0">{!! $item['title']['rendered'] !!}</h3>
 										@endnotempty	
 
-										@notempty($item['content'])
-											<p class="pa-truncate-2">{!! $item['content']['rendered'] !!}</p>
+										@notempty($item['excerpt'])
+											<p class="pa-truncate-2">{!! $item['excerpt']['rendered'] !!}</p>
 										@endnotempty
 									</div>
 								</div>
