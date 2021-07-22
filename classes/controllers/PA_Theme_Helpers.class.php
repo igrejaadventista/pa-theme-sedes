@@ -4,7 +4,6 @@ class PaThemeHelpers {
 
 	public function __construct(){
 		add_action( 'after_setup_theme', [$this, 'themeSupport'] );
-		add_filter( 'the_content', [$this, 'addResponsiveCssClass'] );
 		add_action( 'wp_enqueue_scripts', [$this, 'registerAssets'] );
 		add_action( 'admin_enqueue_scripts', [$this, 'registerAssetsAdmin'] );
 		//add_action( 'init', [$this, 'unregisterTaxonomy'] );
@@ -44,23 +43,6 @@ class PaThemeHelpers {
 				unset( $wp_taxonomies[$value] );
 			}
 		}
-	}
-
-	function addResponsiveCssClass($content){
-
-		$content = mb_convert_encoding($content, 'HTML-ENTITIES', "UTF-8");
-		$document = new DOMDocument();
-		libxml_use_internal_errors(true);
-		if ($content){
-			$document->loadHTML(utf8_decode($content));
-		}
-
-		$imgs = $document->getElementsByTagName('img');
-		foreach ($imgs as $img) {
-			$img->setAttribute('class','img-fluid');
-		}
-
-		return $document->saveHTML();
 	}
 
 	function registerAssets() {
