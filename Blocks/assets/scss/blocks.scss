@@ -13,6 +13,7 @@
 .acf-block-preview .img-preview {
 	display: block;
 	margin: 0 auto;
+	max-width: none;
 }
 
 .row .block-editor-block-list__layout .wp-block {
@@ -52,5 +53,13 @@
 
 	@include media-breakpoint-up(md) {
 		@include make-col(8);
+	}
+}
+
+[data-type="acf/p-a-feliz7-play"] {
+	@include make-col();
+
+	& + .block-list-appender {
+		width: 100%;
 	}
 }
