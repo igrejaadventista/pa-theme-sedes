@@ -531,22 +531,22 @@ if(!class_exists('RemoteData')):
 				return substr($v, 0, 1) !== 'm';
 			});
 
-			$limit = isset($options['limit']) ? $options['limit'] : $field['limit'];
-			$limit = !empty($limit) && $limit > 0 ? $limit : 1;
-			$limit = $limit <= 100 ? $limit : 100;
-			$queryArgs['per_page'] = $limit;
-
 			if(!empty($field['fields']) && !empty($field['filter_fields']))
 				$queryArgs['_fields'] .= ',' . implode(',', $field['fields']);
 
-			if(!empty($sticky)):
-				$response = \wp_remote_get(\add_query_arg(array_merge($queryArgs, ['include' => $stickyItemsFilter, 'orderby' => 'include']), $url));
+			if(!empty($stickyItemsFilter)):
+				$response = \wp_remote_get(\add_query_arg(array_merge($queryArgs, ['include' => implode(',', $stickyItemsFilter), 'orderby' => 'include']), $url));
 				$responseCode = \wp_remote_retrieve_response_code($response);
 				$responseData = \wp_remote_retrieve_body($response);
 
 				if($this->responseSuccess($responseCode))
 					$results = json_decode($responseData, true);
 			endif;
+
+			$limit = isset($options['limit']) ? $options['limit'] : $field['limit'];
+			$limit = !empty($limit) && $limit > 0 ? $limit : 1;
+			$limit = $limit <= 100 ? $limit : 100;
+			$queryArgs['per_page'] = $limit;
 
 			if($limit > count($stickyItems)):
 				$queryArgs['per_page'] = count($stickyItems) <= $limit ? $limit - count($stickyItems) : $limit;
