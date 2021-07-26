@@ -250,10 +250,9 @@
 }
 
 .acf-field-remote-data .components-panel__body-toggle.components-button {
-	border-left: #ccd0d4 solid 1px;
 	color: #72777c;
 	padding: 3px 0 3px 12px;
-	width: auto;
+	width: 100%;
 }
 
 .acf-field-remote-data 
@@ -264,7 +263,7 @@
 .acf-field-remote-data
 	.components-panel__body-toggle.components-button
 	.components-panel__arrow {
-	margin-left: 6px;
+	margin-left: auto;
 	position: relative;
 	right: unset;
 	transform: none;
@@ -344,6 +343,7 @@
 	margin-right: 16px;
 	object-fit: cover;
 	width: 70px;
+	flex: 0 0 70px;
 	font-size: 0;
 }
 
@@ -635,4 +635,24 @@ body.block-editor-page.folded
 	.widgets-acf-modal.-open
 	> .widgets-acf-modal-wrapper {
 	max-width: calc(100vw - 316px);
+}
+
+.components-panel .filters {
+	flex-wrap: wrap;
+}
+
+.components-panel .filters .filter {
+	width: 100% !important;
+}
+
+.components-panel .filters .filter label {
+	border-left: none !important;
+}
+
+.components-panel .acf-field-remote-data .taxonomies-selection .taxonomy-row {
+	flex-wrap: wrap !important;
+}
+
+.components-panel .acf-field-remote-data .taxonomies-selection .taxonomy-row label {
+	width: 100% !important;
 }
