@@ -911,11 +911,11 @@ class PAFeliz7Play extends Block {
 			[
 				RemoteData::make('Itens', 'items')
 					->endpoints(['https://api.feliz7play.com/v4/pt/pa-blocks'])
-					->initialLimit(12)
 					->searchFilter(false)
 					->canSticky(false)
 					->manualItems(false)
-					->filterFields(false),			
+					->filterFields(false)
+					->limitFilter(false),			
 			],
 			MoreContent::make()
 		);
