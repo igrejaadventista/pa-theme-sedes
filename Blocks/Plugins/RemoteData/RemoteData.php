@@ -743,7 +743,7 @@ if(!class_exists('RemoteData')):
 				// strip slashes (search may be integer)
 				$queryArgs['search'] = wp_unslash(strval($options['s']));
 
-			die(var_dump(\add_query_arg($queryArgs, $url)));
+			// die(var_dump(\add_query_arg($queryArgs, $url)));
 
 			$response = \wp_remote_get(\add_query_arg($queryArgs, $url));
 			$responseCode = \wp_remote_retrieve_response_code($response);
