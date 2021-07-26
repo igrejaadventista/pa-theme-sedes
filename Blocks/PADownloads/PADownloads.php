@@ -4,6 +4,8 @@ namespace Blocks\PADownloads;
 
 use Blocks\Block;
 use Blocks\Extended\RemoteData;
+use Blocks\Fields\MoreContent;
+use WordPlate\Acf\Fields\Select;
 use WordPlate\Acf\Fields\Text;
 
 /**
@@ -16,13 +18,11 @@ class PADownloads extends Block {
 		// Set block settings
         parent::__construct([
             'title' 	  => 'IASD - Downloads',
-            'description' => 'App',
+            'description' => 'Lista de arquivos para download',
             'category' 	  => 'pa-adventista',
             'post_types'  => ['post', 'page'],
 			'keywords' 	  => ['app', 'download'],
-			'icon' 		  => '<svg id="Icons" style="enable-background:new 0 0 32 32;" version="1.1" viewBox="0 0 32 32" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><style type="text/css">
-								.st0{fill:none;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
-								</style><polyline class="st0" points="25,11 27,13 25,15 "/><polyline class="st0" points="7,11 5,13 7,15 "/><path class="st0" d="M29,23H3c-1.1,0-2-0.9-2-2V5c0-1.1,0.9-2,2-2h26c1.1,0,2,0.9,2,2v16C31,22.1,30.1,23,29,23z"/><circle class="st0" cx="16" cy="28" r="1"/><circle class="st0" cx="10" cy="28" r="1"/><circle class="st0" cx="22" cy="28" r="1"/></svg>',
+			'icon' 		  => 'download',
         ]);
     }
 	
@@ -32,13 +32,41 @@ class PADownloads extends Block {
 	 * @return array Fields array
 	 */
 	protected function setFields(): array {
-		return [
-			Text::make('Título', 'title'),
-			RemoteData::make('Itens', 'items')
-				->endpoints([
-					'https://api.adventistas.org/downloads/pt/posts > Posts',
-				]),
-		];
+		return array_merge(
+			[
+				Select::make('Formato', 'block_format')
+					->choices([
+						'1/3' => '1/3',
+						'full' => 'full',
+					])
+					->defaultValue('full'),
+
+				Text::make('Título', 'title')
+					->defaultValue('IASD - Downloads'),
+
+				RemoteData::make('Itens', 'items')
+					->endpoints([
+						'https://api.adventistas.org/downloads/pt/posts > Posts',
+						// 'https://api.adventistas.org/downloads/pt/kits > Kits',
+					])
+					->initialLimit(4)
+					->getFields([
+						'featured_media_url',
+						'excerpt',
+					])
+					->manualFields([
+						Text::make('Formato de arquivo', 'file_format'),
+						Text::make('Tamanho de arquivo', 'file_size'),
+					])
+					->filterTaxonomies([
+						'xtt-pa-sedes',
+						'xtt-pa-departamentos',
+						'xtt-pa-projetos',
+						'xtt-pa-kits',
+					]),
+			],
+			MoreContent::make()
+		);
 	}
 	    
     /**

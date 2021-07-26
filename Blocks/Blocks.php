@@ -11,7 +11,7 @@ use Blocks\PAFacebook\PAFacebook;
 use Blocks\PAListItems\PAListItems;
 use Blocks\PATwitter\PATwitter;
 use Blocks\PACarouselMinistry\PACarouselMinistry;
-use Blocks\PADownloadFeature\PADownloadFeature;
+use Blocks\PADownloads\PADownloads;
 use Blocks\PAFeliz7Play\PAFeliz7Play;
 use Blocks\PAListNews\PAListNews;
 use Blocks\PAListVideos\PAListVideos;
@@ -56,7 +56,7 @@ class Blocks {
 			PACarouselMinistry::class,
 			PASevenCast::class,
 			PARow::class,
-			PADownloadFeature::class,
+			PADownloads::class,
 			PAListNews::class,
 			PAFeliz7Play::class,
 			PAListVideos::class,
