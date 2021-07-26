@@ -727,6 +727,12 @@ if(!class_exists('RemoteData')):
 					$queryArgs['exclude'] = array_merge($queryArgs['exclude'], $options['exclude']);
 				if(!empty($sticky))
 					$queryArgs['exclude'] = array_merge($queryArgs['exclude'], explode(',', $sticky));
+
+				$excludeFilter = array_filter($queryArgs['exclude'], function ($v) {
+					return substr($v, 0, 1) !== 'm';
+				});
+
+				$queryArgs['exclude'] = implode(',', $excludeFilter);
 			endif;
 
 			if(!empty($field['fields']) && !empty($field['filter_fields']))
@@ -736,6 +742,8 @@ if(!class_exists('RemoteData')):
 			if (!empty($options['s']))
 				// strip slashes (search may be integer)
 				$queryArgs['search'] = wp_unslash(strval($options['s']));
+
+			die(var_dump(\add_query_arg($queryArgs, $url)));
 
 			$response = \wp_remote_get(\add_query_arg($queryArgs, $url));
 			$responseCode = \wp_remote_retrieve_response_code($response);
