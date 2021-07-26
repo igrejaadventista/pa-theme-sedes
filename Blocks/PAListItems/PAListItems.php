@@ -4,10 +4,8 @@ namespace Blocks\PAListItems;
 
 use Blocks\Block;
 use Blocks\Extended\LocalData;
-use WordPlate\Acf\ConditionalLogic;
-use WordPlate\Acf\Fields\Link;
+use Blocks\Fields\MoreContent;
 use WordPlate\Acf\Fields\Text;
-use WordPlate\Acf\Fields\TrueFalse;
 
 /**
  * Class PAListItems
@@ -60,28 +58,18 @@ class PAListItems extends Block {
 	 * @return array Fields array
 	 */
 	protected function setFields(): array {
-		return [
-			Text::make('Título', 'title')
-				->defaultValue('IASD - Lista itens'),
+		return array_merge(
+			[
+				Text::make('Título', 'title')
+					->defaultValue('IASD - Lista itens'),
 
-			LocalData::make('Itens', 'items')
-			->postTypes(['post', 'projetos'])
-			->initialLimit(3)
-			->hideFields(['content']),
-		
-			TrueFalse::make('Mais conteúdo', 'enable_link')
-				->stylisedUi('Habilitar', 'Desabilitar')
-				->wrapper([
-					'width' => 50,
-				]),
-			Link::make('Link', 'link')
-				->conditionalLogic([
-					ConditionalLogic::if('enable_link')->equals(1)
-				])
-				->wrapper([
-					'width' => 50,
-				]),
-		];
+				LocalData::make('Itens', 'items')
+				->postTypes(['post', 'projetos'])
+				->initialLimit(3)
+				->hideFields(['content']),
+			],
+			MoreContent::make()
+		);
 	}
 
 	/**

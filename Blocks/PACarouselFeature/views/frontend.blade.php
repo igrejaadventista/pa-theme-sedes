@@ -1,7 +1,7 @@
 @if(is_admin())
 	<img class="img-preview" src="{{ get_template_directory_uri() }}/Blocks/PACarouselFeature/preview.png" />
 @else
-	<div class="pa-widget pa-w-carousel-feature mb-5">
+	<div class="pa-widget pa-w-carousel-feature col col-md-4 mb-5">
 		@notempty($title)
 			<h2>{!! $title !!}</h2>
 		@endnotempty
@@ -23,8 +23,8 @@
 										<h3 class="card-title font-weight-bold h5 mt-4 pa-truncate-1">{!! $item['title']['rendered'] !!}</h3>
 									@endnotempty
 
-									@notempty($item['content'])
-										<p class="card-text pa-truncate-2">{{ wp_strip_all_tags($item['content']['rendered']) }}</p>
+									@notempty($item['excerpt'])
+										<p class="card-text pa-truncate-2">{{ wp_strip_all_tags($item['excerpt']['rendered']) }}</p>
 									@endnotempty
 
 									@notempty($item['link'])

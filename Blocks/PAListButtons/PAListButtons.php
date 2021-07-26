@@ -4,10 +4,8 @@ namespace Blocks\PAListButtons;
 
 use Blocks\Block;
 use Blocks\Extended\LocalData;
-use WordPlate\Acf\ConditionalLogic;
-use WordPlate\Acf\Fields\Link;
+use Blocks\Fields\MoreContent;
 use WordPlate\Acf\Fields\Text;
-use WordPlate\Acf\Fields\TrueFalse;
 
 /**
  * Class PAListButtons
@@ -45,27 +43,17 @@ class PAListButtons extends Block {
 	 * @return array Fields array
 	 */
 	protected function setFields(): array {
-		return [
-			Text::make('Título', 'title')
-				->defaultValue('IASD - Lista em botões'),
-			LocalData::make('Itens', 'items')
-				->postTypes(['projetos'])
-				->initialLimit(4)
-				->hideFields(['content', 'featured_media_url']),
-			
-			TrueFalse::make('Mais conteúdo', 'enable_link')
-				->stylisedUi('Habilitado', 'Desabilitado')
-				->wrapper([
-					'width' => 50,
-				]),
-			Link::make('Link', 'link')
-				->conditionalLogic([
-					ConditionalLogic::if('enable_link')->equals(1)
-				])
-				->wrapper([
-					'width' => 50,
-				]),
-		];
+		return array_merge(
+			[
+				Text::make('Título', 'title')
+					->defaultValue('IASD - Lista em botões'),
+				LocalData::make('Itens', 'items')
+					->postTypes(['projetos'])
+					->initialLimit(4)
+					->hideFields(['content', 'featured_media_url']),
+			],
+			MoreContent::make()
+		);
 	}
 
 	/**

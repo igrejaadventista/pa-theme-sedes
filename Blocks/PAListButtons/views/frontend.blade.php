@@ -1,7 +1,7 @@
 @if(is_admin())
 	<img class="img-preview" src="{{ get_template_directory_uri() }}/Blocks/PAListButtons/preview.png"/>
 @else
-	<div class="pa-widget pa-w-list-buttons">
+	<div class="pa-widget pa-w-list-buttons col col-md-4 mb-5">
 		@notempty($title)
 			<h2>{!! $title !!}</h2>
 		@endnotempty

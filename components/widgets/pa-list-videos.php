@@ -7,7 +7,7 @@ row 'row-cols-md-2'
 
 Caso queira utilizar em 1/3, alterar as seguintes classes:
 pa-widget 'col-md-4'
-row-cols-md-1
+row row-cols-md-1
 
  -->
 
@@ -45,7 +45,7 @@ switch ( $size ) {
 							<img src="https://picsum.photos/480/270.webp?random=20" class="figure-img img-fluid rounded m-0" alt="...">
 							<div class="figure-caption position-absolute w-100 h-100 d-block">
 								<i class="pa-play far fa-play-circle position-absolute"></i>
-								<span class="pa-video-time position-absolute px-2 rounded-sm"><i class="far fa-clock me-1"></i> 3:40</span>
+								<span class="pa-video-time position-absolute px-2 rounded-1"><i class="far fa-clock me-1"></i> 3:40</span>
 							</div>
 						</figure>
 					</div>
@@ -66,7 +66,7 @@ switch ( $size ) {
 								<figure class="figure m-xl-0">
 									<img src="https://picsum.photos/480/270.webp?random=2" class="figure-img img-fluid rounded m-0" alt="...">
 									<div class="figure-caption position-absolute w-100 h-100 d-block">
-										<span class="pa-video-time position-absolute px-2 rounded-sm"><i class="far fa-clock me-1"></i> 3:40</span>
+										<span class="pa-video-time position-absolute px-2 rounded-1"><i class="far fa-clock me-1"></i> 3:40</span>
 									</div>
 								</figure>
 							</div>	
@@ -87,7 +87,7 @@ switch ( $size ) {
 								<figure class="figure m-xl-0">
 									<img src="https://picsum.photos/480/270.webp?random=3" class="figure-img img-fluid rounded m-0" alt="...">
 									<div class="figure-caption position-absolute w-100 h-100 d-block">
-										<span class="pa-video-time position-absolute px-2 rounded-sm"><i class="far fa-clock me-1"></i> 3:40</span>
+										<span class="pa-video-time position-absolute px-2 rounded-1"><i class="far fa-clock me-1"></i> 3:40</span>
 									</div>
 								</figure>	
 							</div>
@@ -108,7 +108,7 @@ switch ( $size ) {
 								<figure class="figure m-xl-0">
 									<img src="https://picsum.photos/480/270.webp?random=5" class="figure-img img-fluid rounded m-0" alt="...">
 									<div class="figure-caption position-absolute w-100 h-100 d-block">
-										<span class="pa-video-time position-absolute px-2 rounded-sm"><i class="far fa-clock me-1"></i> 3:40</span>
+										<span class="pa-video-time position-absolute px-2 rounded-1"><i class="far fa-clock me-1"></i> 3:40</span>
 									</div>
 								</figure>	
 							</div>

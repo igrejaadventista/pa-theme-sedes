@@ -10,11 +10,12 @@ Version: 1.0
 @import "pa-variables";
 @import "pa-mixins";
 @import "pa-bootstrap-custom";
+@import "pa-wp-custom";
 @import "pa-header";
 @import "pa-menus";
 @import "pa-parent";
 @import "pa-footer";
-@import "pa-widgets";
+@import "pa-blocks";
 @import "pa-search";
 
 @import "../node_modules/@glidejs/glide/src/assets/sass/glide.core";

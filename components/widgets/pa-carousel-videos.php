@@ -22,7 +22,7 @@
 						<figure class="figure">
 							<img src="https://picsum.photos/222/125.webp?random=1" class="figure-img img-fluid  rounded m-0" alt="...">
 							<div class="figure-caption position-absolute w-100 h-100 d-block">
-								<span class="pa-video-time position-absolute px-2 rounded-sm"><i class="far fa-clock me-1"></i> 3:40</span>
+								<span class="pa-video-time position-absolute px-2 rounded-1"><i class="far fa-clock me-1"></i> 3:40</span>
 							</div>
 						</figure>
 					</div>
@@ -33,7 +33,7 @@
 						<figure class="figure">
 							<img src="https://picsum.photos/222/125.webp?random=2" class="figure-img img-fluid  rounded m-0" alt="...">
 							<div class="figure-caption position-absolute w-100 h-100 d-block">
-								<span class="pa-video-time position-absolute px-2 rounded-sm"><i class="far fa-clock me-1"></i> 3:40</span>
+								<span class="pa-video-time position-absolute px-2 rounded-1"><i class="far fa-clock me-1"></i> 3:40</span>
 							</div>
 						</figure>
 					</div>
@@ -44,7 +44,7 @@
 						<figure class="figure">
 							<img src="https://picsum.photos/222/125.webp?random=3" class="figure-img img-fluid  rounded m-0" alt="...">
 							<div class="figure-caption position-absolute w-100 h-100 d-block">
-								<span class="pa-video-time position-absolute px-2 rounded-sm"><i class="far fa-clock me-1"></i> 3:40</span>
+								<span class="pa-video-time position-absolute px-2 rounded-1"><i class="far fa-clock me-1"></i> 3:40</span>
 							</div>
 						</figure>
 					</div>
@@ -55,7 +55,7 @@
 						<figure class="figure">
 							<img src="https://picsum.photos/222/125.webp?random=4" class="figure-img img-fluid  rounded m-0" alt="...">
 							<div class="figure-caption position-absolute w-100 h-100 d-block">
-								<span class="pa-video-time position-absolute px-2 rounded-sm"><i class="far fa-clock me-1"></i> 3:40</span>
+								<span class="pa-video-time position-absolute px-2 rounded-1"><i class="far fa-clock me-1"></i> 3:40</span>
 							</div>
 						</figure>
 					</div>
@@ -66,7 +66,7 @@
 						<figure class="figure">
 							<img src="https://picsum.photos/222/125.webp?random=5" class="figure-img img-fluid  rounded m-0" alt="...">
 							<div class="figure-caption position-absolute w-100 h-100 d-block">
-								<span class="pa-video-time position-absolute px-2 rounded-sm"><i class="far fa-clock me-1"></i> 3:40</span>
+								<span class="pa-video-time position-absolute px-2 rounded-1"><i class="far fa-clock me-1"></i> 3:40</span>
 							</div>
 						</figure>
 					</div>
@@ -77,7 +77,7 @@
 						<figure class="figure">
 							<img src="https://picsum.photos/222/125.webp?random=6" class="figure-img img-fluid  rounded m-0" alt="...">
 							<div class="figure-caption position-absolute w-100 h-100 d-block">
-								<span class="pa-video-time position-absolute px-2 rounded-sm"><i class="far fa-clock me-1"></i> 3:40</span>
+								<span class="pa-video-time position-absolute px-2 rounded-1"><i class="far fa-clock me-1"></i> 3:40</span>
 							</div>
 						</figure>
 					</div>
@@ -88,7 +88,7 @@
 						<figure class="figure">
 							<img src="https://picsum.photos/222/125.webp?random=7" class="figure-img img-fluid  rounded m-0" alt="...">
 							<div class="figure-caption position-absolute w-100 h-100 d-block">
-								<span class="pa-video-time position-absolute px-2 rounded-sm"><i class="far fa-clock me-1"></i> 3:40</span>
+								<span class="pa-video-time position-absolute px-2 rounded-1"><i class="far fa-clock me-1"></i> 3:40</span>
 							</div>
 						</figure>
 					</div>
@@ -99,7 +99,7 @@
 						<figure class="figure">
 							<img src="https://picsum.photos/222/125.webp?random=8" class="figure-img img-fluid  rounded m-0" alt="...">
 							<div class="figure-caption position-absolute w-100 h-100 d-block">
-								<span class="pa-video-time position-absolute px-2 rounded-sm"><i class="far fa-clock me-1"></i> 3:40</span>
+								<span class="pa-video-time position-absolute px-2 rounded-1"><i class="far fa-clock me-1"></i> 3:40</span>
 							</div>
 						</figure>
 					</div>

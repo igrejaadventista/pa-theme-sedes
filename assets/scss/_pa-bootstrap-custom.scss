@@ -1,10 +1,12 @@
 html {
 	// Essa propriedade serve para fazer a rolagem suave dos links ancoras, tais como o botão de: Voltar ao topo
 	scroll-behavior: smooth;
+	overflow-x: hidden;
 }
 
 body {
 	color: var(--pa-color-gray01);
+	overflow-x: hidden;
 }
 
 .btn,

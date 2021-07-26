@@ -378,7 +378,7 @@ if(!class_exists('LocalData')):
 				'featured_media_url' 	=> array(
 					'pa_block_render' 	=> \get_the_post_thumbnail_url($post->ID, 'medium'),
 				),
-				'content' 				=> array(
+				'excerpt' 				=> array(
 					'rendered' 			=> $post->post_excerpt,
 				),
 			);
@@ -524,11 +524,11 @@ if(!class_exists('LocalData')):
 				);
 			endif;
 
-			if(empty($field['hide_fields']) || !in_array('content', $field['hide_fields'])):
+			if(empty($field['hide_fields']) || !in_array('excerpt', $field['hide_fields'])):
 				$fixedFields[] = array(
-					'key' => $options['field_key'] . '_content',
+					'key' => $options['field_key'] . '_excerpt',
 					'label' => 'Resumo',
-					'name' => 'content',
+					'name' => 'excerpt',
 					'type' => 'textarea',
 					'rows' => 3,
 					'required' => 0,
@@ -542,7 +542,7 @@ if(!class_exists('LocalData')):
 			if(isset($options['data'])):
 				foreach($field['sub_fields'] as &$sub_field):
 					if(isset($options['data'][$sub_field['name']])):
-						if($sub_field['name'] == 'title' || $sub_field['name'] == 'content')
+						if($sub_field['name'] == 'title' || $sub_field['name'] == 'excerpt')
 							$sub_field['value'] = $options['data'][$sub_field['name']]['rendered'];
 						elseif($sub_field['name'] == 'featured_media_url')
 							$sub_field['value'] = $options['data'][$sub_field['name']]['id'];

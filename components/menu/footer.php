@@ -9,9 +9,9 @@
 	$instagram = get_info_instagram();
 ?>
 
-<section class="pa-footer pt-5 mt-5">
-	<div class="container">
-		<footer class="row">
+<footer class="pa-footer pt-5 mt-5">
+	<div class="container pb-5">
+		<div class="row">
 			<div class="col d-flex flex-column justify-content-xl-between">
 				<div class="d-flex flex-column align-items-center align-items-xl-start px-5 px-xl-0">
 					<div class="pa-brand">
@@ -98,17 +98,19 @@
 					</ul>
 				</div>
 			</div>
-			<div class="pa-copyright mt-5 py-2 d-flex flex-xl-row justify-content-xl-between flex-column align-items-center">
-				<span class="py-2"><?php _e('Igreja Adventista do Sétimo Dia', 'iasd'); ?></span>
-				<span class="py-2">Coryright © 2013-<?= date("Y") ?></span>
-			</div>
-			<div class="col mb-5 mt-3 text-center pa-go-back-top d-xl-none">
-				<a href="#topo" class="btn btn-sm"><i class="fas fa-arrow-up me-2"></i><?php _e('Voltar para o topo', 'iasd'); ?></a>
-			</div>
-
-			
-			
-
-		</footer>
+		</div>
 	</div>
-</section>
+	<div class="pa-copyright">
+		<div class="container">
+			<div class="row">
+				<div class="py-2 d-flex flex-xl-row justify-content-xl-between flex-column align-items-center">
+					<span class="py-2"><?php _e('Igreja Adventista do Sétimo Dia', 'iasd'); ?></span>
+					<span class="py-2">Coryright © 2013-<?= date("Y") ?></span>
+				</div>
+				<div class="col mb-5 mt-3 text-center pa-go-back-top d-xl-none">
+					<a href="#topo" class="btn btn-sm"><i class="fas fa-arrow-up me-2"></i><?php _e('Voltar para o topo', 'iasd'); ?></a>
+				</div>
+			</div>
+		</div>
+	</div>
+</footer>
