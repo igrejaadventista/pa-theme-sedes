@@ -56,6 +56,15 @@
 	}
 }
 
+@mixin pa-carousel-download {
+	.pa-tag {
+		color: var(--pa-color-default);
+		background-color: var(--pa-color-default-aux);
+
+		@include pa-tag;
+	}
+}
+
 @mixin pa-wp-block-embed-caption {
 	font-style: normal !important;
 	color: var(--pa-color-gray03);

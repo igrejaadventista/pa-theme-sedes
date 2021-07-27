@@ -11,5 +11,6 @@ function onload() {
 	pa_img_error();
 	pa_truncate();
 	pa_number_of_columns_menu();
+	pa_slider_downloads();
 }
 document.addEventListener("DOMContentLoaded", onload, false);

@@ -124,8 +124,13 @@
 	}
 }
 
+.pa-carousel-download {
+	@include pa-carousel-download;
+}
+
 .pa-w-list-videos,
-.pa-w-carousel-videos {
+.pa-w-carousel-videos,
+.pa-carousel-download {
 	.figure {
 		width: 100%;
 	}
