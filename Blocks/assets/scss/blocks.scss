@@ -60,7 +60,8 @@
 	}
 }
 
-[data-type="acf/p-a-feliz7-play"] {
+[data-type="acf/p-a-feliz7-play"],
+[data-type="acf/p-a-carousel-downloads"] {
 	@include make-col();
 
 	& + .block-list-appender {

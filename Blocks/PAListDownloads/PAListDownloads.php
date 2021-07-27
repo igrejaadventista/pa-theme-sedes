@@ -5,7 +5,6 @@ namespace Blocks\PAListDownloads;
 use Blocks\Block;
 use Blocks\Extended\RemoteData;
 use Blocks\Fields\MoreContent;
-use WordPlate\Acf\Fields\Select;
 use WordPlate\Acf\Fields\Text;
 
 /**
@@ -43,12 +42,13 @@ class PAListDownloads extends Block {
 						// 'https://api.adventistas.org/downloads/pt/kits > Kits',
 					])
 					->initialLimit(5)
-					->getFields([
-						'featured_media_url',
-					])
+					->getFields(['featured_media_url'])
+					->hideFields(['excerpt'])
 					->manualFields([
-						Text::make('Formato de arquivo', 'file_format'),
-						Text::make('Tamanho de arquivo', 'file_size'),
+						Text::make('Formato de arquivo', 'file_format')
+							->placeholder('PDF'),
+						Text::make('Tamanho de arquivo', 'file_size')
+							->placeholder('5mb'),
 					])
 					->filterTaxonomies([
 						'xtt-pa-sedes',

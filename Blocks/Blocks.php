@@ -3,6 +3,7 @@
 namespace Blocks;
 
 use Blocks\PAApps\PAApps;
+use Blocks\PACarouselDownloads\PACarouselDownloads;
 use Blocks\PAListButtons\PAListButtons;
 use Blocks\PAMagazines\PAMagazines;
 use Blocks\PACarouselFeature\PACarouselFeature;
@@ -57,6 +58,7 @@ class Blocks {
 			PASevenCast::class,
 			PARow::class,
 			PAListDownloads::class,
+			PACarouselDownloads::class,
 			PAListNews::class,
 			PAFeliz7Play::class,
 			PAListVideos::class,
