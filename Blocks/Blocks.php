@@ -32,7 +32,7 @@ class Blocks {
 
 		\add_action('acf/include_field_types', 	array($this, 'registerPlugins'));
 		\add_action('enqueue_block_editor_assets', array($this, 'enqueueAssets'));
-		\add_filter('block_categories', array($this, 'addCategory'));
+		\add_filter('block_categories_all', array($this, 'addCategory'));
 
 		require_once('Directives.php');
     }

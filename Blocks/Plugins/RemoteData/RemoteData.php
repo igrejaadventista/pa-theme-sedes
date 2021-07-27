@@ -616,7 +616,7 @@ if(!class_exists('RemoteData')):
 					'label' => 'Thumbnail',
 					'name' => 'featured_media_url',
 					'type' => 'image',
-					'required' => 0,
+					'required' => 1,
 					'wrapper' => array(
 						'width' => 50,
 					)

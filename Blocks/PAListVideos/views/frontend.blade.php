@@ -16,19 +16,23 @@
 					@if($loop->index == 0)
 						<div class="col">
 							<div class="card mb-4 border-0">
-								<a href="{{ $item['link'] }}">
+								<a href="{{ is_array($item['link']) ? $item['link']['title'] : $item['link'] }}">
 									<div class="ratio ratio-16x9">
-										<figure class="figure">
-											<img 
-												class="figure-img img-fluid rounded m-0"	
-												src="https://picsum.photos/480/270.webp?random=20"  
-												alt="{{ $item['title']['rendered'] }}" 
-											/>
+										<figure class="figure bg-light rounded overflow-hidden">
+											@notempty($item['featured_media_url'])
+												<img 
+													class="figure-img img-fluid m-0"	
+													src="{{ $item['featured_media_url']['pa_block_render'] }}"  
+													alt="{{ $item['title']['rendered'] }}" 
+												/>
+											@endnotempty
 
 											<div class="figure-caption position-absolute w-100 h-100 d-block">
 												<i class="pa-play far fa-play-circle position-absolute"></i>
 
-												<span class="pa-video-time position-absolute px-2 rounded-1"><i class="far fa-clock me-1"></i> 3:40</span>
+												@notempty($item['time'])
+													<span class="pa-video-time position-absolute px-2 rounded-1"><i class="far fa-clock me-1"></i> {{ date('i:s', mktime(0, 0, $item['time'])) }}</span>
+												@endnotempty
 											</div>
 										</figure>
 									</div>
@@ -57,16 +61,20 @@
 								<div class="row">
 									<div class="col">
 										<div class="ratio ratio-16x9">
-											<figure class="figure m-xl-0">
-												<img 
-													class="figure-img img-fluid rounded m-0"
-													src="https://picsum.photos/480/270.webp?random=2" 
-													alt="{{ $item['title']['rendered'] }}"
-												/>
+											<figure class="figure m-xl-0 bg-light rounded overflow-hidden">
+												@notempty($item['featured_media_url'])
+													<img 
+														class="figure-img img-fluid m-0"	
+														src="{{ $item['featured_media_url']['pa_block_render'] }}"  
+														alt="{{ $item['title']['rendered'] }}" 
+													/>
+												@endnotempty
 
-												<div class="figure-caption position-absolute w-100 h-100 d-block">
-													<span class="pa-video-time position-absolute px-2 rounded-1"><i class="far fa-clock me-1"></i> 3:40</span>
-												</div>
+												@notempty($item['time'])
+													<div class="figure-caption position-absolute w-100 h-100 d-block">
+														<span class="pa-video-time position-absolute px-2 rounded-1"><i class="far fa-clock me-1"></i>{{ date('i:s', mktime(0, 0, $item['time'])) }}</span>
+													</div>
+												@endnotempty
 											</figure>
 										</div>	
 									</div>

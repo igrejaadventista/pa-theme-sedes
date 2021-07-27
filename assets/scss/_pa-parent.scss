@@ -103,7 +103,6 @@
 				color: var(--pa-color-gray03);
 			}
 		}
-
 	}
 
 	aside {
@@ -210,7 +209,7 @@
 		}
 
 		figcaption {
-			font-size: .9rem;
+			font-size: 0.9rem;
 			color: var(--pa-color-gray03);
 			margin-top: 0;
 		}
@@ -222,7 +221,8 @@
 
 			@include pa-numbers;
 
-			&:last-child, &:first-child {
+			&:last-child,
+			&:first-child {
 				a {
 					color: var(--pa-color-default-light);
 
@@ -232,9 +232,9 @@
 				}
 			}
 
-			&.active a{
+			&.active a {
 				background-color: var(--pa-color-default-light);
-				color: #fff; 
+				color: #fff;
 			}
 		}
 	}
@@ -268,7 +268,8 @@
 }
 
 .pa-404 {
-	h1, h2{
+	h1,
+	h2 {
 		font-family: var(--pa-font-secondary);
 		color: var(--pa-color-default);
 	}
