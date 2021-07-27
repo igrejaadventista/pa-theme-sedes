@@ -2,6 +2,7 @@
 	<div class="pa-glide-videos">
 		<div class="pa-slider-controle d-flex align-items-center mb-4">
 			<h2 class="flex-grow-1"><?php echo $title ? $title : 'Widget - Carousel - Videos'; ?></h2>	
+
 			<div class="d-none d-xl-block" data-glide-el="controls">
 				<span class="fa-stack" data-glide-dir="<">
 					<i class="fas fa-circle fa-stack-2x"></i>
@@ -14,7 +15,10 @@
 					<i class="icon fas fa-arrow-right fa-stack-1x"></i>
 				</span>
 			</div>
+
 		</div>
+
+		
 		<div class="glide__track" data-glide-el="track">
 			<div class="glide__slides">
 				<div class="glide__slide">

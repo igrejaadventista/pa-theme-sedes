@@ -20,5 +20,6 @@ function Service_Taxonomy()
     $resultAPI = $restAPIService->CallAPI('GET', "$tax?per_page=100&filter[parent]=0&order=desc");
     PAFunctions::add_update_term_tax($tax, $resultAPI);
   }
+  
 }
-add_action('PA_Service_Taxonomy_Schedule', 'Service_Taxonomy');
+add_action('Service_Taxonomy_Schedule', 'Service_Taxonomy');
