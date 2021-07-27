@@ -38,6 +38,7 @@
 [data-type="acf/p-a-list-icons"],
 [data-type="acf/p-a-list-news"][data-format="1/3"],
 [data-type="acf/p-a-list-videos"][data-format="1/3"],
+[data-type="acf/p-a-list-downloads"],
 [data-type="acf/p-a-list-items"],
 [data-type="acf/p-a-magazines"],
 [data-type="acf/p-a-seven-cast"],
@@ -59,7 +60,8 @@
 	}
 }
 
-[data-type="acf/p-a-feliz7-play"] {
+[data-type="acf/p-a-feliz7-play"],
+[data-type="acf/p-a-carousel-downloads"] {
 	@include make-col();
 
 	& + .block-list-appender {
