@@ -1,6 +1,6 @@
 <?php
 
-namespace Blocks\PADownloads;
+namespace Blocks\PAListDownloads;
 
 use Blocks\Block;
 use Blocks\Extended\RemoteData;
@@ -9,15 +9,15 @@ use WordPlate\Acf\Fields\Select;
 use WordPlate\Acf\Fields\Text;
 
 /**
- * Class PADownloads
- * @package Blocks\PADownloads
+ * Class PAListDownloads
+ * @package Blocks\PAListDownloads
  */
-class PADownloads extends Block {
+class PAListDownloads extends Block {
 
     public function __construct() {
 		// Set block settings
         parent::__construct([
-            'title' 	  => 'IASD - Downloads',
+            'title' 	  => 'IASD - Lista de downloads',
             'description' => 'Lista de arquivos para download',
             'category' 	  => 'pa-adventista',
             'post_types'  => ['post', 'page'],
@@ -34,25 +34,17 @@ class PADownloads extends Block {
 	protected function setFields(): array {
 		return array_merge(
 			[
-				Select::make('Formato', 'block_format')
-					->choices([
-						'1/3' => '1/3',
-						'full' => 'full',
-					])
-					->defaultValue('full'),
-
 				Text::make('Título', 'title')
-					->defaultValue('IASD - Downloads'),
+					->defaultValue('IASD - Lista de downloads'),
 
 				RemoteData::make('Itens', 'items')
 					->endpoints([
 						'https://api.adventistas.org/downloads/pt/posts > Posts',
 						// 'https://api.adventistas.org/downloads/pt/kits > Kits',
 					])
-					->initialLimit(4)
+					->initialLimit(5)
 					->getFields([
 						'featured_media_url',
-						'excerpt',
 					])
 					->manualFields([
 						Text::make('Formato de arquivo', 'file_format'),
@@ -76,8 +68,10 @@ class PADownloads extends Block {
      */
     public function with(): array {
         return [
-            'title' => field('title'),
-            'items' => field('items'),
+            'title' 	  => field('title'),
+            'items' 	  => field('items')['data'],
+			'enable_link' => field('enable_link'),
+			'link'    	  => field('link'),
         ];
     }
 }
