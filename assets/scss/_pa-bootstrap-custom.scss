@@ -21,6 +21,7 @@ body {
 }
 
 .btn-outline-primary {
+	display: inline-block;
 	color: var(--pa-color-default) !important;
 	border-color: var(--pa-color-default) !important;
 }

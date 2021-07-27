@@ -20,7 +20,7 @@
 								<span class="pa-tag text-uppercase rounded">500Mb</span>
 							</div>
 							<h3 class="card-title fw-bold h6 mb-4">Vídeos | Vida por Vidas 2019</h3>
-							<a href="http://" class="border border-1 px-4 py-2 rounded-pill btn-outline-primary"><i class="fas fa-arrow-circle-down me-2"></i> Baixar</a>
+							<a href="http://" class="mb-2 border border-1 px-4 py-2 rounded-pill btn-outline-primary"><i class="fas fa-arrow-circle-down me-2"></i> Baixar</a>
 						</div>
 						
 					</div>
@@ -37,7 +37,7 @@
 								<span class="pa-tag text-uppercase rounded">500Mb</span>
 							</div>
 							<h3 class="card-title fw-bold h6 mb-4">Vídeos | Vida por Vidas 2019</h3>
-							<a href="http://" class="border border-1 px-4 py-2 rounded-pill btn-outline-primary"><i class="fas fa-arrow-circle-down me-2"></i> Baixar</a>
+							<a href="http://" class="mb-2 border border-1 px-4 py-2 rounded-pill btn-outline-primary"><i class="fas fa-arrow-circle-down me-2"></i> Baixar</a>
 						</div>
 					</div>
 				</div>	
@@ -53,7 +53,7 @@
 								<span class="pa-tag text-uppercase rounded">500Mb</span>
 							</div>
 							<h3 class="card-title fw-bold h6 mb-4">Banner 2 modelos | Vida por Vidas 2019</h3>
-							<a href="http://" class="border border-1 px-4 py-2 rounded-pill btn-outline-primary"><i class="fas fa-arrow-circle-down me-2"></i> Baixar</a>
+							<a href="http://" class="mb-2 border border-1 px-4 py-2 rounded-pill btn-outline-primary"><i class="fas fa-arrow-circle-down me-2"></i> Baixar</a>
 						</div>
 					</div>
 				</div>	
@@ -69,7 +69,7 @@
 								<span class="pa-tag text-uppercase rounded">500Mb</span>
 							</div>
 							<h3 class="card-title fw-bold h6 mb-4">Redes Sociais | Vida por Vidas 2019</h3>
-							<a href="http://" class="border border-1 px-4 py-2 rounded-pill btn-outline-primary"><i class="fas fa-arrow-circle-down me-2"></i> Baixar</a>
+							<a href="http://" class="mb-2 border border-1 px-4 py-2 rounded-pill btn-outline-primary"><i class="fas fa-arrow-circle-down me-2"></i> Baixar</a>
 						</div>
 					</div>
 				</div>	
@@ -85,7 +85,7 @@
 								<span class="pa-tag text-uppercase rounded">500Mb</span>
 							</div>
 							<h3 class="card-title fw-bold h6 mb-4">Cartazes/Folders | Vida por Vidas 2019</h3>
-							<a href="http://" class="border border-1 px-4 py-2 rounded-pill btn-outline-primary"><i class="fas fa-arrow-circle-down me-2"></i> Baixar</a>
+							<a href="http://" class="mb-2 border border-1 px-4 py-2 rounded-pill btn-outline-primary"><i class="fas fa-arrow-circle-down me-2"></i> Baixar</a>
 						</div>
 					</div>
 				</div>	
