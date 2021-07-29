@@ -1,5 +1,3 @@
-
-
 (function(data) {
 	data.subscribe(() => {
 		const editor = wp.data.select('core/editor');
@@ -52,5 +50,4 @@
 			});
 		});
 	});
-
 })(wp.data);

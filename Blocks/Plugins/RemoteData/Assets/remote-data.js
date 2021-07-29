@@ -430,7 +430,7 @@
 				// Append
 				this.$stickyList().empty().append(html.stickyList);
 				$list.append(html.list);
-				this.$valuesInput().val(this.parseData(json.data));
+				this.$valuesInput().val(json.data);
 				this.sortList();
 				this.sortValues();
 			};
@@ -447,34 +447,6 @@
 			});
 
 			this.set('xhr', xhr);
-		},
-
-		/**
-		 * Parse data and remove unnecessary properties
-		 *
-		 * @return {string} Parsed data
-		 */
-		parseData(data) {
-			data = JSON.parse(data);
-
-			if(!Array.isArray(data))
-				return JSON.stringify(data);
-
-			$.each(data, (_, element) => {
-				if(element.hasOwnProperty('featured_media_url')) {
-					// Delete all except pa-block-render
-					Object.keys(element.featured_media_url).forEach((item) => {
-						if(item == 'pa_block_render')
-							return;
-						if(item == 'pa-block-render')
-							element.featured_media_url.pa_block_render = element.featured_media_url[item];
-
-						delete element.featured_media_url[item];
-					});
-				}
-			});
-
-			return JSON.stringify(data);
 		},
 
 		/**
