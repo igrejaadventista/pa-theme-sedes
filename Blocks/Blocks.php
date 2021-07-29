@@ -34,14 +34,19 @@ class Blocks {
 
 		\add_action('acf/include_field_types', 	array($this, 'registerPlugins'));
 		\add_action('enqueue_block_editor_assets', array($this, 'enqueueAssets'));
+		\add_action('admin_enqueue_scripts', array($this, 'enqueueAdminAssets'));
 		\add_filter('block_categories_all', array($this, 'addCategory'));
 
 		require_once('Directives.php');
 
-		\add_action('acf/init', function() {
-			if(!is_admin())
-				$this->parsePage(558);
-		});
+		\add_filter('cron_schedules', array($this, 'cronAdd'));
+
+		if(!\wp_next_scheduled('update_remote_data'))
+			\wp_schedule_event(time(), 'five_minutes', 'update_remote_data');
+		  
+		\add_action('update_remote_data', array($this, 'UpdateRemoteData'));
+		\add_action('wp_ajax_blocks/update_remote_data', array($this, 'UpdateRemoteData'));
+		\add_action('admin_bar_menu', array($this, 'addToolbarUpdate'), 999);
     }
 
 	/**
@@ -111,8 +116,11 @@ class Blocks {
 
 	function enqueueAssets() {
 		wp_enqueue_style('blocks-stylesheet', get_template_directory_uri() . '/Blocks/assets/styles/blocks.css', array(), \wp_get_theme()->get('Version'), 'all');
-
 		wp_enqueue_script('blocks-script', get_template_directory_uri() . '/Blocks/assets/scripts/blocks.js', array('wp-hooks', 'wp-blocks', 'wp-dom-ready'));
+	}
+
+	function enqueueAdminAssets() {
+		wp_enqueue_script('blocks-admin-script', get_template_directory_uri() . '/Blocks/assets/scripts/admin.js', array('jquery'));
 	}
 
 	function addCategory($categories) {
@@ -127,84 +135,36 @@ class Blocks {
 		);
 	}
 
-	// function parsePage($id) {
-	// 	if(empty($id))
-	// 		return;
+	function UpdateRemoteData() {
+		$ids = \get_posts([
+			'fields'          => 'ids', // Only get post IDs
+			'post_type' 	  => 'page',
+			'posts_per_page'  => -1,
+		]);
 
-	// 	$content = get_post_field('post_content', $id);
-	// 	$updatedContent = $content;
-
-	// 	if(!has_blocks($content))
-	// 		return;
-
-	// 	$blocks = array();
-	// 	foreach(parse_blocks($content) as &$block):
-	// 		if($block['blockName'] == 'acf/p-a-row')
-	// 			$blocks = array_merge($blocks, $block['innerBlocks']);
-	// 	endforeach;
-
-	// 	foreach($blocks as &$block):
-	// 		$originalBlock = serialize_block($block);
-	// 		var_dump($originalBlock);
-	// 		// \acf_setup_meta($block['attrs']['data'], $block['attrs']['id'], true);
-    //         // \acf_reset_meta($block['attrs']['id']);
-
-			
-
-	// 		// var_dump($block);
-	// 		// $fields = acf_get_block_fields($block['attrs']);
-	// 		$fields = array_filter(acf_get_block_fields($block['attrs']), function ($field) {
-	// 			return $field['type'] == 'remote_data';
-	// 		});
-
-	// 		if(empty($fields))
-	// 			continue;
-
-	// 		foreach($fields as &$field):
-	// 			// var_dump($field);
-	// 			$values = $block['attrs']['data'][$field['name']];
-	// 			$values['field_key'] = $field['key'];
-	// 			$block['attrs']['data'][$field['name']]['data'] = RemoteData::getData($values)['data'];
-				
-	// 			// var_dump(RemoteData::getData($values)['data']);
-	// 		endforeach;
-
-			
-	// 		$updatedBlock = acf_parse_save_blocks(serialize_block($block));
-	// 		// var_dump($originalBlock);
-
-	// 		// var_dump(serialize_block($block));
-	// 		$updatedContent = str_replace($originalBlock, $updatedBlock, $content);
-	// 		// var_dump($updatedContent);
-	// 	endforeach;
-
-	// 	if($content != $updatedContent):
-	// 		var_dump(123);
-	// 		// var_dump(
-	// 		// wp_update_post([
-	// 		// 	'ID' 		   => $id,
-	// 		// 	'post_content' => $updatedContent,
-	// 		// ]));
-	// 	endif;
-	// }
+		if(!empty($ids)):
+			foreach($ids as &$id)
+				$this->parsePage($id);
+		endif;
+	}
 
 	function parsePage($id) {
 		if(empty($id))
 			return;
 
-		$content = get_post_field('post_content', $id);
+		$content = \get_post_field('post_content', $id);
 		$hasUpdate = false;
 
-		if(!has_blocks($content))
+		if(!\has_blocks($content))
 			return;
 
-		$blocks = parse_blocks($content);
+		$blocks = \parse_blocks($content);
 		foreach($blocks as &$block):
 			if($block['blockName'] != 'acf/p-a-row')
 				continue;
 
 			foreach($block['innerBlocks'] as &$innerBlock):
-				$fields = array_filter(acf_get_block_fields($innerBlock['attrs']), function ($field) {
+				$fields = array_filter(\acf_get_block_fields($innerBlock['attrs']), function ($field) {
 					return $field['type'] == 'remote_data';
 				});
 	
@@ -217,28 +177,41 @@ class Blocks {
 					$values = $innerBlock['attrs']['data'][$field['name']];
 					$values['field_key'] = $field['key'];
 					$innerBlock['attrs']['data'][$field['name']]['data'] = RemoteData::getData($values)['results'];
-					// $innerBlock['attrs']['data'][$field['name']]['data'] = str_replace("\"", "\\\"", $innerBlock['attrs']['data'][$field['name']]['data']);
-					// $innerBlock['attrs']['data'][$field['name']]['data'] = str_replace("/", "\\/", $innerBlock['attrs']['data'][$field['name']]['data']);
-					// $innerBlock['attrs']['data'][$field['name']]['data'] = str_replace("[…]", "[&hellip;]", $innerBlock['attrs']['data'][$field['name']]['data']);
-					// var_dump($innerBlock['attrs']['data'][$field['name']]['data']);
-					// var_dump(strpos($content, $innerBlock['attrs']['data'][$field['name']]['data']));
-					// $content = str_replace($innerBlock['attrs']['data'][$field['name']]['data'], RemoteData::getData($values)['data'], $content);
 				endforeach;
 			endforeach;
 		endforeach;
 
-		$updatedContent = serialize_blocks($blocks);
+		$updatedContent = \serialize_blocks($blocks);
 		$replacedString = preg_replace("/u([0-9abcdef]{4})/", "&#x$1;", $updatedContent);
-		$unicodeString = mb_convert_encoding($replacedString, 'UTF-8', 'HTML-ENTITIES');
-		$unicodeString = str_replace('\n', '\\\n', $unicodeString);
-		// var_dump($unicodeString);
+		$unicodeString  = mb_convert_encoding($replacedString, 'UTF-8', 'HTML-ENTITIES');
+		$unicodeString  = str_replace('\n', '\\\n', $unicodeString);
 
 		if(!empty($hasUpdate)):
-			wp_update_post([
+			\wp_update_post([
 				'ID' 		   => $id,
 				'post_content' => $unicodeString,
 			]);
 		endif;
+	}
+
+	function addToolbarUpdate($wp_admin_bar) {
+		$wp_admin_bar->add_node([
+			'id'	=> 'sync_remote_data',
+			'title' => 'Sincronizar dados',
+			'href'  => '#',
+			'meta'  => [
+				'onclick' => 'syncRemoteData(event)',
+			],
+		]);
+	}
+
+	function cronAdd($schedules) { 
+		$schedules['five_minutes'] = [
+			'interval' => 5 * 60, 
+			'display' => 'Five Minutes',
+		]; 
+		
+		return $schedules; 
 	}
 
 }

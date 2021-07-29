@@ -557,7 +557,7 @@ if(!class_exists('RemoteData')):
 				endif;
 
 				// Tests
-				$queryArgs['xtt-pa-sedes-tax'] = 'usb';
+				// $queryArgs['xtt-pa-sedes-tax'] = 'usb';
 
 				if(!empty($stickyItemsFilter))
 					$queryArgs['exclude'] = implode(',', $stickyItemsFilter);
@@ -571,6 +571,8 @@ if(!class_exists('RemoteData')):
 				if(self::responseSuccess($responseCode))
 					$results = array_unique(array_merge($results, json_decode($responseData, true)), SORT_REGULAR);
 			endif;
+
+			self::parseResults($results);
 			
 			// vars
 			$response = array(
@@ -579,6 +581,24 @@ if(!class_exists('RemoteData')):
 			);
 
 			return $response;
+		}
+
+		static function parseResults(&$results) {
+			if(!empty($results)):
+				foreach($results as &$result):
+					if(!array_key_exists('featured_media_url', $result))
+						continue;
+
+					foreach($result['featured_media_url'] as $key => $value):
+						if($key == 'pa_block_render')
+							continue;
+						if($key == 'pa-block-render')
+							$result['featured_media_url']['pa_block_render'] = $value;
+
+						unset($result['featured_media_url'][$key]);
+					endforeach;
+				endforeach;
+			endif;
 		}
 
 		function modalAjax() {
@@ -754,6 +774,8 @@ if(!class_exists('RemoteData')):
 
 			if(self::responseSuccess($responseCode))
 				$results = array_merge($results, json_decode($responseData, true));
+
+			self::parseResults($results);
 
 			// vars
 			$response = array(
