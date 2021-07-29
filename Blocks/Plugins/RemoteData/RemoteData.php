@@ -432,7 +432,7 @@ if(!class_exists('RemoteData')):
 				return $value;
 				
 			$manual = json_decode($value['manual'], true);
-			$data = json_decode($value['data'], true);
+			$data = is_array($value['data']) ? $value['data'] : json_decode($value['data'], true);
 			$value['data'] = array();
 			$stickys = explode(',', $value['sticky']);
 
@@ -459,7 +459,7 @@ if(!class_exists('RemoteData')):
 		 * @param $response_code
 		 * @return bool
 		 */
-		private function responseSuccess($response_code) {
+		private static function responseSuccess($response_code) {
 			return $response_code === 200;
 		}
 
@@ -481,7 +481,7 @@ if(!class_exists('RemoteData')):
 			if(!acf_verify_ajax())
 				die();
 
-			$response = $this->getData($_POST);
+			$response = self::getData($_POST);
 			acf_send_ajax_results($response);
 		}
 
@@ -498,7 +498,7 @@ if(!class_exists('RemoteData')):
 		*  @param	$options (array)
 		*  @return	(array)
 		*/
-		function getData($options = array()) {
+		static function getData($options = array()) {
 			// load field
 			$field = acf_get_field($options['field_key']);
 			if(!$field)
@@ -539,7 +539,7 @@ if(!class_exists('RemoteData')):
 				$responseCode = \wp_remote_retrieve_response_code($response);
 				$responseData = \wp_remote_retrieve_body($response);
 
-				if($this->responseSuccess($responseCode))
+				if(self::responseSuccess($responseCode))
 					$results = json_decode($responseData, true);
 			endif;
 
@@ -556,6 +556,9 @@ if(!class_exists('RemoteData')):
 						$queryArgs["$taxonomy-tax"] = implode(',', $options['terms'][$key]);
 				endif;
 
+				// Tests
+				$queryArgs['xtt-pa-sedes-tax'] = 'usb';
+
 				if(!empty($stickyItemsFilter))
 					$queryArgs['exclude'] = implode(',', $stickyItemsFilter);
 
@@ -565,10 +568,10 @@ if(!class_exists('RemoteData')):
 				$responseCode = \wp_remote_retrieve_response_code($response);
 				$responseData = \wp_remote_retrieve_body($response);
 
-				if($this->responseSuccess($responseCode))
+				if(self::responseSuccess($responseCode))
 					$results = array_unique(array_merge($results, json_decode($responseData, true)), SORT_REGULAR);
 			endif;
-
+			
 			// vars
 			$response = array(
 				'results' => $results,
@@ -749,7 +752,7 @@ if(!class_exists('RemoteData')):
 			$responseCode = \wp_remote_retrieve_response_code($response);
 			$responseData = \wp_remote_retrieve_body($response);
 
-			if($this->responseSuccess($responseCode))
+			if(self::responseSuccess($responseCode))
 				$results = array_merge($results, json_decode($responseData, true));
 
 			// vars

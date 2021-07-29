@@ -23,11 +23,11 @@
 									@notempty($item['featured_media_url'])
 										<div class="ratio ratio-16x9">
 											<figure class="figure m-xl-0">
-												<img 
+												{{-- <img 
 													class="figure-img img-fluid rounded m-0"
 													src="{{ isset($item['featured_media_url']) ? $item['featured_media_url']['pa_block_render'] : get_the_post_thumbnail_url($item['id'], 'medium') }}"
 													alt="{{ $item['title']['rendered'] }}" 
-												/>
+												/> --}}
 												{{-- TODO: Obter dados da editoria --}}
 												@if(($block_format == '2/3' && isset($item['editorial']) && !empty($editorial = $item['editorial'])) ||
 													$block_format == '2/3' && !empty($editorial = get_the_terms($item['id'], 'xtt-pa-editorias')))
