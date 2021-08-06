@@ -4,10 +4,11 @@
 @import "../node_modules/bootstrap/scss/mixins/container";
 @import "../node_modules/bootstrap/scss/mixins/grid";
 @import "../node_modules/bootstrap/scss/mixins/utilities";
+@import "../node_modules/bootstrap/scss/containers";
 
 /* Main column width */
 .wp-block {
-    max-width: none;
+    @extend .container;
 }
 
 .acf-block-preview .img-preview {
@@ -45,6 +46,8 @@
 [data-type="acf/p-a-twitter"] {
 	@include make-col-ready();
 
+	margin-bottom: 3rem !important;
+
 	@include media-breakpoint-up(md) {
 		@include make-col(4);
 	}
@@ -55,6 +58,8 @@
 [data-type="acf/p-a-list-videos"] {
 	@include make-col-ready();
 
+	margin-bottom: 3rem !important;
+
 	@include media-breakpoint-up(md) {
 		@include make-col(8);
 	}
@@ -64,7 +69,13 @@
 [data-type="acf/p-a-carousel-downloads"] {
 	@include make-col();
 
+	margin-bottom: 3rem !important;
+
 	& + .block-list-appender {
 		width: 100%;
 	}
+}
+
+.block-editor-block-list__block .row .block-list-appender {
+	margin: 0 auto;
 }
