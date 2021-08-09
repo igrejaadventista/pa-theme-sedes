@@ -54,3 +54,11 @@ body {
 .mb-45 {
 	margin-bottom: 2rem !important;
 }
+
+.ratio-16x21 {
+	--bs-aspect-ratio: calc(21 / 16 * 100%);
+}
+
+.ratio-208x241 {
+	--bs-aspect-ratio: calc(241 / 208 * 100%);
+}
