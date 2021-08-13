@@ -50,10 +50,10 @@ class PaMenuWalker extends Walker_Nav_Menu
 		/*if the current menu item has children and it's the parent, set the dropdown attributes*/
 		if ( $args->has_children && $depth === 0 ) {
 			$atts['href']   		= '#';
-			$atts['data-toggle']	= 'dropdown';
+			$atts['data-bs-toggle']	= 'dropdown';
 			$atts['class']			= 'nav-link dropdown-toggle';
 			$atts['role']			= 'button';
-			$atts['aria-expanded']	= 'true';
+			$atts['aria-expanded']	= 'false';
 		} else {
 			$atts['href'] = ! empty( $item->url ) ? $item->url : '';
 		}

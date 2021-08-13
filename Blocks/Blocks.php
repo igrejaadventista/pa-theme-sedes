@@ -23,200 +23,222 @@ use Blocks\Plugins\RemoteData\RemoteData;
 /**
  * Blocks Register blocks and manage settings
  */
-class Blocks {
+class Blocks
+{
 
-	public function __construct() {
+    public function __construct()
+    {
         \add_filter('acf_gutenblocks/blocks', [$this, 'registerBlocks']);
-		\add_filter('acf_gutenblocks/render_block_frontend_path', [$this, 'blocksFrontendPath']);
-		\add_filter('acf_gutenblocks/blade_engine_callable', [$this, 'bladeEngineCallable']);
+        \add_filter('acf_gutenblocks/render_block_frontend_path', [$this, 'blocksFrontendPath']);
+        \add_filter('acf_gutenblocks/blade_engine_callable', [$this, 'bladeEngineCallable']);
 
-		\add_filter('blade/view/paths', [$this, 'bladeViewPaths']);
+        \add_filter('blade/view/paths', [$this, 'bladeViewPaths']);
 
-		\add_action('acf/include_field_types', 	array($this, 'registerPlugins'));
-		\add_action('enqueue_block_editor_assets', array($this, 'enqueueAssets'));
-		\add_action('admin_enqueue_scripts', array($this, 'enqueueAdminAssets'));
-		\add_filter('block_categories_all', array($this, 'addCategory'));
+        \add_action('acf/include_field_types', array($this, 'registerPlugins'));
+        \add_action('enqueue_block_editor_assets', array($this, 'enqueueAssets'));
+        \add_action('admin_enqueue_scripts', array($this, 'enqueueAdminAssets'));
+        \add_filter('block_categories_all', array($this, 'addCategory'));
 
-		require_once('Directives.php');
+        require_once('Directives.php');
 
-		\add_filter('cron_schedules', array($this, 'cronAdd'));
+        \add_filter('cron_schedules', array($this, 'cronAdd'));
 
-		if(!\wp_next_scheduled('update_remote_data'))
-			\wp_schedule_event(time(), 'five_minutes', 'update_remote_data');
-		  
-		\add_action('update_remote_data', array($this, 'UpdateRemoteData'));
-		\add_action('wp_ajax_blocks/update_remote_data', array($this, 'UpdateRemoteData'));
-		\add_action('admin_bar_menu', array($this, 'addToolbarUpdate'), 999);
+        if (!\wp_next_scheduled('update_remote_data')) {
+            \wp_schedule_event(time(), 'five_minutes', 'update_remote_data');
+        }
+
+        \add_action('update_remote_data', array($this, 'UpdateRemoteData'));
+        \add_action('wp_ajax_blocks/update_remote_data', array($this, 'UpdateRemoteData'));
+        \add_action('admin_bar_menu', array($this, 'addToolbarUpdate'), 999);
     }
 
-	/**
-	 * registerBlocks Import and register new blocks
-	 *
-	 * @param  array $blocks Registered blocks
-	 * @return array All registered blocks
-	 */
-	public function registerBlocks(array $blocks): array {
-		$newBlocks = [
-			PACarouselFeature::class,
-			PATwitter::class,
-			PAFacebook::class,
-			PAListIcons::class,
-			PAListItems::class,
-			PAApps::class,
-			PAMagazines::class,
-			PAListButtons::class,
-			PACarouselMinistry::class,
-			PASevenCast::class,
-			PARow::class,
-			PAListDownloads::class,
-			PACarouselDownloads::class,
-			PAListNews::class,
-			PAFeliz7Play::class,
-			PAListVideos::class,
-		];
+    /**
+     * registerBlocks Import and register new blocks
+     *
+     * @param  array $blocks Registered blocks
+     * @return array All registered blocks
+     */
+    public function registerBlocks(array $blocks): array
+    {
+        $newBlocks = [
+            PACarouselFeature::class,
+            PATwitter::class,
+            PAFacebook::class,
+            PAListIcons::class,
+            PAListItems::class,
+            PAApps::class,
+            PAMagazines::class,
+            PAListButtons::class,
+            PACarouselMinistry::class,
+            PASevenCast::class,
+            PARow::class,
+            PAListDownloads::class,
+            PACarouselDownloads::class,
+            PAListNews::class,
+            PAFeliz7Play::class,
+            PAListVideos::class,
+        ];
 
-		// Merge registered blocks with new blocks
-		return array_merge($blocks, $newBlocks);
-	}
+        // Merge registered blocks with new blocks
+        return array_merge($blocks, $newBlocks);
+    }
 
-	/**
-	 * blocksFrontendPath Set blocks view path
-	 *
-	 * @param  string $path Original path
-	 * @return string Modified path to view
-	 */
-	public function blocksFrontendPath(string $path): string {
-		// Remove file extension and unnecessary part of path
-		return str_replace('.blade.php', '', strstr($path, 'Blocks'));
-	}
+    /**
+     * blocksFrontendPath Set blocks view path
+     *
+     * @param  string $path Original path
+     * @return string Modified path to view
+     */
+    public function blocksFrontendPath(string $path): string
+    {
+        // Remove file extension and unnecessary part of path
+        return str_replace('.blade.php', '', strstr($path, 'Blocks'));
+    }
 
-	/**
-	 * bladeEngineCallable Set callable to render blade templates
-	 *
-	 * @return string Callable name
-	 */
-	public function bladeEngineCallable(): string {
-		return '\Blocks\block';
-	}
+    /**
+     * bladeEngineCallable Set callable to render blade templates
+     *
+     * @return string Callable name
+     */
+    public function bladeEngineCallable(): string
+    {
+        return '\Blocks\block';
+    }
 
-	/**
-	 * bladeViewPaths Set base path to blade views
-	 *
-	 * @return string New path to blade views
-	 */
-	public function bladeViewPaths(): string {
-		// Set theme base path
-		return \get_template_directory();
-	}
+    /**
+     * bladeViewPaths Set base path to blade views
+     *
+     * @return string New path to blade views
+     */
+    public function bladeViewPaths($paths): array
+    {
 
-	public function registerPlugins() {
-		include_once('Plugins/LocalData/LocalData.php');
-		include_once('Plugins/RemoteData/RemoteData.php');
-	}
+        $paths = (array) $paths;
+        $paths[] = \get_template_directory();
+        $paths[] = \get_stylesheet_directory();
+        return $paths;
+    }
 
-	function enqueueAssets() {
-		wp_enqueue_style('blocks-stylesheet', get_template_directory_uri() . '/Blocks/assets/styles/blocks.css', array(), \wp_get_theme()->get('Version'), 'all');
-		wp_enqueue_script('blocks-script', get_template_directory_uri() . '/Blocks/assets/scripts/blocks.js', array('wp-hooks', 'wp-blocks', 'wp-dom-ready'));
-	}
+    public function registerPlugins()
+    {
+        include_once('Plugins/LocalData/LocalData.php');
+        include_once('Plugins/RemoteData/RemoteData.php');
+    }
 
-	function enqueueAdminAssets() {
-		wp_enqueue_script('blocks-admin-script', get_template_directory_uri() . '/Blocks/assets/scripts/admin.js', array('jquery'));
-	}
+    function enqueueAssets()
+    {
+        wp_enqueue_style('blocks-stylesheet', get_template_directory_uri() . '/Blocks/assets/styles/blocks.css', array(), \wp_get_theme()->get('Version'), 'all');
+        wp_enqueue_script('blocks-script', get_template_directory_uri() . '/Blocks/assets/scripts/blocks.js', array('wp-hooks', 'wp-blocks', 'wp-dom-ready'));
+    }
 
-	function addCategory($categories) {
-		return array_merge(
-			$categories,
-			array(
-				array(
-					'slug' => 'pa-adventista',
-					'title' => 'Adventista',
-				),
-			)
-		);
-	}
+    function enqueueAdminAssets()
+    {
+        wp_enqueue_script('blocks-admin-script', get_template_directory_uri() . '/Blocks/assets/scripts/admin.js', array('jquery'));
+    }
 
-	function UpdateRemoteData() {
-		$ids = \get_posts([
-			'fields'          => 'ids', // Only get post IDs
-			'post_type' 	  => 'page',
-			'posts_per_page'  => -1,
-		]);
+    function addCategory($categories)
+    {
+        return array_merge(
+            $categories,
+            array(
+                array(
+                    'slug' => 'pa-adventista',
+                    'title' => 'Adventista',
+                ),
+            )
+        );
+    }
 
-		if(!empty($ids)):
-			foreach($ids as &$id)
-				$this->parsePage($id);
-		endif;
-	}
+    function UpdateRemoteData()
+    {
+        $ids = \get_posts([
+            'fields'          => 'ids', // Only get post IDs
+            'post_type'       => 'page',
+            'posts_per_page'  => -1,
+        ]);
 
-	function parsePage($id) {
-		if(empty($id))
-			return;
+        if (!empty($ids)) :
+            foreach ($ids as &$id) {
+                $this->parsePage($id);
+            }
+        endif;
+    }
 
-		$content = \get_post_field('post_content', $id);
-		$hasUpdate = false;
+    function parsePage($id)
+    {
+        if (empty($id)) {
+            return;
+        }
 
-		if(!\has_blocks($content))
-			return;
+        $content = \get_post_field('post_content', $id);
+        $hasUpdate = false;
 
-		$blocks = \parse_blocks($content);
-		foreach($blocks as &$block):
-			if($block['blockName'] != 'acf/p-a-row')
-				continue;
+        if (!\has_blocks($content)) {
+            return;
+        }
 
-			foreach($block['innerBlocks'] as &$innerBlock):
-				$fields = array_filter(\acf_get_block_fields($innerBlock['attrs']), function ($field) {
-					return $field['type'] == 'remote_data';
-				});
-	
-				if(empty($fields))
-					continue;
+        $blocks = \parse_blocks($content);
+        foreach ($blocks as &$block) :
+            if ($block['blockName'] != 'acf/p-a-row') {
+                continue;
+            }
 
-				$hasUpdate = true;
-	
-				foreach($fields as &$field):
-					$values = $innerBlock['attrs']['data'][$field['name']];
-					$values['field_key'] = $field['key'];
-					$innerBlock['attrs']['data'][$field['name']]['data'] = RemoteData::getData($values)['results'];
-				endforeach;
-			endforeach;
-		endforeach;
+            foreach ($block['innerBlocks'] as &$innerBlock) :
+                $fields = array_filter(\acf_get_block_fields($innerBlock['attrs']), function ($field) {
+                    return $field['type'] == 'remote_data';
+                });
 
-		$updatedContent = \serialize_blocks($blocks);
-		$replacedString = preg_replace("/u([0-9abcdef]{4})/", "&#x$1;", $updatedContent);
-		$unicodeString  = mb_convert_encoding($replacedString, 'UTF-8', 'HTML-ENTITIES');
-		$unicodeString  = str_replace('\n', '\\\n', $unicodeString);
+                if (empty($fields)) {
+                    continue;
+                }
 
-		if(!empty($hasUpdate)):
-			\wp_update_post([
-				'ID' 		   => $id,
-				'post_content' => $unicodeString,
-			]);
-		endif;
-	}
+                $hasUpdate = true;
 
-	function addToolbarUpdate($wp_admin_bar) {
-		$wp_admin_bar->add_node([
-			'id'	=> 'sync_remote_data',
-			'title' => 'Sincronizar dados',
-			'href'  => '#',
-			'meta'  => [
-				'onclick' => 'syncRemoteData(event)',
-			],
-		]);
-	}
+                foreach ($fields as &$field) :
+                    $values = $innerBlock['attrs']['data'][$field['name']];
+                    $values['field_key'] = $field['key'];
+                    $innerBlock['attrs']['data'][$field['name']]['data'] = RemoteData::getData($values)['results'];
+                endforeach;
+            endforeach;
+        endforeach;
 
-	function cronAdd($schedules) { 
-		$schedules['five_minutes'] = [
-			'interval' => 5 * 60, 
-			'display' => 'Five Minutes',
-		]; 
-		
-		return $schedules; 
-	}
+        $updatedContent = \serialize_blocks($blocks);
+        $replacedString = preg_replace("/u([0-9abcdef]{4})/", "&#x$1;", $updatedContent);
+        $unicodeString  = mb_convert_encoding($replacedString, 'UTF-8', 'HTML-ENTITIES');
+        $unicodeString  = str_replace('\n', '\\\n', $unicodeString);
 
+        if (!empty($hasUpdate)) :
+            \wp_update_post([
+                'ID'           => $id,
+                'post_content' => $unicodeString,
+            ]);
+        endif;
+    }
+
+    function addToolbarUpdate($wp_admin_bar)
+    {
+        $wp_admin_bar->add_node([
+            'id'    => 'sync_remote_data',
+            'title' => 'Sincronizar dados',
+            'href'  => '#',
+            'meta'  => [
+                'onclick' => 'syncRemoteData(event)',
+            ],
+        ]);
+    }
+
+    function cronAdd($schedules)
+    {
+        $schedules['five_minutes'] = [
+            'interval' => 5 * 60,
+            'display' => 'Five Minutes',
+        ];
+
+        return $schedules;
+    }
 }
 
-if(!\function_exists('block')) {
+if (!\function_exists('block')) {
     /**
      * Render blade templates
      *
@@ -225,7 +247,8 @@ if(!\function_exists('block')) {
      *
      * @return string Template content
      */
-    function block(string $view, array $data = []): string {
+    function block(string $view, array $data = []): string
+    {
         return blade($view, $data, false);
     }
 }
