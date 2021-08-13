@@ -139,13 +139,13 @@ class Blocks
     function addCategory($categories)
     {
         return array_merge(
-            $categories,
             array(
                 array(
                     'slug' => 'pa-adventista',
                     'title' => 'Adventista',
                 ),
-            )
+            ),
+            $categories
         );
     }
 

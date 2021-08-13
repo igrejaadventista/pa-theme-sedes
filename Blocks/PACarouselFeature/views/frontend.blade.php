@@ -13,11 +13,15 @@
 						<div class="glide__slides">
 							@foreach($items as $item)
 								<div class="glide__slide position-relative">
-									<img 
-										class="rounded img-fluid"
-										src="{{ isset($item['featured_media_url']) ? $item['featured_media_url']['pa_block_render'] : get_the_post_thumbnail_url($item['id'], 'medium') }}"
-										alt="{{ $item['title']['rendered'] }}" 
-									/>
+									<div class="ratio ratio-208x241 d-block">
+										<figure class="figure m-xl-0">
+											<img 
+												class="rounded img-fluid"
+												src="{{ isset($item['featured_media_url']) ? $item['featured_media_url']['pa_block_render'] : get_the_post_thumbnail_url($item['id'], 'medium') }}"
+												alt="{{ $item['title']['rendered'] }}" 
+											/>
+										</figure>
+									</div>
 
 									@notempty($item['title'])
 										<h3 class="card-title font-weight-bold h5 mt-4 pa-truncate-1">{!! $item['title']['rendered'] !!}</h3>

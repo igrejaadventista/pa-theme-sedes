@@ -15,7 +15,7 @@
 								<a 
 									href="{{ isset($item['link']) ? $item['link']['url'] : get_permalink($item['id']) }}" 
 									target="{{ isset($item['link']) && !empty($item['link']['target']) ? $item['link']['target'] : '_self' }}"
-									class="d-block d-flex align-items-center rounded fw-bold"
+									class="d-block d-flex align-items-center rounded fw-bold ratio ratio-16x9"
 								>
 									<figure class="figure m-xl-0">
 										<img 
