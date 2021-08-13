@@ -62,3 +62,7 @@ body {
 .ratio-208x241 {
 	--bs-aspect-ratio: calc(241 / 208 * 100%);
 }
+
+.object-cover {
+	object-fit: cover;
+}
