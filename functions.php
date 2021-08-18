@@ -45,3 +45,6 @@ add_action( 'init', 'pa_wp_custom_menus' );
 // 	echo "<script>console.log('" . $var . "');</script>";
 // 	return;
 // }
+
+if(file_exists(get_stylesheet_directory() . '/classes/PA_Directives.php'))
+    require_once(get_stylesheet_directory() . '/classes/PA_Directives.php');
