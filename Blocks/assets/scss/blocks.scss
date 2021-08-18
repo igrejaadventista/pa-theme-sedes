@@ -32,18 +32,18 @@
 	min-height: 100px;
 }
 
-[data-type="acf/p-a-apps"],
-[data-type="acf/p-a-carousel-feature"],
-[data-type="acf/p-a-facebook"],
-[data-type="acf/p-a-list-buttons"],
-[data-type="acf/p-a-list-icons"],
-[data-type="acf/p-a-list-news"][data-format="1/3"],
-[data-type="acf/p-a-list-videos"][data-format="1/3"],
-[data-type="acf/p-a-list-downloads"],
-[data-type="acf/p-a-list-items"],
-[data-type="acf/p-a-magazines"],
-[data-type="acf/p-a-seven-cast"],
-[data-type="acf/p-a-twitter"] {
+.edit-post-visual-editor__content-area [data-type="acf/p-a-apps"],
+.edit-post-visual-editor__content-area [data-type="acf/p-a-carousel-feature"],
+.edit-post-visual-editor__content-area [data-type="acf/p-a-facebook"],
+.edit-post-visual-editor__content-area [data-type="acf/p-a-list-buttons"],
+.edit-post-visual-editor__content-area [data-type="acf/p-a-list-icons"],
+.edit-post-visual-editor__content-area [data-type="acf/p-a-list-news"][data-format="1/3"],
+.edit-post-visual-editor__content-area [data-type="acf/p-a-list-videos"][data-format="1/3"],
+.edit-post-visual-editor__content-area [data-type="acf/p-a-list-downloads"],
+.edit-post-visual-editor__content-area [data-type="acf/p-a-list-items"],
+.edit-post-visual-editor__content-area [data-type="acf/p-a-magazines"],
+.edit-post-visual-editor__content-area [data-type="acf/p-a-seven-cast"],
+.edit-post-visual-editor__content-area [data-type="acf/p-a-twitter"] {
 	@include make-col-ready();
 
 	margin-bottom: 3rem !important;
@@ -53,9 +53,9 @@
 	}
 }
 
-[data-type="acf/p-a-carousel-ministry"],
-[data-type="acf/p-a-list-news"],
-[data-type="acf/p-a-list-videos"] {
+.edit-post-visual-editor__content-area [data-type="acf/p-a-carousel-ministry"],
+.edit-post-visual-editor__content-area [data-type="acf/p-a-list-news"],
+.edit-post-visual-editor__content-area [data-type="acf/p-a-list-videos"] {
 	@include make-col-ready();
 
 	margin-bottom: 3rem !important;
@@ -65,8 +65,8 @@
 	}
 }
 
-[data-type="acf/p-a-feliz7-play"],
-[data-type="acf/p-a-carousel-downloads"] {
+.edit-post-visual-editor__content-area [data-type="acf/p-a-feliz7-play"],
+.edit-post-visual-editor__content-area [data-type="acf/p-a-carousel-downloads"] {
 	@include make-col(12);
 
 	margin-bottom: 3rem !important;
