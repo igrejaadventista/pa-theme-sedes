@@ -11,6 +11,6 @@
 	},
     "require": {
         "fiskhandlarn/blade": "^0.6.0",
-        "wordplate/acf": "^9.1"
+        "wordplate/acf": "^11.0.1"
     }
 }
