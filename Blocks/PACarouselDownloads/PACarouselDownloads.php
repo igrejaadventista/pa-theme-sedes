@@ -18,7 +18,6 @@ class PACarouselDownloads extends Block {
             'title' 	  => 'IASD - Carrossel de downloads',
             'description' => 'Carrossel de arquivos para download',
             'category' 	  => 'pa-adventista',
-            'post_types'  => ['post', 'page'],
 			'keywords' 	  => ['app', 'download'],
 			'icon' 		  => 'download',
         ]);

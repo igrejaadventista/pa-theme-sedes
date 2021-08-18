@@ -18,7 +18,6 @@ class PAFacebook extends Block {
             'title' 	  => 'IASD - Facebook',
             'description' => 'Facebook Widget',
             'category' 	  => 'pa-adventista',
-            'post_types'  => ['post', 'page'],
 			'keywords' 	  => ['facebook', 'embeded'],
 			'icon' 		  => 'facebook-alt',
         ]);

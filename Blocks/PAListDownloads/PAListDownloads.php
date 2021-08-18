@@ -19,7 +19,6 @@ class PAListDownloads extends Block {
             'title' 	  => 'IASD - Lista de downloads',
             'description' => 'Lista de arquivos para download',
             'category' 	  => 'pa-adventista',
-            'post_types'  => ['post', 'page'],
 			'keywords' 	  => ['app', 'download'],
 			'icon' 		  => 'download',
         ]);

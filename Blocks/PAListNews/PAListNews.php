@@ -23,7 +23,6 @@ class PAListNews extends Block {
             'title' 	  => 'IASD - Lista notícias',
             'description' => 'Lista de Notícias',
             'category' 	  => 'pa-adventista',
-            'post_types'  => ['post', 'page'],
 			'keywords' 	  => ['list', 'news'],
 			'icon' 		  => 'megaphone',
         ]);

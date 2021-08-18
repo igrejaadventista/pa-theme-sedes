@@ -21,7 +21,6 @@ class PAListVideos extends Block {
             'title' 	  => 'IASD - Lista de vídeos',
             'description' => 'Lista de vídeos',
             'category' 	  => 'pa-adventista',
-            'post_types'  => ['post', 'page'],
 			'keywords' 	  => ['list', 'video'],
 			'icon' 		  => 'playlist-video',
         ]);

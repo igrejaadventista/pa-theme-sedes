@@ -18,7 +18,6 @@ class PATwitter extends Block {
             'title' 	  => 'IASD - Twitter',
             'description' => 'Twitter Widget',
             'category' 	  => 'pa-adventista',
-            'post_types'  => ['post', 'page'],
 			'keywords' 	  => ['twitter', 'embeded'],
 			'icon' 		  => 'twitter',
         ]);

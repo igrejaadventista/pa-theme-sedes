@@ -19,7 +19,6 @@ class PASevenCast extends Block {
 			'title' 	  => 'IASD - 7Cast',
 			'description' => 'Lista de podcasts',
 			'category' 	  => 'pa-adventista',
-			'post_types'  => ['post', 'page'],
 			'keywords' 	  => ['podcast', '7', 'seven'],
 			'icon' 		  => 'microphone',
 		]);

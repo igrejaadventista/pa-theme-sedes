@@ -18,7 +18,6 @@ class PAFeliz7Play extends Block {
 			'title' 	  => 'IASD - Feliz 7 Play',
 			'description' => 'Vídeos do serviço',
 			'category' 	  => 'pa-adventista',
-			'post_types'  => ['post', 'page'],
 			'keywords' 	  => ['feliz', '7', 'seven', 'play'],
 			'icon' 		  => '<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="32px" height="32px" viewBox="0 0 380 379" enable-background="new 0 0 380 379" xml:space="preserve">  <image id="image0" width="380" height="379" x="0" y="0"
 			xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAXwAAAF7CAYAAADR4jByAAAABGdBTUEAALGPC/xhBQAAACBjSFJN
