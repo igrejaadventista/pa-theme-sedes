@@ -307,6 +307,7 @@ if(!class_exists('LocalData')):
 				$data = $this->getData([
 					'limit' => $value['limit'],
 					'sticky' => $value['sticky'],
+					'field_key' => $field['key'],
 					'post_type' => !empty($value['post_type_filter']) ? $value['post_type_filter'] : $value['post_type'],
 				]);
 
