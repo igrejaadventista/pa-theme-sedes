@@ -20,6 +20,13 @@
 				return;
 
 			innerBlocks.forEach((innerBlock) => {
+				const $blockElement = document.getElementById(`block-${innerBlock.clientId}`);
+
+				if(!$blockElement)
+					return;
+					
+				$blockElement.setAttribute('data-width', $blockElement.offsetWidth < 565 ? 'block-compact' : '');
+
 				if(!innerBlock.attributes.hasOwnProperty('data'))
 					return;
 
@@ -40,10 +47,6 @@
 				}	
 
 				if(!format)
-					return;
-
-				const $blockElement = document.getElementById(`block-${innerBlock.clientId}`);
-				if(!$blockElement)
 					return;
 
 				$blockElement.dataset.format = format;

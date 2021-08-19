@@ -12,7 +12,8 @@ module.exports = function (grunt) {
 					outputStyle: 'compressed'
 				},
 				files: {
-					'styles/blocks.css': 'scss/blocks.scss'
+					'styles/blocks.css': 'scss/blocks.scss',
+					'../Plugins/RemoteData/Assets/remote-data.css': '../Plugins/RemoteData/Assets/remote-data.scss',
 				}
 			}
 		}
