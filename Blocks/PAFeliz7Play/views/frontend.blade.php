@@ -6,15 +6,13 @@
 			<div class="d-flex justify-content-between align-items-center">
 				<img src="{{ get_template_directory_uri() }}/Blocks/PAFeliz7Play/assets/images/f7p-logo.svg" alt="Feliz7Play" title="Feliz7Play" class="img-fluid">
 
-				@notempty($enable_link)
-					<a 
-						href="{{ $link['url'] ?? '#' }}" 
-						target="{{ $link['target'] ?? '_self' }}"
-						class="btn btn-primary"
-					>
-						{!! $link['title'] !!}
-					</a>
-				@endnotempty
+				<a 
+					href="https://www.feliz7play.com" 
+					target="_blank"
+					class="btn btn-primary"
+				>
+					Acessar o site
+				</a>
 			</div>
 		</div>
 

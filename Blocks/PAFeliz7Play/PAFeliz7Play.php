@@ -4,7 +4,6 @@ namespace Blocks\PAFeliz7Play;
 
 use Blocks\Block;
 use Blocks\Extended\RemoteData;
-use Blocks\Fields\MoreContent;
 
 /**
  * Class PAFeliz7Play
@@ -906,18 +905,15 @@ class PAFeliz7Play extends Block {
 	 * @return array Fields array
 	 */
 	protected function setFields(): array {
-		return array_merge(
-			[
-				RemoteData::make('Itens', 'items')
-					->endpoints(['https://api.feliz7play.com/v4/pt/pa-blocks'])
-					->searchFilter(false)
-					->canSticky(false)
-					->manualItems(false)
-					->filterFields(false)
-					->limitFilter(false),			
-			],
-			MoreContent::make()
-		);
+		return [
+			RemoteData::make('Itens', 'items')
+				->endpoints(['https://api.feliz7play.com/v4/pt/pa-blocks'])
+				->searchFilter(false)
+				->canSticky(false)
+				->manualItems(false)
+				->filterFields(false)
+				->limitFilter(false),			
+		];
 	}
 
 	/**
@@ -927,9 +923,7 @@ class PAFeliz7Play extends Block {
 	 */
 	public function with(): array {
 		return [
-			'items'			=> field('items')['data'],
-			'enable_link' 	=> field('enable_link'),
-			'link'			=> field('link')
+			'items'	=> field('items')['data'],
 		];
 	}
 }
