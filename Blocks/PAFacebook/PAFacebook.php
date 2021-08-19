@@ -16,7 +16,7 @@ class PAFacebook extends Block {
 		// Set block settings
         parent::__construct([
             'title' 	  => 'IASD - Facebook',
-            'description' => 'Facebook Widget',
+            'description' => 'Incorpore componentes de uma Página do Facebook',
             'category' 	  => 'pa-adventista',
 			'keywords' 	  => ['facebook', 'embeded'],
 			'icon' 		  => 'facebook-alt',
@@ -33,7 +33,8 @@ class PAFacebook extends Block {
 			[
 				Text::make('Título', 'title')
 					->defaultValue('IASD - Facebook'),
-                Url::make('Url', 'url'),
+                Url::make('Url', 'url')
+					->instructions('URL da página do Facebook'),
 			];
 	}
 	    
