@@ -923,7 +923,7 @@ class PAFeliz7Play extends Block {
 	 */
 	public function with(): array {
 		return [
-			'items'	=> field('items')['data'],
+			'items'	=> get_field('items')['data'],
 		];
 	}
 }

@@ -231,9 +231,9 @@ class PAApps extends Block {
      */
     public function with(): array {
         return [
-            'title'  	  => field('title'),
-			'description' => field('description'),
-			'link' 		  => field('link'),
+            'title'  	  => get_field('title'),
+			'description' => get_field('description'),
+			'link' 		  => get_field('link'),
         ];
     }
 }

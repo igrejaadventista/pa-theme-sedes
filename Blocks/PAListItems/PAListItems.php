@@ -78,10 +78,10 @@ class PAListItems extends Block {
 	 */
 	public function with(): array {
 		return [
-			'title'       => field('title'),
-			'items'       => field('items')['data'],
-			'enable_link' => field('enable_link'),
-			'link'    	  => field('link'),
+			'title'       => get_field('title'),
+			'items'       => get_field('items')['data'],
+			'enable_link' => get_field('enable_link'),
+			'link'    	  => get_field('link'),
 		];
 	}
 }

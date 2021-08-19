@@ -46,8 +46,8 @@ class PATwitter extends Block {
 		wp_enqueue_script('twitter', 'https://platform.twitter.com/widgets.js', []);
 		
         return [
-            'title'  => field('title'),
-			'url' => field('url')
+            'title'  => get_field('title'),
+			'url' => get_field('url')
         ];
     }
 }

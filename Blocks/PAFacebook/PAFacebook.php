@@ -47,8 +47,8 @@ class PAFacebook extends Block {
 		wp_enqueue_script('facebook', 'https://connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v10.0', []);
 
         return [
-            'title'  => field('title'),
-			'url' => field('url')
+            'title'  => get_field('title'),
+			'url' => get_field('url')
         ];
     }
 }

@@ -63,8 +63,8 @@ class PACarouselDownloads extends Block {
      */
     public function with(): array {
         return [
-            'title' => field('title'),
-            'items' => field('items')['data'],
+            'title' => get_field('title'),
+            'items' => get_field('items')['data'],
         ];
     }
 }

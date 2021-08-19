@@ -109,11 +109,11 @@ class PAListNews extends Block {
      */
     public function with(): array {
         return [
-			'block_format' => field('block_format'),
-            'title'  	   => field('title'),
-			'items' 	   => field('source') == 'remote' ? field('items_remote')['data'] : field('items_local')['data'],
-			'enable_link'  => field('enable_link'),
-			'link'    	   => field('link'),
+			'block_format' => get_field('block_format'),
+            'title'  	   => get_field('title'),
+			'items' 	   => get_field('source') == 'remote' ? get_field('items_remote')['data'] : get_field('items_local')['data'],
+			'enable_link'  => get_field('enable_link'),
+			'link'    	   => get_field('link'),
         ];
     }
 
