@@ -73,6 +73,9 @@
 	}
 
 	.sticky-list {
+		max-height: 220px;
+		order: 2;
+
 		.editManualButton {
 			min-width: 45px;
 			width: 45px;
@@ -132,6 +135,19 @@
 		}
 
 		.values {
+			display: flex;
+			flex-direction: column;
+
+			.list-tile {
+				&:first-of-type {
+					order: 1;
+				}
+
+				&:last-of-type {
+					order: 3;
+				}
+			}
+
 			.sticky-list {
 				border-bottom: #ccd0d4 solid 1px;
 				height: auto;
@@ -139,6 +155,11 @@
 
 				&:empty {
 					padding: 0;
+					border: none;
+
+					+ .list-tile {
+						display: none;
+					}
 				}
 
 				.acf-rel-item {
@@ -296,10 +317,15 @@
 		}
 	}
 
-	.values-list .acf-rel-item:hover {
-		background: #e4eeff;
-		color: inherit;
-		cursor: default;
+	.values-list {
+		height: 220px;
+		order: 4;
+
+		.acf-rel-item:hover {
+			background: #e4eeff;
+			color: inherit;
+			cursor: default;
+		}
 	}
 
 	.acf-icon.-pin::before {
@@ -522,6 +548,16 @@
 				overflow: hidden;
 			}
 		}
+	}
+
+	.list-tile span {
+		display: inline-block;
+		font-weight: bold;
+		padding: 8px 12px;
+		font-size: 14px;
+		border-bottom: #0071a4 solid 3px;
+		line-height: 1.4;
+		margin-bottom: 10px;
 	}
 }
 
