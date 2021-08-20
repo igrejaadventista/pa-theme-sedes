@@ -477,7 +477,6 @@
 		 * Make search
 		 */
 		search() {
-			console.log(123);
 			// Abort XHR if this field is already loading AJAX data
 			let xhr = this.get('xhr');
 			if(xhr)
