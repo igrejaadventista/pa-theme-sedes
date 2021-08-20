@@ -562,7 +562,7 @@
 					return this.$valuesList().append(`<li>${acf.__('No matches found')}</li>`);
 
 				// html
-				let content = `<li data-id="${acf.escAttr(element.id)}" data-date="${acf.escAttr(element.date)}"`;
+				let content = `<li data-id="${acf.escAttr(element.id)}" data-date="${acf.escAttr(element.date)}" title="${acf.escAttr(element.title.rendered)}"`;
 					content += `${element.id.toString().startsWith('m') ? ' data-manual' : ''}><span class="acf-rel-item">`;
 
 				if(sticky && !this.empty(this.get('canSticky')) ||

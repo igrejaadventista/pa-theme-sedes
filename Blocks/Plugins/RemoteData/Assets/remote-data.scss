@@ -113,15 +113,22 @@
 			flex-direction: column;
 			overflow-x: hidden;
 			padding: 0;
+			height: auto;
 		}
 
 		.choices {
+			position: relative;
 			overflow: hidden;
 			transition: all 0.3s ease-in-out;
 			width: 0;
 
 			.choices-list {
-				height: auto;
+				position: absolute;
+				top: 48.6px;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				width: 100%;
 			}
 
 			&.active {
@@ -151,7 +158,6 @@
 			.sticky-list {
 				border-bottom: #ccd0d4 solid 1px;
 				height: auto;
-				max-height: 276px;
 
 				&:empty {
 					padding: 0;
@@ -241,6 +247,7 @@
 		li {
 			display: flex;
 			order: 0;
+			height: 55px;
 		}
 
 		.-loading {
@@ -318,7 +325,7 @@
 	}
 
 	.values-list {
-		height: 220px;
+		height: 220px !important;
 		order: 4;
 
 		.acf-rel-item:hover {
@@ -393,6 +400,13 @@
 			width: 70px;
 			flex: 0 0 70px;
 			font-size: 0;
+		}
+
+		.walker__item div {
+			overflow: hidden;
+			display: -webkit-box !important;
+			-webkit-line-clamp: 2;
+			-webkit-box-orient: vertical;
 		}
 	}
 
@@ -658,4 +672,10 @@ body.block-editor-page .edit-post-layout .acf-remote-data .widgets-acf-modal.-op
 	.acf-rel-item img {
 		display: none;
 	}
+
+	.list {
+		li {
+			height: 46.4px;
+		}
+	} 
 }
