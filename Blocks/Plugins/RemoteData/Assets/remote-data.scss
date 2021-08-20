@@ -270,7 +270,7 @@
 		}
 	}
 
-	.acf-field-remote-data .taxonomies-selection {
+	.taxonomies-selection {
 		background: #f9f9f9;
 		border-bottom: #ccd0d4 solid 1px;
 		display: none;
@@ -617,5 +617,9 @@ body.block-editor-page .edit-post-layout .acf-remote-data .widgets-acf-modal.-op
 				border: none;
 			}
 		}
+	}
+
+	.acf-rel-item img {
+		display: none;
 	}
 }
