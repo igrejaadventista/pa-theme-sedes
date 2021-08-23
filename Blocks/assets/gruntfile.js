@@ -14,6 +14,7 @@ module.exports = function (grunt) {
 				files: {
 					'styles/blocks.css': 'scss/blocks.scss',
 					'../Plugins/RemoteData/Assets/remote-data.css': '../Plugins/RemoteData/Assets/remote-data.scss',
+					'../Plugins/LocalData/Assets/local-data.css': '../Plugins/LocalData/Assets/local-data.scss',
 				}
 			}
 		}

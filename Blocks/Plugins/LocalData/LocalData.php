@@ -252,10 +252,23 @@ if(!class_exists('LocalData')):
 
 					<div class="selection">
 						<div class="choices">
+							<div class="list-tile">
+								<span>Resultados</span>
+							</div>
+
 							<ul class="acf-bl list local-list choices-list"></ul>
 						</div>
 						<div class="values">
 							<ul class="acf-bl list sticky-list"></ul>
+
+							<div class="list-tile">
+								<span>Fixados</span>
+							</div>
+
+							<div class="list-tile">
+								<span>Recentes</span>
+							</div>
+							
 							<ul class="acf-bl list values-list"></ul>
 						</div>
 					</div>

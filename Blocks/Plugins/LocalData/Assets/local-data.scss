@@ -1,4 +1,4 @@
-﻿.acf-remote-data {
+.acf-local-data { 
 	.acf-notice-render .alert-content button,
 	.sticky-list .editManualButton {
 		border: 0;
@@ -402,11 +402,27 @@
 			font-size: 0;
 		}
 
-		.walker__item div {
-			overflow: hidden;
-			display: -webkit-box !important;
-			-webkit-line-clamp: 2;
-			-webkit-box-orient: vertical;
+		.walker__item {
+			div {
+				overflow: hidden;
+				display: -webkit-box !important;
+				-webkit-line-clamp: 2;
+				-webkit-box-orient: vertical;
+			}
+
+			.badge__pill {
+				display: inline-block !important;
+				padding: 0;
+				font-size: 10px;
+				font-weight: normal;
+				color: #505050;
+				text-align: center;
+				white-space: nowrap;
+				vertical-align: baseline;
+				box-shadow: none;
+				border-radius: 0.25rem;
+				margin-top: 5px;
+			}
 		}
 	}
 
@@ -573,12 +589,17 @@
 		line-height: 1.4;
 		margin-bottom: 10px;
 	}
+
+	.sticky-list .acf-rel-item:hover .badge__pill,
+	.choices-list .acf-rel-item:hover .badge__pill {
+		color: #fff;
+	}
 }
 
 /*
  * widgets-acf Modal: Gutenberg Fix
  */
-body.block-editor-page .edit-post-layout .acf-remote-data .widgets-acf-modal.-open {
+body.block-editor-page .edit-post-layout .acf-local-data .widgets-acf-modal.-open {
 	-webkit-box-pack: start;
 	-ms-flex-pack: start;
 	justify-content: start;
@@ -619,7 +640,7 @@ body.block-editor-page .edit-post-layout .acf-remote-data .widgets-acf-modal.-op
 	}
 }
 
-.components-panel .acf-field-remote-data {
+.components-panel .acf-field-localposts-data {
 	.filters {
 		flex-wrap: wrap;
 	
@@ -642,12 +663,12 @@ body.block-editor-page .edit-post-layout .acf-remote-data .widgets-acf-modal.-op
 }
 
 #wp-link-wrap.-no-label .wp-link-text-field,
-.acf-remote-data .widgets-acf-modal[data-name="link"] span.link-title {
+.acf-local-data .widgets-acf-modal[data-name="link"] span.link-title {
 	display: none !important;
 }
 
-[data-width="block-compact"] .acf-remote-data,
-.components-panel .acf-remote-data {
+[data-width="block-compact"] .acf-local-data,
+.components-panel .acf-local-data {
 	.filters {
 		flex-wrap: wrap;
 
@@ -681,4 +702,17 @@ body.block-editor-page .edit-post-layout .acf-remote-data .widgets-acf-modal.-op
 			height: 46.4px;
 		}
 	} 
+
+	.badge__pill {
+		position: absolute;
+		margin: 0 !important;
+		left: 7px;
+		bottom: -2px;
+	}
+
+	.choices-list {
+		.badge__pill {
+			display: none !important;
+		}
+	}
 }
