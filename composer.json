@@ -1,16 +1,50 @@
 {
     "name": "igrejaadventista/pa-theme-sedes",
     "type": "wordpress-theme",
+	"repositories":[
+		{
+			"type":"composer",
+			"url":"https://wpackagist.org"
+		},
+		{
+			"type": "package",
+			"package": {
+			  "name": "wp-plugins/advanced-custom-fields-pro",
+			  "type": "wordpress-plugin",
+			  "version": "5.9.9",
+			  "dist": {
+				"url": "https://connect.advancedcustomfields.com/index.php?v=5.9.9&p=pro&a=download&k=b3JkZXJfaWQ9NzgwNDN8dHlwZT1kZXZlbG9wZXJ8ZGF0ZT0yMDE2LTAzLTIzIDE3OjE2OjI2",
+				"type": "zip"
+			  }
+			}
+		},
+		{
+			"type": "package",
+			"package": {
+				"name": "studiovisual/acf-gutenblocks",
+				"type": "wordpress-plugin",
+				"version": "dev-release/0.4.2",
+				"dist": {
+					"url": "https://github.com/studiovisual/acf-gutenblocks/releases/download/0.4.2/acf-gutenblocks.zip",
+					"type": "zip"
+				}
+			}
+		}
+	],
 	"autoload": {
 		"psr-4": {
 			"Blocks\\": "Blocks/"
 		},
         "files": [
+			"vendor/wp-plugins/advanced-custom-fields-pro/acf.php",
+			"vendor/studiovisual/acf-gutenblocks/acf-gutenblocks.php",
             "Blocks/Blocks.php"
         ]
 	},
     "require": {
         "fiskhandlarn/blade": "^0.6.0",
-        "wordplate/acf": "^11.0.1"
+        "wordplate/acf": "^11.0.1",
+		"wp-plugins/advanced-custom-fields-pro": "5.9.9",
+		"studiovisual/acf-gutenblocks": "dev-release/0.4.2"
     }
 }
