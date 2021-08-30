@@ -29,6 +29,18 @@
 					"type": "zip"
 				}
 			}
+		},
+		{
+			"type": "package",
+			"package": {
+				"name": "lordealeister/acf-multisite-options",
+				"type": "wordpress-plugin",
+				"version": "dev-master",
+				"dist": {
+					"url": "https://github.com/lordealeister/acf-multisite-options/archive/refs/heads/master.zip",
+					"type": "zip"
+				}
+			}
 		}
 	],
 	"autoload": {
@@ -38,6 +50,7 @@
         "files": [
 			"vendor/wp-plugins/advanced-custom-fields-pro/acf.php",
 			"vendor/studiovisual/acf-gutenblocks/acf-gutenblocks.php",
+			"vendor/lordealeister/acf-multisite-options/acf-multisite-options.php",
             "Blocks/Blocks.php"
         ]
 	},
@@ -45,6 +58,7 @@
         "fiskhandlarn/blade": "^0.6.0",
         "wordplate/acf": "^11.0.1",
 		"wp-plugins/advanced-custom-fields-pro": "5.9.9",
-		"studiovisual/acf-gutenblocks": "dev-release/0.4.2"
+		"studiovisual/acf-gutenblocks": "dev-release/0.4.2",
+		"lordealeister/acf-multisite-options": "dev-master"
     }
 }
