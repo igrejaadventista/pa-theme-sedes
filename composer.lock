@@ -233,7 +233,7 @@
         },
         {
             "name": "illuminate/bus",
-            "version": "v8.57.0",
+            "version": "v8.58.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/bus.git",
@@ -286,7 +286,7 @@
         },
         {
             "name": "illuminate/collections",
-            "version": "v8.57.0",
+            "version": "v8.58.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/collections.git",
@@ -340,7 +340,7 @@
         },
         {
             "name": "illuminate/container",
-            "version": "v8.57.0",
+            "version": "v8.58.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/container.git",
@@ -391,7 +391,7 @@
         },
         {
             "name": "illuminate/contracts",
-            "version": "v8.57.0",
+            "version": "v8.58.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/contracts.git",
@@ -439,7 +439,7 @@
         },
         {
             "name": "illuminate/events",
-            "version": "v8.57.0",
+            "version": "v8.58.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/events.git",
@@ -494,7 +494,7 @@
         },
         {
             "name": "illuminate/filesystem",
-            "version": "v8.57.0",
+            "version": "v8.58.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/filesystem.git",
@@ -556,7 +556,7 @@
         },
         {
             "name": "illuminate/macroable",
-            "version": "v8.57.0",
+            "version": "v8.58.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/macroable.git",
@@ -602,7 +602,7 @@
         },
         {
             "name": "illuminate/pipeline",
-            "version": "v8.57.0",
+            "version": "v8.58.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/pipeline.git",
@@ -650,7 +650,7 @@
         },
         {
             "name": "illuminate/support",
-            "version": "v8.57.0",
+            "version": "v8.58.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/support.git",
@@ -718,7 +718,7 @@
         },
         {
             "name": "illuminate/view",
-            "version": "v8.57.0",
+            "version": "v8.58.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/view.git",
@@ -1102,16 +1102,16 @@
         },
         {
             "name": "symfony/finder",
-            "version": "v5.3.4",
+            "version": "v5.3.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/finder.git",
-                "reference": "17f50e06018baec41551a71a15731287dbaab186"
+                "reference": "a10000ada1e600d109a6c7632e9ac42e8bf2fb93"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/finder/zipball/17f50e06018baec41551a71a15731287dbaab186",
-                "reference": "17f50e06018baec41551a71a15731287dbaab186",
+                "url": "https://api.github.com/repos/symfony/finder/zipball/a10000ada1e600d109a6c7632e9ac42e8bf2fb93",
+                "reference": "a10000ada1e600d109a6c7632e9ac42e8bf2fb93",
                 "shasum": ""
             },
             "require": {
@@ -1144,7 +1144,7 @@
             "description": "Finds files and directories via an intuitive fluent interface",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/finder/tree/v5.3.4"
+                "source": "https://github.com/symfony/finder/tree/v5.3.7"
             },
             "funding": [
                 {
@@ -1160,7 +1160,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-07-23T15:54:19+00:00"
+            "time": "2021-08-04T21:20:46+00:00"
         },
         {
             "name": "symfony/polyfill-mbstring",
@@ -1327,16 +1327,16 @@
         },
         {
             "name": "symfony/translation",
-            "version": "v5.3.4",
+            "version": "v5.3.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/translation.git",
-                "reference": "d89ad7292932c2699cbe4af98d72c5c6bbc504c1"
+                "reference": "4d595a6d15fd3a2c67f6f31d14d15d3b7356d7a6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/translation/zipball/d89ad7292932c2699cbe4af98d72c5c6bbc504c1",
-                "reference": "d89ad7292932c2699cbe4af98d72c5c6bbc504c1",
+                "url": "https://api.github.com/repos/symfony/translation/zipball/4d595a6d15fd3a2c67f6f31d14d15d3b7356d7a6",
+                "reference": "4d595a6d15fd3a2c67f6f31d14d15d3b7356d7a6",
                 "shasum": ""
             },
             "require": {
@@ -1402,7 +1402,7 @@
             "description": "Provides tools to internationalize your application",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/translation/tree/v5.3.4"
+                "source": "https://github.com/symfony/translation/tree/v5.3.7"
             },
             "funding": [
                 {
@@ -1418,7 +1418,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-07-25T09:39:16+00:00"
+            "time": "2021-08-26T08:22:53+00:00"
         },
         {
             "name": "symfony/translation-contracts",
@@ -1574,20 +1574,20 @@
         },
         {
             "name": "wordplate/acf",
-            "version": "11.0.1",
+            "version": "11.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/wordplate/extended-acf.git",
-                "reference": "70afa45f4cb5632ee2be657d85d183737db7bdde"
+                "reference": "09a77dbca2c8faf36edac566adb3ee4767459a24"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/wordplate/extended-acf/zipball/70afa45f4cb5632ee2be657d85d183737db7bdde",
-                "reference": "70afa45f4cb5632ee2be657d85d183737db7bdde",
+                "url": "https://api.github.com/repos/wordplate/extended-acf/zipball/09a77dbca2c8faf36edac566adb3ee4767459a24",
+                "reference": "09a77dbca2c8faf36edac566adb3ee4767459a24",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.3 || ^8.0"
+                "php": "^7.4 || ^8.0"
             },
             "require-dev": {
                 "phpunit/phpunit": "^9.5",
@@ -1632,9 +1632,9 @@
             ],
             "support": {
                 "issues": "https://github.com/wordplate/extended-acf/issues",
-                "source": "https://github.com/wordplate/extended-acf/tree/11.0.1"
+                "source": "https://github.com/wordplate/extended-acf/tree/11.1.0"
             },
-            "time": "2021-05-23T19:28:42+00:00"
+            "time": "2021-08-28T07:36:30+00:00"
         },
         {
             "name": "wp-plugins/advanced-custom-fields-pro",
