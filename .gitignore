@@ -9,3 +9,4 @@ style.css.map
 yarn-error.log
 assets/js
 vendor
+composer.lock

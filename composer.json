@@ -46,7 +46,12 @@
 	"autoload": {
 		"psr-4": {
 			"Blocks\\": "Blocks/"
-		}
+		},
+		"files": [
+			"vendor/wp-plugins/advanced-custom-fields-pro/acf.php",
+			"vendor/studiovisual/acf-gutenblocks/acf-gutenblocks.php",
+			"vendor/lordealeister/acf-multisite-options/acf-multisite-options.php"
+        ]
 	},
     "require": {
         "fiskhandlarn/blade": "^0.6.0",
