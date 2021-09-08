@@ -3,11 +3,6 @@
 if(file_exists($composer = __DIR__. '/vendor/autoload.php'))
 	require_once $composer;
 
-// Customize the url setting to fix incorrect asset URLs.
-add_filter('acf/settings/url', function() {
-    return get_template_directory_uri() . '/vendor/wp-plugins/advanced-custom-fields-pro/';
-});
-
 require_once (dirname(__FILE__) . '/classes/controllers/PA_Theme_Helpers.class.php');
 require_once (dirname(__FILE__) . '/classes/controllers/PA_ACF_Helpers.class.php');
 require_once (dirname(__FILE__) . '/classes/controllers/PA_ACF_Site-settings.class.php');
