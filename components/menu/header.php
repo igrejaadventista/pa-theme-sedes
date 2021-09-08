@@ -1,6 +1,7 @@
 <?php
     $campo = get_info_sedes();
     $lang = get_info_lang();
+	$menu_global = PaThemeHelpers::getGlobalMenu('global-header');
 ?>
 
 <header class="pa-menu" id="topo">
@@ -12,66 +13,29 @@
                 </a>
             </div>
             <div class="col d-flex flex-column justify-content-between">
-            <nav class="pa-menu-global navbar navbar-expand-lg justify-content-end">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Adventistas</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Institucional</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Notícias</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Vídeos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Downloads</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Buscar</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            PT
-                        </a>
-                        <ul class="dropdown-menu p-0">
-                            <li class=""><a class="dropdown-item" href="#">PT</a></li>
-                            <li class=""><a class="dropdown-item" href="#">ES</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </nav>
-                <!-- <nav class="pa-menu-global">
-                    <ul class="nav justify-content-end">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Adventistas</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Institucional</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Notícias</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Vídeos</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Downloads</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Buscar</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">PT</a>
-                            <ul class="dropdown-menu">
-                                <li class="py-2"><a class="dropdown-item" href="#">PT</a></li>
-                                <li class="py-2"><a class="dropdown-item" href="#">ES</a></li>
-                            </ul>
-                        </li>
-                    </ul>              
-                </nav> -->
+				<nav class="pa-menu-global navbar navbar-expand-lg justify-content-end">
+					<ul class="navbar-nav">
+						<?php if(!empty($menu_global) && property_exists($menu_global, 'itens') && !empty($menu_global->itens)): ?>
+							<?php foreach($menu_global->itens as $item): ?>
+								<li class="nav-item">
+									<a class="nav-link" href="<?= $item->url ?>" target="<?= !empty($item->target) ? $item->target : '_self' ?>">
+										<?= $item->title ?>
+									</a>
+								</li>
+							<?php endforeach; ?>
+						<?php endif; ?>
+						
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+								PT
+							</a>
+							<ul class="dropdown-menu p-0">
+								<li class=""><a class="dropdown-item" href="#">PT</a></li>
+								<li class=""><a class="dropdown-item" href="#">ES</a></li>
+							</ul>
+						</li>
+					</ul>
+				</nav>
 
                 <?php
                     wp_nav_menu(
