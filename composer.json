@@ -15,6 +15,11 @@
 				"dist": {
 					"url": "https://github.com/studiovisual/acf-gutenblocks/releases/download/0.4.2/acf-gutenblocks.zip",
 					"type": "zip"
+				},
+				"autoload": {
+					"files": [
+						"acf-gutenblocks.php"
+					]
 				}
 			}
 		},
@@ -27,6 +32,11 @@
 				"dist": {
 					"url": "https://github.com/lordealeister/acf-multisite-options/archive/refs/heads/master.zip",
 					"type": "zip"
+				},
+				"autoload": {
+					"files": [
+						"acf-multisite-options.php"
+					]
 				}
 			}
 		}
@@ -34,11 +44,7 @@
 	"autoload": {
 		"psr-4": {
 			"Blocks\\": "Blocks/"
-		},
-		"files": [
-			"vendor/studiovisual/acf-gutenblocks/acf-gutenblocks.php",
-			"vendor/lordealeister/acf-multisite-options/acf-multisite-options.php"
-        ]
+		}
 	},
     "require": {
         "fiskhandlarn/blade": "^0.6.0",
