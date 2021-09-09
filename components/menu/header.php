@@ -18,9 +18,7 @@
 						<?php if(!empty($menu_global) && property_exists($menu_global, 'itens') && !empty($menu_global->itens)): ?>
 							<?php foreach($menu_global->itens as $item): ?>
 								<li class="nav-item">
-									<a class="nav-link" href="<?= $item->url ?>" target="<?= !empty($item->target) ? $item->target : '_self' ?>">
-										<?= $item->title ?>
-									</a>
+									<a class="nav-link" href="<?= $item->url ?>" title="<?= $item->title ?>" target="<?= !empty($item->target) ? $item->target : '_self' ?>"><?= $item->title ?></a>
 								</li>
 							<?php endforeach; ?>
 						<?php endif; ?>

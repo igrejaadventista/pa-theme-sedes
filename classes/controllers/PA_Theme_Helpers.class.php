@@ -63,15 +63,13 @@ class PaThemeHelpers {
 	 * getGlobalMenu Get global menu by name
 	 *
 	 * @param  string $name The menu name
-	 * @return stdClass Menu data
+	 * @return mixed Menu data or null
 	 */
-	static function getGlobalMenu(string $name): stdClass {
-		$menu = new stdClass;
-
+	static function getGlobalMenu(string $name) {
 		if(empty($name))
-			return $menu;
+			return;
 
-		$json = file_get_contents("https://tax2.adventistas.org/pt/wp-json/wp/v2/menus/{$name}");
+		$json = file_get_contents("https://api.adventistas.org/tax/pt/menus/{$name}");
 
 		return json_decode($json);
 	}
