@@ -2,7 +2,7 @@ footer {
 	&.pa-footer{
 		background-color: var(--pa-color-gray06);
 	
-		.pa-about-us, .pa-deptos {
+		.pa-menu:not(:last-of-type) {
 			border-bottom: 1px solid var(--pa-color-gray04);
 		} 
 	

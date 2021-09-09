@@ -58,6 +58,21 @@ class PaThemeHelpers {
 	function registerAssetsAdmin() {
 		wp_enqueue_script( 'scripts-admin', get_template_directory_uri() . '/assets/scripts/script_admin.js', array(), false, true );
 	}
+
+	/**
+	 * getGlobalMenu Get global menu by name
+	 *
+	 * @param  string $name The menu name
+	 * @return mixed Menu data or null
+	 */
+	static function getGlobalMenu(string $name) {
+		if(empty($name))
+			return;
+
+		$json = file_get_contents("https://api.adventistas.org/tax/pt/menus/{$name}");
+
+		return json_decode($json);
+	}
 	
 }
 $PaThemeHelpers = new PaThemeHelpers();
