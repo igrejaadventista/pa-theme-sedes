@@ -1,3 +1,20 @@
+function set_inline_xtt_pa_owner(event, widgetSet, nonce) {
+	event.preventDefault();
+	// revert Quick Edit menu so that it refreshes properly
+	inlineEditPost.revert();
+	var widgetInput = document.getElementById('terms-xtt-pa-owner');
+	var nonceInput = document.getElementById('xtt-pa-owner-noncename');
+	nonceInput.value = nonce;
+
+	// check option manually
+	for(i = 0; i < widgetInput.options.length; i++) {
+		if(widgetInput.options[i].value == widgetSet)
+			widgetInput.options[i].setAttribute('selected', 'selected');
+		else 
+			widgetInput.options[i].removeAttribute('selected');
+	}
+}
+
 (function(element, components, data, i18n, lodash) {
     const el = element.createElement;
     const {useSelect} = data;
