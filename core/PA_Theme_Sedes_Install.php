@@ -17,6 +17,7 @@ class PACoreInstall
   public function __construct()
   {
     add_action('after_setup_theme', array($this, 'installRoutines'));
+	add_action('admin_enqueue_scripts', array($this, 'enqueueAssets'));
   }
 
   function installRoutines()
@@ -243,6 +244,17 @@ class PACoreInstall
       wp_schedule_event(time(), '20min', 'Service_Taxonomy_Schedule');
     }
   }
+
+  function enqueueAssets() {
+	wp_enqueue_script(
+		'adventistas-admin', 
+		get_template_directory_uri() . '/assets/scripts/admin.js', 
+		array('wp-i18n', 'wp-blocks', 'wp-edit-post', 'wp-element', 'wp-editor', 'wp-components', 'wp-data', 'wp-plugins', 'wp-edit-post', 'lodash'), 
+		null, 
+		false
+	);
+  }
+
 }
 
 $PACoreInstall = new PACoreInstall();
