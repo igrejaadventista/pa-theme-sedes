@@ -204,8 +204,8 @@ class Blocks
 
         $updatedContent = \serialize_blocks($blocks);
         $replacedString = preg_replace("/u([0-9abcdef]{4})/", "&#x$1;", $updatedContent);
-        $unicodeString  = mb_convert_encoding($replacedString, 'UTF-8', 'HTML-ENTITIES');
-        $unicodeString  = str_replace('\n', '\\\n', $unicodeString);
+        // $unicodeString  = utf8_encode($replacedString);
+        $unicodeString  = str_replace('\n', '\\\n', $replacedString);
 
         if (!empty($hasUpdate)) :
             \wp_update_post([
