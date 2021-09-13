@@ -294,7 +294,7 @@ class PACoreInstall
 	}
 
 	function saveQuickEdit($postID) {
-		if((defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) || ('post' != $_POST['post_type']) || !current_user_can('edit_page', $postID))
+		if((defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) || !isset($_POST['post_type']) || ('post' != $_POST['post_type']) || !current_user_can('edit_page', $postID))
 			return $postID;
 	 
 		$postType = get_post_type($postID);
