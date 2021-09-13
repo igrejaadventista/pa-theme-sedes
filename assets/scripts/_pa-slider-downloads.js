@@ -1,10 +1,12 @@
 /* Scripsts Slider Videos */
 
 function pa_slider_downloads() {
-	var select = ".pa-glide-downloads";
+	var nodes = document.querySelectorAll('.pa-glide-downloads');
 
-	var node = document.querySelector(select);
-	if (document.body.contains(node)) {
+	if(!nodes.length)
+		return;
+
+	nodes.forEach(function(node) {
 		var glide = new Glide(node, {
 			type: "carousel",
 			perView: 4,
@@ -31,5 +33,5 @@ function pa_slider_downloads() {
 		});
 
 		glide.mount();
-	}
+	});
 }

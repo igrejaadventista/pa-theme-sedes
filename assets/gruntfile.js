@@ -29,7 +29,8 @@ module.exports = function (grunt) {
 			pa_scripts: {
 				src: [
 					"node_modules/@glidejs/glide/dist/glide.min.js",
-					"scripts/*.js"
+					"scripts/*.js",
+					"!scripts/admin.js"
 				],
 				dest: "js/script.js",
 			},

@@ -1,11 +1,13 @@
 /* Scripsts Slider Feliz7Play */
 
 function pa_slider_feliz7play() {
-	var select = ".pa-glide-feliz7play";
+	var nodes = document.querySelectorAll('.pa-glide-feliz7play');
 
-	var node = document.querySelector(select);
-	if (document.body.contains(node)) {
-		var glide = new Glide(select, {
+	if(!nodes.length)
+		return;
+
+	nodes.forEach(function(node) {
+		var glide = new Glide(node, {
 			type: "carousel",
 			startAt: 1,
 			perView: 3,
@@ -31,5 +33,5 @@ function pa_slider_feliz7play() {
 		});
 
 		glide.mount();
-	}
+	});
 }
