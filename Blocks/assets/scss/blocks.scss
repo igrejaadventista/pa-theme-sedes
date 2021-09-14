@@ -115,3 +115,9 @@
 .acf-block-component {
 	position: relative;
 }
+
+.wp-block[data-type="core/widget-area"] .block-editor-block-list__layout .wp-block {
+	@include make-col(12);
+
+	margin-bottom: 3rem !important;
+}

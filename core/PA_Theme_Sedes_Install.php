@@ -252,6 +252,11 @@ class PACoreInstall
   }
 
 	function enqueueAssets() {
+		global $current_screen;
+
+		if($current_screen->id != 'post' && $current_screen->id != 'edit-post')
+			return;
+
 		wp_enqueue_script(
 			'adventistas-admin', 
 			get_template_directory_uri() . '/assets/scripts/admin.js', 
