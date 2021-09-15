@@ -77,6 +77,10 @@
 
 .pa-content-container,
 .pa-content {
+	p img {
+		max-width: 100%;
+	}
+
 	.pa-blog-feature {
 		figure {
 			width: 100%;
