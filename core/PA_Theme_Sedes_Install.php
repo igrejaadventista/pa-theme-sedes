@@ -321,7 +321,7 @@ class PACoreInstall
 		$term = wp_get_post_terms($post->ID, 'xtt-pa-owner', array('fields' => 'all'));
 	 
 		$actions['inline hide-if-no-js'] = '<a href="#" class="editinline"';
-		$actions['inline hide-if-no-js'] .= " onclick=\"set_inline_xtt_pa_owner(event, '{$term[0]->name}', '{$nonce}')\">";
+		$actions['inline hide-if-no-js'] .= !empty($term) ? " onclick=\"set_inline_xtt_pa_owner(event, '{$term[0]->name}', '{$nonce}')\">" : ">";
 		$actions['inline hide-if-no-js'] .= __('Quick&nbsp;Edit');
 		$actions['inline hide-if-no-js'] .= '</a>';
 		
