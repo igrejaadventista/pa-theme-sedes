@@ -42,7 +42,7 @@ function set_inline_xtt_pa_owner(event, widgetSet, nonce) {
      * @param {string} props.slug Taxonomy slug.
      * @return {WPElement}        Hierarchical term selector component.
      */
-    function DropdownTermSelector({ slug }) {
+    window.DropdownTermSelector = function DropdownTermSelector({ slug }) {
         const {
             terms,
             availableTerms,
