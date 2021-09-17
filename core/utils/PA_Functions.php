@@ -2,95 +2,179 @@
 
 class PAFunctions
 {
-  public static function add_update_term_tax($tax, $resultService)
-  {
-    $tempParents = [];
 
-    foreach ($resultService as $result) {
+	public static function add_update_term_tax($tax, $resultService)
+	{
+		$ids_child_remote_fetched = [];
+		try {
 
-      $optionMap = get_option('tax_' . $tax . '_map');
+			/*
 
-      /**
-       * 
-       * TODO:
-       * - Verify if exist term in option and table terms!
-       * 
-       */
+			EXPLAIN ACTIONS
+			1 - adding and updating parents
+			2 - adding and updating childs
+			3 - deleting parents and childs
+			*/
 
-      // If exist this id remote in option, verify update!
-      if (isset($optionMap[$result->id])) {
+			// Adding/updating parents 
+			foreach ($resultService as $result) {
 
-        $term = get_term($optionMap[$result->id]);
+				if ($result->parent == 0) {
+					$args = array(
+						'taxonomy'   => $tax,
+						'hide_empty' => false,
+						'meta_query' => array(
+							array(
+								'key'       => 'pa_tax_id_remote',
+								'value'     => $result->id,
+								'compare'   => '='
+							)
+						)
+					);
+					$verify_term = get_terms($args);
 
-        //Change local nome if remote name is different
+					if ($verify_term == null) {
 
-          wp_update_term($optionMap[$result->id], $tax, array(
-            'name' => $result->name,
-            'description' => $result->description,
-            'slug' => $result->slug
-          ));
+						$tax_parent = wp_insert_term(
+							$result->name, // the term 
+							$tax, // the taxonomy
+							array(
+								'name' => $result->name,
+								'slug' => $result->slug,
+								'parent' => $result->parent,
+							)
+						);
 
-      } else {
+						if (!is_wp_error($tax_parent)) {
+							print("ADDING TERM REMOTE PARENT: \n");
+							print(' - Term ID ' . $tax_parent['term_id'] . "\n");
+							print(' - Remote ID ' . $result->id . "\n");
+							print("--------------------\n");
+							add_term_meta($tax_parent['term_id'], 'pa_tax_id_remote', $result->id, true);
+						} else {
+							print_r("------ errorr add meta in child! \n");
+							print_r($result->name);
+						}
+					} else {
+						// Updating
+						print("UPDATING PARENT: \n");
+						print(' - Term ID ' . $verify_term[0]->term_id . "\n");
+						print("--------------------\n");
+						$tax_child_update = wp_update_term($verify_term[0]->term_id, $tax, array(
+							'name' => $result->name,
+							'slug' => $result->slug
+						));
+					}
+				}
+			}
 
-        // Dosn't exist id! Create now....
-        if ($result->parent == 0) {
-          $tempParents[$result->id] = [
-            'name' => $result->name
-          ];
+			// Adding/updating childs
+			foreach ($resultService as $result) {
 
-          /**
-           * Adding father id
-           */
+				if ($result->parent != 0) {
 
-          $taxC = wp_insert_term(
-            $result->name, // the term 
-            $tax, // the taxonomy
-            array(
-              'description' => $result->description,
-              'slug' => $result->slug
-            )
-          );
+					$args = array(
+						'taxonomy'   => $tax,
+						'hide_empty' => false,
+						'meta_query' => array(
+							array(
+								'key'       => 'pa_tax_id_remote',
+								'value'     => $result->parent,
+								'compare'   => '='
+							)
+						)
+					);
+					$id_tax_remote = get_terms($args);
 
-          if (!is_wp_error($taxC)) {
-            /**
-             * Saves remote id for future updates
-             */
-            $tampMapTaxOption[$result->id] = $taxC['term_id'];
-          }
-        } else {
+					// Creating childs if exist a parent
+					if ($id_tax_remote != null) {
 
-          /**
-           * Adding child tax
-           */
+						$parent_term_id = $id_tax_remote[0]->term_id; // get numeric term id
 
-          if (isset($tempParents[$result->parent])) {
-            $parent_term = term_exists($tempParents[$result->parent]['name'], $tax); // array is returned if taxonomy is given
-            $parent_term_id = $parent_term['term_id']; // get numeric term id
+						// Verify if exist term 
+						$verify_child_term = get_terms(array(
+							'taxonomy'   => $tax,
+							'hide_empty' => false,
+							'meta_query' => array(
+								array(
+									'key'       => 'pa_tax_id_remote',
+									'value'     => $result->id,
+									'compare'   => '='
+								)
+							)
+						));
 
-            if (isset($parent_term_id)) {
-              $taxC = wp_insert_term(
-                $result->name, // the term 
-                $tax, // the taxonomy
-                array(
-                  'description' => $result->description,
-                  'slug' => $result->slug,
-                  'parent' => $parent_term_id  // get numeric term id
-                )
-              );
+						// Creating
+						if ($verify_child_term == null) {
 
-              if (!is_wp_error($taxC)) {
-                /**
-                 * Saves remote id for future updates
-                 */
-                $tampMapTaxOption[$result->id] = $taxC['term_id'];
-              }
-            }
-          }
-        }
-        if(isset($tampMapTaxOption)){
-          update_option('tax_' . $tax . '_map', $tampMapTaxOption);
-        }
-      }
-    }
-  }
+							$tax_child = wp_insert_term(
+								$result->name, // the term 
+								$tax, // the taxonomy
+								array(
+									'name' => $result->name,
+									'slug' => $result->slug,
+									'parent' => $parent_term_id  // get numeric term id
+								)
+							);
+
+							if (!is_wp_error($tax_child)) {
+								/**
+								 * Saves remote id for future updates
+								 */
+
+								print("ADDING TERM REMOTE CHILD: \n");
+								print(' - Term ID ' . $tax_child['term_id'] . "\n");
+								print(' - Remote ID ' . $result->id . "\n");
+								print("--------------------\n");
+								add_term_meta($tax_child['term_id'], 'pa_tax_id_remote', $result->id, true);
+							} else {
+								print_r("------ errorr add meta in child! \n");
+								print_r($result->name);
+							}
+						} else {
+							// Updating
+							print("UPDATING CHILD: \n");
+							print(' - Term ID ' . $verify_child_term[0]->term_id . "\n");
+							print("--------------------\n");
+							$tax_child_update = wp_update_term($verify_child_term[0]->term_id, $tax, array(
+								'name' => $result->name,
+								'slug' => $result->slug
+							));
+						}
+					}
+				}
+			}
+
+
+			// PREPARING TO DELETE
+			$verify_delete = get_terms(array(
+				'taxonomy'   => $tax,
+				'hide_empty' => false,
+				'meta_query' => array(
+					array(
+						'key'       => 'pa_tax_id_remote',
+					)
+				)
+			));
+
+			foreach ($verify_delete as $vd) {
+				$delete = true;
+
+				foreach ($resultService as $result) {
+					if ($vd->meta['pa_tax_id_remote'][0] == $result->id) {
+						$delete = false;
+					}
+				}
+
+				if ($delete) {
+					print("DELETING TERM REMOTE CHILD: \n");
+					print(' - Term ID ' . $vd->term_id . "\n");
+					print("--------------------\n");
+					wp_delete_term($vd->term_id, $tax);
+				}
+			}
+		} catch (\Throwable $th) {
+			throw $th;
+		}
+	}
 }
