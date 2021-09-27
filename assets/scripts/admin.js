@@ -91,6 +91,9 @@ function set_inline_xtt_pa_owner(event, widgetSet, nonce) {
 
         const groupLabel = get(taxonomy, ['name'], __('Terms'));
 
+		if(!terms.length && availableTerms.length)
+			onUpdateTerms([availableTerms[0].id]);
+
         return el('div', {
             className: 'editor-post-taxonomies__hierarchical-terms-list',
             tabIndex: 0,
