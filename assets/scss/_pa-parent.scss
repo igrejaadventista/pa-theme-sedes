@@ -171,14 +171,16 @@
 		}
 	}
 
-	.wp-block-image {
+	.wp-block-image,
+	.wp-caption {
 		margin: 0 0 2rem;
 
 		img {
 			border-radius: 0.25rem !important;
 		}
 
-		figcaption em {
+		figcaption em,
+		.wp-caption-text {
 			@include pa-wp-block-embed-caption;
 		}
 	}
