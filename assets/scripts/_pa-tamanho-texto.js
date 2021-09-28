@@ -1,4 +1,4 @@
-function pa_aumenta_texto(event) {
+export function pa_aumenta_texto(event) {
 	event.preventDefault();
 	var content = document.querySelector(".pa-content").children;
 
@@ -22,7 +22,7 @@ function pa_aumenta_texto(event) {
 	});
 }
 
-function pa_diminui_texto(event) {
+export function pa_diminui_texto(event) {
 	event.preventDefault();
 	var content = document.querySelector(".pa-content").children;
 

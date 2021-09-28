@@ -1,73 +1,73 @@
 html {
-	// Essa propriedade serve para fazer a rolagem suave dos links ancoras, tais como o botão de: Voltar ao topo
-	scroll-behavior: smooth;
-	overflow-x: hidden;
+  // Essa propriedade serve para fazer a rolagem suave dos links ancoras, tais como o botão de: Voltar ao topo
+  scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 body {
-	color: var(--pa-color-gray01);
-	overflow-x: hidden;
+  color: var(--pa-color-gray01);
+  overflow-x: hidden;
 }
 
 .btn,
 .form-control {
-	border-radius: 50rem;
-	padding: 0.7rem 1.4rem;
-	text-transform: uppercase;
-	color: #fff !important;
+  border-radius: 50rem;
+  padding: 0.7rem 1.4rem;
+  text-transform: uppercase;
+  color: #fff !important;
 }
 
 .btn-primary {
-	background: var(--pa-color-default);
-	border: none;
+  background: var(--pa-color-default);
+  border: none;
 }
 
 .btn-outline-primary {
-	display: inline-block;
-	color: var(--pa-color-default) !important;
-	border-color: var(--pa-color-default) !important;
+  display: inline-block;
+  color: var(--pa-color-default) !important;
+  border-color: var(--pa-color-default) !important;
 }
 
 .btn-outline-primary:hover {
-	color: #fff !important;
-	background-color: var(--pa-color-default) !important;
-	border-color: var(--pa-color-default) !important;
+  color: #fff !important;
+  background-color: var(--pa-color-default) !important;
+  border-color: var(--pa-color-default) !important;
 }
 
 .form-control {
-	text-transform: none;
+  text-transform: none;
 }
 
 .d-flex,
 .d-block {
-	min-width: 0;
+  min-width: 0;
 }
 
 .mb-35 {
-	margin-bottom: 1.32rem;
+  margin-bottom: 1.32rem;
 }
 
 .my-45 {
-	margin-top: 2rem !important;
-	margin-bottom: 2rem !important;
+  margin-top: 2rem !important;
+  margin-bottom: 2rem !important;
 }
 
 .mt-45 {
-	margin-top: 2rem !important;
+  margin-top: 2rem !important;
 }
 
 .mb-45 {
-	margin-bottom: 2rem !important;
+  margin-bottom: 2rem !important;
 }
 
 .ratio-16x21 {
-	--bs-aspect-ratio: calc(21 / 16 * 100%);
+  --bs-aspect-ratio: calc(21 / 16 * 100%);
 }
 
 .ratio-208x241 {
-	--bs-aspect-ratio: calc(241 / 208 * 100%);
+  --bs-aspect-ratio: calc(241 / 208 * 100%);
 }
 
 .object-cover {
-	object-fit: cover;
+  object-fit: cover;
 }

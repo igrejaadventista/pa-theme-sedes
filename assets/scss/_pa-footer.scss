@@ -1,83 +1,85 @@
 footer {
-	&.pa-footer{
-		background-color: var(--pa-color-gray06);
-	
-		.pa-menu:not(:last-of-type) {
-			border-bottom: 1px solid var(--pa-color-gray04);
-		} 
-	
-		h2 {
-			font-size: 1rem;
-			font-weight: bold;
-			color: var(--pa-color-gray01);
-			margin-bottom: 1rem;
-		}
-	
-		ul {
-			margin-bottom: 0;
-		}
-		.item-menu {
-			padding: 7px 0;
-	
-			a {
-				color: var(--pa-color-gray02);
-				text-decoration: none;
-				font-size: 0.9rem;
-	
-				&:hover {
-					color: var(--pa-color-gray01);
-				}
-			}
-		}
-	
-		.pa-brand {
-			font-size: 1rem;
-		}
-	
-		hr {
-			width: 2rem;
-		}
-	
-		.pa-contact {
-			.pa-telephone, .pa-adress {
-				color: var(--pa-color-gray02);
-	
-				&:before {
-					font-family: "Font Awesome 5 Free";
-					font-weight: 900;
-					font-size: 1rem;
-					margin-right: 1rem;
-					color: var(--pa-color-gray01);
-				}
-			}
-	
-			.pa-telephone:before {
-				content: "\f879";
-			}
-	
-			.pa-adress:before {
-				content: "\f3c5";
-			}
-	
-			font-size: 0.9rem;
-		}
-	
-		.pa-social-network {
-			span {
-				font-size: 0.9rem;
-			}
-	
-			.icons {
-	
-				i {
-					font-size: 1.2rem;
-					color: var(--pa-color-gray01);
-				}
-			}
-		}
-		.pa-copyright {
-			background-color: var(--pa-color-gray05);
-			font-size: 0.9rem;
-		}
-	}
+  &.pa-footer {
+    background-color: var(--pa-color-gray06);
+
+    .pa-menu:not(:last-of-type) {
+      border-bottom: 1px solid var(--pa-color-gray04);
+    }
+
+    h2 {
+      font-size: 1rem;
+      font-weight: bold;
+      color: var(--pa-color-gray01);
+      margin-bottom: 1rem;
+    }
+
+    ul {
+      margin-bottom: 0;
+    }
+
+    .item-menu {
+      padding: 7px 0;
+
+      a {
+        color: var(--pa-color-gray02);
+        text-decoration: none;
+        font-size: 0.9rem;
+
+        &:hover {
+          color: var(--pa-color-gray01);
+        }
+      }
+    }
+
+    .pa-brand {
+      font-size: 1rem;
+    }
+
+    hr {
+      width: 2rem;
+    }
+
+    .pa-contact {
+      .pa-telephone,
+      .pa-adress {
+        color: var(--pa-color-gray02);
+
+        &::before {
+          font-family: "Font Awesome 5 Free", Arial, Verdana, Tahoma, sans-serif;
+          font-weight: 900;
+          font-size: 1rem;
+          margin-right: 1rem;
+          color: var(--pa-color-gray01);
+        }
+      }
+
+      .pa-telephone::before {
+        content: "\f879";
+      }
+
+      .pa-adress::before {
+        content: "\f3c5";
+      }
+
+      font-size: 0.9rem;
+    }
+
+    .pa-social-network {
+      span {
+        font-size: 0.9rem;
+      }
+
+      .icons {
+        i {
+          font-size: 1.2rem;
+          color: var(--pa-color-gray01);
+        }
+      }
+    }
+
+    .pa-copyright {
+      background-color: var(--pa-color-gray05);
+      font-size: 0.9rem;
+    }
+  }
 }

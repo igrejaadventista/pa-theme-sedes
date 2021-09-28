@@ -1,4 +1,4 @@
-function pa_share(event, url) {
+export function pa_share(event, url) {
 	event.preventDefault();
 	window.open(
 		url,

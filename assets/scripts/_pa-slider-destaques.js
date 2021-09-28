@@ -1,6 +1,7 @@
 /* Scripsts Slider Destaques */
+import Glide from '@glidejs/glide';
 
-function pa_slider_destaques() {
+export function pa_slider_destaques() {
 	var nodes = document.querySelectorAll('.pa-glide-destaques');
 
 	if(!nodes.length)
@@ -17,7 +18,7 @@ function pa_slider_destaques() {
 }
 
 /* Scripsts Slider Destaques Departamentos */
-function pa_slider_destaque_deptos() {
+export function pa_slider_destaque_deptos() {
 	var nodes = document.querySelectorAll('.pa-destaque-deptos-sliders');
 
 	if(!nodes.length)
@@ -34,7 +35,7 @@ function pa_slider_destaque_deptos() {
 }
 
 /* Scripsts Slider Destaques Departamentos */
-function pa_slider_magazines() {
+export function pa_slider_magazines() {
 	var nodes = document.querySelectorAll('.pa-slider-magazines');
 
 	if(!nodes.length)

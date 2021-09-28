@@ -1,6 +1,7 @@
 /* Scripsts Slider Feliz7Play */
+import Glide from '@glidejs/glide';
 
-function pa_slider_feliz7play() {
+export function pa_slider_feliz7play() {
 	var nodes = document.querySelectorAll('.pa-glide-feliz7play');
 
 	if(!nodes.length)

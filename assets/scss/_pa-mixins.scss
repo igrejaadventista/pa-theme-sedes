@@ -1,103 +1,103 @@
 @mixin pa-split-li {
-	-webkit-column-break-inside: avoid;
-	page-break-inside: avoid;
-	break-inside: avoid;
+  -webkit-column-break-inside: avoid;
+  page-break-inside: avoid;
+  break-inside: avoid;
 }
 
 @mixin pa-figure-overlay {
-	&::before {
-		background: linear-gradient(360deg, rgba(48, 51, 54, 0.7) 0%, rgba(48, 51, 54, 0) 53.1%);
-		border-radius: 4px;
-		content: "";
-		bottom: 0;
-		left: 0;
-		position: absolute;
-		right: 0;
-		top: 0;
-	}
+  &::before {
+    background: linear-gradient(360deg, rgba(48, 51, 54, 0.7) 0%, rgba(48, 51, 54, 0) 53.1%);
+    border-radius: 4px;
+    content: "";
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
 
-	figcaption {
-		bottom: 0;
-		left: 0;
-		color: #fff;
-		text-shadow: 0px 1px 3px rgba(0, 0, 0, 0.5);
+  figcaption {
+    bottom: 0;
+    left: 0;
+    color: #fff;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
 
-		.pa-tag {
-			background-color: rgba(255, 255, 255, 0.2);
-			color: #fff;
-			@include pa-tag;
-		}
-	}
+    .pa-tag {
+      background-color: rgba(255, 255, 255, 0.2);
+      color: #fff;
+      @include pa-tag;
+    }
+  }
 }
 
 @mixin pa-h2-widget-title {
-	color: var(--pa-color-default);
-	text-transform: uppercase;
-	font-size: 1.3rem;
-	font-weight: bold;
-	border-left: 3px solid var(--pa-color-default);
-	padding-left: 1.5rem;
-	display: block;
+  color: var(--pa-color-default);
+  text-transform: uppercase;
+  font-size: 1.3rem;
+  font-weight: bold;
+  border-left: 3px solid var(--pa-color-default);
+  padding-left: 1.5rem;
+  display: block;
 }
 
 @mixin pa-tag {
-	font-size: 0.7rem;
-	padding: 2px 6px;
+  font-size: 0.7rem;
+  padding: 2px 6px;
 }
 
 @mixin pa-list-posts {
-	.pa-img-tag {
-		@include pa-tag;
+  .pa-img-tag {
+    @include pa-tag;
 
-		position: absolute;
-		background-color: var(--pa-color-default);
-		color: #fff;
-		bottom: 1.5rem;
-		left: 0;
-	}
+    position: absolute;
+    background-color: var(--pa-color-default);
+    color: #fff;
+    bottom: 1.5rem;
+    left: 0;
+  }
 
-	@include pa-split-li;
+  @include pa-split-li;
 
-	.pa-tag {
-		color: var(--pa-color-default);
-		background-color: var(--pa-color-default-aux);
+  .pa-tag {
+    color: var(--pa-color-default);
+    background-color: var(--pa-color-default-aux);
 
-		@include pa-tag;
-	}
+    @include pa-tag;
+  }
 }
 
 @mixin pa-carousel-download {
-	.pa-tag {
-		color: var(--pa-color-default);
-		background-color: var(--pa-color-default-aux);
+  .pa-tag {
+    color: var(--pa-color-default);
+    background-color: var(--pa-color-default-aux);
 
-		@include pa-tag;
-	}
+    @include pa-tag;
+  }
 }
 
 @mixin pa-wp-block-embed-caption {
-	font-style: normal !important;
-	color: var(--pa-color-gray03);
-	font-size: 0.85rem;
+  font-style: normal !important;
+  color: var(--pa-color-gray03);
+  font-size: 0.85rem;
 }
 
 @mixin pa-numbers {
-	a,
-	.gsc-cursor-page {
-		text-decoration: none;
-		color: var(--pa-color-default-aux);
-		border-radius: 50%;
-		margin: 0 0.5rem;
-		height: 1.7rem;
-		width: 1.7rem;
-		display: flex;
-		align-items: center;
-		justify-content: center;
+  a,
+  .gsc-cursor-page {
+    text-decoration: none;
+    color: var(--pa-color-default-aux);
+    border-radius: 50%;
+    margin: 0 0.5rem;
+    height: 1.7rem;
+    width: 1.7rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-		&:hover {
-			background-color: var(--pa-color-default-light);
-			color: #fff;
-			text-decoration: none !important;
-		}
-	}
+    &:hover {
+      background-color: var(--pa-color-default-light);
+      color: #fff;
+      text-decoration: none !important;
+    }
+  }
 }

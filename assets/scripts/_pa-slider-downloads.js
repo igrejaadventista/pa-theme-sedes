@@ -1,6 +1,7 @@
 /* Scripsts Slider Videos */
+import Glide from '@glidejs/glide';
 
-function pa_slider_downloads() {
+export  function pa_slider_downloads() {
 	var nodes = document.querySelectorAll('.pa-glide-downloads');
 
 	if(!nodes.length)

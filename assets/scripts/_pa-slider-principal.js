@@ -1,6 +1,7 @@
 /* Scripsts Slider Principal */
+import Glide from '@glidejs/glide';
 
-function pa_slider_principal() {
+export function pa_slider_principal() {
 	var select = ".pa-glide-principal";
 
 	var node = document.querySelector(select);

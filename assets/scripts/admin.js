@@ -1,3 +1,5 @@
+/* eslint-disable no-undef */
+/* eslint-disable no-unused-vars */
 function set_inline_xtt_pa_owner(event, widgetSet, nonce) {
 	event.preventDefault();
 	// revert Quick Edit menu so that it refreshes properly
@@ -105,9 +107,9 @@ function set_inline_xtt_pa_owner(event, widgetSet, nonce) {
             options: availableTerms.map((term) => {
                 return {
                     value: term.id,
-                    label: term.name
+                    label: term.name,
                 };
-            })
+            }),
         }));
     }
 
