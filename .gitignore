@@ -10,3 +10,4 @@ yarn-error.log
 assets/js
 vendor
 composer.lock
+mix-manifest.json
