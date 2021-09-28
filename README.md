@@ -18,4 +18,4 @@ Após ter instalado todas as dependências globais em sua máquina, já podemos 
 2. Execute os comandos:
 
         yarn install
-        yarn:build
+        yarn build
