@@ -9,7 +9,7 @@ function pa_slider_feliz7play() {
 	nodes.forEach(function(node) {
 		var glide = new Glide(node, {
 			type: "carousel",
-			startAt: 1,
+			startAt: 0,
 			perView: 3,
 			gap: 38,
 			hoverpause: true,

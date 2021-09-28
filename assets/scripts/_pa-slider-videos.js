@@ -10,7 +10,7 @@ function pa_slider_videos() {
 		var glide = new Glide(node, {
 			type: "carousel",
 			perView: 5,
-			startAt: 1,
+			startAt: 0,
 			gap: 24,
 			hoverpause: true,
 			//autoplay: 2500,
