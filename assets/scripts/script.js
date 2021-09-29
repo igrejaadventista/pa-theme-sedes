@@ -7,6 +7,8 @@ import * as SliderVideos from './_pa-slider-videos';
 import * as utils from './_pa-img-error';
 import * as SliderDownloads from './_pa-slider-downloads';
 
+window.Menus = Menus;
+
 function onload() {
 	Menus.pa_dropdown();
 	Feliz7Play.pa_slider_feliz7play();

@@ -61,7 +61,7 @@
                 <img src="<?= get_template_directory_uri() . "/assets/sedes/" . $lang . "/" . $campo->slug . ".svg" ?>" alt="<?= $campo->name ?>" title="<?= $campo->name ?>" class="">
             </div>
             <div class="col d-flex flex-row-reverse align-items-center">
-                <i class="fa fa-bars fa-2x" aria-hidden="true" onclick="pa_action_menu()" ></i>
+                <i class="fa fa-bars fa-2x" aria-hidden="true" onclick="window.Menus.pa_action_menu()" ></i>
             </div>
 
             <div class="menu" id="pa_menu">
@@ -74,7 +74,7 @@
                             </ul>
                         </div>
                     </li>
-                    <li><img src="<?= get_template_directory_uri() . "/assets/imgs/close.svg" ?>" alt="" onclick="pa_action_menu()">
+                    <li><img src="<?= get_template_directory_uri() . "/assets/imgs/close.svg" ?>" alt="" onclick="window.Menus.pa_action_menu()">
                     </li>
                 </ul>
                 <?php
