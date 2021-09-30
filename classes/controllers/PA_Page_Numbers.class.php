@@ -31,7 +31,7 @@ class PaPageNumbers {
 			$links[] = $paged + 1;
 		}
 	 
-		echo '<ul class="d-flex justify-content-around justify-content-sm-center">' . "\n";
+		echo '<ul class="d-flex justify-content-center">' . "\n";
 	 
 		/** Previous Post Link */
 		if ( get_previous_posts_link() )
