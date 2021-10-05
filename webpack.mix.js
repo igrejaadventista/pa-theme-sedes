@@ -10,6 +10,10 @@ mix
 mix
     .js('assets/scripts/script.js', './assets/js');
 
+mix.options({
+  processCssUrls: false,
+});
+
 mix
     .sourceMaps(false, 'source-map')
     .version();
