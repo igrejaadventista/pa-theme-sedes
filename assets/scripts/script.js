@@ -7,9 +7,11 @@ import * as SliderVideos from './_pa-slider-videos';
 import * as utils from './_pa-img-error';
 import * as SliderDownloads from './_pa-slider-downloads';
 import * as TextSize from './_pa-tamanho-texto';
+import * as Share from './_pa-share';
 
 window.Menus = Menus;
 window.TextSize = TextSize;
+window.Share = Share;
 
 function onload() {
 	Menus.pa_dropdown();

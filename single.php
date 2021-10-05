@@ -19,7 +19,7 @@ $prev_post = get_previous_post();
 				<article class="col-12 col-md-8">
 					<header class="mb-4">
 						<h1 class="fw-bold mb-3"><?php single_post_title(); ?></h1>
-						<h2 class="mb-3"><?php the_excerpt(); ?></h3>
+						<h2 class="mb-3 pb-3"><?php the_excerpt(); ?></h3>
 						<div class="pa-post-meta">Por <?= get_the_author(); ?> | <?php the_date(); ?></div>
 
 						<hr class="my-45">
