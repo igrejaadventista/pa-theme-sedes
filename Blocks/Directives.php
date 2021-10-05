@@ -20,3 +20,11 @@ blade_directive('notempty', function($expression) {
 blade_directive('endnotempty', function() {
 	return "<?php endif; ?>";
 });
+
+blade_directive('dump', function ($value) {
+    return "<pre> <?php var_dump({$value}); ?> </pre>";
+});
+
+blade_directive('dd', function ($value) {
+    return "<pre> <?php var_dump({$value}); die() ?> </pre>";
+});

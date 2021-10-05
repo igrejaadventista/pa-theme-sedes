@@ -1,11 +1,7 @@
 <?php 
 
-use Blocks\Blocks;
-
 if(file_exists($composer = __DIR__. '/vendor/autoload.php'))
 	require_once $composer;
-
-new Blocks;
 
 require_once (dirname(__FILE__) . '/classes/controllers/PA_Theme_Helpers.class.php');
 require_once (dirname(__FILE__) . '/classes/controllers/PA_ACF_Helpers.class.php');
@@ -19,11 +15,11 @@ require_once (dirname(__FILE__) . '/classes/controllers/PA_Page_Numbers.class.ph
 require_once (dirname(__FILE__) . '/classes/controllers/PA_Register_Sidebars.class.php');
 require_once (dirname(__FILE__) . '/classes/controllers/PA_Header_Title.class.php');
 require_once (dirname(__FILE__) . '/classes/controllers/PA_Sedes_Infos.php');
-
 require_once (dirname(__FILE__) . '/classes/widgets/PA_Widget_Apps.class.php');
-
 // CORE INSTALL
 require_once (dirname(__FILE__) . '/core/PA_Theme_Sedes_Install.php');
+
+new Blocks\Blocks;
 
 function pa_wp_custom_menus() {
 	register_nav_menu('pa-menu-default', __( 'PA - Menu - Default' ));
@@ -45,3 +41,6 @@ add_action( 'init', 'pa_wp_custom_menus' );
 // 	echo "<script>console.log('" . $var . "');</script>";
 // 	return;
 // }
+
+if(file_exists(get_stylesheet_directory() . '/classes/PA_Directives.php'))
+    require_once(get_stylesheet_directory() . '/classes/PA_Directives.php');
