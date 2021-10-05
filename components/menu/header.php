@@ -57,10 +57,13 @@
     <div class="pa-menu-mobile container-fluid d-xl-none">
 
         <div class="row g-0 pt-3 pb-3">
-            <div class="col-6">
-                <img src="<?= get_template_directory_uri() . "/assets/sedes/" . $lang . "/" . $campo->slug . ".svg" ?>" alt="<?= $campo->name ?>" title="<?= $campo->name ?>" class="">
-            </div>
-            <div class="col d-flex flex-row-reverse align-items-center">
+            <?php if(!empty($campo)): ?>
+              <div class="col-6">
+                  <img src="<?= get_template_directory_uri() . "/assets/sedes/" . $lang . "/" . $campo->slug . ".svg" ?>" alt="<?= $campo->name ?>" title="<?= $campo->name ?>" class="">
+              </div>
+            <?php endif; ?>
+
+            <div class="col-auto ms-auto d-flex flex-row-reverse align-items-center">
                 <i class="fa fa-bars fa-2x" aria-hidden="true" onclick="window.Menus.pa_action_menu()" ></i>
             </div>
 
