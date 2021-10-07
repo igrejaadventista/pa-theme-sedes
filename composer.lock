@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8363ebc45d78f8b83e41c71bb2021a95",
+    "content-hash": "3426e8fdadd21707ece0116f36c1e804",
     "packages": [
         {
             "name": "brain/hierarchy",
@@ -1645,6 +1645,20 @@
                 "source": "https://github.com/wordplate/extended-acf/tree/11.1.0"
             },
             "time": "2021-08-28T07:36:30+00:00"
+        },
+        {
+            "name": "wp-plugins/acf-multiple-taxonomy",
+            "version": "dev-master",
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/acf-multiple-taxonomy.zip"
+            },
+            "type": "wordpress-plugin",
+            "autoload": {
+                "files": [
+                    "acf-multiple-taxonomy.php"
+                ]
+            }
         }
     ],
     "packages-dev": [],
@@ -1652,7 +1666,8 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "studiovisual/acf-gutenblocks": 20,
-        "lordealeister/acf-multisite-options": 20
+        "lordealeister/acf-multisite-options": 20,
+        "wp-plugins/acf-multiple-taxonomy": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

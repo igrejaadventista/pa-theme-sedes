@@ -58,7 +58,7 @@
         <div class="row g-0 pt-3 pb-3">
             <?php if(!empty($campo)): ?>
               <div class="col-6">
-                  <img src="<?= get_template_directory_uri() . "/assets/sedes/" . $lang . "/" . $campo->slug . ".svg" ?>" alt="<?= $campo->name ?>" title="<?= $campo->name ?>" class="">
+                  <img src="<?= get_template_directory_uri() . "/assets/sedes/" . LANG . "/" . $campo->slug . ".svg" ?>" alt="<?= $campo->name ?>" title="<?= $campo->name ?>" class="">
               </div>
             <?php endif; ?>
 
