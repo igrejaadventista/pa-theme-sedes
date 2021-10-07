@@ -49,20 +49,3 @@ function get_info_instagram(){
 
 	return $sedes_instagram;
 }
-
-
-
-function get_info_lang(){
-
-	if(defined('WPLANG')){
-
-		$lang = WPLANG;
-
-	}elseif(get_locale()){
-		$lang = get_locale();
-	}
-
-	$lang = substr($lang, 0,2);
-
-	return $lang;
-}

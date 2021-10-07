@@ -30,13 +30,20 @@ class PASevenCast extends Block {
 	 * @return array Fields array
 	 */
 	protected function setFields(): array {
+
+		$api = "https://". API_7CAST ."/7cast/". LANG ."/pa-blocks";
+
 		return array_merge(
 			[
 				Text::make('Título', 'title')
 					->defaultValue('IASD - 7Cast'),
 
 				RemoteData::make('Itens', 'items')
-					->endpoints(['https://api.adv.st/7cast/pt/pa-blocks'])
+					->endpoints([
+						$api
+						
+						// 'https://api.adv.st/7cast/pt/pa-blocks'
+					])
 					->initialLimit(4)
 					->searchFilter(false)
 					->canSticky(false)

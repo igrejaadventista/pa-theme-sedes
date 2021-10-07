@@ -905,9 +905,15 @@ class PAFeliz7Play extends Block {
 	 * @return array Fields array
 	 */
 	protected function setFields(): array {
+
+		$api = "https://". API_F7P ."/v4/". LANG ."/pa-blocks";
+
 		return [
 			RemoteData::make('Itens', 'items')
-				->endpoints(['https://api.feliz7play.com/v4/pt/pa-blocks'])
+				->endpoints( [
+					$api
+					// 'https://api.feliz7play.com/v4/pt/pa-blocks'
+				])
 				->searchFilter(false)
 				->canSticky(false)
 				->manualItems(false)

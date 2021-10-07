@@ -1,6 +1,5 @@
 <?php
     $campo = get_info_sedes();
-    $lang = get_info_lang();
     $adress = get_info_adress();
     $telephone = get_info_telephone();
     $facebook = get_info_facebook();
@@ -16,7 +15,7 @@
             <div class="col d-flex flex-column justify-content-xl-between">
                 <div class="d-flex flex-column align-items-center align-items-xl-start px-5 px-xl-0">
                     <div class="pa-brand">
-                        <a href="/" title="<?= !empty($campo->name) ? $campo->name : '' ?>"><img src="<?= get_template_directory_uri() . "/assets/sedes/" . $lang . "/logo-iasd-vertical.svg" ?>" alt="<?= $campo->name ?>" title="<?= $campo->name ?>" class="img-fluid"></a>
+                        <a href="/" title="<?= !empty($campo->name) ? $campo->name : '' ?>"><img src="<?= get_template_directory_uri() . "/assets/sedes/" . LANG . "/logo-iasd-vertical.svg" ?>" alt="<?= $campo->name ?>" title="<?= $campo->name ?>" class="img-fluid"></a>
                         <span class="d-block mt-4"><?= !empty($campo->name) ? $campo->name : '' ?></span>
                     </div>
                     <hr class="mt-4 mb-4">

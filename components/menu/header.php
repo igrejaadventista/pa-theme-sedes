@@ -1,6 +1,5 @@
 <?php
     $campo = get_info_sedes();
-    $lang = get_info_lang();
 	$menu_global = PaThemeHelpers::getGlobalMenu('global-header');
 ?>
 
@@ -9,7 +8,7 @@
         <div class="row g-0 h-100">
             <div class="col-auto d-flex align-items-center">
                 <a href="<?= get_home_url(); ?>" class="py-3 w-auto h-100">
-                    <img src="<?= get_template_directory_uri() . "/assets/sedes/" . $lang . "/" . $campo->slug . ".svg" ?>" alt="<?= !empty($campo->name) ? $campo->name : '' ?>" title="<?= !empty($campo->name) ? $campo->name : '' ?>" class="h-100 w-auto">
+                    <img src="<?= get_template_directory_uri() . "/assets/sedes/" . LANG . "/" . $campo->slug . ".svg" ?>" alt="<?= !empty($campo->name) ? $campo->name : '' ?>" title="<?= !empty($campo->name) ? $campo->name : '' ?>" class="h-100 w-auto">
                 </a>
             </div>
             <div class="col d-flex flex-column justify-content-between">

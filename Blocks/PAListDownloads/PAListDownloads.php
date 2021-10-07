@@ -30,6 +30,9 @@ class PAListDownloads extends Block {
 	 * @return array Fields array
 	 */
 	protected function setFields(): array {
+
+		$api = "https://". API_PA ."/downloads/". LANG ."/posts";
+
 		return array_merge(
 			[
 				Text::make('Título', 'title')
@@ -37,7 +40,9 @@ class PAListDownloads extends Block {
 
 				RemoteData::make('Itens', 'items')
 					->endpoints([
-						'https://api.adventistas.org/downloads/pt/posts > Posts',
+						$api .' > Posts',
+						
+						// 'https://api.adventistas.org/downloads/pt/posts > Posts',
 						// 'https://api.adventistas.org/downloads/pt/kits > Kits',
 					])
 					->initialLimit(5)

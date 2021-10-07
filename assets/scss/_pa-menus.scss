@@ -1,5 +1,5 @@
 .pa-menu-desktop {
-  height: 100px;
+  height: 109px;
 
   a {
     img {
@@ -21,15 +21,16 @@
 }
 
 .pa-menu-default .nav {
+
   a {
     color: var(--pa-color-gray01);
     font-size: 1.1rem;
     font-family: var(--pa-font-secondary);
     padding: 0.8rem 1rem;
-
-    &.pa-menu-active {
-      border-bottom: 4px solid var(--pa-color-default);
-    }
+  }
+  
+  .active a{
+    border-bottom: 4px solid var(--pa-color-default);
   }
 
   .dropdown-menu {
@@ -56,7 +57,7 @@
 
       &:hover,
       &:focus {
-        color: var(--pa-color-default) !important;
+        color: var(--pa-color-default-light) !important;
         background: none;
       }
     }

@@ -32,6 +32,9 @@ class PAListVideos extends Block {
 	 * @return array Fields array
 	 */
 	protected function setFields(): array {
+
+		$api = "https://". API_PA ."/videos/". LANG ."/posts";
+
 		return array_merge(
 			[
 				Select::make('Formato', 'block_format')
@@ -45,8 +48,10 @@ class PAListVideos extends Block {
 					->defaultValue('IASD - Lista de vídeos'),
 
 				RemoteData::make('Itens', 'items')
-					->endpoints([
-						'https://api.adventistas.org/videos/pt/posts',
+					->endpoints([	
+						$api .' > Posts',
+						
+						// 'https://api.adventistas.org/videos/pt/posts',
 					])
 					->initialLimit(5)
 					->getFields([

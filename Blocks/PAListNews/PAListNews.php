@@ -34,6 +34,9 @@ class PAListNews extends Block {
 	 * @return array Fields array
 	 */
 	protected function setFields(): array {
+
+		$api = "https://". API_PA ."/noticias/". LANG ."/posts";
+		
 		return array_merge(
 			[
 				Select::make('Formato', 'block_format')
@@ -55,7 +58,9 @@ class PAListNews extends Block {
 
 				RemoteData::make('Itens', 'items_remote')
 					->endpoints([
-						'https://api.adventistas.org/noticias/pt/posts > Posts',
+						$api .' > Posts',
+						
+						// 'https://api.adventistas.org/noticias/pt/posts > Posts',
 					])
 					->initialLimit(4)
 					->getFields([

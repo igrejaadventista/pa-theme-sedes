@@ -29,13 +29,18 @@ class PACarouselDownloads extends Block {
 	 * @return array Fields array
 	 */
 	protected function setFields(): array {
+
+		$api = "https://". API_PA ."/downloads/". LANG ."/posts";
+
 		return [
 			Text::make('Título', 'title')
 				->defaultValue('IASD - Carrossel de downloads'),
 
 			RemoteData::make('Itens', 'items')
 				->endpoints([
-					'https://api.adventistas.org/downloads/pt/posts > Posts',
+					$api .' > Posts',
+					
+					// 'https://api.adventistas.org/downloads/pt/posts > Posts',
 					// 'https://api.adventistas.org/downloads/pt/kits > Kits',
 				])
 				->initialLimit(5)

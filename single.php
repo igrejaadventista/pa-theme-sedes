@@ -15,7 +15,7 @@ $prev_post = get_previous_post();
 	?>
 	<div class="pa-content-container py-5">
 		<div class="container">
-			<div class="row row-cols-auto">
+			<div class="row justify-content-md-center">
 				<article class="col-12 col-md-8">
 					<header class="mb-4">
 						<h1 class="fw-bold mb-3"><?php single_post_title(); ?></h1>
@@ -64,13 +64,11 @@ $prev_post = get_previous_post();
 						?>
 					</footer>
 				</article>
+				<?php if ( is_active_sidebar( 'single' ) ) { ?>
 				<aside class="col-md-4 d-none d-xl-block">
-				<?php 
-					if ( is_active_sidebar( 'single' ) ) {
-						dynamic_sidebar( 'single');
-						}
-				?>
+				<?php dynamic_sidebar( 'single');?>
 				</aside>
+				<?php } ?>
 			</div>
 		</div>
 	</div>
