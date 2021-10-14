@@ -10,6 +10,7 @@
 					href="https://www.feliz7play.com" 
 					target="_blank"
 					class="btn btn-primary"
+          rel="noopener"
 				>
 					Acessar o site
 				</a>
