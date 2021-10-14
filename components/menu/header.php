@@ -6,7 +6,7 @@
 <header class="pa-menu" id="topo">
     <div class="pa-menu-desktop container d-none d-xl-block">
         <div class="row g-0 h-100">
-            <div class="col-auto d-flex align-items-center">
+            <div class="col-auto d-flex align-items-center pa-header-logo">
                 <a href="<?= get_home_url(); ?>" class="py-3 w-auto h-100">
                     <img src="<?= get_template_directory_uri() . "/assets/sedes/" . LANG . "/" . $campo->slug . ".svg" ?>" alt="<?= !empty($campo->name) ? $campo->name : '' ?>" title="<?= !empty($campo->name) ? $campo->name : '' ?>" class="h-100 w-auto">
                 </a>
