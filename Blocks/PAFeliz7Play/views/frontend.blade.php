@@ -1,5 +1,5 @@
 @if (is_admin())
-    <img class="img-preview" src="{{ get_template_directory_uri() }}/Blocks/PAFeliz7Play/preview.png" />
+    <img class="img-preview" src="{{ get_template_directory_uri() }}/Blocks/PAFeliz7Play/preview.png" alt="Imagem ilustrativa do front-end da widgets PA Feliz7Play" />
 @else 
 	<div class="pa-widget pa-w-feliz7play py-4 col-12 position-relative bg-light mb-5">
 		<div class="pa-slider-header mb-4">

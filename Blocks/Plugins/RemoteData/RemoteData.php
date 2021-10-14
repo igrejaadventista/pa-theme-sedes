@@ -684,12 +684,14 @@ if(!class_exists('RemoteData')):
 							$sub_field['value'] = $options['data'][$sub_field['name']];
 					endif;
 				endforeach;
+        unset($sub_field);
 			endif;
 
 			echo '<div class="acf-fields -top -border">';
 				foreach($field['sub_fields'] as &$sub_field):
 					acf_render_field_wrap($sub_field);
 				endforeach;
+        unset($sub_field);
 			echo '</div>';
 		}
 
@@ -801,7 +803,7 @@ if(!class_exists('RemoteData')):
 	}
 
 	// initialize
-	new RemoteData();
+	$initializeRemoteData = new RemoteData();
 
 // class_exists check
 endif;

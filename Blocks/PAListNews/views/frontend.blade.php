@@ -1,6 +1,6 @@
 @if(is_admin())
 	@if($block_format == '2/3')
-		<img class="img-preview" src="{{ get_template_directory_uri() }}/Blocks/PAListNews/preview-2-3.png"/>
+		<img class="img-preview" src="{{ get_template_directory_uri() }}/Blocks/PAListNews/preview-2-3.png" alt="Imagem ilustrativa do front-end da widgets PA List News"/>
 	@else
 		<img class="img-preview" src="{{ get_template_directory_uri() }}/Blocks/PAListNews/preview-1-3.png"/>
 	@endif
