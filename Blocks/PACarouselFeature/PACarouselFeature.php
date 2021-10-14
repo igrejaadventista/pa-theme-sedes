@@ -3,7 +3,7 @@
 namespace Blocks\PACarouselFeature;
 
 use Blocks\Block;
-use Blocks\Extended\LocalData;
+use Extended\LocalData;
 use WordPlate\Acf\Fields\Text;
 
 /**

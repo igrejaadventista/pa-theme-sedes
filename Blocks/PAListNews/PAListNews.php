@@ -3,10 +3,10 @@
 namespace Blocks\PAListNews;
 
 use Blocks\Block;
-use Blocks\Extended\LocalData;
-use Blocks\Extended\RemoteData;
-use Blocks\Fields\MoreContent;
-use Blocks\Fields\Source;
+use Extended\LocalData;
+use Extended\RemoteData;
+use Fields\MoreContent;
+use Fields\Source;
 use WordPlate\Acf\ConditionalLogic;
 use WordPlate\Acf\Fields\Select;
 use WordPlate\Acf\Fields\Text;

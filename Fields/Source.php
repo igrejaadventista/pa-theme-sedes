@@ -1,6 +1,6 @@
 <?php
 
-namespace Blocks\Fields;
+namespace Fields;
 
 use WordPlate\Acf\Fields\ButtonGroup;
 

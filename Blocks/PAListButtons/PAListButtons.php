@@ -3,8 +3,8 @@
 namespace Blocks\PAListButtons;
 
 use Blocks\Block;
-use Blocks\Extended\LocalData;
-use Blocks\Fields\MoreContent;
+use Extended\LocalData;
+use Fields\MoreContent;
 use WordPlate\Acf\Fields\Text;
 
 /**

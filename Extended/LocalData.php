@@ -1,6 +1,6 @@
 <?php
 
-namespace Blocks\Extended;
+namespace Extended;
 
 use WordPlate\Acf\Fields\Field;
 use WordPlate\Acf\Fields\Attributes\ConditionalLogic;
