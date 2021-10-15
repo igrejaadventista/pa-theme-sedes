@@ -9,7 +9,10 @@
 			'click [data-action="sticky"]': 		 	'onClickSticky',
 			'click [data-action="clear"]': 			 	'onClickClear',
 			'click .choices-list li': 				 	'onClickAdd',
+      'click .-taxonomies button': 			 	'onClickToggleTaxonomies',
 			'click [data-action="refresh"]': 		 	'fetch',
+      'click [data-action="add-taxonomy"]': 	 	'onClickAddTaxonomy',
+			'click [data-action="remove-taxonomy"]': 	'onClickRemoveTaxonomy',
 			'click [data-action="manual-new-post"]': 	'onClickAddManualPost',
 			'click [data-action="edit-manual"]': 		'onEditManual',
 		},
@@ -163,6 +166,42 @@
 			return this.$valuesList().find('.acf-rel-item[data-id="' + id + '"]');
 		},
 
+    /**
+		 * Get jQuery taxonomies selection container object
+		 *
+		 * @return {jQuery} jQuery taxonomies selection container object
+		 */
+		$taxonomiesSelection() {
+			return this.$control().find('.taxonomies-selection');
+		},
+
+    /**
+		 * Get jQuery taxonomy row object
+		 *
+		 * @return {jQuery} jQuery taxonomy row object
+		 */
+		$taxonomyRow() {
+			return this.$control().find('.taxonomy-row');
+		},
+
+		/**
+		 * Get jQuery button to add taxonomy object
+		 *
+		 * @return {jQuery} jQuery button to add taxonomy object
+		 */
+		$buttonAddTaxonomy() {
+			return this.$control().find('[data-action="add-taxonomy"]');
+		},
+
+    /**
+		 * Get taxonomies list
+		 *
+		 * @return {string} Taxonomies array
+		 */
+		taxonomies() {
+			return this.$control().find('.taxonomies-selection').data('taxonomies');
+		},
+
 		/**
 		 * Get jQuery search loading object
 		 *
@@ -235,6 +274,8 @@
 
 				// Fetch choices
 				this.fetch();
+        this.$taxonomyRow().not(':first').each((index) => this.initializeTaxonomyFilters($(this.$taxonomyRow().get(index + 1))));
+				this.checkTaxonomyFilters();
 			}));
 
 			// Bind "interacted with"
@@ -347,6 +388,8 @@
 			for(let name in ajaxData)
 				ajaxData[name] = this.get(name);
 
+      this.saveTaxonomyFilters();
+
 			// get current filter state value
 			let currSelectedPostType = this.getPostType();
 			let selectedPostType = currSelectedPostType !== "" ?
@@ -358,6 +401,8 @@
 			ajaxData.field_key = this.get('key');
 			ajaxData.sticky = this.get('sticky');
 			ajaxData.limit = this.get('limit') < this.stickyItems().length ? this.stickyItems().length : this.get('limit');
+      ajaxData.taxonomies = this.get('taxonomies');
+      ajaxData.terms = this.get('terms');
 
 			return acf.applyFilters('localposts_data_ajax_data', ajaxData, this);
 		},
@@ -406,7 +451,7 @@
 				this.$stickyList().empty().append(html.stickyList);
 				$list.append(html.list);
 
-				this.sortList();
+				// this.sortList();
 				this.sortValues();
 			};
 
@@ -694,6 +739,176 @@
 			// remove first comma from sticky items
 			this.$stickyInput().val(this.$stickyInput().val().replace(/(^\,+|\,+$)/mg, '')).trigger('change');
 			this.set('sticky', this.$stickyInput().val());
+		},
+
+    /**
+		 * Show/hide taxonomies filters
+		 */
+		onClickToggleTaxonomies(e, $el) {
+			$el.toggleClass('active')
+			this.$taxonomiesSelection().slideToggle();
+		},
+
+    /**
+		 * Add taxonomy row
+		 */
+		onClickAddTaxonomy(e, $el) {
+			if(Object.keys(this.taxonomies()).length == this.$taxonomyRow().not(':first').length)
+				return;
+
+			const $row = this.$taxonomyRow().first().clone();
+
+			$row.insertBefore($el.parent()).slideDown();
+
+			this.initializeTaxonomyFilters($row, true);
+			this.checkTaxonomyFilters();
+		},
+
+		/**
+		 * Remove taxonomy row
+		 */
+		onClickRemoveTaxonomy(e, $el) {
+			$el.parent().slideUp(() => {
+				$el.parent().remove();
+
+				this.$taxonomyRow().not(':first').each((index) => {
+					const $row = $(this.$taxonomyRow().get(index + 1));
+
+					const $selectTaxonomy = $row.find('[data-taxonomy]');
+					const $selectTerms = $row.find('[data-terms]');
+
+					if($selectTaxonomy.length)
+						$selectTaxonomy.attr('name', `acf[${this.get('key')}][taxonomies][${index}]`);
+					if($selectTerms.length)
+						$selectTerms.attr('name', `acf[${this.get('key')}][terms][${index}][]`);
+				});
+
+				this.fetch();
+				this.checkTaxonomyFilters();
+			});
+		},
+
+    /**
+		 * Initialize taxonomies filters
+		 */
+		initializeTaxonomyFilters($row, isNew = false) {
+			const $selectTaxonomy = $row.find('[data-taxonomy]');
+			const $selectTerms = $row.find('[data-terms]');
+
+			if(!$selectTaxonomy.length)
+				return;
+
+			$selectTaxonomy.attr('name', `acf[${this.get('key')}][taxonomies][${this.$taxonomyRow().length - 2}]`);
+			$selectTerms.attr('name', `acf[${this.get('key')}][terms][${this.$taxonomyRow().length - 2}][]`);
+
+			if(isNew) {
+				const $selects = this.$taxonomyRow().not(':first').not(':last').find('[data-taxonomy]');
+				let values = [];
+
+				$selects.map((_, element) => values.push($(element).val()));
+
+				values = values.reduce((a, b) => {
+					if(a.indexOf(b) < 0)
+						a.push(b);
+
+					return a;
+				}, []);
+
+				$.each(this.taxonomies(), (key, value) => {
+					$selectTaxonomy.append($('<option>', {
+						value: key,
+						text : value.label,
+						disabled: values.includes(key),
+					}));
+				});
+			}
+
+			$selectTaxonomy.on('change', () => {
+				$selectTerms.find('option[value]').remove();
+
+				$.each(this.taxonomies()[$selectTaxonomy.val()].terms, (key, value) => {
+					$selectTerms.append($('<option>', {
+						value: key,
+						text : value,
+					}));
+				});
+
+				$selectTaxonomy.find(`option[value="${$selectTaxonomy.val()}"]`).attr('selected', true);
+				$selectTerms.val('').trigger('change');
+				this.checkTaxonomyFilters();
+			});
+
+			$selectTerms.on('change', () => this.fetch());
+
+			if(isNew)
+				$selectTaxonomy.trigger('change');
+
+			$selectTaxonomy.select2();
+			$selectTerms.select2();
+		},
+
+		/**
+		 * Check taxonomies filters on row added/removed
+		 */
+		checkTaxonomyFilters() {
+			if(!this.$buttonAddTaxonomy().length)
+				return;
+			// Enable/disable button
+			this.$buttonAddTaxonomy().toggleClass('disabled', Object.keys(this.taxonomies()).length == this.$taxonomyRow().not(':first').length);
+
+			const $selects = this.$taxonomyRow().not(':first').find('[data-taxonomy]');
+			let values = [];
+
+			// Get options in use
+			$selects.map((_, element) => values.push($(element).val()));
+
+			// Remove duplicate values
+			values = values.reduce((a, b) => {
+				if(a.indexOf(b) < 0)
+					a.push(b);
+
+				return a;
+			}, []);
+
+			// Remove options in use
+			$selects.each((_, element) => {
+				const $element = $(element);
+				const elementValue = $element.val();
+
+				$element.find('option').remove();
+
+				$.each(this.taxonomies(), (key, value) => {
+					$element.append($('<option>', {
+						value: key,
+						text : value.label,
+						selected: elementValue == key,
+					}));
+				});
+			});
+
+			$.each(values, (_, value) => $selects.find(`[value="${value}"]`).not(':selected').remove());
+
+			// Refresh select2
+			$selects.select2();
+		},
+
+		/**
+		 * Save taxonomies filters
+		 */
+		saveTaxonomyFilters() {
+			const $rows = this.$taxonomyRow().not(':first');
+			const $selectTaxonomy = $rows.find('[data-taxonomy]');
+			const $selectTerms = $rows.find('[data-terms]');
+
+			let taxonomies = [];
+			let terms = [];
+
+			// Get selected values
+			$selectTaxonomy.each((index) => taxonomies.push($($selectTaxonomy.get(index)).val()));
+			$selectTerms.each((index) => terms.push($($selectTerms.get(index)).val()));
+
+			this.set('taxonomies', taxonomies);
+			this.set('terms', terms);
 		},
 
 		/**
