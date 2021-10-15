@@ -2,7 +2,7 @@
 		</div>
 		<div class="pa-sabbath-column d-none d-xl-block">
 			<div class="h-100 d-flex justify-content-center align-items-start">
-				<img src="<?= get_template_directory_uri() . "/assets/imgs/logo-symbol-white.svg" ?>" alt="Igreja Adventista do Sétimo Dia" title="Igreja Adventista do Sétimo Dia" class="pa-grid-logo position-sticky img-fluid p-5">
+				<img src="<?= get_template_directory_uri() . "/assets/imgs/logo-symbol-white.svg" ?>" alt="Igreja Adventista do Sétimo Dia" title="Igreja Adventista do Sétimo Dia" class="pa-grid-logo position-sticky img-fluid p-6">
 			</div>
 		</div> 
 	</div>

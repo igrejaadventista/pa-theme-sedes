@@ -20,15 +20,18 @@
 									<a class="nav-link" href="<?= $item->url ?>" title="<?= $item->title ?>" target="<?= !empty($item->target) ? $item->target : '_self' ?>"><?= $item->title ?></a>
 								</li>
 							<?php endforeach; ?>
+                            <li class="nav-item">
+                                <a class="nav-link pa-search" href="<?= get_home_url(); ?>/buscar" title="Buscar" target="_self' ?>"><i class="fas fa-search me-1"></i>Buscar</a>
+                            </li>
 						<?php endif; ?>
 						
-						<li class="nav-item dropdown">
+						<li class="nav-item dropdown pa-menu-lang">
 							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 								PT
 							</a>
 							<ul class="dropdown-menu p-0">
-								<li class=""><a class="dropdown-item" href="#">PT</a></li>
-								<li class=""><a class="dropdown-item" href="#">ES</a></li>
+								<li class=""><a class="dropdown-item" href="/pt">PT</a></li>
+								<li class=""><a class="dropdown-item" href="/es">ES</a></li>
 							</ul>
 						</li>
 					</ul>

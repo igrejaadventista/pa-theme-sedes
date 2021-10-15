@@ -8,6 +8,7 @@ class PaThemeHelpers {
 		add_action( 'admin_enqueue_scripts', [$this, 'registerAssetsAdmin'] );
 		add_filter( 'nav_menu_css_class' , [$this, 'specialNavClass'], 10 , 2);
 		add_filter( 'after_setup_theme' , [$this, 'getInfoLang'], 10 , 2);
+		add_filter( 'body_class', [$this, 'bodyClass'] );
 
 		//add_action( 'init', [$this, 'unregisterTaxonomy'] );
 	}
@@ -98,5 +99,16 @@ class PaThemeHelpers {
 		return json_decode($json);
 	}
 	
+	function bodyClass( $classes ) {
+
+		if (get_field('departamento', 'option')){
+			$classes[] = get_field('departamento', 'option');
+		}
+
+		$classes[] = LANG;
+		
+		return $classes;
+		
+	}
 }
 $PaThemeHelpers = new PaThemeHelpers();
