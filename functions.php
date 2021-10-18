@@ -23,7 +23,7 @@ require_once (dirname(__FILE__) . '/classes/widgets/PA_Widget_Apps.class.php');
 // CORE INSTALL
 require_once (dirname(__FILE__) . '/core/PA_Theme_Sedes_Install.php');
 
-new Blocks\Blocks;
+$Blocks = new Blocks\Blocks;
 
 function pa_wp_custom_menus() {
 	register_nav_menu('pa-menu-default', __( 'PA - Menu - Default', 'iasd' ));
