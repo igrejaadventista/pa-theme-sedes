@@ -482,13 +482,11 @@ if(!class_exists('LocalData')):
 			$mergedResults = array_merge($stickedArr, $results);
 
 			// vars
-			$response = array(
+			return array(
 				'results'	=> $mergedResults,
 				'limit'		=> $args['posts_per_page'],
 				'data'		=> json_encode($mergedResults),
 			);
-
-			return $response;
 		}
 
 		function modalAjax() {

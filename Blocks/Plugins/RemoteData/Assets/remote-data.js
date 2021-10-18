@@ -992,7 +992,9 @@
           // get current item object by id
           let editData = JSON.parse(this.$manualInput().val());
 
-          editData += editIndex = editData.findIndex(obj => obj.id == item_ID);
+          let editIndex = editData.findIndex(obj => obj.id == item_ID);
+
+          editData += editIndex;
 
           this.modalContent($modal, editData[editIndex]);
 
