@@ -9,8 +9,6 @@ class PaThemeHelpers {
 		add_filter( 'nav_menu_css_class' , [$this, 'specialNavClass'], 10 , 2);
 		add_filter( 'after_setup_theme' , [$this, 'getInfoLang'], 10 , 2);
 		add_filter( 'body_class', [$this, 'bodyClass'] );
-
-		//add_action( 'init', [$this, 'unregisterTaxonomy'] );
 	}
 
 	function themeSupport() {
@@ -29,9 +27,6 @@ class PaThemeHelpers {
 		remove_filter( 'wp_mail', 'wp_staticize_emoji_for_email' );
 
 		load_theme_textdomain('iasd', get_template_directory() . '/language/');
-
-		// Remove from TinyMCE
-		// add_filter( 'tiny_mce_plugins', 'disable_emojis_tinymce' );
 	
 		global $content_width;
 		if ( ! isset( $content_width ) ) {
@@ -63,7 +58,7 @@ class PaThemeHelpers {
 		wp_enqueue_script( 'scripts-admin', get_template_directory_uri() . '/assets/scripts/script_admin.js', array(), false, true );
 	}
 
-	function specialNavClass($classes, $item){
+	function specialNavClass($classes){
 		if( in_array('current-menu-item', $classes) ){
 				$classes[] = 'active ';
 		}
@@ -92,7 +87,7 @@ class PaThemeHelpers {
 	 */
 	static function getGlobalMenu(string $name) {
 		if(empty($name))
-			return;
+			return null;
 
 		$json = file_get_contents( "https://". API_PA ."/tax/". LANG ."/menus/{$name}");
 

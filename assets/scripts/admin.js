@@ -9,10 +9,10 @@ function set_inline_xtt_pa_owner(event, widgetSet, nonce) {
   nonceInput.value = nonce;
 
   // check option manually
-  for (let i = 0; i < widgetInput.options.length; i++) {
-    if (widgetInput.options[i].value == widgetSet)
-      widgetInput.options[i].setAttribute("selected", "selected");
-    else widgetInput.options[i].removeAttribute("selected");
+  for (let options of widgetInput.options) {
+    if (options.value == widgetSet)
+      options.setAttribute("selected", "selected");
+    else options.removeAttribute("selected");
   }
 }
 
