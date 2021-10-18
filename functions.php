@@ -31,20 +31,5 @@ function pa_wp_custom_menus() {
 add_action( 'init', 'pa_wp_custom_menus' );
 
 
-
-//Função auxiliar para imprimir no console o print_r.
-// function pconsole($var) {
-
-// 	$s = json_encode($var);
-// 	echo "<script>console.log(". $s . ");</script>";
-// 	return;
-// }
-// Função auxiliar para imprimir no console o echo.
-// function cconsole($var) {
-
-// 	echo "<script>console.log('" . $var . "');</script>";
-// 	return;
-// }
-
 if(file_exists(get_stylesheet_directory() . '/classes/PA_Directives.php'))
     require_once(get_stylesheet_directory() . '/classes/PA_Directives.php');
