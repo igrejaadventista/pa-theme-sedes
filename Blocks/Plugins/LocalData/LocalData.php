@@ -653,13 +653,11 @@ if(!class_exists('LocalData')):
 				endforeach;
 			endif;
 			
-			// vars
-			$response = array(
+			// vars	
+			return array(
 				'results'	=> $results,
 				'data'		=> json_encode($results),
-			);
-			
-			return $response;	
+			);	
 		}
 
 	}

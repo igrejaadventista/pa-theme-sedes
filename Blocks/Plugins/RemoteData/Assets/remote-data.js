@@ -577,7 +577,7 @@
 
       let stickyOrder = [];
       stickyItems.forEach(elms => {
-        const item = mergeItems.find(item => item.id == elms);
+        const item = mergeItems.find(e => e.id == elms);
 
         mergeItems = mergeItems.filter(value => {
           return value != item;
@@ -807,9 +807,9 @@
         this.set("loading", false);
       };
 
-      const onSuccess = data => {
+      const onSuccess = d => {
         // No results
-        $modalContent.html(data);
+        $modalContent.html(d);
         acf.do_action("append", $modalContent);
 
         $modalContent
@@ -992,7 +992,7 @@
           // get current item object by id
           let editData = JSON.parse(this.$manualInput().val());
 
-          editData, (editIndex = editData.findIndex(obj => obj.id == item_ID));
+          editData += editIndex = editData.findIndex(obj => obj.id == item_ID);
 
           this.modalContent($modal, editData[editIndex]);
 
