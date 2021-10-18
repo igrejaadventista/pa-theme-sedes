@@ -80,8 +80,6 @@ if(!class_exists('LocalData')):
 		function render_field_settings($field) {
 			$field['limit'] = empty($field['limit']) ? '' : $field['limit'];
 
-			// \acf_hidden_input(array('type' => 'hidden', 'name' => $field['prefix'] . '[sticky]', 'value' => '0'));
-
 			\acf_render_field_setting($field, array(
 				'label'			=> __('Quantity', 'acf'),
 				'instructions'	=> 'Number of items to be returned.',
