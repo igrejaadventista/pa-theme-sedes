@@ -14,8 +14,8 @@ class PAFeliz7Play extends Block {
 	public function __construct() {
 		// Set block settings
 		parent::__construct([
-			'title' 	  => 'IASD - Feliz 7 Play',
-			'description' => 'Vídeos do serviço',
+			'title' 	  => __('IASD - Feliz7Play', 'iasd'),
+			'description' => __('Feliz7Play content block.', 'iasd'),
 			'category' 	  => 'pa-adventista',
 			'keywords' 	  => ['feliz', '7', 'seven', 'play'],
 			'icon' 		  => '<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="32px" height="32px" viewBox="0 0 380 379" enable-background="new 0 0 380 379" xml:space="preserve">  <image id="image0" width="380" height="379" x="0" y="0"
@@ -909,7 +909,7 @@ class PAFeliz7Play extends Block {
 		$api = "https://". API_F7P ."/v4/". LANG ."/pa-blocks";
 
 		return [
-			RemoteData::make('Itens', 'items')
+			RemoteData::make(__('Itens', 'iasd'), 'items')
 				->endpoints( [
 					$api
 					// 'https://api.feliz7play.com/v4/pt/pa-blocks'

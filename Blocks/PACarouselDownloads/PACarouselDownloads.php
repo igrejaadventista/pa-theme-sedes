@@ -15,8 +15,8 @@ class PACarouselDownloads extends Block {
     public function __construct() {
 		// Set block settings
         parent::__construct([
-            'title' 	  => 'IASD - Carrossel de downloads',
-            'description' => 'Carrossel de arquivos para download',
+            'title' 	  => __('IASD - Downloads - Carousel', 'iasd'),
+            'description' => __('Block from downloads content on carousel format.', 'iasd'),
             'category' 	  => 'pa-adventista',
 			'keywords' 	  => ['app', 'download'],
 			'icon' 		  => 'download',
@@ -33,10 +33,10 @@ class PACarouselDownloads extends Block {
 		$api = "https://". API_PA ."/downloads/". LANG ."/posts";
 
 		return [
-			Text::make('Título', 'title')
-				->defaultValue('IASD - Carrossel de downloads'),
+			Text::make(__('Title', 'iasd'), 'title')
+				->defaultValue(__('IASD - Downloads - Carousel', 'iasd')),
 
-			RemoteData::make('Itens', 'items')
+			RemoteData::make(__('Itens', 'iasd'), 'items')
 				->endpoints([
 					$api .' > Posts',
 					
@@ -47,9 +47,9 @@ class PACarouselDownloads extends Block {
 				->getFields(['featured_media_url'])
 				->hideFields(['excerpt'])
 				->manualFields([
-					Text::make('Formato de arquivo', 'file_format')
+					Text::make(__('File format', 'iasd'), 'file_format')
 						->placeholder('PDF'),
-					Text::make('Tamanho de arquivo', 'file_size')
+					Text::make(__('File size', 'iasd'), 'file_size')
 						->placeholder('5mb'),
 				])
 				->filterTaxonomies([

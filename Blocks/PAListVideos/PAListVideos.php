@@ -18,8 +18,8 @@ class PAListVideos extends Block {
     public function __construct() {
 		// Set block settings
         parent::__construct([
-            'title' 	  => 'IASD - Lista de vídeos',
-            'description' => 'Lista de vídeos',
+            'title' 	  => __('IASD - Videos - List', 'iasd'),
+            'description' => __('Block to show videos content in list format.', 'iasd'),
             'category' 	  => 'pa-adventista',
 			'keywords' 	  => ['list', 'video'],
 			'icon' 		  => 'playlist-video',
@@ -37,17 +37,17 @@ class PAListVideos extends Block {
 
 		return array_merge(
 			[
-				Select::make('Formato', 'block_format')
+				Select::make(__('Format', 'iasd'), 'block_format')
 					->choices([
 						'1/3' => '1/3',
 						'2/3' => '2/3',
 					])
 					->defaultValue('2/3'),
 
-				Text::make('Título', 'title')
-					->defaultValue('IASD - Lista de vídeos'),
+				Text::make(__('Title', 'iasd'), 'title')
+					->defaultValue(__('IASD - Videos - List', 'iasd')),
 
-				RemoteData::make('Itens', 'items')
+				RemoteData::make(__('Itens', 'iasd'), 'items')
 					->endpoints([	
 						$api .' > Posts',
 						
@@ -59,7 +59,7 @@ class PAListVideos extends Block {
 						'excerpt',
 					])
 					->manualFields([
-						Number::make('Tempo (em segundos)', 'time'),
+						Number::make(__('Time (in seconds)', 'iasd'), 'time'),
 					])
 					->filterTaxonomies([
 						'xtt-pa-sedes',

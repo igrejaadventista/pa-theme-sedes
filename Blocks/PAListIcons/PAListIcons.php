@@ -16,8 +16,8 @@ class PAListIcons extends Block {
 	public function __construct() {
 		// Set block settings
 		parent::__construct( [
-			'title'       => 'IASD - Lista ícones',
-			'description' => 'Lista com ícones e título',
+			'title'       => __('IASD - Icons - List', 'iasd'),
+			'description' => __('Block to show contents in list format with icons.', 'iasd'),
 			'category'    => 'pa-adventista',
 			'keywords'    => [ 'category', 'select' ],
 			'icon'        => '<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
@@ -56,23 +56,23 @@ class PAListIcons extends Block {
 	 */
 	protected function setFields(): array {
 		return [
-			Text::make('Título', 'title')
-				->defaultValue('IASD - Lista ícones'),
-			Repeater::make('Itens', 'items')
+			Text::make(__('Title', 'iasd'), 'title')
+				->defaultValue(__('IASD - Icons - List', 'iasd')),
+			Repeater::make(__('Itens', 'iasd'), 'items')
 				->fields([
-					Text::make('Ícone', 'icon')
-						->instructions('Acesse esse <a href="https://fontawesome.com/v5.15/icons?d=gallery&p=2&s=solid&m=free" target="_blank">link</a>, selecione um ícone e insira a classe aqui')
+					Text::make(__('Icon', 'iasd'), 'icon')
+						->instructions(__('Acesse esse <a href="https://fontawesome.com/v5.15/icons?d=gallery&p=2&s=solid&m=free" target="_blank">link</a>, selecione um ícone e insira a classe aqui', 'iasd'))
 						->placeholder('fas fa-ad')
 						->wrapper([
 							'width' => 50,
 						]),
-					Link::make('Link', 'link')
+					Link::make(__('Link', 'iasd'), 'link')
 						->wrapper([
 							'width' => 50,
 						]),
 				])
 				->collapsed('link')
-				->buttonLabel('Adicionar item')
+				->buttonLabel(__('Add item', 'iasd'))
 				->layout('block'),
 		];
 	}

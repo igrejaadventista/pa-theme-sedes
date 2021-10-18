@@ -1,5 +1,5 @@
 @if (is_admin())
-    <img class="img-preview" src="{{ get_template_directory_uri() }}/Blocks/PASevenCast/preview.png" alt="Imagem ilustrativa do front-end da widgets PA SevenCast"/>
+    <img class="img-preview" src="{{ get_template_directory_uri() }}/Blocks/PASevenCast/preview.png" alt="{{ __('Illustrative image of the front end of the block.', 'iasd') }}"/>
 @else 
     <div class="pa-widget pa-w-7cast col col-md-4 mb-5">
 		@notempty($title)

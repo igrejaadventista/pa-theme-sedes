@@ -16,8 +16,8 @@ class PAListDownloads extends Block {
     public function __construct() {
 		// Set block settings
         parent::__construct([
-            'title' 	  => 'IASD - Lista de downloads',
-            'description' => 'Lista de arquivos para download',
+            'title' 	  => __('IASD - Downloads - List', 'iasd'),
+            'description' => __('Block to show downloads contents in list format.', 'iasd'),
             'category' 	  => 'pa-adventista',
 			'keywords' 	  => ['app', 'download'],
 			'icon' 		  => 'download',
@@ -35,10 +35,10 @@ class PAListDownloads extends Block {
 
 		return array_merge(
 			[
-				Text::make('Título', 'title')
-					->defaultValue('IASD - Lista de downloads'),
+				Text::make(__('Title', 'iasd'), 'title')
+					->defaultValue(__('IASD - Downloads - Buttons', 'iasd')),
 
-				RemoteData::make('Itens', 'items')
+				RemoteData::make(__('Itens', 'iasd'), 'items')
 					->endpoints([
 						$api .' > Posts',
 						
@@ -49,9 +49,9 @@ class PAListDownloads extends Block {
 					->getFields(['featured_media_url'])
 					->hideFields(['excerpt'])
 					->manualFields([
-						Text::make('Formato de arquivo', 'file_format')
+						Text::make(__('File format', 'iasd'), 'file_format')
 							->placeholder('PDF'),
-						Text::make('Tamanho de arquivo', 'file_size')
+						Text::make(__('File size', 'iasd'), 'file_size')
 							->placeholder('5mb'),
 					])
 					->filterTaxonomies([

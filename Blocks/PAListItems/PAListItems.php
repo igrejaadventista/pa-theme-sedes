@@ -16,8 +16,8 @@ class PAListItems extends Block {
 	public function __construct() {
 		// Set block settings
 		parent::__construct( [
-			'title'       => 'IASD - Lista itens',
-			'description' => 'Lista de itens',
+			'title'       => __('IASD - Itens - List', 'iasd'),
+			'description' => __('Block to show contents in list format with images.', 'iasd'),
 			'category'    => 'pa-adventista',
 			'keywords'    => [ 'list', 'slider' ],
 			'icon'        => '<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" 
@@ -59,10 +59,10 @@ class PAListItems extends Block {
 	protected function setFields(): array {
 		return array_merge(
 			[
-				Text::make('Título', 'title')
-					->defaultValue('IASD - Lista itens'),
+				Text::make(__('Title', 'iasd'), 'title')
+					->defaultValue(__('IASD - Itens - List', 'iasd')),
 
-				LocalData::make('Itens', 'items')
+				LocalData::make(__('Itens', 'iasd'), 'items')
 				->postTypes(['post', 'projetos'])
 				->initialLimit(3)
 				->hideFields(['content']),

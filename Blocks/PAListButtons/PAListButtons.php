@@ -16,8 +16,8 @@ class PAListButtons extends Block {
 	public function __construct() {
 		// Set block settings
 		parent::__construct( [
-			'title'       => 'IASD - Lista em botões',
-			'description' => 'Box contendo lista de links',
+			'title'       => __('IASD - Button - List', 'iasd'),
+			'description' => __('Block with links buttons.', 'iasd'),
 			'category'    => 'pa-adventista',
 			'keywords'    => [ 'list', 'link' ],
 			'icon'        => '<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
@@ -44,9 +44,9 @@ class PAListButtons extends Block {
 	protected function setFields(): array {
 		return array_merge(
 			[
-				Text::make('Título', 'title')
-					->defaultValue('IASD - Lista em botões'),
-				LocalData::make('Itens', 'items')
+				Text::make(__('Title', 'iasd'), 'title')
+					->defaultValue(__('IASD - Buttons - List', 'iasd')),
+				LocalData::make(__('Itens', 'iasd'), 'items')
 					->postTypes(['projetos'])
 					->initialLimit(4)
 					->hideFields(['content', 'featured_media_url']),
