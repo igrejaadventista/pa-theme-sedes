@@ -16,7 +16,7 @@
 					?>
 
 					<div class="pa-blog-itens mb-5">
-					<h2 class="mb-4">Destaque</h2>
+					<h2 class="mb-4"><?= _e('Featured', 'iasd') ?></h2>
 						<?php 
 							$args = array(
 								'posts_per_page'=> 1,
@@ -30,7 +30,7 @@
 					<?php endif; ?>
 
 					<div class="pa-blog-itens my-5">
-						<h2 class="mb-4">Últimas postagens</h2>
+						<h2 class="mb-4"><?= _e('Latest posts', 'iasd')?></h2>
 						<?php 
 							$args = array(
 								'post_status'	=> 'publish',

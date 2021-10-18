@@ -20,8 +20,8 @@ class PAListNews extends Block {
     public function __construct() {
 		// Set block settings
         parent::__construct([
-            'title' 	  => 'IASD - Lista notícias',
-            'description' => 'Lista de Notícias',
+            'title' 	  => __('IASD - News - List', 'iasd'),
+            'description' => __('Block to show news content in list format.', 'iasd'),
             'category' 	  => 'pa-adventista',
 			'keywords' 	  => ['list', 'news'],
 			'icon' 		  => 'megaphone',
@@ -39,7 +39,7 @@ class PAListNews extends Block {
 		
 		return array_merge(
 			[
-				Select::make('Formato', 'block_format')
+				Select::make('Format', 'block_format')
 					->choices([
 						'1/3' => '1/3',
 						'2/3' => '2/3',
@@ -53,10 +53,10 @@ class PAListNews extends Block {
 						'width' => 50,
 					]),
 
-				Text::make('Título', 'title')
-					->defaultValue('IASD - Lista notícias'),
+				Text::make(__('Title', 'iasd'), 'title')
+					->defaultValue(__('IASD - News - List', 'iasd')),
 
-				RemoteData::make('Itens', 'items_remote')
+				RemoteData::make(__('Itens', 'iasd'), 'items_remote')
 					->endpoints([
 						$api .' > Posts',
 						
@@ -68,11 +68,11 @@ class PAListNews extends Block {
 						'excerpt',
 					])
 					->manualFields([
-						Text::make('Formato de post', 'post_format')
+						Text::make(__('Post format', 'iasd'), 'post_format')
 							->wrapper([
 								'width' => 50,
 							]),
-						Text::make('Editoria', 'editorial')
+						Text::make('Editorial', 'editorial')
 							->wrapper([
 								'width' => 50,
 							]),
@@ -86,15 +86,15 @@ class PAListNews extends Block {
 					->conditionalLogic([
 						ConditionalLogic::if('source')->equals('remote')
 					]),
-				LocalData::make('Itens', 'items_local')
+				LocalData::make(__('Itens', 'iasd'), 'items_local')
 					->initialLimit(4)
 					->postTypes(['post'])
 					->manualFields([
-						Text::make('Formato de post', 'post_format')
+						Text::make(__('Post format', 'iasd'), 'post_format')
 							->wrapper([
 								'width' => 50,
 							]),
-						Text::make('Editoria', 'editorial')
+						Text::make(__('Editorial', 'iasd'), 'editorial')
 							->wrapper([
 								'width' => 50,
 							]),

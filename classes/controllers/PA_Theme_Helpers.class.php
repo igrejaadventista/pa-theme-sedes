@@ -28,8 +28,8 @@ class PaThemeHelpers {
 		remove_filter( 'comment_text_rss', 'wp_staticize_emoji' );	
 		remove_filter( 'wp_mail', 'wp_staticize_emoji_for_email' );
 
-		
-		
+		load_theme_textdomain('iasd', get_template_directory() . '/language/');
+
 		// Remove from TinyMCE
 		// add_filter( 'tiny_mce_plugins', 'disable_emojis_tinymce' );
 	

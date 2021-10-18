@@ -4,7 +4,7 @@ function pa_blog_feature($args){
 
 	$query = new WP_Query($args);
 	if ($query->have_posts()):  while($query->have_posts()): $query->the_post(); 
-	$format = get_post_format() ? : 'Notícia';
+	$format = get_post_format() ? : __('News', 'iasd');
 	?>
 		
 		<div class="pa-blog-feature">
@@ -32,7 +32,7 @@ function pa_blog_itens($args){
 	if ($query->have_posts()):  while($query->have_posts()): $query->the_post();
 	
 	$categories = get_the_category();
-	$format = get_post_format() ? : 'Notícia';
+	$format = get_post_format() ? : __('News', 'iasd');
 	
 	?>
 

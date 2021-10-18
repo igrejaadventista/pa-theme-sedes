@@ -26,7 +26,7 @@ require_once (dirname(__FILE__) . '/core/PA_Theme_Sedes_Install.php');
 new Blocks\Blocks;
 
 function pa_wp_custom_menus() {
-	register_nav_menu('pa-menu-default', __( 'PA - Menu - Default' ));
+	register_nav_menu('pa-menu-default', __( 'PA - Menu - Default', 'iasd' ));
 }
 add_action( 'init', 'pa_wp_custom_menus' );
 

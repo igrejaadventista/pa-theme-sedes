@@ -10,7 +10,7 @@ function taxonomy_config()
                     add_settings_error(
                         'PA_Taxonomy_Host',
                         esc_attr('PA_Taxonomy_Host_erro'),
-                        'Servidor de taxonomia inválido.',
+                        __('Invalid taxonomy server.','iasd'),
                         'error'
                     );
                     return get_option('PA_Taxonomy_Host');
@@ -22,9 +22,9 @@ function taxonomy_config()
 
     add_settings_section(
         'taxonomias',
-        'Configuração',
+        __('Settings', 'iasd'),
         function ($args) {
-            echo '<p>Configure o servidor de taxonomias.</p>';
+            _e('Configure the taxonomy server.', 'iasd');
         },
         'group_config_taxonomies'
     );

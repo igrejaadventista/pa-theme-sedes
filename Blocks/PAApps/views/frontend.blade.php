@@ -1,5 +1,5 @@
 @if(is_admin())
-	<img class="img-preview" src="{{ get_template_directory_uri() }}/Blocks/PAApps/preview.png" alt="Imagem ilustrativa do front-end da widgets PA Apps" />
+	<img class="img-preview" src="{{ get_template_directory_uri() }}/Blocks/PAApps/preview.png" alt="{{ __('Illustrative image of the front end of the block.', 'iasd') }}" />
 @else
 	<div class="pa-widget pa-w-apps col col-md-4 mb-5">
 		@notempty($title)
@@ -13,20 +13,20 @@
 				<i class="icon fas fa-mobile-alt fa-stack-1x fa-inverse"></i>
 			</span>
 
-			<h3 class="mt-4 h5"><b>Aplicativos</b></h3>
+			<h3 class="mt-4 h5"><b>{{ __('Apps', 'iasd') }}</b></h3>
 
 			@notempty($description)
 				<p class="mt-3">{!! $description !!}</p>
 			@endnotempty
 
-			<span class="pt-3 d-block"><b>Aplicativos disponíveis para:</b></span>
+			<span class="pt-3 d-block"><b>{{ __('Apps available for:', 'iasd') }}</b></span>
 
 			<div class="pa-stores row gx-3 mt-3">
 				<div class="col-12 col-md-6 my-2">
 					<div class="pa-store d-flex align-items-center justify-content-center rounded py-2 px-3">
 						<i class="fab fa-apple"></i>
 
-						<span class="fw-bolder ms-2">Apple Store</span>
+						<span class="fw-bolder ms-2">{{ __('Apple Store', 'iasd') }}</span>
 					</div>
 				</div>
 
@@ -34,7 +34,7 @@
 					<div class="pa-store d-flex align-items-center justify-content-center rounded py-2 px-3 ">
 						<i class="fab fa-google-play"></i>
 
-						<span class="fw-bolder ms-2">Google Play</span>
+						<span class="fw-bolder ms-2">{{ __('Google Play', 'iasd') }}</span>
 					</div>
 				</div>
 			</div>

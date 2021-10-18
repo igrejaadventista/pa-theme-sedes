@@ -15,8 +15,8 @@ class PACarouselFeature extends Block {
 	public function __construct() {
 		// Set block settings
 		parent::__construct([
-			'title' 	  => 'IASD - Carousel - Feature',
-			'description' => 'Carrossel de destaques',
+			'title' 	  => __('IASD - Feature - Carousel', 'iasd'),
+			'description' => __('Block to feature content on carousel format.', 'iasd'),
 			'category' 	  => 'pa-adventista',
 			'keywords' 	  => ['carousel', 'destaques', 'slider'],
 			'icon' 		  => '<svg id="Icons" style="enable-background:new 0 0 32 32;" version="1.1" viewBox="0 0 32 32" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><style type="text/css">
@@ -32,10 +32,10 @@ class PACarouselFeature extends Block {
 	 */
 	protected function setFields(): array {
 		return [
-			Text::make('Título', 'title')
-				->defaultValue('IASD - Carousel - Feature'),
+			Text::make(__('Title', 'iasd'), 'title')
+				->defaultValue(__('IASD - Feature - Carousel', 'iasd')),
 
-			LocalData::make('Itens', 'items')
+			LocalData::make(__('Itens', 'iasd'), 'items')
 				->postTypes(['post'])
 				->initialLimit(4),
 		];

@@ -1,5 +1,5 @@
 @if(is_admin())
-	<img class="img-preview" src="{{ get_template_directory_uri() }}/Blocks/PACarouselDownloads/preview.png" alt='Imagem ilustrativa do front-end da widgets PA Carousel Downloads'/>
+	<img class="img-preview" src="{{ get_template_directory_uri() }}/Blocks/PACarouselDownloads/preview.png" alt='{{ __('Illustrative image of the front end of the block.', 'iasd') }}'/>
 @else  
 	<div class="pa-widget pa-carousel-download col-12 mb-5">
 		<div class="pa-glide-downloads">
