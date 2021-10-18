@@ -61,7 +61,7 @@ class PAListIcons extends Block {
 			Repeater::make(__('Itens', 'iasd'), 'items')
 				->fields([
 					Text::make(__('Icon', 'iasd'), 'icon')
-						->instructions(__('Acesse esse <a href="https://fontawesome.com/v5.15/icons?d=gallery&p=2&s=solid&m=free" target="_blank">link</a>, selecione um ícone e insira a classe aqui', 'iasd'))
+						->instructions(__('Access <a href="https://fontawesome.com/v5.15/icons?d=gallery&p=2&s=solid&m=free" target="_blank">icon list</a>, and select an icon and insert the respective css class here.', 'iasd'))
 						->placeholder('fas fa-ad')
 						->wrapper([
 							'width' => 50,

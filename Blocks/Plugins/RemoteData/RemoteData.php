@@ -196,7 +196,7 @@ if(!class_exists('RemoteData')):
 			?>
 				<tr class="acf-field acf-field-setting-sub_fields" data-setting="group" data-name="sub_fields">
 					<td class="acf-label">
-						<label><?= __('Manual fields content', 'iasd'); ?></label>
+						<label><?= __('Manual content fields', 'iasd'); ?></label>
 					</td>
 					<td class="acf-input">
 						<?php \acf_get_view('field-group-fields', $args); ?>
@@ -343,7 +343,7 @@ if(!class_exists('RemoteData')):
 
 							<label>
 								<span class="acf-js-tooltip" title="<?= _e('Number of itens to be displayed. From 1 to 100.', 'iasd'); ?>"><?= _e('Terms', 'iasd'); ?></span>
-								<?php acf_select_input(array('placeholder' => __('Select the wanted terms: ', 'iasd'), 'data-terms' => '', 'multiple' => '')); ?>
+								<?php acf_select_input(array('placeholder' => __('Select the wanted terms:', 'iasd'), 'data-terms' => '', 'multiple' => '')); ?>
 							</label>
 
 							<a href="#" class="acf-icon -minus remove-taxonomy-filter acf-js-tooltip" data-action="remove-taxonomy" title="<? _e('Remove taxonomie', 'iasd'); ?>"></a>
@@ -365,7 +365,7 @@ if(!class_exists('RemoteData')):
 
 									<label>
 										<span class="acf-js-tooltip" title="<?= _e('Number of itens to be displayed. From 1 to 100.', 'iasd'); ?>"><?= _e('Terms', 'iasd'); ?></span>
-										<?php acf_select_input(array('placeholder' => __('Select the wanted terms: ', 'iasd'), 'choices' => $taxonomies[$taxonomy]['terms'], 'value' => $values['terms'][$key], 'data-terms' => '', 'multiple' => '')); ?>
+										<?php acf_select_input(array('placeholder' => __('Select the wanted terms:', 'iasd'), 'choices' => $taxonomies[$taxonomy]['terms'], 'value' => $values['terms'][$key], 'data-terms' => '', 'multiple' => '')); ?>
 									</label>
 
 									<a href="#" class="acf-icon -minus remove-taxonomy-filter acf-js-tooltip" data-action="remove-taxonomy" title="<? _e('Remove taxonomie', 'iasd'); ?>"></a>

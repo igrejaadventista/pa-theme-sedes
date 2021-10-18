@@ -26,6 +26,8 @@ class PaHeaderTitle {
 			echo "Blog";
 		} elseif (is_page()){
 			the_title();
+		} elseif (is_404()){
+			_e('Content not found...', 'iasd');
 		}
 
 	}

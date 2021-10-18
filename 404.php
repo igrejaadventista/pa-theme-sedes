@@ -1,4 +1,7 @@
 <?php get_header(); ?>
+	<?php 
+		require(get_template_directory() . '/components/parent/header.php'); 	
+	?>
 	<section class="pa-404 py-5">
 		<div class="container">
 			<div class="row row-cols-auto py-md-5">

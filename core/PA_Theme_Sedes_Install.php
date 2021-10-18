@@ -282,7 +282,7 @@ class PACoreInstall
 		if($column_name == 'taxonomy-xtt-pa-owner'): ?>
 			<fieldset class="inline-edit-col-left">
 				<div class="inline-edit-col">
-					<span class="title"><?= __('Sede Proprietária') ?></span>
+					<span class="title"><?= __('Headquarter - Owner', 'iasd') ?></span>
 					
 					<input type="hidden" name="xtt-pa-owner-noncename" id="xtt-pa-owner-noncename" value="" />
 					

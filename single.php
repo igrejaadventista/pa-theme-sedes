@@ -51,10 +51,10 @@ $prev_post = get_previous_post();
 								?>
 							</div>
 							<div class="pa-post-prev col-6 col-xl-3 order-xl-1 text-left">
-								<a href=""><i class="fas fa-arrow-left"></i><?=  e_('Artigo anterior', 'iasd'); ?></a>
+								<a href=""><i class="fas fa-arrow-left"></i><?=  e_('Previous article', 'iasd'); ?></a>
 							</div>
 							<div class="pa-post-next col-6 col-xl-3 order-xl-3 text-right">
-								<a href=""><?= _e('Próximo artigo', 'iasd'); ?><i class="fas fa-arrow-right"></i></a>
+								<a href=""><?= _e('Next article', 'iasd'); ?><i class="fas fa-arrow-right"></i></a>
 							</div>
 						</div>
 						<?php 
