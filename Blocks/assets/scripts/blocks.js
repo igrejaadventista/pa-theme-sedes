@@ -1,56 +1,50 @@
 (function(data) {
-	data.subscribe(() => {
-		const editor = wp.data.select('core/editor');
-		if(!editor)
-			return;
-			
-		const blocks = wp.data.select('core/editor').getBlocks();
-		
-		if(!blocks.length)
-			return;
+  data.subscribe(() => {
+    const editor = wp.data.select("core/editor");
+    if (!editor) return;
 
-		blocks.forEach((block) => {
-			
-			if(block.attributes.name != "acf/p-a-row")
-				return;
+    const blocks = wp.data.select("core/editor").getBlocks();
 
-			const innerBlocks = block.innerBlocks;
+    if (!blocks.length) return;
 
-			if(!innerBlocks.length)
-				return;
+    blocks.forEach(block => {
+      if (block.attributes.name != "acf/p-a-row") return;
 
-			innerBlocks.forEach((innerBlock) => {
-				const $blockElement = document.getElementById(`block-${innerBlock.clientId}`);
+      const innerBlocks = block.innerBlocks;
 
-				if(!$blockElement)
-					return;
-					
-				$blockElement.setAttribute('data-width', $blockElement.offsetWidth < 565 ? 'block-compact' : '');
+      if (!innerBlocks.length) return;
 
-				if(!innerBlock.attributes.hasOwnProperty('data'))
-					return;
+      innerBlocks.forEach(innerBlock => {
+        const $blockElement = document.getElementById(
+          `block-${innerBlock.clientId}`
+        );
 
-				let format = null;
-				
-				if(innerBlock.attributes.data.hasOwnProperty('block_format'))
-					format = innerBlock.attributes.data.block_format;
-				else {
-					Object.keys(innerBlock.attributes.data).forEach(function(key) {
-						const field = acf.getField(key);
-						
-						if(field.data.name == 'block_format') {
-							format = innerBlock.attributes.data[key];
-							
-							return;
-						}
-					});
-				}	
+        if (!$blockElement) return;
 
-				if(!format)
-					return;
+        $blockElement.setAttribute(
+          "data-width",
+          $blockElement.offsetWidth < 565 ? "block-compact" : ""
+        );
 
-				$blockElement.dataset.format = format;
-			});
-		});
-	});
+        if (!innerBlock.attributes.hasOwnProperty("data")) return;
+
+        let format = null;
+
+        if (innerBlock.attributes.data.hasOwnProperty("block_format"))
+          format = innerBlock.attributes.data.block_format;
+        else {
+          Object.keys(innerBlock.attributes.data).forEach(function(key) {
+            const field = acf.getField(key);
+
+            if (field.data.name == "block_format")
+              format = innerBlock.attributes.data[key];
+          });
+        }
+
+        if (!format) return;
+
+        $blockElement.dataset.format = format;
+      });
+    });
+  });
 })(wp.data);
