@@ -14,7 +14,7 @@
 <?php 
 	$banner = PaThemeHelpers::getGlobalBanner();
 
-	if ($banner->enable == true){
+	if ($banner->enable){
 		$link = $banner->link;
 		$source = parse_url(get_site_url(), PHP_URL_HOST);
 ?>
