@@ -3,22 +3,25 @@
 class PaThemeHelpers {
 
 	public function __construct(){
-		add_action( 'after_setup_theme', [$this, 'themeSupport'] );
-		add_action( 'wp_enqueue_scripts', [$this, 'registerAssets'] );
-		add_action( 'admin_enqueue_scripts', [$this, 'registerAssetsAdmin'] );
-		add_filter( 'nav_menu_css_class' , [$this, 'specialNavClass'], 10 , 2);
-		add_filter( 'after_setup_theme' , [$this, 'getInfoLang'], 10 , 2);
-		add_filter( 'body_class', [$this, 'bodyClass'] );
+		add_action('after_setup_theme', [$this, 'themeSupport'] );
+		add_action('wp_enqueue_scripts', [$this, 'registerAssets'] );
+		add_action('admin_enqueue_scripts', [$this, 'registerAssetsAdmin'] );
+		add_filter('nav_menu_css_class' , [$this, 'specialNavClass'], 10 , 2);
+		add_filter('after_setup_theme' , [$this, 'getInfoLang'], 10 , 2);
+		add_filter('body_class', [$this, 'bodyClass'] );
+		add_action('init', [$this, 'unregisterTaxonomy'] );
+		add_action('PA-update_menu_global', [$this, 'setGlobalMenu']);
+		add_action('PA-update_banner_global', [$this, 'setGlobalBanner']);
 
-		define( 'LANG', $this->getInfoLang() );
-
-		add_action('update_menu_global', [$this, 'setMenuGlobal']);
-
-		if ( ! wp_next_scheduled( 'update_menu_global' ) ) {
-			wp_schedule_event( time(), 'hourly', 'update_menu_global' );
+		if ( ! wp_next_scheduled( 'PA-update_menu_global' ) ) {
+			wp_schedule_event( time(), 'hourly', 'PA-update_menu_global' );
 		}
 
-		add_action( 'init', [$this, 'unregisterTaxonomy'] );
+		if ( ! wp_next_scheduled( 'PA-update_banner_global' ) ) {
+			wp_schedule_event( time(), 'hourly', 'PA-update_banner_global' );
+		}
+
+		define( 'LANG', $this->getInfoLang() );
 	}
 
 	function themeSupport() {
@@ -101,20 +104,34 @@ class PaThemeHelpers {
 		}
 			
 		if (!get_option('menu_'.$name)){
-			// $this->setMenuGlobal();
+			// $this->setGlobalMenu();
 		}
 
 		return get_option('menu_'.$name);
 	}
 
-	function setMenuGlobal() {
+	function setGlobalMenu() {
 		$menus = ['global-header', 'global-footer'];
 
 		foreach($menus as $name) {
 			$json = file_get_contents( "https://". API_PA ."/tax/". LANG ."/menus/{$name}");
-			$menu_content = json_decode($json);
-			add_option('menu_'.$name, $menu_content, '', 'yes');
+			$json_content = json_decode($json);
+			add_option('menu_'.$name, $json_content, '', 'yes');
 		}
+	}
+
+	static function getGlobalBanner() {
+		if (!get_option('banner_global')){
+			// $this->setGlobalMenu();
+		}
+
+		return get_option('banner_global');
+	}
+
+	function setGlobalBanner() {
+		$json = file_get_contents( "https://". API_PA ."/tax/". LANG ."/banner");
+		$json_content = json_decode($json);
+		add_option('banner_global', $json_content, '', 'yes');
 	}
 	
 	function bodyClass( $classes ) {
