@@ -1,4 +1,4 @@
-function pa_play(event, element) {
+export function pa_play(event, element) {
 	event.preventDefault();
 	var audio = document.querySelector("#pa-accessibility-player");
 

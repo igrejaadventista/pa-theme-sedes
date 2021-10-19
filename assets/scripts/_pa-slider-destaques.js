@@ -1,45 +1,52 @@
 /* Scripsts Slider Destaques */
+import Glide from '@glidejs/glide';
 
-function pa_slider_destaques() {
-	var select = ".pa-glide-destaques";
+export function pa_slider_destaques() {
+	var nodes = document.querySelectorAll('.pa-glide-destaques');
 
-	var node = document.querySelector(select);
-	if (document.body.contains(node)) {
-		var glide = new Glide(select, {
+	if(!nodes.length)
+		return;
+
+	nodes.forEach(function(node) {
+		var glide = new Glide(node, {
 			type: "carousel",
 			perView: 1,
 		});
 
 		glide.mount();
-	}
+	});
 }
 
 /* Scripsts Slider Destaques Departamentos */
-function pa_slider_destaque_deptos() {
-	var select = ".pa-destaque-deptos-sliders";
+export function pa_slider_destaque_deptos() {
+	var nodes = document.querySelectorAll('.pa-destaque-deptos-sliders');
 
-	var node = document.querySelector(select);
-	if (document.body.contains(node)) {
-		var glide = new Glide(select, {
+	if(!nodes.length)
+		return;
+
+	nodes.forEach(function(node) {
+		var glide = new Glide(node, {
 			type: "carousel",
 			perView: 1,
 		});
 
 		glide.mount();
-	}
+	});
 }
 
 /* Scripsts Slider Destaques Departamentos */
-function pa_slider_magazines() {
-	var select = ".pa-slider-magazines";
+export function pa_slider_magazines() {
+	var nodes = document.querySelectorAll('.pa-slider-magazines');
 
-	var node = document.querySelector(select);
-	if (document.body.contains(node)) {
-		var glide = new Glide(select, {
+	if(!nodes.length)
+		return;
+
+	nodes.forEach(function(node) {
+		var glide = new Glide(node, {
 			type: "carousel",
 			perView: 1,
 		});
 
 		glide.mount();
-	}
+	});
 }

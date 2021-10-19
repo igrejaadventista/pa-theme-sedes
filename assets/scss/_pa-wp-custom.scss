@@ -1,5 +1,9 @@
-.wp-block-image {
-    img {
-        height: auto;
-    }
+.wp-block-image,
+.wp-caption {
+  max-width: 100%;
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
 }

@@ -8,21 +8,18 @@ if(have_posts()){
 }
 $next_post = get_next_post();
 $prev_post = get_previous_post();
-// $values = json_decode(field('remotetest')['data']);
 
-// foreach($values as $value)
-// 	echo $value->title->rendered . '<br />';
 ?>
 	<?php 
 		require(get_template_directory() . '/components/parent/header.php'); 	
 	?>
 	<div class="pa-content-container py-5">
 		<div class="container">
-			<div class="row row-cols-auto">
+			<div class="row justify-content-md-center">
 				<article class="col-12 col-md-8">
 					<header class="mb-4">
 						<h1 class="fw-bold mb-3"><?php single_post_title(); ?></h1>
-						<div class="pa-post-meta">Por <?= get_the_author(); ?> | <?php the_date(); ?></div>
+						<div class="pa-post-meta"><?= _e('By', 'iasd'); ?> <?= get_the_author(); ?> | <?php the_date(); ?></div>
 
 						<hr class="my-45">
 		
@@ -34,9 +31,9 @@ $prev_post = get_previous_post();
 							</div>
 							<div class="">
 								<ul class="pa-accessibility list-inline">
-									<li class="pa-text-dec list-inline-item"><a href="#" class="rounded p-2" onclick="pa_diminui_texto(event)" >-A</a></li>
-									<li class="pa-text-inc list-inline-item"><a href="#" class="rounded p-2" onclick="pa_aumenta_texto(event)" >+A</a></li>
-									<li class="pa-text-listen list-inline-item"><a href="#" class="rounded p-2" onclick="pa_play(event, this)"><i class="fas fa-volume-up"></i> Ouvir Texto</a><audio id="pa-accessibility-player" src="<?= get_post_meta( get_the_ID(), 'amazon_polly_audio_link_location', true) ?>" controls></audio></li>
+									<li class="pa-text-dec list-inline-item"><a href="#" class="rounded p-2" onclick="window.TextSize.pa_diminui_texto(event)" >-A</a></li>
+									<li class="pa-text-inc list-inline-item"><a href="#" class="rounded p-2" onclick="window.TextSize.pa_aumenta_texto(event)" >+A</a></li>
+									<li class="pa-text-listen list-inline-item"><a href="#" class="rounded p-2" onclick="pa_play(event, this)"><i class="fas fa-volume-up"></i><?= _e('Hear text', 'iasd'); ?></a><audio id="pa-accessibility-player" src="<?= get_post_meta( get_the_ID(), 'amazon_polly_audio_link_location', true) ?>" controls></audio></li>
 								</ul>
 							</div>
 						</div>
@@ -60,13 +57,11 @@ $prev_post = get_previous_post();
 						?>
 					</footer>
 				</article>
+				<?php if ( is_active_sidebar( 'single' ) ) { ?>
 				<aside class="col-md-4 d-none d-xl-block">
-				<?php 
-					if ( is_active_sidebar( 'single' ) ) {
-						dynamic_sidebar( 'single');
-						}
-				?>
+				<?php dynamic_sidebar( 'single');?>
 				</aside>
+				<?php } ?>
 			</div>
 		</div>
 	</div>

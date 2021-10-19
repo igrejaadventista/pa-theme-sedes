@@ -32,7 +32,7 @@ class PaMenuMobile {
 						$children[$m->ID]['children'] = populate_children($menu_array, $m);
 					}
 				}
-			};
+			}
 			return $children;
 		}
 	

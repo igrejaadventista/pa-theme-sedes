@@ -5,7 +5,6 @@ class PAFunctions
 
 	public static function add_update_term_tax($tax, $resultService)
 	{
-		$ids_child_remote_fetched = [];
 		try {
 
 			/*
@@ -69,10 +68,7 @@ class PAFunctions
 						print("UPDATING PARENT: \n");
 						print(' - Term ID ' . $verify_term[0]->term_id . "\n");
 						print("--------------------\n");
-						$tax_child_update = wp_update_term($verify_term[0]->term_id, $tax, array(
-							'name' => $result->name,
-							'slug' => $result->slug
-						));
+
 					}
 				}
 			}
@@ -154,10 +150,7 @@ class PAFunctions
 							print("UPDATING CHILD: \n");
 							print(' - Term ID ' . $verify_child_term[0]->term_id . "\n");
 							print("--------------------\n");
-							$tax_child_update = wp_update_term($verify_child_term[0]->term_id, $tax, array(
-								'name' => $result->name,
-								'slug' => $result->slug
-							));
+						
 						}
 					}
 				}

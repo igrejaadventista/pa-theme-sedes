@@ -6,17 +6,15 @@ use WordPlate\Acf\Fields\ButtonGroup;
 
 class Source {
 
-	public static function make(bool $local = true, bool $custom = true, array $choices = []) {
-		if($local)
-			$choices['local'] = 'Local';
-		if($local)
-			$choices['custom'] = 'Manual';
-
+	public static function make() {
 		return 
-			ButtonGroup::make('Fonte de conteúdos', 'source')
-				->instructions('Selecione de onde o conteúdo será trazido')
-				->choices($choices)
-				->required();
+			ButtonGroup::make(__('Content source', 'iasd'), 'source')
+				->instructions(__('Select where the content will be brought from.', 'iasd'))
+				->choices([
+					'remote' => __('Remote', 'iasd'),
+					'local'  => __('Local', 'iasd'),
+				])
+				->defaultValue('remote');
 	}
 
 }
