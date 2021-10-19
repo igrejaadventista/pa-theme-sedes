@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2021-10-18 10:25-0300\n"
-"PO-Revision-Date: 2021-10-18 10:26-0300\n"
+"POT-Creation-Date: 2021-10-18 18:51-0300\n"
+"PO-Revision-Date: 2021-10-18 18:52-0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: pt_BR\n"
@@ -19,6 +19,26 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-0: assets\n"
 "X-Poedit-SearchPathExcluded-1: vendor\n"
 "X-Poedit-SearchPathExcluded-2: node_modules\n"
+
+#: Blocks/PAApps/views/frontend.blade.php:16
+msgid "Apps"
+msgstr "Aplicativos"
+
+#: Blocks/PAApps/views/frontend.blade.php:22
+msgid "Apps available for:"
+msgstr "Aplicativos disponíveis para:"
+
+#: Blocks/PAApps/views/frontend.blade.php:29
+msgid "Apple Store"
+msgstr ""
+
+#: Blocks/PAApps/views/frontend.blade.php:37
+msgid "Google Play"
+msgstr ""
+
+#: Blocks/PAFeliz7Play/views/frontend.blade.php:15
+msgid "Access the website"
+msgstr "Acessar o site"
 
 #: 404.php:10 404.php:16
 msgid "I'm sorry! Content not found! :("
@@ -266,8 +286,7 @@ msgid "Editorial"
 msgstr "Editoria"
 
 #: Blocks/PAListVideos/PAListVideos.php:21
-#: Blocks/PAListVideos/PAListVideos.php:48
-msgid "IASD - Videos - List"
+msgid "IASD - Videos - List(A)"
 msgstr ""
 
 #: Blocks/PAListVideos/PAListVideos.php:22
@@ -277,6 +296,10 @@ msgstr "Bloco para exibir os vídeos no formato de lista."
 #: Blocks/PAListVideos/PAListVideos.php:40
 msgid "Format"
 msgstr "Formato"
+
+#: Blocks/PAListVideos/PAListVideos.php:48
+msgid "IASD - Videos - List"
+msgstr ""
 
 #: Blocks/PAListVideos/PAListVideos.php:62
 msgid "Time (in seconds)"

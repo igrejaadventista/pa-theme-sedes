@@ -10,6 +10,14 @@ class PaThemeHelpers {
 		add_filter( 'after_setup_theme' , [$this, 'getInfoLang'], 10 , 2);
 		add_filter( 'body_class', [$this, 'bodyClass'] );
 
+		define( 'LANG', $this->getInfoLang() );
+
+		add_action('update_menu_global', [$this, 'setMenuGlobal']);
+
+		if ( ! wp_next_scheduled( 'update_menu_global' ) ) {
+			wp_schedule_event( time(), 'hourly', 'update_menu_global' );
+		}
+
 		//add_action( 'init', [$this, 'unregisterTaxonomy'] );
 	}
 
@@ -70,17 +78,14 @@ class PaThemeHelpers {
 		return $classes;
 	}
 
-	function getInfoLang(){
-
+	function getInfoLang(){	
 		if(defined('WPLANG')){
 			$lang = WPLANG;
-		}elseif(get_locale()){
+		} elseif (get_locale()){
 			$lang = get_locale();
 		}
-		
 		$lang = substr($lang, 0,2);
-		define( 'LANG', $lang );
-	
+
 		return $lang;
 	}
 
@@ -91,12 +96,27 @@ class PaThemeHelpers {
 	 * @return mixed Menu data or null
 	 */
 	static function getGlobalMenu(string $name) {
-		if(empty($name))
-			return;
+		if(empty($name)){
+			return null;
+		}
+			
+		if (!get_option('menu_'.$name)){
+			// $this->setMenuGlobal();
+		}
 
-		$json = file_get_contents( "https://". API_PA ."/tax/". LANG ."/menus/{$name}");
+		$menu_content = get_option('menu_'.$name);
 
-		return json_decode($json);
+		return $menu_content;
+	}
+
+	function setMenuGlobal() {
+		$menus = ['global-header', 'global-footer'];
+
+		foreach($menus as $name) {
+			$json = file_get_contents( "https://". API_PA ."/tax/". LANG ."/menus/{$name}");
+			$menu_content = json_decode($json);
+			add_option('menu_'.$name, $menu_content, '', 'yes');
+		}
 	}
 	
 	function bodyClass( $classes ) {
@@ -107,8 +127,7 @@ class PaThemeHelpers {
 
 		$classes[] = LANG;
 		
-		return $classes;
-		
+		return $classes;	
 	}
 }
 $PaThemeHelpers = new PaThemeHelpers();
