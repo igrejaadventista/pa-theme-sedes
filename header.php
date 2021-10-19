@@ -22,7 +22,7 @@
 		<div class="container">
 			<div class="row"> 
 				<div class="col-12 text-center">
-					<a href="<?php echo $link ."?utm_source=". $source ."&utm_medium=BannerGlobal&utm_campaign=". urlencode($banner->title); ?>" target="_blank" onClick="ga('adventistasGeral.send', 'event', 'Banner - <?= $banner->title; ?>', 'click', 'Banner - <?= $source; ?>');">
+					<a href="<?php echo $link ."?utm_source=". $source ."&utm_medium=BannerGlobal&utm_campaign=". urlencode($banner->title); ?>" target="_blank" onClick="ga('adventistasGeral.send', 'event', 'Banner - <?= $banner->title; ?>', 'click', 'Banner - <?= $source; ?>');"  target="_blank" rel="noopener">
 						<picture>
 							<source media="(min-width:650px)" srcset="<?= $banner->image_large; ?>">
 							<source media="(min-width:465px)" srcset="<?= $banner->image_medium; ?>">
