@@ -103,10 +103,6 @@ class PaThemeHelpers {
 			return null;
 		}
 			
-		if (!get_option('menu_'.$name)){
-			// $this->setGlobalMenu();
-		}
-
 		return get_option('menu_'.$name);
 	}
 
@@ -121,10 +117,6 @@ class PaThemeHelpers {
 	}
 
 	static function getGlobalBanner() {
-		if (!get_option('banner_global')){
-			// $this->setGlobalMenu();
-		}
-
 		return get_option('banner_global');
 	}
 

@@ -59,6 +59,7 @@ class PAFunctions
 						print("UPDATING PARENT: \n");
 						print(' - Term ID ' . $verify_term[0]->term_id . "\n");
 						print("--------------------\n");
+
 					}
 				}
 			}
