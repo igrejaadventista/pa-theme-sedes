@@ -18,7 +18,7 @@ class PaThemeHelpers {
 			wp_schedule_event( time(), 'hourly', 'update_menu_global' );
 		}
 
-		//add_action( 'init', [$this, 'unregisterTaxonomy'] );
+		add_action( 'init', [$this, 'unregisterTaxonomy'] );
 	}
 
 	function themeSupport() {
@@ -71,7 +71,7 @@ class PaThemeHelpers {
 		wp_enqueue_script( 'scripts-admin', get_template_directory_uri() . '/assets/scripts/script_admin.js', array(), false, true );
 	}
 
-	function specialNavClass($classes, $item){
+	function specialNavClass($classes){
 		if( in_array('current-menu-item', $classes) ){
 				$classes[] = 'active ';
 		}
@@ -104,9 +104,7 @@ class PaThemeHelpers {
 			// $this->setMenuGlobal();
 		}
 
-		$menu_content = get_option('menu_'.$name);
-
-		return $menu_content;
+		return get_option('menu_'.$name);
 	}
 
 	function setMenuGlobal() {
