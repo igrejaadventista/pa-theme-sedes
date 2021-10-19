@@ -99,14 +99,21 @@ class PaThemeHelpers {
 	 * @return mixed Menu data or null
 	 */
 	static function getGlobalMenu(string $name) {
+    
 		if(empty($name)){
 			return null;
 		}
 			
-		return get_option('menu_'.$name);
+    if(!get_option('menu_'.$name)){
+      self::setGlobalMenu();
+    } 
+     
+    return get_option('menu_'.$name);
+    
+		
 	}
 
-	function setGlobalMenu() {
+	static function setGlobalMenu() {
 		$menus = ['global-header', 'global-footer'];
 
 		foreach($menus as $name) {
@@ -117,10 +124,14 @@ class PaThemeHelpers {
 	}
 
 	static function getGlobalBanner() {
+
+    if(!get_option('banner_global')){
+      self::setGlobalBanner();
+    } 
 		return get_option('banner_global');
 	}
 
-	function setGlobalBanner() {
+	static function setGlobalBanner() {
 		$json = file_get_contents( "https://". API_PA ."/tax/". LANG ."/banner");
 		$json_content = json_decode($json);
 		add_option('banner_global', $json_content, '', 'yes');
