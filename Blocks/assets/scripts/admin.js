@@ -1,14 +1,14 @@
 function syncRemoteData(event) {
-	event.preventDefault();
+  event.preventDefault();
 
-	// Get results
-	xhr = jQuery.ajax({
-		url:  ajaxurl,
-		type: 'post',
-		data: {
-			action: 'blocks/update_remote_data',
-		},
-	});
+  // Get results
+  xhr = jQuery.ajax({
+    url: ajaxurl,
+    type: "post",
+    data: {
+      action: "blocks/update_remote_data"
+    }
+  });
 
-	alert('Sincronização em progresso!');
+  alert("Sincronização em progresso!");
 }

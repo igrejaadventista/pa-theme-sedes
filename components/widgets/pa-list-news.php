@@ -18,20 +18,17 @@ if ( !isset( $size ) ) {
 	$size = "1/3";
 } 
 
-switch ( $size ) {
-	case "2/3":
+
+if($size == "2/3"){
 		$col_md = "col-md-8";
 		$row_cols_md = "row-cols-md-2";
 		$d_xl_block = "d-xl-block pa-truncate-3";
-		$class_title = "fw-bold";
-		break;
-	
-	default:
+		$class_title = "fw-bold";	
+} else {
 		$col_md = "col-md-4";
 		$row_cols_md = "row-cols-md-1";
 		$d_xl_block = "";
 		$class_title = "h6";
-		break;
 }
 ?>
 

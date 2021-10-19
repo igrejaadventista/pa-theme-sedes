@@ -203,11 +203,11 @@ class Blocks
         endforeach;
 
         $updatedContent = \serialize_blocks($blocks);
-        // $replacedString = preg_replace("/u([0-9abcdef]{4})/", "&#x$1;", $updatedContent);
+        
 		$replacedString = preg_replace_callback('/\\\\u([0-9a-fA-F]{4})/', function($match) {
 			return mb_convert_encoding(pack('H*', $match[1]), 'UTF-8', 'UCS-2BE');
 		}, $updatedContent);
-        // $unicodeString  = utf8_encode($replacedString);
+       
         $unicodeString  = str_replace('\n', '\\\n', $replacedString);
 
         if (!empty($hasUpdate)) :

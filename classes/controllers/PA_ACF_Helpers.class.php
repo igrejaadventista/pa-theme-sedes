@@ -3,9 +3,6 @@
 class PaAcfHelpers {
 
 	public function __construct(){
-		// add_filter('acf/settings/save_json', [$this, 'acfSaveJson']);
-		// add_filter('acf/settings/load_json', [$this, 'acfLoadJson']);
-
 		add_filter('acf/settings/show_admin', [$this, 'acfShowAdmin']);
 	}
 
@@ -20,7 +17,7 @@ class PaAcfHelpers {
 		return $paths;
 	}
 
-	function acfShowAdmin( $show_admin ) {
+	function acfShowAdmin() {
 		return true;
 	}
 }

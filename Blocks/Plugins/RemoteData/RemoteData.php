@@ -568,13 +568,8 @@ if(!class_exists('RemoteData')):
 						$queryArgs["$taxonomy-tax"] = implode(',', $options['terms'][$key]);
 				endif;
 
-				// Tests
-				// $queryArgs['xtt-pa-sedes-tax'] = 'usb';
-
 				if(!empty($stickyItemsFilter))
 					$queryArgs['exclude'] = implode(',', $stickyItemsFilter);
-
-				// die(var_dump(\add_query_arg(array_merge($queryArgs, ['orderby' => 'date']), $url)));
 
 				$response = \wp_remote_get(\add_query_arg(array_merge($queryArgs, ['orderby' => 'date']), $url));
 				$responseCode = \wp_remote_retrieve_response_code($response);
@@ -587,12 +582,10 @@ if(!class_exists('RemoteData')):
 			self::parseResults($results);
 			
 			// vars
-			$response = array(
+			return array(
 				'results' => $results,
 				'data'	  => json_encode($results),
 			);
-
-			return $response;
 		}
 
 		static function parseResults(&$results) {
@@ -780,7 +773,6 @@ if(!class_exists('RemoteData')):
 				// strip slashes (search may be integer)
 				$queryArgs['search'] = wp_unslash(strval($options['s']));
 
-			// die(var_dump(\add_query_arg($queryArgs, $url)));
 
 			$response = \wp_remote_get(\add_query_arg($queryArgs, $url));
 			$responseCode = \wp_remote_retrieve_response_code($response);
@@ -792,13 +784,12 @@ if(!class_exists('RemoteData')):
 			self::parseResults($results);
 
 			// vars
-			$response = array(
+			return array(
 				'results'	=> $results,
 				'data'		=> json_encode($results),
 			);
-
-			return $response;
 		}
+
 
 	}
 
