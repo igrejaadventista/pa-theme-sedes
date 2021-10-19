@@ -35,25 +35,34 @@ class PAFunctions
 
 					if ($verify_term == null) {
 
-						$tax_parent = wp_insert_term(
-							$result->name, // the term 
-							$tax, // the taxonomy
-							array(
-								'name' => $result->name,
-								'slug' => $result->slug,
-								'parent' => $result->parent,
-							)
-						);
+						// verify if exist old taxs
+						$verifyLocaly = get_term_by('slug', $result->slug, $tax);
+						if ($verifyLocaly == null) {
+							$tax_parent = wp_insert_term(
+								$result->name, // the term 
+								$tax, // the taxonomy
+								array(
+									'name' => $result->name,
+									'slug' => $result->slug,
+									'parent' => $result->parent,
+								)
+							);
 
-						if (!is_wp_error($tax_parent)) {
-							print("ADDING TERM REMOTE PARENT: \n");
-							print(' - Term ID ' . $tax_parent['term_id'] . "\n");
-							print(' - Remote ID ' . $result->id . "\n");
-							print("--------------------\n");
-							add_term_meta($tax_parent['term_id'], 'pa_tax_id_remote', $result->id, true);
+							if (!is_wp_error($tax_parent)) {
+								print("ADDING TERM REMOTE PARENT: \n");
+								print(' - Term ID ' . $tax_parent['term_id'] . "\n");
+								print(' - Remote ID ' . $result->id . "\n");
+								print("--------------------\n");
+								add_term_meta($tax_parent['term_id'], 'pa_tax_id_remote', $result->id, true);
+							} else {
+								print_r("------ errorr add meta in child! \n");
+								print_r($result->name);
+							}
 						} else {
-							print_r("------ errorr add meta in child! \n");
-							print_r($result->name);
+							$tax_child_update = wp_update_term($verifyLocaly[0]->term_id, $tax, array(
+								'name' => $result->name,
+								'slug' => $result->slug
+							));
 						}
 					} else {
 						// Updating
@@ -107,29 +116,38 @@ class PAFunctions
 						// Creating
 						if ($verify_child_term == null) {
 
-							$tax_child = wp_insert_term(
-								$result->name, // the term 
-								$tax, // the taxonomy
-								array(
-									'name' => $result->name,
-									'slug' => $result->slug,
-									'parent' => $parent_term_id  // get numeric term id
-								)
-							);
+							// verify if exist old taxs
+							$verifyLocaly = get_term_by('slug', $result->slug, $tax);
+							if ($verifyLocaly == null) {
+								$tax_child = wp_insert_term(
+									$result->name, // the term 
+									$tax, // the taxonomy
+									array(
+										'name' => $result->name,
+										'slug' => $result->slug,
+										'parent' => $parent_term_id  // get numeric term id
+									)
+								);
 
-							if (!is_wp_error($tax_child)) {
-								/**
-								 * Saves remote id for future updates
-								 */
+								if (!is_wp_error($tax_child)) {
+									/**
+									 * Saves remote id for future updates
+									 */
 
-								print("ADDING TERM REMOTE CHILD: \n");
-								print(' - Term ID ' . $tax_child['term_id'] . "\n");
-								print(' - Remote ID ' . $result->id . "\n");
-								print("--------------------\n");
-								add_term_meta($tax_child['term_id'], 'pa_tax_id_remote', $result->id, true);
+									print("ADDING TERM REMOTE CHILD: \n");
+									print(' - Term ID ' . $tax_child['term_id'] . "\n");
+									print(' - Remote ID ' . $result->id . "\n");
+									print("--------------------\n");
+									add_term_meta($tax_child['term_id'], 'pa_tax_id_remote', $result->id, true);
+								} else {
+									print_r("------ errorr add meta in child! \n");
+									print_r($result->name);
+								}
 							} else {
-								print_r("------ errorr add meta in child! \n");
-								print_r($result->name);
+								$tax_child_update = wp_update_term($verifyLocaly[0]->term_id, $tax, array(
+									'name' => $result->name,
+									'slug' => $result->slug
+								));
 							}
 						} else {
 							// Updating
