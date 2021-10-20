@@ -308,6 +308,10 @@ if(!class_exists('LocalData')):
 				?>
 
 					<div class="taxonomies-selection" data-taxonomies='<?= json_encode($taxonomies) ?>'>
+          
+            <?php acf_text_input(array('name' => $field['name'] . "[taxonomies]", 'value' => isset($values['taxonomies']) ? $values['taxonomies'] : '', 'type' => 'hidden', 'data-taxonomies-value' => '')); ?>
+            <?php acf_text_input(array('name' => $field['name'] . "[terms]", 'value' => isset($values['terms']) ? $values['terms'] : '', 'type' => 'hidden', 'data-terms-value' => '')); ?>
+
 						<div class="taxonomy-row" style="display: none;">
 							<label>
 								<span class="acf-js-tooltip" title="Quantidade de itens a ser exibido. De 1 a 100">Taxonomia</span>
@@ -324,10 +328,15 @@ if(!class_exists('LocalData')):
 
 						<?php
 						if(!empty($values['taxonomies'])) :
+              
 							$choicesTaxonomies = [];
 							foreach ($taxonomies as $key => $value)
 								$choicesTaxonomies[$key] = $value['label'];
 
+                
+              $values['taxonomies'] = json_decode($values['taxonomies']);
+              $values['terms'] = json_decode($values['terms']);
+              
 							foreach ($values['taxonomies'] as $key => $taxonomy) :
 						?>
 								<div class="taxonomy-row">
@@ -422,12 +431,24 @@ if(!class_exists('LocalData')):
 			if(!is_admin()):
 				$stickys = explode(',', $value['sticky']);
 
-				$data = $this->getData([
-					'limit' => $value['limit'],
+        $args = [
+					'limit' => isset($value['limit']) ? $value['limit'] : $field['limit'],
 					'sticky' => $value['sticky'],
 					'field_key' => $field['key'],
 					'post_type' => !empty($value['post_type_filter']) ? $value['post_type_filter'] : $value['post_type'],
-				]);
+				];
+
+        if(isset($value['taxonomies']) && isset($value['terms'])):  
+          if(!empty($value['taxonomies']) && !empty($value['terms'])):  
+            $value['taxonomies'] = json_decode($value['taxonomies']);
+            $value['terms'] = json_decode($value['terms']);
+
+            $args['taxonomies'] = $value['taxonomies'];
+            $args['terms'] = $value['terms'];
+          endif;
+        endif;
+
+				$data = $this->getData($args);
 
 				$posts = empty($manual) ? $data['results'] : array_merge($manual, $data['results']);
 				
@@ -539,7 +560,7 @@ if(!class_exists('LocalData')):
 				return substr($v, 0, 1) !== 'm';
 			});
 
-			$limit = isset($options['limit']) ? $options['limit'] : 100;
+			$limit = isset($options['limit']) ? $options['limit'] : $field['limit'];
 			$args['posts_per_page'] = (int)$limit;
 			$args['posts_per_page'] = $args['posts_per_page'] - (count($stickyItems) - count($stickyItemsFilter));
 

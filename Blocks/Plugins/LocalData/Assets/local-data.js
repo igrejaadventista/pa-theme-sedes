@@ -202,6 +202,24 @@
 			return this.$control().find('.taxonomies-selection').data('taxonomies');
 		},
 
+    /**
+		 * Get jQuery taxonomies hidden input object
+		 *
+		 * @return {jQuery} jQuery taxonomies hidden input
+		 */
+		$taxonomiesInputValue() {
+			return this.$control().find('[data-taxonomies-value]');
+		},
+
+    /**
+		 * Get jQuery tems hidden input object
+		 *
+		 * @return {jQuery} jQuery tems hidden input
+		 */
+		$termsInputValue() {
+			return this.$control().find('[data-terms-value]');
+		},
+
 		/**
 		 * Get jQuery search loading object
 		 *
@@ -889,7 +907,7 @@
 			$.each(values, (_, value) => $selects.find(`[value="${value}"]`).not(':selected').remove());
 
 			// Refresh select2
-			$selects.select2();
+			// $selects.select2();
 		},
 
 		/**
@@ -909,6 +927,9 @@
 
 			this.set('taxonomies', taxonomies);
 			this.set('terms', terms);
+
+      this.$taxonomiesInputValue().val(JSON.stringify(taxonomies));
+      this.$termsInputValue().val(JSON.stringify(terms));
 		},
 
 		/**

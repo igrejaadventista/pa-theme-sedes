@@ -19,6 +19,7 @@ use Blocks\PAListVideos\PAListVideos;
 use Blocks\PARow\PARow;
 use Blocks\PASevenCast\PASevenCast;
 use Blocks\Plugins\RemoteData\RemoteData;
+use stdClass;
 
 /**
  * Blocks Register blocks and manage settings
@@ -203,19 +204,13 @@ class Blocks
         endforeach;
 
         $updatedContent = \serialize_blocks($blocks);
-        // $replacedString = preg_replace("/u([0-9abcdef]{4})/", "&#x$1;", $updatedContent);
-		$replacedString = preg_replace_callback('/\\\\u([0-9a-fA-F]{4})/', function($match) {
-			return mb_convert_encoding(pack('H*', $match[1]), 'UTF-8', 'UCS-2BE');
-		}, $updatedContent);
-        // $unicodeString  = utf8_encode($replacedString);
-        $unicodeString  = str_replace('\n', '\\\n', $replacedString);
 
-        if (!empty($hasUpdate)) :
-            \wp_update_post([
-                'ID'           => $id,
-                'post_content' => $unicodeString,
-            ]);
-        endif;
+        $args = new stdClass();
+        $args->ID = $id;
+        $args->post_content = $updatedContent;
+
+        if(!empty($hasUpdate))
+            \wp_update_post($args);
     }
 
     function addToolbarUpdate($wp_admin_bar)

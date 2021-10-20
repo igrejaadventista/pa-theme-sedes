@@ -335,6 +335,10 @@ if(!class_exists('RemoteData')):
 				?>
 
 					<div class="taxonomies-selection" data-taxonomies='<?= json_encode($taxonomies) ?>'>
+
+            <?php acf_text_input(array('name' => $field['name'] . "[taxonomies]", 'value' => isset($values['taxonomies']) ? $values['taxonomies'] : '', 'type' => 'hidden', 'data-taxonomies-value' => '')); ?>
+            <?php acf_text_input(array('name' => $field['name'] . "[terms]", 'value' => isset($values['terms']) ? $values['terms'] : '', 'type' => 'hidden', 'data-terms-value' => '')); ?>
+
 						<div class="taxonomy-row" style="display: none;">
 							<label>
 								<span class="acf-js-tooltip" title="Quantidade de itens a ser exibido. De 1 a 100">Taxonomia</span>
@@ -354,6 +358,9 @@ if(!class_exists('RemoteData')):
 							$choicesTaxonomies = [];
 							foreach ($taxonomies as $key => $value)
 								$choicesTaxonomies[$key] = $value['label'];
+
+              $values['taxonomies'] = json_decode($values['taxonomies']);
+              $values['terms'] = json_decode($values['terms']);
 
 							foreach ($values['taxonomies'] as $key => $taxonomy) :
 						?>
@@ -449,6 +456,13 @@ if(!class_exists('RemoteData')):
 			$stickys = explode(',', $value['sticky']);
 
 			$posts = empty($manual) ? $data : array_merge($manual, $data);
+
+      if(isset($value['taxonomies']) && isset($value['terms'])):  
+        if(!empty($value['taxonomies']) && !empty($value['terms'])):  
+          $value['taxonomies'] = json_decode($value['taxonomies']);
+          $value['terms'] = json_decode($value['terms']);
+        endif;
+      endif;
 			
 			if(!empty($stickys)):
 				foreach($stickys as $sticky):
@@ -564,6 +578,11 @@ if(!class_exists('RemoteData')):
 				$queryArgs['per_page'] = count($stickyItems) <= $limit ? $limit - count($stickyItems) : $limit;
 
 				if(isset($options['taxonomies']) && isset($options['terms'])):
+          if(!is_array($options['taxonomies']))
+            $options['taxonomies'] = json_decode($options['taxonomies']);
+          if(!is_array($options['terms']))
+            $options['terms'] = json_decode($options['terms']);
+
 					foreach($options['taxonomies'] as $key => $taxonomy)
 						$queryArgs["$taxonomy-tax"] = implode(',', $options['terms'][$key]);
 				endif;
