@@ -10,8 +10,8 @@ class MoreContent {
 
 	public static function make() {
 		return [
-			TrueFalse::make('Mais conteúdo', 'enable_link')
-				->stylisedUi('Habilitar', 'Desabilitar'),
+			TrueFalse::make(__('More content', 'iasd'), 'enable_link')
+				->stylisedUi(__('Enable', 'iasd'), __('Disable', 'iasd')),
 			Link::make('Link', 'link')
 				->conditionalLogic([
 					ConditionalLogic::if('enable_link')->equals(1)

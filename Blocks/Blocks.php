@@ -143,7 +143,7 @@ class Blocks
             array(
                 array(
                     'slug' => 'pa-adventista',
-                    'title' => 'Adventista',
+                    'title' => __('Adventist', 'iasd'),
                 ),
             ),
             $categories
@@ -217,7 +217,7 @@ class Blocks
     {
         $wp_admin_bar->add_node([
             'id'    => 'sync_remote_data',
-            'title' => 'Sincronizar dados',
+            'title' => __('Sync data', 'iasd'),
             'href'  => '#',
             'meta'  => [
                 'onclick' => 'syncRemoteData(event)',

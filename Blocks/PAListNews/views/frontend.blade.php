@@ -1,8 +1,8 @@
 @if(is_admin())
 	@if($block_format == '2/3')
-		<img class="img-preview" src="{{ get_template_directory_uri() }}/Blocks/PAListNews/preview-2-3.png"/>
+		<img class="img-preview" src="{{ get_template_directory_uri() }}/Blocks/PAListNews/preview-2-3.png" alt="{{ __('Illustrative image of the front end of the block.', 'iasd') }}"/>
 	@else
-		<img class="img-preview" src="{{ get_template_directory_uri() }}/Blocks/PAListNews/preview-1-3.png"/>
+		<img class="img-preview" src="{{ get_template_directory_uri() }}/Blocks/PAListNews/preview-1-3.png" alt="{{ __('Illustrative image of the front end of the block.', 'iasd') }}"/>
 	@endif
 @else
 	<div class="pa-widget pa-w-list-news col mb-5 {{ $block_format == '2/3' ? 'col-md-8' : 'col-md-4' }}">

@@ -16,7 +16,7 @@ class PATwitter extends Block {
 		// Set block settings
         parent::__construct([
             'title' 	  => 'IASD - Twitter',
-            'description' => 'Twitter Widget',
+            'description' => 'IASD Twitter block.',
             'category' 	  => 'pa-adventista',
 			'keywords' 	  => ['twitter', 'embeded'],
 			'icon' 		  => 'twitter',
@@ -31,7 +31,7 @@ class PATwitter extends Block {
 	protected function setFields(): array {
 		return 
 			[
-				Text::make('Título', 'title')
+				Text::make(__('Title', 'iasd'), 'title')
 					->defaultValue('IASD - Twitter'),
                 Url::make('Url', 'url'),
 			];

@@ -14,8 +14,8 @@ class PACarouselMinistry extends Block {
 
 	public function __construct() {
 		parent::__construct([
-			'title' 	  => 'IASD - Carousel - Ministry',
-			'description' => '',
+			'title' 	  => __('IASD - Feature Slider - Ministry', 'iasd'),
+			'description' => __('Block to feature content in slider format.', 'iasd'),
 			'category' 	  => 'pa-adventista',
 			'keywords' 	  => ['spotlight', 'carousel', 'slider'],
 			'icon' 		  => '<svg id="Icons" style="enable-background:new 0 0 32 32;" version="1.1" viewBox="0 0 32 32" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><style type="text/css">
@@ -31,13 +31,13 @@ class PACarouselMinistry extends Block {
 	 */
 	protected function setFields(): array {
 		return [
-			Text::make('Título', 'title')
-				->defaultValue('IASD - Carousel - Ministry'),
-			LocalData::make('Itens', 'items')
+			Text::make(__('Title', 'iasd'), 'title')
+				->defaultValue(__('IASD - Feature Slider - Ministry', 'iasd')),
+			LocalData::make(__('Itens', 'iasd'), 'items')
 				->postTypes(['post', 'projetos'])
 				->hideFields(['content'])
 				->manualFields([
-					Text::make('Tag', 'tag')
+					Text::make(__('Tag', 'iasd'), 'tag')
 				])
 				->initialLimit(4),
 		];

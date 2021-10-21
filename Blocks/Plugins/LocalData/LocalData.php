@@ -82,11 +82,9 @@ if(!class_exists('LocalData')):
 		function render_field_settings($field) {
 			$field['limit'] = empty($field['limit']) ? '' : $field['limit'];
 
-			// \acf_hidden_input(array('type' => 'hidden', 'name' => $field['prefix'] . '[sticky]', 'value' => '0'));
-
 			\acf_render_field_setting($field, array(
-				'label'			=> __('Quantidade', 'acf'),
-				'instructions'	=> 'Quantidade de itens a ser retornado',
+				'label'			=> __('Quantity', 'acf'),
+				'instructions'	=> 'Number of items to be returned.',
 				'type'			=> 'number',
 				'name'			=> 'limit',
 				'min'			=> 1,
@@ -127,7 +125,7 @@ if(!class_exists('LocalData')):
 			));
 
 			\acf_render_field_setting($field, array(
-				'label'			=> __('Habilitar Busca?', 'acf'),
+				'label'			=> __('Enable: Search?', 'acf'),
 				'type'			=> 'true_false',
 				'name'			=> 'search_filter',
 				'ui'			=> 1,
@@ -135,7 +133,7 @@ if(!class_exists('LocalData')):
 			));
 
 			\acf_render_field_setting($field, array(
-				'label'			=> __('Habilitar quantidade de itens?', 'acf'),
+				'label'			=> __('Enable: Number of items?', 'acf'),
 				'type'			=> 'true_false',
 				'name'			=> 'limit_filter',
 				'ui'			=> 1,
@@ -143,7 +141,7 @@ if(!class_exists('LocalData')):
 			));
 
 			\acf_render_field_setting($field, array(
-				'label'			=> __('Habilitar fixar itens?', 'acf'),
+				'label'			=> __('Enable: Sticky itens?', 'acf'),
 				'type'			=> 'true_false',
 				'name'			=> 'can_sticky',
 				'ui'			=> 1,
@@ -151,7 +149,7 @@ if(!class_exists('LocalData')):
 			));
 
 			\acf_render_field_setting($field, array(
-				'label'			=> __('Habilitar conteúdo manual?', 'acf'),
+				'label'			=> __('Enable: Manual content?', 'acf'),
 				'type'			=> 'true_false',
 				'name'			=> 'manual_items',
 				'ui'			=> 1,
@@ -167,7 +165,7 @@ if(!class_exists('LocalData')):
 			?>
 				<tr class="acf-field acf-field-setting-sub_fields" data-setting="group" data-name="sub_fields">
 					<td class="acf-label">
-						<label><?= __('Campos de conteúdo manual', 'acf'); ?></label>
+						<label><?= __('Manual content fields', 'acf'); ?></label>
 					</td>
 					<td class="acf-input">
 						<?php \acf_get_view('field-group-fields', $args); ?>
@@ -219,10 +217,10 @@ if(!class_exists('LocalData')):
 
 					<div class="action-toolbar">
 						<?php if(!empty($field['manual_items'])): ?>
-							<button type="button" class="buttonAddManualPost disabled acf-js-tooltip" data-action="manual-new-post" title="Adicionar item de forma manual" disabled>Adicionar</button>
+							<button type="button" class="buttonAddManualPost disabled acf-js-tooltip" data-action="manual-new-post" title="<?= _e('Add manual itens', 'iasd'); ?>" disabled><?= _e('Add manual itens', 'iasd'); ?></button>
 						<?php endif; ?>
 						
-						<button type="button" class="buttonUpdateTaxonomies acf-js-tooltip" data-action="refresh" title="Atualizar resultados" aria-label="Atualizar resultados">
+						<button type="button" class="buttonUpdateTaxonomies acf-js-tooltip" data-action="refresh" title="<?= _e('Refresh', 'iasd'); ?>" aria-label="<?= _e('Refresh', 'iasd'); ?>">
 							<svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" aria-hidden="true" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
 								<polyline points="23 4 23 10 17 10"></polyline>
 								<polyline points="1 20 1 14 7 14"></polyline>
@@ -235,7 +233,7 @@ if(!class_exists('LocalData')):
 						<?php if(!empty($field['search_filter'])): ?>
 							<div class="filter -search">
 								<?php /* search filters */
-								acf_text_input(array('placeholder' => __('Search...', 'acf'), 'data-filter' => 's')); ?>
+								acf_text_input(array('placeholder' => __('Search...', 'iasd'), 'data-filter' => 's')); ?>
 								<i class="acf-loading"></i>
 								<a href="#" class="button-clear acf-icon -cancel acf-js-tooltip" data-action="clear" title="Limpar"></a>
 							</div>
@@ -244,7 +242,7 @@ if(!class_exists('LocalData')):
 						<?php if(!empty($field['limit_filter'])): ?>
 							<div class="filter -limit">
 								<label>
-									<span class="acf-js-tooltip" title="Quantidade de itens a ser exibido.">Quantidade</span>
+									<span class="acf-js-tooltip" title="<?= _e('Number of items to be displayed.', 'iasd'); ?>"><?= _e('Quantity', 'iasd'); ?></span>
 									<?php acf_text_input(array('name' => $field['name'] . "[limit]", 'value' => isset($values['limit']) ? $values['limit'] : $field['limit'], 'type' => 'number', 'step' => 1, 'min' => 1, 'max' => 100, 'data-limit' => '', 'data-filter' => 'limit')); ?>
 								</label>
 							</div>
@@ -254,7 +252,7 @@ if(!class_exists('LocalData')):
 							in_array('post_type', $filters)
 							&& count($filter_post_type_choices) > 2
 						) : ?>
-							<div class="filter -post_type filter__post_type acf-js-tooltip" title="Filtrar por tipo de post.<br />Obs: itens fixados não são afetados por esse filtro.">
+							<div class="filter -post_type filter__post_type acf-js-tooltip" title="<?= _e('Filter by post type.<br />Obs: Fixed items are not affected by this filter.', 'iasd'); ?>">
 								<?php
 								acf_select_input(
 									array(
@@ -367,7 +365,7 @@ if(!class_exists('LocalData')):
 					<div class="selection">
 						<div class="choices">
 							<div class="list-tile">
-								<span>Resultados</span>
+								<span><?= _e('Results', ''); ?></span>
 							</div>
 
 							<ul class="acf-bl list local-list choices-list"></ul>
@@ -376,11 +374,11 @@ if(!class_exists('LocalData')):
 							<ul class="acf-bl list sticky-list"></ul>
 
 							<div class="list-tile">
-								<span>Fixados</span>
+								<span><?= _e('Sticky', ''); ?></span>
 							</div>
 
 							<div class="list-tile">
-								<span>Recentes</span>
+								<span><?= _e('Recents', ''); ?></span>
 							</div>
 							
 							<ul class="acf-bl list values-list"></ul>
@@ -631,13 +629,11 @@ if(!class_exists('LocalData')):
 			$mergedResults = array_merge($stickedArr, $results);
 
 			// vars
-			$response = array(
+			return array(
 				'results'	=> $mergedResults,
 				'limit'		=> $args['posts_per_page'],
 				'data'		=> json_encode($mergedResults),
 			);
-
-			return $response;
 		}
 
 		function modalAjax() {
@@ -656,14 +652,14 @@ if(!class_exists('LocalData')):
 			$fixedFields = array();
 			$fixedFields[] = array(
 				'key' => $options['field_key'] . '_title',
-				'label' => 'Título',
+				'label' => __('Title', 'iasd'),
 				'name' => 'title',
 				'type' => 'text',
 				'required' => 1,
 			);
 			$fixedFields[] = array(
 				'key' => $options['field_key'] . '_link',
-				'label' => 'Link',
+				'label' => __('Link', 'iasd'),
 				'name' => 'link',
 				'type' => 'link',
 				'required' => 1,
@@ -675,7 +671,7 @@ if(!class_exists('LocalData')):
 			if(empty($field['hide_fields']) || !in_array('featured_media_url', $field['hide_fields'])):
 				$fixedFields[] = array(
 					'key' => $options['field_key'] . '_thumbnail',
-					'label' => 'Thumbnail',
+					'label' => __('Thumbnail', 'iasd'),
 					'name' => 'featured_media_url',
 					'type' => 'image',
 					'required' => 1,
@@ -688,7 +684,7 @@ if(!class_exists('LocalData')):
 			if(empty($field['hide_fields']) || !in_array('excerpt', $field['hide_fields'])):
 				$fixedFields[] = array(
 					'key' => $options['field_key'] . '_excerpt',
-					'label' => 'Resumo',
+					'label' => __('Excerpt', 'iasd'),
 					'name' => 'excerpt',
 					'type' => 'textarea',
 					'rows' => 3,
@@ -711,12 +707,14 @@ if(!class_exists('LocalData')):
 							$sub_field['value'] = $options['data'][$sub_field['name']];
 					endif;
 				endforeach;
+        unset($sub_field);
 			endif;
 
 			echo '<div class="acf-fields -top -border">';
 				foreach($field['sub_fields'] as &$sub_field):
 					acf_render_field_wrap($sub_field);
 				endforeach;
+        unset($sub_field);
 			echo '</div>';
 		}
 
@@ -800,19 +798,17 @@ if(!class_exists('LocalData')):
 				endforeach;
 			endif;
 			
-			// vars
-			$response = array(
+			// vars	
+			return array(
 				'results'	=> $results,
 				'data'		=> json_encode($results),
-			);
-			
-			return $response;	
+			);	
 		}
 
 	}
 
 	// initialize
-	new LocalData();
+	$initializeLocalData = new LocalData();
 
 // class_exists check
 endif;

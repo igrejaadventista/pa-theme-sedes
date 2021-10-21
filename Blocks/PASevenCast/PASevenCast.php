@@ -17,7 +17,7 @@ class PASevenCast extends Block {
 		// Set block settings
 		parent::__construct([
 			'title' 	  => 'IASD - 7Cast',
-			'description' => 'Lista de podcasts',
+			'description' => 'Block to show 7cast content in list format.',
 			'category' 	  => 'pa-adventista',
 			'keywords' 	  => ['podcast', '7', 'seven'],
 			'icon' 		  => 'microphone',
@@ -35,10 +35,10 @@ class PASevenCast extends Block {
 
 		return array_merge(
 			[
-				Text::make('Título', 'title')
+				Text::make(__('Title', 'iasd'), 'title')
 					->defaultValue('IASD - 7Cast'),
 
-				RemoteData::make('Itens', 'items')
+				RemoteData::make(__('Itens', 'iasd'), 'items')
 					->endpoints([
 						$api
 						

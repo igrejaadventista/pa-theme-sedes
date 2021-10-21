@@ -94,8 +94,8 @@ if(!class_exists('RemoteData')):
 			endif;
 
 			\acf_render_field_setting($field, array(
-				'label'		   => __('Endpoints', 'acf'),
-				'instructions' => __('Defina os endpoints de onde as informações serão buscadas', 'acf'),
+				'label'		   => __('Endpoints', 'iasd'),
+				'instructions' => __('Endpoint where the content will be catch.', 'iasd'),
 				'type' 		   => 'select',
 				'name' 		   => 'endpoints',
 				'placeholder'  => 'https://website.com/wp-json/wp/v2/posts',
@@ -103,12 +103,12 @@ if(!class_exists('RemoteData')):
 				'ui'		   => 1,
 				'allow_null'   => 0,
 				'required'	   => 1,
-				'placeholder'  => __('Digite as urls', 'acf'),
+				'placeholder'  => __('Write the URLs', 'iasd'),
 			));
 
 			\acf_render_field_setting($field, array(
-				'label'			=> __('Quantidade', 'acf'),
-				'instructions'	=> 'Quantidade de itens a ser retornado pela API',
+				'label'			=> __('Quantity', 'iasd'),
+				'instructions'	=> 'API number of itens.',
 				'type'			=> 'number',
 				'name'			=> 'limit',
 				'min'			=> 1,
@@ -118,7 +118,7 @@ if(!class_exists('RemoteData')):
 			));
 
 			\acf_render_field_setting($field, array(
-				'label'			=> __('Filtrar campos?', 'acf'),
+				'label'			=> __('Filter field?', 'iasd'),
 				'type'			=> 'true_false',
 				'name'			=> 'filter_fields',
 				'ui'			=> 1,
@@ -126,15 +126,15 @@ if(!class_exists('RemoteData')):
 			));
 
 			\acf_render_field_setting($field, array(
-				'label'			=> __('Campos', 'acf'),
-				'instructions'	=> 'Defina quais campos deverão ser retornados da API. Os campos id e title já são retornados automaticamente',
+				'label'			=> __('Fields', 'iasd'),
+				'instructions'	=> 'Define which fields should be returned from the API. The id and title fields are already returned automatically.',
 				'type'			=> 'select',
 				'name'			=> 'fields',
 				'choices'		=> $choices,
 				'multiple'		=> 1,
 				'ui'			=> 1,
 				'allow_null'	=> 0,
-				'placeholder'	=> __('Digite os nomes dos campos', 'acf'),
+				'placeholder'	=> __('Write the fields names.', 'iasd'),
 			));
 
 			$taxonomies = \get_taxonomies(['_builtin' => false], 'objects');
@@ -144,19 +144,19 @@ if(!class_exists('RemoteData')):
 				$choices[$taxonomy->name] = $taxonomy->label;
 
 			\acf_render_field_setting($field, array(
-				'label'			=> __('Taxonomias', 'acf'),
-				'instructions'	=> 'Defina quais taxonomias estarão disponíveis nos filtros',
+				'label'			=> __('Taxonomies', 'iasd'),
+				'instructions'	=> 'Define which taxonomies will be available in filters.',
 				'type'			=> 'select',
 				'name'			=> 'taxonomies',
 				'choices'		=> $choices,
 				'multiple'		=> 1,
 				'ui'			=> 1,
 				'allow_null'	=> 0,
-				'placeholder'	=> __('Selecione as taxonomias', 'acf'),
+				'placeholder'	=> __('Select the taxonomies.', 'iasd'),
 			));
 
 			\acf_render_field_setting($field, array(
-				'label'			=> __('Habilitar Busca?', 'acf'),
+				'label'			=> __('Enable: Search?', 'iasd'),
 				'type'			=> 'true_false',
 				'name'			=> 'search_filter',
 				'ui'			=> 1,
@@ -164,7 +164,7 @@ if(!class_exists('RemoteData')):
 			));
 
 			\acf_render_field_setting($field, array(
-				'label'			=> __('Habilitar quantidade de itens?', 'acf'),
+				'label'			=> __('Enable: Number of itens?', 'iasd'),
 				'type'			=> 'true_false',
 				'name'			=> 'limit_filter',
 				'ui'			=> 1,
@@ -172,7 +172,7 @@ if(!class_exists('RemoteData')):
 			));
 
 			\acf_render_field_setting($field, array(
-				'label'			=> __('Habilitar fixar itens?', 'acf'),
+				'label'			=> __('Enable: Sticky itens?', 'iasd'),
 				'type'			=> 'true_false',
 				'name'			=> 'can_sticky',
 				'ui'			=> 1,
@@ -180,7 +180,7 @@ if(!class_exists('RemoteData')):
 			));
 
 			\acf_render_field_setting($field, array(
-				'label'			=> __('Habilitar conteúdo manual?', 'acf'),
+				'label'			=> __('Enable: Manual content?', 'iasd'),
 				'type'			=> 'true_false',
 				'name'			=> 'manual_items',
 				'ui'			=> 1,
@@ -196,7 +196,7 @@ if(!class_exists('RemoteData')):
 			?>
 				<tr class="acf-field acf-field-setting-sub_fields" data-setting="group" data-name="sub_fields">
 					<td class="acf-label">
-						<label><?= __('Campos de conteúdo manual', 'acf'); ?></label>
+						<label><?= __('Manual content fields', 'iasd'); ?></label>
 					</td>
 					<td class="acf-input">
 						<?php \acf_get_view('field-group-fields', $args); ?>
@@ -250,10 +250,10 @@ if(!class_exists('RemoteData')):
 
 				<div class="action-toolbar">
 					<?php if(!empty($field['manual_items'])): ?>
-						<button type="button" class="buttonAddManualPost disabled acf-js-tooltip" data-action="manual-new-post" title="Adicionar item de forma manual" disabled>Adicionar</button>
+						<button type="button" class="buttonAddManualPost disabled acf-js-tooltip" data-action="manual-new-post" title="<?= _e('Add manual itens', 'iasd'); ?>" disabled><?= _e('Add', 'iasd'); ?></button>
 					<?php endif; ?>
 
-					<button type="button" class="buttonUpdateTaxonomies acf-js-tooltip" data-action="refresh" title="Atualizar resultados" aria-label="Atualizar resultados">
+					<button type="button" class="buttonUpdateTaxonomies acf-js-tooltip" data-action="refresh" title="<?= _e('Refresh', 'iasd'); ?>" aria-label="<?= _e('Refresh', 'iasd'); ?>">
 						<svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" aria-hidden="true" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
 							<polyline points="23 4 23 10 17 10"></polyline>
 							<polyline points="1 20 1 14 7 14"></polyline>
@@ -265,7 +265,7 @@ if(!class_exists('RemoteData')):
 				<div class="filters -f3">
 					<?php if(!empty($field['search_filter'])): ?>
 						<div class="filter -search">
-							<?php acf_text_input(array('placeholder' => __('Search...', 'acf'), 'data-filter' => 's')); ?>
+							<?php acf_text_input(array('placeholder' => __('Search...', 'iasd'), 'data-filter' => 's')); ?>
 							<i class="acf-loading"></i>
 							<a href="#" class="button-clear acf-icon -cancel acf-js-tooltip" data-action="clear" title="Limpar"></a>
 						</div>
@@ -274,14 +274,14 @@ if(!class_exists('RemoteData')):
 					<?php if(!empty($field['limit_filter'])): ?>
 						<div class="filter -limit">
 							<label>
-								<span class="acf-js-tooltip" title="Quantidade de itens a ser exibido.">Quantidade</span>
+								<span class="acf-js-tooltip" title="<?= _e('Number of items to be displayed.', 'iasd'); ?>"><?= _e('Quantity', 'iasd'); ?></span>
 								<?php acf_text_input(array('name' => $field['name'] . "[limit]", 'value' => isset($values['limit']) ? $values['limit'] : $field['limit'], 'type' => 'number', 'step' => 1, 'min' => 1, 'max' => 100, 'data-limit' => '', 'data-filter' => 'limit')); ?>
 							</label>
 						</div>
 					<?php endif; ?>
 
 					<?php if(count($endpointsChoices) > 1): ?>
-						<div class="filter -endpoint filter__endpoint acf-js-tooltip" title="Filtrar por tipo de conteúdo.<br />Obs: itens fixados não são afetados por esse filtro.">
+						<div class="filter -endpoint filter__endpoint acf-js-tooltip" title="<?= _e('Filter by post type.<br />Obs: Fixed items are not affected by this filter.', 'iasd'); ?>">
 							<?php
 								acf_select_input(
 									array(
@@ -341,16 +341,16 @@ if(!class_exists('RemoteData')):
 
 						<div class="taxonomy-row" style="display: none;">
 							<label>
-								<span class="acf-js-tooltip" title="Quantidade de itens a ser exibido. De 1 a 100">Taxonomia</span>
+								<span class="acf-js-tooltip" title="<?= _e('Number of itens to be displayed. From 1 to 100.', 'iasd'); ?>"><? _e('Taxonomie', 'iasd'); ?></span>
 								<?php acf_select_input(array('data-taxonomy' => '')); ?>
 							</label>
 
 							<label>
-								<span class="acf-js-tooltip" title="Quantidade de itens a ser exibido. De 1 a 100">Termos</span>
-								<?php acf_select_input(array('placeholder' => 'Selecione os termos desejados', 'data-terms' => '', 'multiple' => '')); ?>
+								<span class="acf-js-tooltip" title="<?= _e('Number of itens to be displayed. From 1 to 100.', 'iasd'); ?>"><?= _e('Terms', 'iasd'); ?></span>
+								<?php acf_select_input(array('placeholder' => __('Select the wanted terms:', 'iasd'), 'data-terms' => '', 'multiple' => '')); ?>
 							</label>
 
-							<a href="#" class="acf-icon -minus remove-taxonomy-filter acf-js-tooltip" data-action="remove-taxonomy" title="Remover taxonomia"></a>
+							<a href="#" class="acf-icon -minus remove-taxonomy-filter acf-js-tooltip" data-action="remove-taxonomy" title="<? _e('Remove taxonomie', 'iasd'); ?>"></a>
 						</div>
 
 						<?php
@@ -366,16 +366,16 @@ if(!class_exists('RemoteData')):
 						?>
 								<div class="taxonomy-row">
 									<label>
-										<span class="acf-js-tooltip" title="Quantidade de itens a ser exibido. De 1 a 100">Taxonomia</span>
+										<span class="acf-js-tooltip" title="<?= _e('Number of itens to be displayed. From 1 to 100.', 'iasd'); ?>"><? _e('Taxonomie', 'iasd'); ?></span>
 										<?php acf_select_input(array('data-taxonomy' => '', 'choices' => $choicesTaxonomies, 'value' => $taxonomy)); ?>
 									</label>
 
 									<label>
-										<span class="acf-js-tooltip" title="Quantidade de itens a ser exibido. De 1 a 100">Termos</span>
-										<?php acf_select_input(array('placeholder' => 'Selecione os termos desejados', 'choices' => $taxonomies[$taxonomy]['terms'], 'value' => $values['terms'][$key], 'data-terms' => '', 'multiple' => '')); ?>
+										<span class="acf-js-tooltip" title="<?= _e('Number of itens to be displayed. From 1 to 100.', 'iasd'); ?>"><?= _e('Terms', 'iasd'); ?></span>
+										<?php acf_select_input(array('placeholder' => __('Select the wanted terms:', 'iasd'), 'choices' => $taxonomies[$taxonomy]['terms'], 'value' => $values['terms'][$key], 'data-terms' => '', 'multiple' => '')); ?>
 									</label>
 
-									<a href="#" class="acf-icon -minus remove-taxonomy-filter acf-js-tooltip" data-action="remove-taxonomy" title="Remover taxonomia"></a>
+									<a href="#" class="acf-icon -minus remove-taxonomy-filter acf-js-tooltip" data-action="remove-taxonomy" title="<? _e('Remove taxonomie', 'iasd'); ?>"></a>
 								</div>
 						<?php
 							endforeach;
@@ -383,7 +383,7 @@ if(!class_exists('RemoteData')):
 						?>
 
 						<div class="add-container">
-							<a href="#" class="acf-icon -plus dark acf-js-tooltip" data-action="add-taxonomy" title="Adicionar taxonomia"></a>
+							<a href="#" class="acf-icon -plus dark acf-js-tooltip" data-action="add-taxonomy" title="<?= _e('Add taxonomie', 'iasd'); ?>"></a>
 						</div>
 					</div>
 
@@ -392,7 +392,7 @@ if(!class_exists('RemoteData')):
 				<div class="selection">
 					<div class="choices">
 						<div class="list-tile">
-							<span>Resultados</span>
+							<span><?= _e('Results', 'iasd'); ?></span>
 						</div>
 						
 						<ul class="acf-bl list remote-list choices-list"></ul>
@@ -401,11 +401,11 @@ if(!class_exists('RemoteData')):
 						<ul class="acf-bl list sticky-list"></ul>
 
 						<div class="list-tile">
-							<span>Fixados</span>
+							<span><?= _e('Sticky', 'iasd'); ?></span>
 						</div>
 
 						<div class="list-tile">
-							<span>Recentes</span>
+							<span><?= _e('Recents', 'iasd'); ?></span>
 						</div>
 						<ul class="acf-bl list values-list"></ul>
 					</div>
@@ -587,13 +587,8 @@ if(!class_exists('RemoteData')):
 						$queryArgs["$taxonomy-tax"] = implode(',', $options['terms'][$key]);
 				endif;
 
-				// Tests
-				// $queryArgs['xtt-pa-sedes-tax'] = 'usb';
-
 				if(!empty($stickyItemsFilter))
 					$queryArgs['exclude'] = implode(',', $stickyItemsFilter);
-
-				// die(var_dump(\add_query_arg(array_merge($queryArgs, ['orderby' => 'date']), $url)));
 
 				$response = \wp_remote_get(\add_query_arg(array_merge($queryArgs, ['orderby' => 'date']), $url));
 				$responseCode = \wp_remote_retrieve_response_code($response);
@@ -606,12 +601,10 @@ if(!class_exists('RemoteData')):
 			self::parseResults($results);
 			
 			// vars
-			$response = array(
+			return array(
 				'results' => $results,
 				'data'	  => json_encode($results),
 			);
-
-			return $response;
 		}
 
 		static function parseResults(&$results) {
@@ -648,14 +641,14 @@ if(!class_exists('RemoteData')):
 			$fixedFields = array();
 			$fixedFields[] = array(
 				'key' => $options['field_key'] . '_title',
-				'label' => 'Título',
+				'label' => __('Title', 'iasd'),
 				'name' => 'title',
 				'type' => 'text',
 				'required' => 1,
 			);
 			$fixedFields[] = array(
 				'key' => $options['field_key'] . '_link',
-				'label' => 'Link',
+				'label' => __('Link', 'iasd'),
 				'name' => 'link',
 				'type' => 'link',
 				'required' => 1,
@@ -667,7 +660,7 @@ if(!class_exists('RemoteData')):
 			if(empty($field['hide_fields']) || !in_array('featured_media_url', $field['hide_fields'])):
 				$fixedFields[] = array(
 					'key' => $options['field_key'] . '_thumbnail',
-					'label' => 'Thumbnail',
+					'label' => __('Thumbnail', 'iasd'),
 					'name' => 'featured_media_url',
 					'type' => 'image',
 					'required' => 1,
@@ -680,7 +673,7 @@ if(!class_exists('RemoteData')):
 			if(empty($field['hide_fields']) || !in_array('content', $field['hide_fields'])):
 				$fixedFields[] = array(
 					'key' => $options['field_key'] . '_content',
-					'label' => 'Resumo',
+					'label' => __('Excerpt', 'iasd'),
 					'name' => 'content',
 					'type' => 'textarea',
 					'rows' => 3,
@@ -703,12 +696,14 @@ if(!class_exists('RemoteData')):
 							$sub_field['value'] = $options['data'][$sub_field['name']];
 					endif;
 				endforeach;
+        unset($sub_field);
 			endif;
 
 			echo '<div class="acf-fields -top -border">';
 				foreach($field['sub_fields'] as &$sub_field):
 					acf_render_field_wrap($sub_field);
 				endforeach;
+        unset($sub_field);
 			echo '</div>';
 		}
 
@@ -797,7 +792,6 @@ if(!class_exists('RemoteData')):
 				// strip slashes (search may be integer)
 				$queryArgs['search'] = wp_unslash(strval($options['s']));
 
-			// die(var_dump(\add_query_arg($queryArgs, $url)));
 
 			$response = \wp_remote_get(\add_query_arg($queryArgs, $url));
 			$responseCode = \wp_remote_retrieve_response_code($response);
@@ -809,18 +803,17 @@ if(!class_exists('RemoteData')):
 			self::parseResults($results);
 
 			// vars
-			$response = array(
+			return array(
 				'results'	=> $results,
 				'data'		=> json_encode($results),
 			);
-
-			return $response;
 		}
+
 
 	}
 
 	// initialize
-	new RemoteData();
+	$initializeRemoteData = new RemoteData();
 
 // class_exists check
 endif;

@@ -16,8 +16,8 @@ class PAApps extends Block {
     public function __construct() {
 		// Set block settings
         parent::__construct([
-            'title' 	  => 'IASD - Apps',
-            'description' => 'App',
+            'title' 	  => __('IASD - Apps', 'iasd'),
+            'description' => __('App', 'iasd'),
             'category' 	  => 'pa-adventista',
 			'keywords' 	  => ['app', 'download'],
 			'icon' 		  => '<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
@@ -217,10 +217,10 @@ class PAApps extends Block {
 	 */
 	protected function setFields(): array {
 		return [
-			Text::make('Título', 'title')
-				->defaultValue('IASD - Apps'),
-			Textarea::make('Descrição', 'description'),
-			Link::make('Botão', 'link'),
+			Text::make(__('Title', 'iasd'), 'title')
+				->defaultValue(__('IASD - Apps', 'iasd')),
+			Textarea::make(__('Description', 'iasd'), 'description'),
+			Link::make(__('Button', 'iasd'), 'link'),
 		];
 	}
 	    

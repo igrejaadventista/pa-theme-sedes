@@ -6,7 +6,7 @@
 <header class="pa-menu" id="topo">
     <div class="pa-menu-desktop container d-none d-xl-block">
         <div class="row g-0 h-100">
-            <div class="col-auto d-flex align-items-center">
+            <div class="col-auto d-flex align-items-center pa-header-logo">
                 <a href="<?= get_home_url(); ?>" class="py-3 w-auto h-100">
                     <img src="<?= get_template_directory_uri() . "/assets/sedes/" . LANG . "/" . $campo->slug . ".svg" ?>" alt="<?= !empty($campo->name) ? $campo->name : '' ?>" title="<?= !empty($campo->name) ? $campo->name : '' ?>" class="h-100 w-auto">
                 </a>
@@ -20,15 +20,18 @@
 									<a class="nav-link" href="<?= $item->url ?>" title="<?= $item->title ?>" target="<?= !empty($item->target) ? $item->target : '_self' ?>"><?= $item->title ?></a>
 								</li>
 							<?php endforeach; ?>
+                            <li class="nav-item">
+                                <a class="nav-link pa-search" href="<?= get_home_url(); ?>/busca" title="<?php esc_attr_e('Search', 'iasd'); ?>"><i class="fas fa-search me-1"></i><?php esc_attr_e('Search', 'iasd'); ?></a>
+                            </li>
 						<?php endif; ?>
 						
-						<li class="nav-item dropdown">
+						<li class="nav-item dropdown pa-menu-lang">
 							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 								PT
 							</a>
 							<ul class="dropdown-menu p-0">
-								<li class=""><a class="dropdown-item" href="#">PT</a></li>
-								<li class=""><a class="dropdown-item" href="#">ES</a></li>
+								<li class=""><a class="dropdown-item" href="/pt">PT</a></li>
+								<li class=""><a class="dropdown-item" href="/es">ES</a></li>
 							</ul>
 						</li>
 					</ul>

@@ -3,13 +3,25 @@
 class PaThemeHelpers {
 
 	public function __construct(){
-		add_action( 'after_setup_theme', [$this, 'themeSupport'] );
-		add_action( 'wp_enqueue_scripts', [$this, 'registerAssets'] );
-		add_action( 'admin_enqueue_scripts', [$this, 'registerAssetsAdmin'] );
-		add_filter( 'nav_menu_css_class' , [$this, 'specialNavClass'], 10 , 2);
-		add_filter( 'after_setup_theme' , [$this, 'getInfoLang'], 10 , 2);
+		add_action('after_setup_theme', [$this, 'themeSupport'] );
+		add_action('wp_enqueue_scripts', [$this, 'registerAssets'] );
+		add_action('admin_enqueue_scripts', [$this, 'registerAssetsAdmin'] );
+		add_filter('nav_menu_css_class' , [$this, 'specialNavClass'], 10 , 2);
+		add_filter('after_setup_theme' , [$this, 'getInfoLang'], 10 , 2);
+		add_filter('body_class', [$this, 'bodyClass'] );
+		add_action('init', [$this, 'unregisterTaxonomy'] );
+		add_action('PA-update_menu_global', [$this, 'setGlobalMenu']);
+		add_action('PA-update_banner_global', [$this, 'setGlobalBanner']);
 
-		//add_action( 'init', [$this, 'unregisterTaxonomy'] );
+		if ( ! wp_next_scheduled( 'PA-update_menu_global' ) ) {
+			wp_schedule_event( time(), 'hourly', 'PA-update_menu_global' );
+		}
+
+		if ( ! wp_next_scheduled( 'PA-update_banner_global' ) ) {
+			wp_schedule_event( time(), 'hourly', 'PA-update_banner_global' );
+		}
+
+		define( 'LANG', $this->getInfoLang() );
 	}
 
 	function themeSupport() {
@@ -27,8 +39,8 @@ class PaThemeHelpers {
 		remove_filter( 'comment_text_rss', 'wp_staticize_emoji' );	
 		remove_filter( 'wp_mail', 'wp_staticize_emoji_for_email' );
 
-		
-		
+		load_theme_textdomain('iasd', get_template_directory() . '/language/');
+
 		// Remove from TinyMCE
 		// add_filter( 'tiny_mce_plugins', 'disable_emojis_tinymce' );
 	
@@ -62,24 +74,21 @@ class PaThemeHelpers {
 		wp_enqueue_script( 'scripts-admin', get_template_directory_uri() . '/assets/scripts/script_admin.js', array(), false, true );
 	}
 
-	function specialNavClass($classes, $item){
+	function specialNavClass($classes){
 		if( in_array('current-menu-item', $classes) ){
 				$classes[] = 'active ';
 		}
 		return $classes;
 	}
 
-	function getInfoLang(){
-
+	function getInfoLang(){	
 		if(defined('WPLANG')){
 			$lang = WPLANG;
-		}elseif(get_locale()){
+		} elseif (get_locale()){
 			$lang = get_locale();
 		}
-		
 		$lang = substr($lang, 0,2);
-		define( 'LANG', $lang );
-	
+
 		return $lang;
 	}
 
@@ -90,13 +99,53 @@ class PaThemeHelpers {
 	 * @return mixed Menu data or null
 	 */
 	static function getGlobalMenu(string $name) {
-		if(empty($name))
-			return;
+    
+		if(empty($name)){
+			return null;
+		}
+			
+    if(!get_option('menu_'.$name)){
+      self::setGlobalMenu();
+    } 
+     
+    return get_option('menu_'.$name);
+    
+		
+	}
 
-		$json = file_get_contents( "https://". API_PA ."/tax/". LANG ."/menus/{$name}");
+	static function setGlobalMenu() {
+		$menus = ['global-header', 'global-footer'];
 
-		return json_decode($json);
+		foreach($menus as $name) {
+			$json = file_get_contents( "https://". API_PA ."/tax/". LANG ."/menus/{$name}");
+			$json_content = json_decode($json);
+			add_option('menu_'.$name, $json_content, '', 'yes');
+		}
+	}
+
+	static function getGlobalBanner() {
+
+    if(!get_option('banner_global')){
+      self::setGlobalBanner();
+    } 
+		return get_option('banner_global');
+	}
+
+	static function setGlobalBanner() {
+		$json = file_get_contents( "https://". API_PA ."/tax/". LANG ."/banner");
+		$json_content = json_decode($json);
+		add_option('banner_global', $json_content, '', 'yes');
 	}
 	
+	function bodyClass( $classes ) {
+
+		if (get_field('departamento', 'option')){
+			$classes[] = get_field('departamento', 'option');
+		}
+
+		$classes[] = LANG;
+		
+		return $classes;	
+	}
 }
 $PaThemeHelpers = new PaThemeHelpers();

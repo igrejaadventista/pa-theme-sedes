@@ -15,7 +15,7 @@ class PaMenuWalker extends Walker_Nav_Menu
 		$output .= "\n$indent<ul role=\"menu\" class=\" dropdown-menu pa-split-column-2 p-4\">\n";
 	}
 
-	public function start_el( &$output, $item, $depth = 0, $args = array(), $id = 0 ) {
+	public function start_el( &$output, $item, $depth = 0, $args = array(), $id = 0) {
 		$args = (object) $args;
 		$indent = ( $depth ) ? str_repeat( "\t", $depth ) : '';
 
@@ -35,11 +35,11 @@ class PaMenuWalker extends Walker_Nav_Menu
 		/*if there aren't any class names, don't show class attribute*/
 		$class_names = $class_names ? ' class="nav-item ' . esc_attr( $class_names ) . '"' : '';
 
-		$id = apply_filters( 'nav_menu_item_id', 'menu-item-'. $item->ID, $item, $args );
-		$id = $id ? ' id="' . esc_attr( $id ) . '"' : '';
+		$id_before = apply_filters( 'nav_menu_item_id', 'menu-item-'. $item->ID, $item, $args );
+		$id_after = $id_before ? ' id="' . esc_attr( $id_before ) . '"' : '';
 
 
-		$output .= $indent . '<li' . $id . $value . $class_names .'>';
+		$output .= $indent . '<li' . $id_after . $value . $class_names .'>';
 
 		$atts = array();
 		$atts['title']  = ! empty( $item->title )	? $item->title	: '';

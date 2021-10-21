@@ -24,28 +24,13 @@ require_once (dirname(__FILE__) . '/Fields/TaxonomyTerms.php');
 // CORE INSTALL
 require_once (dirname(__FILE__) . '/core/PA_Theme_Sedes_Install.php');
 
-new Blocks\Blocks;
+$Blocks = new Blocks\Blocks;
 
 function pa_wp_custom_menus() {
-	register_nav_menu('pa-menu-default', __( 'PA - Menu - Default' ));
+	register_nav_menu('pa-menu-default', __( 'PA - Menu - Default', 'iasd' ));
 }
 add_action( 'init', 'pa_wp_custom_menus' );
 
-
-
-//Função auxiliar para imprimir no console o print_r.
-// function pconsole($var) {
-
-// 	$s = json_encode($var);
-// 	echo "<script>console.log(". $s . ");</script>";
-// 	return;
-// }
-// Função auxiliar para imprimir no console o echo.
-// function cconsole($var) {
-
-// 	echo "<script>console.log('" . $var . "');</script>";
-// 	return;
-// }
 
 if(file_exists(get_stylesheet_directory() . '/classes/PA_Directives.php'))
     require_once(get_stylesheet_directory() . '/classes/PA_Directives.php');

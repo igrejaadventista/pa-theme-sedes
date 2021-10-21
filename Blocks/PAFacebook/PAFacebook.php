@@ -15,8 +15,8 @@ class PAFacebook extends Block {
     public function __construct() {
 		// Set block settings
         parent::__construct([
-            'title' 	  => 'IASD - Facebook',
-            'description' => 'Incorpore componentes de uma Página do Facebook',
+            'title' 	  => __('IASD - Facebook', 'iasd'),
+            'description' => __('IASD Facebok block.', 'iasd'),
             'category' 	  => 'pa-adventista',
 			'keywords' 	  => ['facebook', 'embeded'],
 			'icon' 		  => 'facebook-alt',
@@ -31,10 +31,10 @@ class PAFacebook extends Block {
 	protected function setFields(): array {
 		return 
 			[
-				Text::make('Título', 'title')
-					->defaultValue('IASD - Facebook'),
+				Text::make(__('Title', 'iasd'), 'title')
+					->defaultValue(__('IASD - Facebook', 'iasd')),
                 Url::make('Url', 'url')
-					->instructions('URL da página do Facebook'),
+					->instructions(__('Facebook page URL.', 'iasd')),
 			];
 	}
 	    
