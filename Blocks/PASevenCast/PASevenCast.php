@@ -3,8 +3,8 @@
 namespace Blocks\PASevenCast;
 
 use Blocks\Block;
-use Blocks\Extended\RemoteData;
-use Blocks\Fields\MoreContent;
+use Extended\RemoteData;
+use Fields\MoreContent;
 use WordPlate\Acf\Fields\Text;
 
 /**

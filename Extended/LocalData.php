@@ -1,6 +1,6 @@
 <?php
 
-namespace Blocks\Extended;
+namespace Extended;
 
 use WordPlate\Acf\Fields\Field;
 use WordPlate\Acf\Fields\Attributes\ConditionalLogic;
@@ -113,5 +113,17 @@ class LocalData extends Field {
 
         return $this;
     }
+
+  /**
+	 * filterTaxonomies Set which taxonomies will be available in filters
+	 *
+	 * @param  array $values Taxonomies slugs
+	 * @return self
+	 */
+	public function filterTaxonomies(array $values): self {
+    $this->config->set('taxonomies', $values);
+
+    return $this;
+  }
 
 }

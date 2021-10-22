@@ -3,7 +3,7 @@
 namespace Blocks\PAFeliz7Play;
 
 use Blocks\Block;
-use Blocks\Extended\RemoteData;
+use Extended\RemoteData;
 
 /**
  * Class PAFeliz7Play

@@ -3,7 +3,7 @@
 namespace Blocks\PACarouselDownloads;
 
 use Blocks\Block;
-use Blocks\Extended\RemoteData;
+use Extended\RemoteData;
 use WordPlate\Acf\Fields\Text;
 
 /**
