@@ -12,13 +12,13 @@ function PA_Register_Sliders_Home_Post_Type()
 {
 
   $labels = array(
-    'name' => __('Sliders Home', 'iasd'),
-    'singular_name' => __('Slider Home', 'iasd'),
+    'name' => _x('Sliders Home', 'Nome do post genérico'),
+    'singular_name' => _x('Slider Home', 'Nome do post no singular'),
   );
 
   $args = array(
     'labels' => $labels,
-    'description' => __('Front Page Slider Home', 'iasd'),
+    'description' => 'Sliders da Página Inicial',
     'public' => true
   );
 

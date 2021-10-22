@@ -43,8 +43,8 @@ class Blocks
 
         \add_filter('cron_schedules', array($this, 'cronAdd'));
 
-        if (!\wp_next_scheduled('update_remote_data')) {
-            \wp_schedule_event(time(), 'five_minutes', 'update_remote_data');
+        if (!\wp_next_scheduled('PA-update_remote_data')) {
+            \wp_schedule_event(time(), 'five_minutes', 'PA-update_remote_data');
         }
 
         \add_action('update_remote_data', array($this, 'UpdateRemoteData'));
