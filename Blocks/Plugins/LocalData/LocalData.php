@@ -44,6 +44,8 @@ if(!class_exists('LocalData')):
 			\add_action('wp_ajax_acf/fields/localposts_data/search', array($this, 'searchAjax'));
 			\add_action('wp_ajax_acf/fields/localposts_data/modal',	 array($this, 'modalAjax'));
 
+      \acf_add_filter_variations('acf/fields/localposts_data/query', array('name', 'key'), 1);
+
 			// do not delete!
 			parent::__construct();
 		}
@@ -102,6 +104,24 @@ if(!class_exists('LocalData')):
 				'ui'			=> 1,
 				'allow_null'	=> 1,
 				'placeholder'	=> __("All post types", 'acf'),
+			));
+
+      $taxonomies = \get_taxonomies(['_builtin' => false], 'objects');
+			$choices = [];
+
+			foreach($taxonomies as $taxonomy)
+				$choices[$taxonomy->name] = $taxonomy->label;
+
+			\acf_render_field_setting($field, array(
+				'label'			=> __('Taxonomias', 'acf'),
+				'instructions'	=> 'Defina quais taxonomias estarão disponíveis nos filtros',
+				'type'			=> 'select',
+				'name'			=> 'taxonomies',
+				'choices'		=> $choices,
+				'multiple'		=> 1,
+				'ui'			=> 1,
+				'allow_null'	=> 0,
+				'placeholder'	=> __('Selecione as taxonomias', 'acf'),
 			));
 
 			\acf_render_field_setting($field, array(
@@ -246,7 +266,101 @@ if(!class_exists('LocalData')):
 							</div>
 						<?php endif; ?>
 
+            <?php if (!empty($field['taxonomies'])) : ?>
+              <div class="filter -taxonomies">
+                <button type="button" aria-expanded="false" class="components-button components-panel__body-toggle">
+                  Filtros
+                  <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="components-panel__arrow" role="img" aria-hidden="true" focusable="false">
+                    <path d="M17.5 11.6L12 16l-5.5-4.4.9-1.2L12 14l4.5-3.6 1 1.2z"></path>
+                  </svg>
+                </button>
+              </div>
+            <?php endif; ?>
 					</div>
+
+          <?php
+				if(!empty($field['taxonomies'])):
+					$taxonomies = [];
+
+					foreach($field['taxonomies'] as $tax):
+						$taxonomy = get_taxonomy($tax);
+
+						if(empty($taxonomy))
+							continue;
+
+						$taxonomies[$tax] = [];
+						$taxonomies[$tax]['label'] = $taxonomy->label;
+						$taxonomies[$tax]['terms'] = [];
+
+						$terms = get_terms(array(
+							'taxonomy' 	 => $tax,
+							'hide_empty' => false,
+						));
+
+						if(is_wp_error($terms))
+							continue;
+
+						foreach($terms as $term)
+							$taxonomies[$tax]['terms'][$term->slug] = $term->name;
+					endforeach;
+				?>
+
+					<div class="taxonomies-selection" data-taxonomies='<?= json_encode($taxonomies) ?>'>
+          
+            <?php acf_text_input(array('name' => $field['name'] . "[taxonomies]", 'value' => isset($values['taxonomies']) ? $values['taxonomies'] : '', 'type' => 'hidden', 'data-taxonomies-value' => '')); ?>
+            <?php acf_text_input(array('name' => $field['name'] . "[terms]", 'value' => isset($values['terms']) ? $values['terms'] : '', 'type' => 'hidden', 'data-terms-value' => '')); ?>
+
+						<div class="taxonomy-row" style="display: none;">
+							<label>
+								<span class="acf-js-tooltip" title="Quantidade de itens a ser exibido. De 1 a 100">Taxonomia</span>
+								<?php acf_select_input(array('data-taxonomy' => '')); ?>
+							</label>
+
+							<label>
+								<span class="acf-js-tooltip" title="Quantidade de itens a ser exibido. De 1 a 100">Termos</span>
+								<?php acf_select_input(array('placeholder' => 'Selecione os termos desejados', 'data-terms' => '', 'multiple' => '')); ?>
+							</label>
+
+							<a href="#" class="acf-icon -minus remove-taxonomy-filter acf-js-tooltip" data-action="remove-taxonomy" title="Remover taxonomia"></a>
+						</div>
+
+						<?php
+						if(!empty($values['taxonomies'])) :
+              
+							$choicesTaxonomies = [];
+							foreach ($taxonomies as $key => $value)
+								$choicesTaxonomies[$key] = $value['label'];
+
+                
+              $values['taxonomies'] = json_decode($values['taxonomies']);
+              $values['terms'] = json_decode($values['terms']);
+              
+							foreach ($values['taxonomies'] as $key => $taxonomy) :
+						?>
+								<div class="taxonomy-row">
+									<label>
+										<span class="acf-js-tooltip" title="Quantidade de itens a ser exibido. De 1 a 100">Taxonomia</span>
+										<?php acf_select_input(array('data-taxonomy' => '', 'choices' => $choicesTaxonomies, 'value' => $taxonomy)); ?>
+									</label>
+
+									<label>
+										<span class="acf-js-tooltip" title="Quantidade de itens a ser exibido. De 1 a 100">Termos</span>
+										<?php acf_select_input(array('placeholder' => 'Selecione os termos desejados', 'choices' => $taxonomies[$taxonomy]['terms'], 'value' => $values['terms'][$key], 'data-terms' => '', 'multiple' => '')); ?>
+									</label>
+
+									<a href="#" class="acf-icon -minus remove-taxonomy-filter acf-js-tooltip" data-action="remove-taxonomy" title="Remover taxonomia"></a>
+								</div>
+						<?php
+							endforeach;
+						endif;
+						?>
+
+						<div class="add-container">
+							<a href="#" class="acf-icon -plus dark acf-js-tooltip" data-action="add-taxonomy" title="Adicionar taxonomia"></a>
+						</div>
+					</div>
+
+				<?php endif; ?>
 
 					<div class="selection">
 						<div class="choices">
@@ -315,12 +429,24 @@ if(!class_exists('LocalData')):
 			if(!is_admin()):
 				$stickys = explode(',', $value['sticky']);
 
-				$data = $this->getData([
-					'limit' => $value['limit'],
+        $args = [
+					'limit' => isset($value['limit']) ? $value['limit'] : $field['limit'],
 					'sticky' => $value['sticky'],
 					'field_key' => $field['key'],
 					'post_type' => !empty($value['post_type_filter']) ? $value['post_type_filter'] : $value['post_type'],
-				]);
+				];
+
+        if(isset($value['taxonomies']) && isset($value['terms'])):  
+          if(!empty($value['taxonomies']) && !empty($value['terms'])):  
+            $value['taxonomies'] = json_decode($value['taxonomies']);
+            $value['terms'] = json_decode($value['terms']);
+
+            $args['taxonomies'] = $value['taxonomies'];
+            $args['terms'] = $value['terms'];
+          endif;
+        endif;
+
+				$data = $this->getData($args);
 
 				$posts = empty($manual) ? $data['results'] : array_merge($manual, $data['results']);
 				
@@ -404,7 +530,7 @@ if(!class_exists('LocalData')):
 		 */
 		function getData($options = array()) {
 			// defaults
-			$options = wp_parse_args($options, array(
+			$options = wp_parse_args($options, array( 
 				'sticky'		=> '',
 				'post_id'		=> 0,
 				'field_key'		=> '',
@@ -432,7 +558,7 @@ if(!class_exists('LocalData')):
 				return substr($v, 0, 1) !== 'm';
 			});
 
-			$limit = isset($options['limit']) ? $options['limit'] : 100;
+			$limit = isset($options['limit']) ? $options['limit'] : $field['limit'];
 			$args['posts_per_page'] = (int)$limit;
 			$args['posts_per_page'] = $args['posts_per_page'] - (count($stickyItems) - count($stickyItemsFilter));
 
@@ -469,11 +595,33 @@ if(!class_exists('LocalData')):
 				$args['posts_per_page'] = $args['posts_per_page'] - count($stickedArr);
 			endif;
 
+      if(isset($options['taxonomies']) && isset($options['terms'])):
+        $args['tax_query'] = array(
+          'relation' => 'AND',
+        );
+
+        foreach($options['taxonomies'] as $key => $taxonomy):
+          if(!array_key_exists($key, $options['terms']))
+            continue;
+
+          $args['tax_query'][] = array(
+            'taxonomy' => $taxonomy,
+            'field'    => 'slug',
+            'terms'    => $options['terms'][$key],
+          );
+        endforeach;
+      endif;
+
+      // filters
+	  		$args['post_status'] = 'publish';
+		  $args = \apply_filters('acf/fields/localposts_data/query', $args, $field, $options['post_id']);
+
 			if($args['posts_per_page'] > 0):
 				// get queried posts
-				$posts = get_posts($args);
-				if(!empty($posts)):
-					foreach($posts as $post)
+				$query = new \WP_Query($args);
+        
+				if(!empty($query->found_posts)):
+					foreach($query->posts as $post)
 						//  push data into $results
 						$results[] = $this->parsePost($post);
 				endif;

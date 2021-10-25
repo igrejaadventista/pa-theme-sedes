@@ -16,16 +16,16 @@ if(!class_exists('RemoteData')):
 	class RemoteData extends \acf_field {
 
 		/*
-        *  __construct
-        *
-        *  This function will setup the field type data
-        *
-        *  @type	function
-        *  @date	5/03/2014
-        *  @since	5.0.0
-        *
-        *  @return	n/a
-        */
+		*  __construct
+		*
+		*  This function will setup the field type data
+		*
+		*  @type	function
+		*  @date	5/03/2014
+		*  @since	5.0.0
+		*
+		*  @return	n/a
+		*/
 		function __construct() {
 			$this->name = 'remote_data';
 			$this->label = __('Remote data', 'acf-rest');
@@ -74,17 +74,17 @@ if(!class_exists('RemoteData')):
 
 
 		/*
-        *  render_field_settings()
-        *
-        *  Create extra settings for your field. These are visible when editing a field
-        *
-        *  @type	action
-        *  @since	3.6
-        *  @date	23/01/13
-        *
-        *  @param	$field (array) the $field being edited
-        *  @return	n/a
-        */
+		*  render_field_settings()
+		*
+		*  Create extra settings for your field. These are visible when editing a field
+		*
+		*  @type	action
+		*  @since	3.6
+		*  @date	23/01/13
+		*
+		*  @param	$field (array) the $field being edited
+		*  @return	n/a
+		*/
 		function render_field_settings($field) {
 			$field['limit'] = empty($field['limit']) ? '' : $field['limit'];
 			$choices = [];
@@ -206,18 +206,18 @@ if(!class_exists('RemoteData')):
 		}
 
 		/*
-        *  render_field()
-        *
-        *  Create the HTML interface for your field
-        *
-        *  @param	$field (array) the $field being rendered
-        *
-        *  @type	action
-        *  @since	3.6
-        *  @date	23/01/13
-        *
-        *  @return	n/a
-        */
+		*  render_field()
+		*
+		*  Create the HTML interface for your field
+		*
+		*  @param	$field (array) the $field being rendered
+		*
+		*  @type	action
+		*  @since	3.6
+		*  @date	23/01/13
+		*
+		*  @return	n/a
+		*/
 		function render_field($field) {
 			$values = get_field($field['key']);
 			$endpoints = acf_get_array($field['endpoints']);
@@ -335,6 +335,10 @@ if(!class_exists('RemoteData')):
 				?>
 
 					<div class="taxonomies-selection" data-taxonomies='<?= json_encode($taxonomies) ?>'>
+
+					<?php acf_text_input(array('name' => $field['name'] . "[taxonomies]", 'value' => isset($values['taxonomies']) ? $values['taxonomies'] : '', 'type' => 'hidden', 'data-taxonomies-value' => '')); ?>
+					<?php acf_text_input(array('name' => $field['name'] . "[terms]", 'value' => isset($values['terms']) ? $values['terms'] : '', 'type' => 'hidden', 'data-terms-value' => '')); ?>
+
 						<div class="taxonomy-row" style="display: none;">
 							<label>
 								<span class="acf-js-tooltip" title="<?= _e('Number of itens to be displayed. From 1 to 100.', 'iasd'); ?>"><? _e('Taxonomie', 'iasd'); ?></span>
@@ -355,8 +359,11 @@ if(!class_exists('RemoteData')):
 							foreach ($taxonomies as $key => $value)
 								$choicesTaxonomies[$key] = $value['label'];
 
+							$values['taxonomies'] = json_decode($values['taxonomies']);
+							$values['terms'] = json_decode($values['terms']);
+
 							foreach ($values['taxonomies'] as $key => $taxonomy) :
-						?>
+							?>
 								<div class="taxonomy-row">
 									<label>
 										<span class="acf-js-tooltip" title="<?= _e('Number of itens to be displayed. From 1 to 100.', 'iasd'); ?>"><? _e('Taxonomie', 'iasd'); ?></span>
@@ -449,6 +456,13 @@ if(!class_exists('RemoteData')):
 			$stickys = explode(',', $value['sticky']);
 
 			$posts = empty($manual) ? $data : array_merge($manual, $data);
+
+			if(isset($value['taxonomies']) && isset($value['terms'])):  
+				if(!empty($value['taxonomies']) && !empty($value['terms'])):  
+					$value['taxonomies'] = json_decode($value['taxonomies']);
+					$value['terms'] = json_decode($value['terms']);
+				endif;
+			endif;
 			
 			if(!empty($stickys)):
 				foreach($stickys as $sticky):
@@ -564,6 +578,11 @@ if(!class_exists('RemoteData')):
 				$queryArgs['per_page'] = count($stickyItems) <= $limit ? $limit - count($stickyItems) : $limit;
 
 				if(isset($options['taxonomies']) && isset($options['terms'])):
+		  			if(!is_array($options['taxonomies']))
+						$options['taxonomies'] = json_decode($options['taxonomies']);
+		  			if(!is_array($options['terms']))
+						$options['terms'] = json_decode($options['terms']);
+
 					foreach($options['taxonomies'] as $key => $taxonomy)
 						$queryArgs["$taxonomy-tax"] = implode(',', $options['terms'][$key]);
 				endif;
@@ -677,14 +696,14 @@ if(!class_exists('RemoteData')):
 							$sub_field['value'] = $options['data'][$sub_field['name']];
 					endif;
 				endforeach;
-        unset($sub_field);
+				unset($sub_field);
 			endif;
 
 			echo '<div class="acf-fields -top -border">';
-				foreach($field['sub_fields'] as &$sub_field):
-					acf_render_field_wrap($sub_field);
-				endforeach;
-        unset($sub_field);
+			foreach($field['sub_fields'] as &$sub_field):
+				acf_render_field_wrap($sub_field);
+			endforeach;
+			unset($sub_field);
 			echo '</div>';
 		}
 
