@@ -48,7 +48,7 @@ class Blocks
             \wp_schedule_event(time(), 'five_minutes', 'PA-update_remote_data');
         }
 
-        \add_action('update_remote_data', array($this, 'UpdateRemoteData'));
+        \add_action('PA-update_remote_data', array($this, 'UpdateRemoteData'));
         \add_action('wp_ajax_blocks/update_remote_data', array($this, 'UpdateRemoteData'));
         \add_action('admin_bar_menu', array($this, 'addToolbarUpdate'), 999);
     }
