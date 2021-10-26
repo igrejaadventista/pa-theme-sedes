@@ -245,8 +245,8 @@ class PACoreInstall
 
 
     // Install routine to create or update taxonomies
-    if (!wp_next_scheduled('Service_Taxonomy_Schedule')) {
-      wp_schedule_event(time(), '20min', 'Service_Taxonomy_Schedule');
+    if (!wp_next_scheduled('PA-Service_Taxonomy_Schedule')) {
+      wp_schedule_event(time(), '20min', 'PA-Service_Taxonomy_Schedule');
     }
   }
 
