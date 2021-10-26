@@ -20,20 +20,24 @@
 									<a class="nav-link" href="<?= $item->url ?>" title="<?= $item->title ?>" target="<?= !empty($item->target) ? $item->target : '_self' ?>"><?= $item->title ?></a>
 								</li>
 							<?php endforeach; ?>
-                            <li class="nav-item">
-                                <a class="nav-link pa-search" href="<?= get_home_url(); ?>/busca" title="<?php esc_attr_e('Search', 'iasd'); ?>"><i class="fas fa-search me-1"></i><?php esc_attr_e('Search', 'iasd'); ?></a>
-                            </li>
+                <li class="nav-item">
+                    <a class="nav-link pa-search" href="<?= get_home_url(); ?>/busca" title="<?php esc_attr_e('Search', 'iasd'); ?>"><i class="fas fa-search me-1"></i><?php esc_attr_e('Search', 'iasd'); ?></a>
+                </li>
 						<?php endif; ?>
 						
 						<li class="nav-item dropdown pa-menu-lang">
-							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+							<a class="nav-link dropdown-toggle pa-search" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="pt me-2" aria-hidden="true"></i>
 								PT
 							</a>
 							<ul class="dropdown-menu p-0">
-								<li class=""><a class="dropdown-item" href="/pt">PT</a></li>
-								<li class=""><a class="dropdown-item" href="/es">ES</a></li>
+								<li class=""><a class="dropdown-item" href="/pt"><i class="pt me-2" aria-hidden="true"></i> PT</a></li>
+								<li class=""><a class="dropdown-item" href="/es"><i class="es me-2" aria-hidden="true"></i> ES</a></li>
 							</ul>
 						</li>
+
+            
+
 					</ul>
 				</nav>
 
