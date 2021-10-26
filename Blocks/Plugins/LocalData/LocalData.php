@@ -613,6 +613,7 @@ if(!class_exists('LocalData')):
       endif;
 
       // filters
+	  		$args['post_status'] = 'publish';
 		  $args = \apply_filters('acf/fields/localposts_data/query', $args, $field, $options['post_id']);
 
 			if($args['posts_per_page'] > 0):

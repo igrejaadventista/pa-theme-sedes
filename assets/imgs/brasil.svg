@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25">
+  <g id="Brasil" transform="translate(-133.905 0.172)">
+    <circle id="Elipse_3" data-name="Elipse 3" cx="12.5" cy="12.5" r="12.5" transform="translate(133.905 -0.172)" fill="#008f3e"/>
+    <path id="Interseção_1" data-name="Interseção 1" d="M.488,15.871a12.5,12.5,0,0,1,0-6.93L12.414,0,24.336,8.941a12.5,12.5,0,0,1,0,6.93L12.414,24.816Z" transform="translate(133.905 0)" fill="#f8c300"/>
+    <ellipse id="Elipse_1" data-name="Elipse 1" cx="8.213" cy="8.272" rx="8.213" ry="8.272" transform="translate(138.106 4.136)" fill="#28166f"/>
+    <path id="Caminho_2" data-name="Caminho 2" d="M33.9,22.275a6.749,6.749,0,0,0,.532-1.536,11.112,11.112,0,0,0-14.653-5.79l-.709.355a10.652,10.652,0,0,0-.473,1.241,11.08,11.08,0,0,1,14.949,4.963C33.667,21.744,33.785,21.98,33.9,22.275Z" transform="translate(119.801 -5.731)" fill="#fff"/>
+  </g>
+</svg>

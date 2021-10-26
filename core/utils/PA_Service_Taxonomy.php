@@ -4,7 +4,7 @@ require_once(dirname(__FILE__) . '/PA_RestAPI_Tax.php');
 require_once(dirname(__FILE__) . '/PA_Functions.php');
 
 
-const TAXS_PA = ['xtt-pa-owner', 'xtt-pa-colecoes', 'xtt-pa-editorias', 'xtt-pa-departamentos', 'xtt-pa-projetos', 'xtt-pa-sedes'];
+const TAXS_PA = ['xtt-pa-colecoes', 'xtt-pa-sedes', 'xtt-pa-editorias', 'xtt-pa-departamentos', 'xtt-pa-projetos', 'xtt-pa-owner'];
 
 // ADDING META RETURN IN GET_TERM
 add_filter('get_term', function ($term) {
@@ -31,7 +31,7 @@ function Service_Taxonomy()
 		 * FIRST MOMENT, IT`S NECESSARY CHECK IF EXIST SOMETHING IN NEXT PAGE (DARK PERFORMANCE).
 		 * IDEAL IDEA: API RETURN EVERYTHING WITHOUT PAGINATE.
 		 */
-		$resultAPI = $restAPIService->CallAPI('GET', "$tax?per_page=100&filter[parent]=0&order=desc");
+		$resultAPI = $restAPIService->CallAPI('GET', "$tax?per_page=300&filter[parent]=0&order=desc");
 		PAFunctions::add_update_term_tax($tax, $resultAPI);
 	}
 }
