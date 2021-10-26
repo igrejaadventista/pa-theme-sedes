@@ -1,0 +1,13 @@
+<svg id="Espanha" xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25">
+  <g id="Grupo_4" data-name="Grupo 4">
+    <g id="Grupo_1" data-name="Grupo 1" transform="translate(1.67)">
+      <path id="Caminho_3" data-name="Caminho 3" d="M55.86,6.25H34.2a12.508,12.508,0,0,1,21.66,0Z" transform="translate(-34.2)" fill="#c50c1e"/>
+    </g>
+    <g id="Grupo_2" data-name="Grupo 2" transform="translate(1.67 18.75)">
+      <path id="Caminho_4" data-name="Caminho 4" d="M55.86,384a12.508,12.508,0,0,1-21.66,0Z" transform="translate(-34.2 -384)" fill="#c50c1e"/>
+    </g>
+    <g id="Grupo_3" data-name="Grupo 3" transform="translate(0 6.25)">
+      <path id="Caminho_5" data-name="Caminho 5" d="M25,134.25a12.492,12.492,0,0,1-1.67,6.25H1.67a12.531,12.531,0,0,1,0-12.5H23.325A12.445,12.445,0,0,1,25,134.25Z" transform="translate(0 -128)" fill="#fec315"/>
+    </g>
+  </g>
+</svg>
