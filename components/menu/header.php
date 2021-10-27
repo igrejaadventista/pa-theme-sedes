@@ -73,7 +73,7 @@
                         <a href="#pt" class="pt">PT</a>
                         <div class="pa-sub-dropdown">
                             <ul>
-                                <li><a href="#es" class="es">ES</a></li>
+                                <li><a href="/es" class="es">ES</a></li>
                             </ul>
                         </div>
                     </li>
