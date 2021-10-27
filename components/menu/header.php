@@ -60,9 +60,7 @@
 
         <div class="row g-0 pt-3 pb-3">
             <?php if(!empty($campo)): ?>
-              <div class="col-6">
-                  <img src="<?= get_template_directory_uri() . "/assets/sedes/" . LANG . "/" . $campo->slug . ".svg" ?>" alt="<?= $campo->name ?>" title="<?= $campo->name ?>" class="">
-              </div>
+              <?php get_template_part( 'components/menu/header-logo', 'logo', ['campo' => $campo] ); ?>
             <?php endif; ?>
 
             <div class="col-auto ms-auto d-flex flex-row-reverse align-items-center">
