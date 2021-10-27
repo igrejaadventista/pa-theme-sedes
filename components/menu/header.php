@@ -31,9 +31,6 @@
 								<li class=""><a class="dropdown-item" href="/es"><i class="es me-2" aria-hidden="true"></i> ES</a></li>
 							</ul>
 						</li>
-
-            
-
 					</ul>
 				</nav>
 
