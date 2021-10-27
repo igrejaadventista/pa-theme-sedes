@@ -1,6 +1,8 @@
 <?php
-    $campo = get_info_sedes();
+  $campo = get_info_sedes();
 	$menu_global = PaThemeHelpers::getGlobalMenu('global-header');
+  $relative_site = network_site_url("", "relative");
+  $relative_sites = ['/pt/' => 'PT', '/es/' => 'ES'];
 ?>
 
 <header class="pa-menu" id="topo">
@@ -24,12 +26,13 @@
 						<li class="nav-item dropdown pa-menu-lang">
 							<a class="nav-link dropdown-toggle pa-search" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 <i class="pt me-2" aria-hidden="true"></i>
-								PT
+								<?=  $relative_sites[$relative_site] ?>
 							</a>
 							<ul class="dropdown-menu p-0">
-								<li class=""><a class="dropdown-item" href="/pt"><i class="pt me-2" aria-hidden="true"></i> PT</a></li>
-								<li class=""><a class="dropdown-item" href="/es"><i class="es me-2" aria-hidden="true"></i> ES</a></li>
-							</ul>
+                <?php foreach ($relative_sites as $key => $value): ?>
+								  <li class=""><a class="dropdown-item" href="<?= $key ?>"><i class="<?= strtolower($relative_sites[$relative_site]) ?> me-2" aria-hidden="true"></i> <?= $relative_sites[$relative_site] ?></a></li>
+                <?php endforeach; ?>
+              </ul>
 						</li>
 					</ul>
 				</nav>
@@ -67,10 +70,12 @@
             <div class="menu" id="pa_menu">
                 <ul class="menu_sub">
                     <li class="pa-dropdown">
-                        <a href="#pt" class="pt">PT</a>
+                        <a href="#" onclick="event.preventDefault();" class="<?= strtolower($relative_sites[$relative_site]) ?>"><?= $relative_sites[$relative_site]  ?></a>
                         <div class="pa-sub-dropdown">
                             <ul>
-                                <li><a href="/es" class="es">ES</a></li>
+                              <?php foreach($relative_sites as $key => $value): if($key == $relative_site) continue; ?>
+                                <li><a href="<?= $key ?>" class="<?= strtolower($value) ?>"> <?= $value ?></a></li>
+                              <?php endforeach; ?>
                             </ul>
                         </div>
                     </li>
