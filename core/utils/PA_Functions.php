@@ -180,8 +180,6 @@ class PAFunctions
 							));
 						}
 					}
-					// break;
-					// die;
 				}
 
 			}
@@ -199,9 +197,6 @@ class PAFunctions
 			));
 
 			foreach ($verify_delete as $vd) {
-				break;
-				die;
-
 				$delete = true;
 
 				foreach ($resultService as $result) {
@@ -215,7 +210,6 @@ class PAFunctions
 					print("\e[31mTax: ". $tax .", Local ID: ". $vd->term_id ."\n");
 					print("\e[39m--------------------\n");
 					// wp_delete_term($vd->term_id, $tax);
-					die;
 				}
 			}
 		} catch (\Throwable $th) {
