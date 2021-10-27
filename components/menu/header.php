@@ -30,7 +30,7 @@
 							</a>
 							<ul class="dropdown-menu p-0">
                 <?php foreach ($relative_sites as $key => $value): ?>
-								  <li class=""><a class="dropdown-item" href="<?= $relative_sites[$relative_site] ?>"><i class="<?= strtolower($relative_sites[$relative_site]) ?> me-2" aria-hidden="true"></i> <?= $relative_sites[$relative_site] ?></a></li>
+								  <li class=""><a class="dropdown-item" href="<?= $key ?>"><i class="<?= strtolower($value) ?> me-2" aria-hidden="true"></i> <?= $value ?></a></li>
                 <?php endforeach; ?>
               </ul>
 						</li>
