@@ -457,7 +457,7 @@ if(!class_exists('LocalData')):
 					foreach($stickys as $sticky):
 						$key = array_search($sticky, array_column(json_decode(json_encode($posts), TRUE), 'id'));
 
-						if($key >= 0)
+						if(is_numeric($key) && $key >= 0 && array_key_exists($key, $posts))
 							$value['data'][] = $posts[$key];
 					endforeach;
 				endif;
