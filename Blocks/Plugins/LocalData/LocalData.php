@@ -332,8 +332,8 @@ if(!class_exists('LocalData')):
 								$choicesTaxonomies[$key] = $value['label'];
 
                 
-              $values['taxonomies'] = json_decode($values['taxonomies']);
-              $values['terms'] = json_decode($values['terms']);
+              $values['taxonomies'] = is_array($values['taxonomies']) ? $values['taxonomies'] : json_decode($values['taxonomies']);
+              $values['terms'] = is_array($values['terms']) ? $values['terms'] : json_decode($values['terms']);
               
 							foreach ($values['taxonomies'] as $key => $taxonomy) :
 						?>
@@ -422,8 +422,11 @@ if(!class_exists('LocalData')):
 		}
 
 		function format_value($value, $post_id, $field) {
-			$value['post_type'] = acf_get_array($field['post_type']);
-			$manual = json_decode($value['manual'], true);
+      if(!is_array($value))
+        $value = array();
+
+			$value['post_type'] = array_key_exists('post_type', $field) ? acf_get_array($field['post_type']) : acf_get_array(['post']);
+			$manual = array_key_exists('manual', $value) ? json_decode($value['manual'], true) : [];
 			$value['data'] = array();
 
 			if(!is_admin()):
@@ -438,8 +441,8 @@ if(!class_exists('LocalData')):
 
         if(isset($value['taxonomies']) && isset($value['terms'])):  
           if(!empty($value['taxonomies']) && !empty($value['terms'])):  
-            $value['taxonomies'] = json_decode($value['taxonomies']);
-            $value['terms'] = json_decode($value['terms']);
+            $value['taxonomies'] = is_array($value['taxonomies']) ? $value['taxonomies'] : json_decode($value['taxonomies']);
+            $value['terms'] =  is_array($value['terms']) ? $value['terms'] : json_decode($value['terms']);
 
             $args['taxonomies'] = $value['taxonomies'];
             $args['terms'] = $value['terms'];
