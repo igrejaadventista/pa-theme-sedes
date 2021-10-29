@@ -16,4 +16,4 @@ RUN cd /var/www/build \
     && composer dump -o \
     && yarn \
     && yarn build:production \
-    && rm -rf node_modules/
+    && rm -rf node_modules composer* *.json README* *.rb assets/scss *.lock *.mix.*\
