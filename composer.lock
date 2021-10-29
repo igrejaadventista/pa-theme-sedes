@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3426e8fdadd21707ece0116f36c1e804",
+    "content-hash": "8363ebc45d78f8b83e41c71bb2021a95",
     "packages": [
         {
             "name": "brain/hierarchy",
@@ -1333,16 +1333,16 @@
         },
         {
             "name": "symfony/translation",
-            "version": "v5.3.9",
+            "version": "v5.3.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/translation.git",
-                "reference": "6e69f3551c1a3356cf6ea8d019bf039a0f8b6886"
+                "reference": "6ef197aea2ac8b9cd63e0da7522b3771714035aa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/translation/zipball/6e69f3551c1a3356cf6ea8d019bf039a0f8b6886",
-                "reference": "6e69f3551c1a3356cf6ea8d019bf039a0f8b6886",
+                "url": "https://api.github.com/repos/symfony/translation/zipball/6ef197aea2ac8b9cd63e0da7522b3771714035aa",
+                "reference": "6ef197aea2ac8b9cd63e0da7522b3771714035aa",
                 "shasum": ""
             },
             "require": {
@@ -1408,7 +1408,7 @@
             "description": "Provides tools to internationalize your application",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/translation/tree/v5.3.9"
+                "source": "https://github.com/symfony/translation/tree/v5.3.10"
             },
             "funding": [
                 {
@@ -1424,7 +1424,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-08-26T08:22:53+00:00"
+            "time": "2021-10-10T06:43:24+00:00"
         },
         {
             "name": "symfony/translation-contracts",
@@ -1641,20 +1641,6 @@
                 "source": "https://github.com/wordplate/extended-acf/tree/11.1.0"
             },
             "time": "2021-08-28T07:36:30+00:00"
-        },
-        {
-            "name": "wp-plugins/acf-multiple-taxonomy",
-            "version": "dev-master",
-            "dist": {
-                "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/acf-multiple-taxonomy.zip"
-            },
-            "type": "wordpress-plugin",
-            "autoload": {
-                "files": [
-                    "acf-multiple-taxonomy.php"
-                ]
-            }
         }
     ],
     "packages-dev": [],
@@ -1662,8 +1648,7 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "studiovisual/acf-gutenblocks": 20,
-        "lordealeister/acf-multisite-options": 20,
-        "wp-plugins/acf-multiple-taxonomy": 20
+        "lordealeister/acf-multisite-options": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
