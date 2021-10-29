@@ -3,7 +3,7 @@
     const editor = wp.data.select("core/editor");
     if (!editor) return;
 
-    const blocks = wp.data.select("core/editor").getBlocks();
+    const blocks = wp.data.select("core/block-editor").getBlocks();
 
     if (!blocks.length) return;
 

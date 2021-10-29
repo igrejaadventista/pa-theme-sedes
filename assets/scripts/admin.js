@@ -225,7 +225,7 @@ function set_inline_xtt_pa_owner(event, widgetSet, nonce) {
       return null;
 
     const requiredTaxonomies = getRequiredTaxonomies();
-  
+    
     if(!requiredTaxonomies.length)
       return null;
   
@@ -249,14 +249,15 @@ function set_inline_xtt_pa_owner(event, widgetSet, nonce) {
   
       // Continue if saved post is complete and not draft 
       if(!isDoneSaving || status == 'draft')
-        return;
-  
+        return null;
+
       requiredTaxonomies.every(element => {
         let terms = getTerms(element);
-  
-        if(terms.length > 0)
+        
+        if((!terms) || (terms.length > 0)){
           return true;
-  
+        }
+
         editPost({ status: 'draft' });
         savePost();
   
