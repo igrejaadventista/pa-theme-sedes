@@ -25,8 +25,8 @@ $relative_sites = ['/pt/' => 'PT', '/es/' => 'ES'];
 
                         <li class="nav-item dropdown pa-menu-lang">
                             <a class="nav-link dropdown-toggle pa-search" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="<?= strtolower($relative_sites[$relative_site]) ?> me-2" aria-hidden="true"></i>
-                                <?= $relative_sites[$relative_site] ?>
+                                <i class="<?= strtolower($relative_sites[array_key_exists($relative_site, $relative_sites) ? $relative_site : array_key_first($relative_sites)]) ?> me-2" aria-hidden="true"></i>
+                                <?= $relative_sites[array_key_exists($relative_site, $relative_sites) ? $relative_site : array_key_first($relative_sites)] ?>
                             </a>
                             <ul class="dropdown-menu p-0">
                                 <?php foreach ($relative_sites as $key => $value) : ?>
