@@ -6,9 +6,8 @@ Desenvolvido em Wordpress
 ## Instalando dependências globais
 Siga as intruções antes começar a desenvolver no tema:
 
-- Instalar [Yarn](https://classic.yarnpkg.com/en/docs/install) em sua maquina local
-
-        npm install -g yarn
+- Instalar [Yarn](https://classic.yarnpkg.com/en/docs/install) em seu ambiente de desenvolvimento
+- Instalar [composer](https://getcomposer.org/download/) em seu ambiente de desenvolvimento
 
 ## Configurando o tema
 Após ter instalado todas as dependências globais em sua máquina, já podemos inicializar o tema utilizando os seguintes comandos
