@@ -14,7 +14,6 @@ require_once (dirname(__FILE__) . '/classes/controllers/PA_Menu_Walker.class.php
 require_once (dirname(__FILE__) . '/classes/controllers/PA_Menu_Mobile.class.php');
 require_once (dirname(__FILE__) . '/classes/controllers/PA_Image_Check.php');
 require_once (dirname(__FILE__) . '/classes/controllers/PA_Image_Thumbs.class.php');
-require_once (dirname(__FILE__) . '/classes/controllers/PA_Page_Numbers.class.php');
 require_once (dirname(__FILE__) . '/classes/controllers/PA_Register_Sidebars.class.php');
 require_once (dirname(__FILE__) . '/classes/controllers/PA_Header_Title.class.php');
 require_once (dirname(__FILE__) . '/classes/controllers/PA_Sedes_Infos.php');
