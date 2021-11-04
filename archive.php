@@ -12,7 +12,7 @@
             if(get_query_var('paged') < 1 && $queryFeatured->found_posts > 0):
               get_template_part('template-parts/global/feature', 'feature', [
                 'post' => $queryFeatured->posts[0],
-                'format' => $format = get_post_format($queryFeatured->posts[0]) ? : __('News', 'iasd'),
+                'tag'  => $format = get_post_format($queryFeatured->posts[0]) ? : __('News', 'iasd'),
               ]); 
             endif;
           ?>
