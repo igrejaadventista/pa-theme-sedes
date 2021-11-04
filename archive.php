@@ -7,7 +7,7 @@
 	<div class="pa-content py-5">
 		<div class="container">
 			<div class="row justify-content-md-center">
-        <section class="col-12<?= is_active_sidebar('archive') ? ' col-xl-8' : '' ?>">
+        <section class="col-12 col-xl-8">
           <?php 
             if(get_query_var('paged') < 1 && $queryFeatured->found_posts > 0):
               get_template_part('template-parts/global/feature', 'feature', [
