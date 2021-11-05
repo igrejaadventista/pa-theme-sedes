@@ -17,7 +17,6 @@ require_once (dirname(__FILE__) . '/classes/controllers/PA_Image_Thumbs.class.ph
 require_once (dirname(__FILE__) . '/classes/controllers/PA_Register_Sidebars.class.php');
 require_once (dirname(__FILE__) . '/classes/controllers/PA_Header_Title.class.php');
 require_once (dirname(__FILE__) . '/classes/controllers/PA_Sedes_Infos.php');
-require_once (dirname(__FILE__) . '/classes/widgets/PA_Widget_Apps.class.php');
 require_once (dirname(__FILE__) . '/Fields/TaxonomyTerms.php');
 // CORE INSTALL
 require_once (dirname(__FILE__) . '/core/PA_Theme_Sedes_Install.php');
