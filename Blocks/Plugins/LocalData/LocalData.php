@@ -790,13 +790,16 @@ if(!class_exists('LocalData')):
 				$queryArgs['s'] = wp_unslash(strval($options['s']));
 
 			if(!empty($options['limit']))
-				$queryArgs['posts_per_page '] = wp_unslash(strval($options['limit']));
+				$queryArgs['posts_per_page'] = wp_unslash(strval($options['limit']));
 
 			$queryArgs['post_type'] = $field['post_type'];
 
-			$posts = get_posts($queryArgs);
-			if(!empty($posts)):
-				foreach($posts as $post):
+			$query = (new \WP_Query($queryArgs));
+			
+			if(!empty($query->posts)):
+				
+				foreach($query->posts as $post):
+					
 					//  push data into $results
 					$results[] = $this->parsePost($post);
 				endforeach;
