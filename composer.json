@@ -41,22 +41,9 @@
       }
     },
     {
-      "type": "package",
-      "package": {
-        "name": "webdsa/pa-register-taxonomy",
-        "type": "wordpress-plugin",
-        "version": "dev-master",
-        "dist": {
-          "url": "https://github.com/igrejaadventista/pa-register-taxonomy/archive/refs/heads/main.zip",
-          "type": "zip"
-        },
-        "autoload": {
-          "files": [
-            "pa-plugin-register-taxonomy.php"
-          ]
-        }
-      }
-    }
+			"type": "git",
+			"url": "https://github.com/igrejaadventista/pa-register-taxonomy"
+		}
   ],
   "autoload": {
     "psr-4": {
@@ -70,6 +57,11 @@
     "wordplate/acf": "^11.0.1",
     "studiovisual/acf-gutenblocks": "dev-release/0.4.2",
     "lordealeister/acf-multisite-options": "dev-master",
-    "webdsa/pa-register-taxonomy": "dev-master"
-  }
+    "webdsa/pa-plugin-register-taxonomy": "dev-main"
+  },
+  "config": {
+		"preferred-install": "source"
+	},
+	"minimum-stability": "dev",
+	"prefer-stable": false
 }
