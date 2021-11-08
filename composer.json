@@ -63,5 +63,6 @@
 		"preferred-install": "source"
 	},
 	"minimum-stability": "dev",
-	"prefer-stable": false
+	"prefer-stable": false,
+  "platform-check": false
 }
