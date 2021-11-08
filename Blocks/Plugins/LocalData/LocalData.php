@@ -246,6 +246,8 @@ if(!class_exists('LocalData')):
 									<?php acf_text_input(array('name' => $field['name'] . "[limit]", 'value' => isset($values['limit']) ? $values['limit'] : $field['limit'], 'type' => 'number', 'step' => 1, 'min' => 1, 'max' => 100, 'data-limit' => '', 'data-filter' => 'limit')); ?>
 								</label>
 							</div>
+            <?php else: ?>
+              <?php acf_hidden_input(array('name' => $field['name'] . "[limit]", 'value' => $field['limit'], 'data-limit' => '')); ?>
 						<?php endif; ?>
 
 						<?php if (
@@ -582,7 +584,7 @@ if(!class_exists('LocalData')):
 				$stickyIds = array_values($stickyItemsFilter);
 
 				// exclude sticked posts from query
-				$args['exclude'] = $stickyIds;
+				$args['post__not_in'] = $stickyIds;
 
 				// return only sticked array items
 				$stickedPosts = get_posts(array(
@@ -616,7 +618,7 @@ if(!class_exists('LocalData')):
       endif;
 
       // filters
-	  		$args['post_status'] = 'publish';
+	  	$args['post_status'] = 'publish';
 		  $args = \apply_filters('acf/fields/localposts_data/query', $args, $field, $options['post_id']);
 
 			if($args['posts_per_page'] > 0):
@@ -776,12 +778,12 @@ if(!class_exists('LocalData')):
 			$sticky = isset($options['sticky']) ? $options['sticky'] : 0;
  
 			if(!empty($sticky) || isset($options['exclude'])):
-				$queryArgs['exclude'] = [];
+				$queryArgs['post__not_in'] = [];
 
 				if(isset($options['exclude']))
-					$queryArgs['exclude'] = array_merge($queryArgs['exclude'], $options['exclude']);
+					$queryArgs['post__not_in'] = array_merge($queryArgs['post__not_in'], $options['exclude']);
 				if(!empty($sticky))
-					$queryArgs['exclude'] = array_merge($queryArgs['exclude'], explode(',', $sticky));
+					$queryArgs['post__not_in'] = array_merge($queryArgs['post__not_in'], explode(',', $sticky));
 			endif;
 	
 			// search
