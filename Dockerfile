@@ -26,4 +26,3 @@ RUN cd /var/www/build \
   && find . -type f -name '*.lock' -exec rm {} + \
   && find . -type f -name '*.mix.*' -exec rm {} + \
   && find . -type f -name '*.txt' -exec rm {} + \
--
