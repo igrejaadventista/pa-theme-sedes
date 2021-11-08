@@ -16,7 +16,7 @@ RUN cd /var/www/build \
   && composer dump -o \
   && yarn \
   && yarn build:production \
-  && rm -rf assets/scss assets/scripts node_modules bash \
+  && rm -rf assets/scss node_modules bash \
   && find . -type d -name 'node_modules' -exec rm - rf {} + \
   && find . -type d -name '*.git' -exec rm -rf {} + \
   && find . -type f -name '*.map' -exec rm {} + \
