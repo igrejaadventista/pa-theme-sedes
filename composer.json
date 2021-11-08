@@ -60,9 +60,9 @@
     "webdsa/pa-plugin-register-taxonomy": "dev-main"
   },
   "config": {
-		"preferred-install": "source"
+		"preferred-install": "source",
+    "platform-check": false
 	},
 	"minimum-stability": "dev",
-	"prefer-stable": false,
-  "platform-check": false
+	"prefer-stable": false
 }
