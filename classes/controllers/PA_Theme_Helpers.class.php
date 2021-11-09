@@ -1,220 +1,256 @@
-<?php 
+<?php
 
-class PaThemeHelpers {
+class PaThemeHelpers
+{
 
-	public function __construct(){
-		add_action('after_setup_theme', [$this, 'themeSupport'] );
-		add_action('wp_enqueue_scripts', [$this, 'registerAssets'] );
-		add_action('admin_enqueue_scripts', [$this, 'registerAssetsAdmin'] );
-		add_filter('nav_menu_css_class' , [$this, 'specialNavClass'], 10 , 2);
-		add_filter('after_setup_theme' , [$this, 'getInfoLang'], 10 , 2);
-		add_filter('body_class', [$this, 'bodyClass'] );
-		add_action('init', [$this, 'unregisterTaxonomy'] );
-		add_action('PA-update_menu_global', [$this, 'setGlobalMenu']);
-		add_action('PA-update_banner_global', [$this, 'setGlobalBanner']);
+  public function __construct()
+  {
+    add_action('after_setup_theme', [$this, 'themeSupport']);
+    add_action('wp_enqueue_scripts', [$this, 'registerAssets']);
+    add_action('admin_enqueue_scripts', [$this, 'registerAssetsAdmin']);
+    add_filter('nav_menu_css_class', [$this, 'specialNavClass'], 10, 2);
+    add_filter('after_setup_theme', [$this, 'getInfoLang'], 10, 2);
+    add_filter('body_class', [$this, 'bodyClass']);
+    add_action('init', [$this, 'unregisterTaxonomy']);
+    add_action('PA-update_menu_global', [$this, 'setGlobalMenu']);
+    add_action('PA-update_banner_global', [$this, 'setGlobalBanner']);
+    add_action('rest_api_init', [$this, 'adding_collection_meta_rest']);
 
-		if ( ! wp_next_scheduled( 'PA-update_menu_global' ) ) {
-			wp_schedule_event( time(), 'hourly', 'PA-update_menu_global' );
-		}
+    if (!wp_next_scheduled('PA-update_menu_global')) {
+      wp_schedule_event(time(), 'hourly', 'PA-update_menu_global');
+    }
 
-		if ( ! wp_next_scheduled( 'PA-update_banner_global' ) ) {
-			wp_schedule_event( time(), 'hourly', 'PA-update_banner_global' );
-		}
+    if (!wp_next_scheduled('PA-update_banner_global')) {
+      wp_schedule_event(time(), 'hourly', 'PA-update_banner_global');
+    }
 
-		define( 'LANG', $this->getInfoLang() );
-	}
+    define('LANG', $this->getInfoLang());
+  }
 
-	function themeSupport() {
-		add_theme_support( 'title-tag' );
-		add_theme_support( 'post-thumbnails' );
-		add_theme_support( 'responsive-embeds' );
-		//add_theme_support( 'post-formats', array( 'gallery', 'video', 'audio') );
-		
-		remove_action( 'wp_head', 'wp_generator');
-		remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
-		remove_action( 'admin_print_scripts', 'print_emoji_detection_script' );
-		remove_action( 'wp_print_styles', 'print_emoji_styles' );
-		remove_action( 'admin_print_styles', 'print_emoji_styles' );	
-		remove_filter( 'the_content_feed', 'wp_staticize_emoji' );
-		remove_filter( 'comment_text_rss', 'wp_staticize_emoji' );	
-		remove_filter( 'wp_mail', 'wp_staticize_emoji_for_email' );
+  function themeSupport()
+  {
+    add_theme_support('title-tag');
+    add_theme_support('post-thumbnails');
+    add_theme_support('responsive-embeds');
+    //add_theme_support( 'post-formats', array( 'gallery', 'video', 'audio') );
 
-		load_theme_textdomain('iasd', get_template_directory() . '/language/');
+    remove_action('wp_head', 'wp_generator');
+    remove_action('wp_head', 'print_emoji_detection_script', 7);
+    remove_action('admin_print_scripts', 'print_emoji_detection_script');
+    remove_action('wp_print_styles', 'print_emoji_styles');
+    remove_action('admin_print_styles', 'print_emoji_styles');
+    remove_filter('the_content_feed', 'wp_staticize_emoji');
+    remove_filter('comment_text_rss', 'wp_staticize_emoji');
+    remove_filter('wp_mail', 'wp_staticize_emoji_for_email');
 
-		// Remove from TinyMCE
-		// add_filter( 'tiny_mce_plugins', 'disable_emojis_tinymce' );
-	
-		global $content_width;
-		if ( ! isset( $content_width ) ) {
-			$content_width = 856;
-		}
-	}
+    load_theme_textdomain('iasd', get_template_directory() . '/language/');
 
-	function unregisterTaxonomy() {
-		global $wp_taxonomies;
-		$taxonomy = array('category', 'post_tag');
-		foreach ($taxonomy as &$value) {
-			if ( taxonomy_exists($value) ){
-				unset( $wp_taxonomies[$value] );
-			}
-		}
-	}
+    // Remove from TinyMCE
+    // add_filter( 'tiny_mce_plugins', 'disable_emojis_tinymce' );
 
-	function registerAssets() {
-		wp_enqueue_style( 'bootstrap-style', 'https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css', null, null);
-		wp_enqueue_style( 'google-fonts', 'https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap', null, null);
-		wp_enqueue_style( 'pa-theme-sedes-style', get_template_directory_uri(). '/style.css', null, null);
-		wp_enqueue_style( 'pa-theme-sedes-print', get_template_directory_uri() . '/print.css', null, null);
-	
-		wp_enqueue_script( 'fontawesome-js', 'https://kit.fontawesome.com/c992dc3e78.js', array(), false, false );
-		wp_enqueue_script( 'scripts', get_template_directory_uri() . '/assets/js/script.js', array(), false, true );
-	}
-	
-	function registerAssetsAdmin() {
-		wp_enqueue_script( 'scripts-admin', get_template_directory_uri() . '/assets/scripts/script_admin.js', array(), false, true );
-	}
+    global $content_width;
+    if (!isset($content_width)) {
+      $content_width = 856;
+    }
+  }
 
-	function specialNavClass($classes){
-		if( in_array('current-menu-item', $classes) ){
-				$classes[] = 'active ';
-		}
-		return $classes;
-	}
+  function unregisterTaxonomy()
+  {
+    global $wp_taxonomies;
+    $taxonomy = array('category', 'post_tag');
+    foreach ($taxonomy as &$value) {
+      if (taxonomy_exists($value)) {
+        unset($wp_taxonomies[$value]);
+      }
+    }
+  }
 
-	function getInfoLang(){	
-		if(defined('WPLANG')){
-			$lang = WPLANG;
-		} elseif (get_locale()){
-			$lang = get_locale();
-		}
-		$lang = substr($lang, 0,2);
+  function registerAssets()
+  {
+    wp_enqueue_style('bootstrap-style', 'https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css', null, null);
+    wp_enqueue_style('google-fonts', 'https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap', null, null);
+    wp_enqueue_style('pa-theme-sedes-style', get_template_directory_uri() . '/style.css', null, null);
+    wp_enqueue_style('pa-theme-sedes-print', get_template_directory_uri() . '/print.css', null, null);
 
-		return $lang;
-	}
+    wp_enqueue_script('fontawesome-js', 'https://kit.fontawesome.com/c992dc3e78.js', array(), false, false);
+    wp_enqueue_script('scripts', get_template_directory_uri() . '/assets/js/script.js', array(), false, true);
+  }
 
-	/**
-	 * getGlobalMenu Get global menu by name
-	 *
-	 * @param  string $name The menu name
-	 * @return mixed Menu data or null
-	 */
-	static function getGlobalMenu(string $name) {
-    
-		if(empty($name)){
-			return null;
-		}
-			
-    if(!get_option('menu_'.$name)){
+  function registerAssetsAdmin()
+  {
+    wp_enqueue_script('scripts-admin', get_template_directory_uri() . '/assets/scripts/script_admin.js', array(), false, true);
+  }
+
+  function specialNavClass($classes)
+  {
+    if (in_array('current-menu-item', $classes)) {
+      $classes[] = 'active ';
+    }
+    return $classes;
+  }
+
+  function getInfoLang()
+  {
+    if (defined('WPLANG')) {
+      $lang = WPLANG;
+    } elseif (get_locale()) {
+      $lang = get_locale();
+    }
+    $lang = substr($lang, 0, 2);
+
+    return $lang;
+  }
+
+  function adding_collection_meta_rest()
+  {
+    register_rest_field(
+      'post',
+      'featured_media_url',
+      array(
+        'get_callback' => function ($post) {
+          $img_id = get_post_thumbnail_id($post['id']);
+
+          $img_scr = array(
+            'full' => wp_get_attachment_image_src($img_id, '')[0],
+            'medium' => wp_get_attachment_image_src($img_id, 'medium_large')[0],
+            'small' => wp_get_attachment_image_src($img_id, 'thumbnail')[0],
+            'pa-block-preview' => wp_get_attachment_image_src($img_id, 'thumbnail')[0],
+            'pa-block-render' => wp_get_attachment_image_src($img_id, 'full')[0]
+          );
+          return $img_scr;
+        },
+        'update_callback'   => null,
+        'schema'            => null,
+      )
+    );
+  }
+
+  /**
+   * getGlobalMenu Get global menu by name
+   *
+   * @param  string $name The menu name
+   * @return mixed Menu data or null
+   */
+  static function getGlobalMenu(string $name)
+  {
+
+    if (empty($name)) {
+      return null;
+    }
+
+    if (!get_option('menu_' . $name)) {
       self::setGlobalMenu();
-    } 
-     
-    return get_option('menu_'.$name);
-    
-		
-	}
+    }
 
-	static function setGlobalMenu() {
-		$menus = ['global-header', 'global-footer'];
+    return get_option('menu_' . $name);
+  }
 
-		foreach($menus as $name) {
-			$json = file_get_contents( "https://". API_PA ."/tax/". LANG ."/menus/{$name}");
-			$json_content = json_decode($json);
-			add_option('menu_'.$name, $json_content, '', 'yes');
-		}
-	}
+  static function setGlobalMenu()
+  {
+    $menus = ['global-header', 'global-footer'];
 
-	static function getGlobalBanner() {
+    foreach ($menus as $name) {
+      $json = file_get_contents("https://" . API_PA . "/tax/" . LANG . "/menus/{$name}");
+      $json_content = json_decode($json);
+      add_option('menu_' . $name, $json_content, '', 'yes');
+    }
+  }
 
-    if(!get_option('banner_global')){
+  static function getGlobalBanner()
+  {
+
+    if (!get_option('banner_global')) {
       self::setGlobalBanner();
-    } 
-		return get_option('banner_global');
-	}
+    }
+    return get_option('banner_global');
+  }
 
-	static function setGlobalBanner() {
-		$json = file_get_contents( "https://". API_PA ."/tax/". LANG ."/banner");
-		$json_content = json_decode($json);
-		add_option('banner_global', $json_content, '', 'yes');
-	}
-	
-	function bodyClass( $classes ) {
+  static function setGlobalBanner()
+  {
+    $json = file_get_contents("https://" . API_PA . "/tax/" . LANG . "/banner");
+    $json_content = json_decode($json);
+    add_option('banner_global', $json_content, '', 'yes');
+  }
 
-		if (get_field('departamento', 'option')){
-			$classes[] = get_field('departamento', 'option');
-		}
+  function bodyClass($classes)
+  {
 
-		$classes[] = LANG;
-		
-		return $classes;	
-	}
+    if (get_field('departamento', 'option')) {
+      $classes[] = get_field('departamento', 'option');
+    }
 
-  static function pageNumbers() {
- 
-		if( is_singular() )
-			return;
-	 
-		global $wp_query;
-	 
-		/** Stop execution if there's only 1 page */
-		if( $wp_query->max_num_pages <= 1 )
-			return;
-	 
-		$paged = get_query_var( 'paged' ) ? absint( get_query_var( 'paged' ) ) : 1;
-		$max   = intval( $wp_query->max_num_pages );
-	 
-		/** Add current page to the array */
-		if ( $paged >= 1 )
-			$links[] = $paged;
-	 
-		/** Add the pages around the current page to the array */
-		if ( $paged >= 3 ) {
-			$links[] = $paged - 1;
-			$links[] = $paged - 2;
-		}
-	 
-		if ( ( $paged + 2 ) <= $max ) {
-			$links[] = $paged + 2;
-			$links[] = $paged + 1;
-		}
-	 
-		echo '<ul class="d-flex justify-content-center">' . "\n";
-	 
-		/** Previous Post Link */
-		if ( get_previous_posts_link() )
-			printf( '<li class="pa-post-prev m-0">%s</li>' . "\n", get_previous_posts_link('<i class="fas fa-arrow-left"></i>') );
-	 
-		/** Link to first page, plus ellipses if necessary */
-		if ( ! in_array( 1, $links ) ) {
-			$class = 1 == $paged ? ' class="active"' : '';
-	 
-			printf( '<li%s><a href="%s">%s</a></li>' . "\n", $class, esc_url( get_pagenum_link( 1 ) ), '1' );
-	 
-			if ( ! in_array( 2, $links ) )
-				echo '<li class="list-inline-item">…</li>';
-		}
-	 
-		/** Link to current page, plus 2 pages in either direction if necessary */
-		sort( $links );
-		foreach ( (array) $links as $link ) {
-			$class = $paged == $link ? ' class="active"' : '';
-			printf( '<li%s><a href="%s">%s</a></li>' . "\n", $class, esc_url( get_pagenum_link( $link ) ), $link );
-		}
-	 
-		/** Link to last page, plus ellipses if necessary */
-		if ( ! in_array( $max, $links ) ) {
-			if ( ! in_array( $max - 1, $links ) )
-				echo '<li class="list-inline-item">…</li>' . "\n";
-	 
-			$class = $paged == $max ? ' class="active"' : '';
-			printf( '<li%s><a href="%s">%s</a></li>' . "\n", $class, esc_url( get_pagenum_link( $max ) ), $max );
-		}
-	 
-		/** Next Post Link */
-		if ( get_next_posts_link() )
-			printf( '<li class="pa-post-next align-self-end">%s</li>' . "\n", get_next_posts_link('<i class="fas fa-arrow-right"></i>') );
-	 
-		echo '</ul>' . "\n";
-	 
-	}
+    $classes[] = LANG;
+
+    return $classes;
+  }
+
+  static function pageNumbers()
+  {
+
+    if (is_singular())
+      return;
+
+    global $wp_query;
+
+    /** Stop execution if there's only 1 page */
+    if ($wp_query->max_num_pages <= 1)
+      return;
+
+    $paged = get_query_var('paged') ? absint(get_query_var('paged')) : 1;
+    $max   = intval($wp_query->max_num_pages);
+
+    /** Add current page to the array */
+    if ($paged >= 1)
+      $links[] = $paged;
+
+    /** Add the pages around the current page to the array */
+    if ($paged >= 3) {
+      $links[] = $paged - 1;
+      $links[] = $paged - 2;
+    }
+
+    if (($paged + 2) <= $max) {
+      $links[] = $paged + 2;
+      $links[] = $paged + 1;
+    }
+
+    echo '<ul class="d-flex justify-content-center">' . "\n";
+
+    /** Previous Post Link */
+    if (get_previous_posts_link())
+      printf('<li class="pa-post-prev m-0">%s</li>' . "\n", get_previous_posts_link('<i class="fas fa-arrow-left"></i>'));
+
+    /** Link to first page, plus ellipses if necessary */
+    if (!in_array(1, $links)) {
+      $class = 1 == $paged ? ' class="active"' : '';
+
+      printf('<li%s><a href="%s">%s</a></li>' . "\n", $class, esc_url(get_pagenum_link(1)), '1');
+
+      if (!in_array(2, $links))
+        echo '<li class="list-inline-item">…</li>';
+    }
+
+    /** Link to current page, plus 2 pages in either direction if necessary */
+    sort($links);
+    foreach ((array) $links as $link) {
+      $class = $paged == $link ? ' class="active"' : '';
+      printf('<li%s><a href="%s">%s</a></li>' . "\n", $class, esc_url(get_pagenum_link($link)), $link);
+    }
+
+    /** Link to last page, plus ellipses if necessary */
+    if (!in_array($max, $links)) {
+      if (!in_array($max - 1, $links))
+        echo '<li class="list-inline-item">…</li>' . "\n";
+
+      $class = $paged == $max ? ' class="active"' : '';
+      printf('<li%s><a href="%s">%s</a></li>' . "\n", $class, esc_url(get_pagenum_link($max)), $max);
+    }
+
+    /** Next Post Link */
+    if (get_next_posts_link())
+      printf('<li class="pa-post-next align-self-end">%s</li>' . "\n", get_next_posts_link('<i class="fas fa-arrow-right"></i>'));
+
+    echo '</ul>' . "\n";
+  }
 }
 $PaThemeHelpers = new PaThemeHelpers();
