@@ -8,10 +8,12 @@ import * as utils from './_pa-img-error';
 import * as SliderDownloads from './_pa-slider-downloads';
 import * as TextSize from './_pa-tamanho-texto';
 import * as Share from './_pa-share';
+import Glide from '@glidejs/glide';
 
 window.Menus = Menus;
 window.TextSize = TextSize;
 window.Share = Share;
+window.Glide = Glide;
 
 function onload() {
 	Menus.pa_dropdown();
