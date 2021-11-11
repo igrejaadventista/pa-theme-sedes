@@ -278,7 +278,9 @@ if(!class_exists('RemoteData')):
 								<?php acf_text_input(array('name' => $field['name'] . "[limit]", 'value' => isset($values['limit']) ? $values['limit'] : $field['limit'], 'type' => 'number', 'step' => 1, 'min' => 1, 'max' => 100, 'data-limit' => '', 'data-filter' => 'limit')); ?>
 							</label>
 						</div>
-					<?php endif; ?>
+          <?php else: ?>
+            <?php acf_hidden_input(array('name' => $field['name'] . "[limit]", 'value' => $field['limit'], 'data-limit' => '')); ?>
+          <?php endif; ?>
 
 					<?php if(count($endpointsChoices) > 1): ?>
 						<div class="filter -endpoint filter__endpoint acf-js-tooltip" title="<?= _e('Filter by post type.<br />Obs: Fixed items are not affected by this filter.', 'iasd'); ?>">

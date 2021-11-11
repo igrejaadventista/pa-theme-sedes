@@ -35,4 +35,4 @@ function Service_Taxonomy()
 		PAFunctions::add_update_term_tax($tax, $resultAPI);
 	}
 }
-add_action('Service_Taxonomy_Schedule', 'Service_Taxonomy');
+add_action('PA-Service_Taxonomy_Schedule', 'Service_Taxonomy');
