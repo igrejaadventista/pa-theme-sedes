@@ -38,41 +38,33 @@ if(file_exists(get_stylesheet_directory() . '/classes/PA_Directives.php'))
 * Modify category query
 */
 add_action('pre_get_posts', function($query) {
-  if(is_admin() || !is_tax() || !$query->is_main_query())
+  if(is_admin() || !$query->is_main_query() || !$query->is_archive)
     return $query;
 
   global $queryFeatured;
   $object = get_queried_object();
-  
-  $queryFeatured = new WP_Query(
-    array(
-      'posts_per_page' => 1,
-      'post_status'	   => 'publish',
-      'post__in'       => get_option('sticky_posts'),
-      'tax_query'      => array(
-        array(
-          'taxonomy' => $object->taxonomy,
-          'terms'    => array($object->term_id),
-        ),
-      ),
-    )
+
+  $args = array(
+    'posts_per_page' => 1,
+    'post_status'	   => 'publish',
   );
 
-  if(empty($queryFeatured->found_posts)):
-    $queryFeatured = new WP_Query(
+  if(is_a($object, 'WP_Term')):
+    $args['tax_query'] = array(
       array(
-        'posts_per_page' 	   => 1,
-        'post_status'	 	   => 'publish',
-        'ignore_sticky_posts ' => true,
-        'tax_query'            => array(
-          array(
-            'taxonomy' => $object->taxonomy,
-            'terms'    => array($object->term_id),
-          ),
-        ),
-      )
+        'taxonomy' => $object->taxonomy,
+        'terms'    => array($object->term_id),
+      ),
     );
   endif;
+
+  if(array_key_exists('post_type', $query->query))
+    $args['post_type'] = $query->query['post_type'];
+  
+  $queryFeatured = new WP_Query(array_merge($args, ['post__in' => get_option('sticky_posts')]));
+
+  if(empty($queryFeatured->found_posts))
+    $queryFeatured = new WP_Query(array_merge($args, ['ignore_sticky_posts' => true]));
 
   $query->set('posts_per_page', 15);
   $query->set('ignore_sticky_posts', true);
