@@ -12,8 +12,18 @@ COPY --chown=www-data:www-data . /var/www/build
 RUN composer clearcache
 
 RUN cd /var/www/build \
-    && composer install --no-dev \
-    && composer dump -o \
-    && yarn \
-    && yarn build:production \
-    && rm -rf node_modules composer* *.json README* *.rb assets/scss *.lock *.mix.*\
+  && composer install --no-dev \
+  && composer dump -o \
+  && yarn \
+  && yarn build:production \
+  && rm -rf assets/scss node_modules bash \
+  && find . -type d -name 'node_modules' -exec rm - rf {} + \
+  && find . -type d -name '*.git' -exec rm -rf {} + \
+  && find . -type f -name '*.map' -exec rm {} + \
+  && find . -type f -name '*.json' -exec rm {} + \
+  && find . -type f -name '*.rb' -exec rm {} + \
+  && find . -type f -name 'composer*' -exec rm {} + \
+  && find . -type f -name 'README*' -exec rm {} + \
+  && find . -type f -name '*.lock' -exec rm {} + \
+  && find . -type f -name '*.mix.*' -exec rm {} + \
+  && find . -type f -name '*.txt' -exec rm {} + \
