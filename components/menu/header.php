@@ -2,7 +2,11 @@
 $campo = get_info_sedes();
 $menu_global = PaThemeHelpers::getGlobalMenu('global-header');
 $relative_site = network_site_url("", "relative");
-$relative_sites = ['/pt/' => 'PT', '/es/' => 'ES'];
+$relative_sites = [
+  '/'.   => 'PT',
+  '/pt/' => 'PT', 
+  '/es/' => 'ES'
+];
 ?>
 
 <header class="pa-menu" id="topo">
