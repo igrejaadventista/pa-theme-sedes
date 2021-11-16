@@ -1,20 +1,19 @@
 <div class="pa-share">
 <?php
+  global $post;
 
-$texto = "Recentemente, alguns artistas do chamado mundo gospel foram confrontados com uma série de críticas por conta de posicionamentos contrários à prática da homossexualidade.";
-$url = get_permalink();
-$titulo = get_the_title();
-$site = get_bloginfo('name');
-$via = "iasd";
-$subject = $site . " - " . $titulo;
-$body = $titulo . "%0D%0A%0D%0A" . get_the_excerpt() . "%0D%0A%0D%0ALeia%20na%20íntegra:%20" . $url;
+  $url = get_permalink();
+  $titulo = $post->post_title;
+  $site = get_bloginfo('name');
+  $via = "iasd";
+  $subject = $site . " - " . $titulo;
+  $body = $titulo . "%0D%0A%0D%0A" . get_the_excerpt() . "%0D%0A%0D%0ALeia%20na%20íntegra:%20" . $url;
 
 
-$link_twitter = "https://twitter.com/intent/tweet?text=" . urlencode(wp_html_excerpt($texto, (247 - strlen($via)), '...')) . "&via=" . $via . "&url=" . urlencode($url);
-$link_facebook = "https://www.facebook.com/sharer/sharer.php?u=" . urlencode($url) . "&display=popup&ref=plugin&ref=plugin&kid_directed_site=0";
-$link_whatsapp = "https://api.whatsapp.com/send?text=" . urlencode($titulo) . "%20-%20" . $site . "%20-%20" . urlencode($url);
-$link_email = "mailto:?subject=" . rawurlencode($subject) . "&body=" . $body;
-
+  $link_twitter = "https://twitter.com/intent/tweet?text=" . urlencode(wp_html_excerpt(get_the_excerpt(), (247 - strlen($via)), '...')) . "&via=" . $via . "&url=" . urlencode($url);
+  $link_facebook = "https://www.facebook.com/sharer/sharer.php?u=" . urlencode($url) . "&display=popup&ref=plugin&ref=plugin&kid_directed_site=0";
+  $link_whatsapp = "https://api.whatsapp.com/send?text=" . urlencode($titulo) . "%20-%20" . $site . "%20-%20" . urlencode($url);
+  $link_email = "mailto:?subject=" . rawurlencode($subject) . "&body=" . $body;
 ?>	
 	<ul class="list-inline">
 		<li class="list-inline-item"><? _e('Share:' ); ?></li>
