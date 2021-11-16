@@ -3,7 +3,7 @@ $campo = get_info_sedes();
 $menu_global = PaThemeHelpers::getGlobalMenu('global-header');
 $relative_site = network_site_url("", "relative");
 $relative_sites = [
-  '/'.   => 'PT',
+  '/'    => 'PT',
   '/pt/' => 'PT', 
   '/es/' => 'ES'
 ];
