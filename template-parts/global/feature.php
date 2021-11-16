@@ -11,7 +11,7 @@
             <figcaption class="figure-caption position-absolute w-100 p-3 rounded-bottom">
               <?php if (isset($args['tag']) && !empty($args['tag'])) : ?>
                 <span class="pa-tag rounded-1 text-uppercase mb-2 d-none d-md-table-cell px-2"><?= $args['tag']; ?></span>
-              <? endif; ?>
+              <?php endif; ?>
 
               <h3 class="h5 pt-2 pa-truncate-2"><?= get_the_title($args['post']->ID) ?></h3>
             </figcaption>
