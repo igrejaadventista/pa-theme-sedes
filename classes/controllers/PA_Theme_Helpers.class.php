@@ -32,7 +32,6 @@ class PaThemeHelpers
     add_theme_support('title-tag');
     add_theme_support('post-thumbnails');
     add_theme_support('responsive-embeds');
-    //add_theme_support( 'post-formats', array( 'gallery', 'video', 'audio') );
 
     remove_action('wp_head', 'wp_generator');
     remove_action('wp_head', 'print_emoji_detection_script', 7);
@@ -110,14 +109,13 @@ class PaThemeHelpers
         'get_callback' => function ($post) {
           $img_id = get_post_thumbnail_id($post['id']);
 
-          $img_scr = array(
+          return array(
             'full' => wp_get_attachment_image_src($img_id, '')[0],
             'medium' => wp_get_attachment_image_src($img_id, 'medium_large')[0],
             'small' => wp_get_attachment_image_src($img_id, 'thumbnail')[0],
             'pa-block-preview' => wp_get_attachment_image_src($img_id, 'thumbnail')[0],
             'pa-block-render' => wp_get_attachment_image_src($img_id, 'full')[0]
           );
-          return $img_scr;
         },
         'update_callback'   => null,
         'schema'            => null,
