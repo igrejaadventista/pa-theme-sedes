@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2021-11-05 09:20-0300\n"
-"PO-Revision-Date: 2021-11-05 09:23-0300\n"
+"POT-Creation-Date: 2021-11-17 12:16-0300\n"
+"PO-Revision-Date: 2021-11-17 12:18-0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: pt_BR\n"
@@ -36,11 +36,7 @@ msgstr "Você quer fazer uma nova busca?"
 msgid "New search"
 msgstr "Nova busca"
 
-#: 404.php:23 components/menu/header.php:22 core/PA_Theme_Sedes_Install.php:38
-#: core/PA_Theme_Sedes_Install.php:73 core/PA_Theme_Sedes_Install.php:108
-#: core/PA_Theme_Sedes_Install.php:145 core/PA_Theme_Sedes_Install.php:182
-#: core/PA_Theme_Sedes_Install.php:219 core/PA_Theme_Sedes_Install.php:256
-#: search.php:26
+#: 404.php:23 components/menu/header.php:26 search.php:26
 msgid "Search"
 msgstr "Buscar"
 
@@ -70,8 +66,8 @@ msgstr "Aplicativo"
 #: Blocks/PAListIcons/PAListIcons.php:59 Blocks/PAListItems/PAListItems.php:62
 #: Blocks/PAListNews/PAListNews.php:56 Blocks/PAListVideos/PAListVideos.php:47
 #: Blocks/PAMagazines/PAMagazines.php:33 Blocks/PASevenCast/PASevenCast.php:38
-#: Blocks/PATwitter/PATwitter.php:34 Blocks/Plugins/LocalData/LocalData.php:659
-#: Blocks/Plugins/RemoteData/RemoteData.php:644
+#: Blocks/PATwitter/PATwitter.php:34 Blocks/Plugins/LocalData/LocalData.php:661
+#: Blocks/Plugins/RemoteData/RemoteData.php:646
 msgid "Title"
 msgstr "Título"
 
@@ -204,8 +200,8 @@ msgstr ""
 "selecione um ícone e insira a respectiva classe csi aqui."
 
 #: Blocks/PAListIcons/PAListIcons.php:69
-#: Blocks/Plugins/LocalData/LocalData.php:666
-#: Blocks/Plugins/RemoteData/RemoteData.php:651
+#: Blocks/Plugins/LocalData/LocalData.php:668
+#: Blocks/Plugins/RemoteData/RemoteData.php:653
 msgid "Link"
 msgstr ""
 
@@ -233,8 +229,7 @@ msgstr "Bloco para exibir as notícias no formato de lista."
 msgid "Post format"
 msgstr "Formato do post"
 
-#: Blocks/PAListNews/PAListNews.php:97 core/PA_Theme_Sedes_Install.php:106
-#: core/PA_Theme_Sedes_Install.php:107 core/PA_Theme_Sedes_Install.php:116
+#: Blocks/PAListNews/PAListNews.php:97
 msgid "Editorial"
 msgstr "Editoria"
 
@@ -365,36 +360,36 @@ msgstr "Buscar…"
 msgid "Number of items to be displayed."
 msgstr "Número de itens que serão exibidos."
 
-#: Blocks/Plugins/LocalData/LocalData.php:255
-#: Blocks/Plugins/RemoteData/RemoteData.php:284
+#: Blocks/Plugins/LocalData/LocalData.php:257
+#: Blocks/Plugins/RemoteData/RemoteData.php:286
 msgid ""
 "Filter by post type.<br />Obs: Fixed items are not affected by this filter."
 msgstr ""
 "Filtrar por tipo de post.<br />Obs: Conteúdos fixos não são afetados por "
 "esse filtro."
 
-#: Blocks/Plugins/LocalData/LocalData.php:368
-#: Blocks/Plugins/RemoteData/RemoteData.php:395
+#: Blocks/Plugins/LocalData/LocalData.php:370
+#: Blocks/Plugins/RemoteData/RemoteData.php:397
 msgid "Results"
 msgstr "Resultados"
 
-#: Blocks/Plugins/LocalData/LocalData.php:377
-#: Blocks/Plugins/RemoteData/RemoteData.php:404
+#: Blocks/Plugins/LocalData/LocalData.php:379
+#: Blocks/Plugins/RemoteData/RemoteData.php:406
 msgid "Sticky"
 msgstr "Fixos"
 
-#: Blocks/Plugins/LocalData/LocalData.php:381
-#: Blocks/Plugins/RemoteData/RemoteData.php:408
+#: Blocks/Plugins/LocalData/LocalData.php:383
+#: Blocks/Plugins/RemoteData/RemoteData.php:410
 msgid "Recents"
 msgstr "Recentes"
 
-#: Blocks/Plugins/LocalData/LocalData.php:678
-#: Blocks/Plugins/RemoteData/RemoteData.php:663
+#: Blocks/Plugins/LocalData/LocalData.php:680
+#: Blocks/Plugins/RemoteData/RemoteData.php:665
 msgid "Thumbnail"
 msgstr "Miniatura"
 
-#: Blocks/Plugins/LocalData/LocalData.php:691
-#: Blocks/Plugins/RemoteData/RemoteData.php:676
+#: Blocks/Plugins/LocalData/LocalData.php:693
+#: Blocks/Plugins/RemoteData/RemoteData.php:678
 msgid "Excerpt"
 msgstr "Resumo"
 
@@ -442,34 +437,34 @@ msgstr "Habilitar: Número de itens?"
 msgid "Add"
 msgstr "Adicionar"
 
-#: Blocks/Plugins/RemoteData/RemoteData.php:344
-#: Blocks/Plugins/RemoteData/RemoteData.php:349
-#: Blocks/Plugins/RemoteData/RemoteData.php:369
-#: Blocks/Plugins/RemoteData/RemoteData.php:374
+#: Blocks/Plugins/RemoteData/RemoteData.php:346
+#: Blocks/Plugins/RemoteData/RemoteData.php:351
+#: Blocks/Plugins/RemoteData/RemoteData.php:371
+#: Blocks/Plugins/RemoteData/RemoteData.php:376
 msgid "Number of itens to be displayed. From 1 to 100."
 msgstr "Número de itens a serem exibidos. De 1 a 100."
 
-#: Blocks/Plugins/RemoteData/RemoteData.php:344
-#: Blocks/Plugins/RemoteData/RemoteData.php:369
+#: Blocks/Plugins/RemoteData/RemoteData.php:346
+#: Blocks/Plugins/RemoteData/RemoteData.php:371
 msgid "Taxonomie"
 msgstr "Taxonomia"
 
-#: Blocks/Plugins/RemoteData/RemoteData.php:349
-#: Blocks/Plugins/RemoteData/RemoteData.php:374
+#: Blocks/Plugins/RemoteData/RemoteData.php:351
+#: Blocks/Plugins/RemoteData/RemoteData.php:376
 msgid "Terms"
 msgstr "Termos"
 
-#: Blocks/Plugins/RemoteData/RemoteData.php:350
-#: Blocks/Plugins/RemoteData/RemoteData.php:375
+#: Blocks/Plugins/RemoteData/RemoteData.php:352
+#: Blocks/Plugins/RemoteData/RemoteData.php:377
 msgid "Select the wanted terms:"
 msgstr "Selecionar os termos desejados:"
 
-#: Blocks/Plugins/RemoteData/RemoteData.php:353
-#: Blocks/Plugins/RemoteData/RemoteData.php:378
+#: Blocks/Plugins/RemoteData/RemoteData.php:355
+#: Blocks/Plugins/RemoteData/RemoteData.php:380
 msgid "Remove taxonomie"
 msgstr "Remover taxonomia"
 
-#: Blocks/Plugins/RemoteData/RemoteData.php:386
+#: Blocks/Plugins/RemoteData/RemoteData.php:388
 msgid "Add taxonomie"
 msgstr "Adicionar taxonomia"
 
@@ -721,119 +716,14 @@ msgid "Go to top"
 msgstr "Ir ao topo"
 
 #: components/parts/share.php:20
-msgid "Share:"
+msgid "Sharex:"
 msgstr "Compartilhar:"
 
-#: core/PA_Theme_Sedes_Install.php:36 core/PA_Theme_Sedes_Install.php:37
-#: core/PA_Theme_Sedes_Install.php:46 core/PA_Theme_Sedes_Install.php:316
+#: core/PA_Theme_Sedes_Install.php:68
 msgid "Headquarter - Owner"
 msgstr "Sede Proprietária"
 
-#: core/PA_Theme_Sedes_Install.php:39 core/PA_Theme_Sedes_Install.php:74
-#: core/PA_Theme_Sedes_Install.php:109 core/PA_Theme_Sedes_Install.php:146
-#: core/PA_Theme_Sedes_Install.php:183 core/PA_Theme_Sedes_Install.php:220
-#: core/PA_Theme_Sedes_Install.php:257
-msgid "All itens"
-msgstr "Todos os itens"
-
-#: core/PA_Theme_Sedes_Install.php:40 core/PA_Theme_Sedes_Install.php:41
-msgid "Headquarter - Owner, father"
-msgstr "Sede Proprietária - Pai"
-
-#: core/PA_Theme_Sedes_Install.php:42 core/PA_Theme_Sedes_Install.php:77
-#: core/PA_Theme_Sedes_Install.php:112 core/PA_Theme_Sedes_Install.php:149
-#: core/PA_Theme_Sedes_Install.php:186 core/PA_Theme_Sedes_Install.php:223
-#: core/PA_Theme_Sedes_Install.php:260
-msgid "Edit"
-msgstr "Edigar"
-
-#: core/PA_Theme_Sedes_Install.php:43 core/PA_Theme_Sedes_Install.php:78
-#: core/PA_Theme_Sedes_Install.php:113 core/PA_Theme_Sedes_Install.php:150
-#: core/PA_Theme_Sedes_Install.php:187 core/PA_Theme_Sedes_Install.php:224
-#: core/PA_Theme_Sedes_Install.php:261
-msgid "Update"
-msgstr "Atualizar"
-
-#: core/PA_Theme_Sedes_Install.php:44 core/PA_Theme_Sedes_Install.php:79
-#: core/PA_Theme_Sedes_Install.php:114 core/PA_Theme_Sedes_Install.php:151
-#: core/PA_Theme_Sedes_Install.php:188 core/PA_Theme_Sedes_Install.php:225
-#: core/PA_Theme_Sedes_Install.php:262
-msgid "Add new"
-msgstr "Adicionar novo"
-
-#: core/PA_Theme_Sedes_Install.php:45 core/PA_Theme_Sedes_Install.php:80
-#: core/PA_Theme_Sedes_Install.php:115 core/PA_Theme_Sedes_Install.php:152
-#: core/PA_Theme_Sedes_Install.php:189 core/PA_Theme_Sedes_Install.php:226
-#: core/PA_Theme_Sedes_Install.php:263
-msgid "New"
-msgstr "Novo"
-
-#: core/PA_Theme_Sedes_Install.php:71 core/PA_Theme_Sedes_Install.php:72
-#: core/PA_Theme_Sedes_Install.php:81
-msgid "Collection"
-msgstr "Coleção"
-
-#: core/PA_Theme_Sedes_Install.php:75 core/PA_Theme_Sedes_Install.php:76
-msgid "Collection, father"
-msgstr "Coleção - Pai"
-
-#: core/PA_Theme_Sedes_Install.php:110 core/PA_Theme_Sedes_Install.php:111
-msgid "Editorial, father"
-msgstr "Editoria - Pai"
-
-#: core/PA_Theme_Sedes_Install.php:125
-msgid "editorial"
-msgstr "editoria"
-
-#: core/PA_Theme_Sedes_Install.php:143 core/PA_Theme_Sedes_Install.php:144
-#: core/PA_Theme_Sedes_Install.php:153
-msgid "Ministry"
-msgstr "Departamento"
-
-#: core/PA_Theme_Sedes_Install.php:147 core/PA_Theme_Sedes_Install.php:148
-msgid "Ministry, father"
-msgstr "Departamento - Pai"
-
-#: core/PA_Theme_Sedes_Install.php:162
-msgid "departamento"
-msgstr ""
-
-#: core/PA_Theme_Sedes_Install.php:180 core/PA_Theme_Sedes_Install.php:181
-#: core/PA_Theme_Sedes_Install.php:190
-msgid "Projects"
-msgstr "Projetos"
-
-#: core/PA_Theme_Sedes_Install.php:184 core/PA_Theme_Sedes_Install.php:185
-msgid "Projects, father"
-msgstr "Projetos - Pai"
-
-#: core/PA_Theme_Sedes_Install.php:199
-msgid "project"
-msgstr "Projeto"
-
-#: core/PA_Theme_Sedes_Install.php:217 core/PA_Theme_Sedes_Install.php:218
-#: core/PA_Theme_Sedes_Install.php:227
-msgid "Regions"
-msgstr "Regiões"
-
-#: core/PA_Theme_Sedes_Install.php:221 core/PA_Theme_Sedes_Install.php:222
-msgid "Regions, father"
-msgstr "Regi - Pai"
-
-#: core/PA_Theme_Sedes_Install.php:236
-msgid "region"
-msgstr "Região"
-
-#: core/PA_Theme_Sedes_Install.php:254 core/PA_Theme_Sedes_Install.php:255
-#: core/PA_Theme_Sedes_Install.php:264
-msgid "Regional Headquarter"
-msgstr "Sede Regional"
-
-#: core/PA_Theme_Sedes_Install.php:258 core/PA_Theme_Sedes_Install.php:259
-msgid "Regional Headquarter, father"
-msgstr "Sede Regional - Pai"
-
-#: core/PA_Theme_Sedes_Install.php:356
+#: core/PA_Theme_Sedes_Install.php:108
 msgid "Quick&nbsp;Edit"
 msgstr "Edição&nbsp;Rápida"
 
@@ -872,6 +762,66 @@ msgstr "Próximo artigo"
 #: template-parts/global/feature.php:3
 msgid "Featured"
 msgstr "Destaque"
+
+#~ msgid "All itens"
+#~ msgstr "Todos os itens"
+
+#~ msgid "Headquarter - Owner, father"
+#~ msgstr "Sede Proprietária - Pai"
+
+#~ msgid "Edit"
+#~ msgstr "Edigar"
+
+#~ msgid "Update"
+#~ msgstr "Atualizar"
+
+#~ msgid "Add new"
+#~ msgstr "Adicionar novo"
+
+#~ msgid "New"
+#~ msgstr "Novo"
+
+#~ msgid "Collection"
+#~ msgstr "Coleção"
+
+#~ msgid "Collection, father"
+#~ msgstr "Coleção - Pai"
+
+#~ msgid "Editorial, father"
+#~ msgstr "Editoria - Pai"
+
+#~ msgid "editorial"
+#~ msgstr "editoria"
+
+#~ msgid "Ministry"
+#~ msgstr "Departamento"
+
+#~ msgid "Ministry, father"
+#~ msgstr "Departamento - Pai"
+
+#~ msgid "Projects"
+#~ msgstr "Projetos"
+
+#~ msgid "Projects, father"
+#~ msgstr "Projetos - Pai"
+
+#~ msgid "project"
+#~ msgstr "Projeto"
+
+#~ msgid "Regions"
+#~ msgstr "Regiões"
+
+#~ msgid "Regions, father"
+#~ msgstr "Regi - Pai"
+
+#~ msgid "region"
+#~ msgstr "Região"
+
+#~ msgid "Regional Headquarter"
+#~ msgstr "Sede Regional"
+
+#~ msgid "Regional Headquarter, father"
+#~ msgstr "Sede Regional - Pai"
 
 #~ msgid "Apps"
 #~ msgstr "Aplicativos"
