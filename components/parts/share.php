@@ -17,7 +17,7 @@
 
   ?>
   <ul class="list-inline">
-    <li class="list-inline-item"><?= __('Sharex:', 'iasd'); ?></li>
+    <li class="list-inline-item"><?= __('Share:', 'iasd'); ?></li>
     <li class="list-inline-item"><a rel="canonical" target="_blank" href="#" onclick="window.Share.pa_share(event, '<?= $link_twitter  ?>' )"><i class="fab fa-twitter"></i></a></li>
     <li class="list-inline-item"><a rel="canonical" target="_blank" href="#" onclick="window.Share.pa_share(event, '<?= $link_facebook ?>' )"><i class="fab fa-facebook-f"></i></a></li>
     <li class="list-inline-item"><a rel="noopener" target="_blank" href="<?= $link_email ?>"><i class="fas fa-envelope"></i></a></li>
