@@ -114,7 +114,7 @@ class PaThemeHelpers
             'medium' => wp_get_attachment_image_src($img_id, 'medium_large')[0],
             'small' => wp_get_attachment_image_src($img_id, 'thumbnail')[0],
             'pa-block-preview' => wp_get_attachment_image_src($img_id, 'thumbnail')[0],
-            'pa-block-render' => wp_get_attachment_image_src($img_id, 'full')[0]
+            'pa-block-render' => wp_get_attachment_image_src($img_id, 'medium')[0]
           );
         },
         'update_callback'   => null,
