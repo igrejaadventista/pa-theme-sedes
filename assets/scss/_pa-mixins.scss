@@ -49,7 +49,6 @@
   .pa-img-tag {
     @include pa-tag;
 
-    border-radius: 2px;
     position: absolute;
     background-color: var(--pa-color-default);
     color: #fff;
