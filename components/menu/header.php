@@ -4,7 +4,7 @@ $menu_global = PaThemeHelpers::getGlobalMenu('global-header');
 $relative_site = network_site_url("", "relative");
 $relative_sites = [
   '/'    => 'PT',
-  '/pt/' => 'PT', 
+  '/pt/' => 'PT',
   '/es/' => 'ES'
 ];
 ?>
@@ -92,7 +92,7 @@ $relative_sites = [
           </li>
         </ul>
         <?php
-        $PA_Menu_Mobile = new PaMenuMobile('pa-menu-default');
+        $PA_Menu_Mobile = new PaMenuMobile('pa-menu-default', $menu_global);
         ?>
       </div>
       <div class="mask"></div>
