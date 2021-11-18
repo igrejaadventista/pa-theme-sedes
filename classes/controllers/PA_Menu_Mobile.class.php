@@ -7,7 +7,7 @@ class PaMenuMobile
     echo '<ul class="menu_inf">';
     self::getMenuGlobal($menu_global);
     foreach ($menu as $m) {
-      echo '<li class="' . (empty($m['children']) ? "" : "pa-dropdown") . '"><a href="#">' . $m['title'] . '</a>';
+      echo '<li class="' . (empty($m['children']) ? "" : "pa-dropdown") . '"><a href="' . $m['url'] . '">' . $m['title'] . '</a>';
       self::getMenuChild($m['children']);
       echo '</li>';
     }
