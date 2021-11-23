@@ -7,6 +7,8 @@ define( 'API_F7P', 'api.feliz7play.com' );
 if(file_exists($composer = __DIR__. '/vendor/autoload.php'))
 	require_once $composer;
 
+add_filter('run_wptexturize', '__return_false');
+
 require_once (dirname(__FILE__) . '/classes/controllers/PA_Theme_Helpers.class.php');
 require_once (dirname(__FILE__) . '/classes/controllers/PA_ACF_Helpers.class.php');
 require_once (dirname(__FILE__) . '/classes/controllers/PA_ACF_Site-settings.class.php');
