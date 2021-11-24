@@ -17,8 +17,9 @@ class PACoreInstall
   {
     add_action('after_setup_theme', array($this, 'installRoutines'));
     add_action('admin_enqueue_scripts', array($this, 'enqueueAssets'));
-    add_filter('manage_posts_columns', array($this, 'addFakeColumn'));
-    add_filter('manage_edit-post_columns', array($this, 'removeFakeColumn'));
+    // add_filter('manage_posts_columns', array($this, 'addFakeColumn'));
+    // add_filter('manage_edit-post_columns', array($this, 'removeFakeColumn'));
+    // add_filter('manage_edit-kit_columns', array($this, 'removeFakeColumn'));
     add_action('quick_edit_custom_box', array($this, 'addQuickEdit'));
     add_action('save_post', array($this, 'saveQuickEdit'));
     add_filter('post_row_actions', array($this, 'linkQuickEdit'), 10, 2);
@@ -28,8 +29,6 @@ class PACoreInstall
 
   function installRoutines()
   {
-
-
     // Install routine to create or update taxonomies
     if (!wp_next_scheduled('PA-Service_Taxonomy_Schedule')) {
       wp_schedule_event(time(), '20min', 'PA-Service_Taxonomy_Schedule');
