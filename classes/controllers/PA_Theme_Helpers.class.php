@@ -24,6 +24,10 @@ class PaThemeHelpers
       wp_schedule_event(time(), 'hourly', 'PA-update_banner_global');
     }
 
+    add_action('init', 'wp_rest_headless_boot_plugin', 9 );
+    add_filter('wp_headless_rest__disable_front_end', '__return_false' );
+    add_filter('run_wptexturize', '__return_false' );
+
     define('LANG', $this->getInfoLang());
   }
 
