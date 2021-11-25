@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2021-11-17 12:16-0300\n"
-"PO-Revision-Date: 2021-11-17 12:18-0300\n"
+"POT-Creation-Date: 2021-11-24 22:31-0300\n"
+"PO-Revision-Date: 2021-11-24 22:32-0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: pt_BR\n"
@@ -19,6 +19,26 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-0: assets\n"
 "X-Poedit-SearchPathExcluded-1: vendor\n"
 "X-Poedit-SearchPathExcluded-2: node_modules\n"
+
+#: Blocks/PAApps/views/frontend.blade.php:16
+msgid "Apps"
+msgstr "Aplicativos"
+
+#: Blocks/PAApps/views/frontend.blade.php:22
+msgid "Apps available for:"
+msgstr "Aplicativos disponíveis para:"
+
+#: Blocks/PAApps/views/frontend.blade.php:29
+msgid "Apple Store"
+msgstr ""
+
+#: Blocks/PAApps/views/frontend.blade.php:37
+msgid "Google Play"
+msgstr ""
+
+#: Blocks/PAFeliz7Play/views/frontend.blade.php:15
+msgid "Access the website"
+msgstr "Acessar o site"
 
 #: 404.php:10 404.php:16
 msgid "I'm sorry! Content not found! :("
@@ -63,10 +83,10 @@ msgstr "Aplicativo"
 #: Blocks/PAFacebook/PAFacebook.php:34
 #: Blocks/PAListButtons/PAListButtons.php:47
 #: Blocks/PAListDownloads/PAListDownloads.php:38
-#: Blocks/PAListIcons/PAListIcons.php:59 Blocks/PAListItems/PAListItems.php:62
+#: Blocks/PAListIcons/PAListIcons.php:62 Blocks/PAListItems/PAListItems.php:62
 #: Blocks/PAListNews/PAListNews.php:56 Blocks/PAListVideos/PAListVideos.php:47
 #: Blocks/PAMagazines/PAMagazines.php:33 Blocks/PASevenCast/PASevenCast.php:38
-#: Blocks/PATwitter/PATwitter.php:34 Blocks/Plugins/LocalData/LocalData.php:661
+#: Blocks/PATwitter/PATwitter.php:34 Blocks/Plugins/LocalData/LocalData.php:673
 #: Blocks/Plugins/RemoteData/RemoteData.php:646
 msgid "Title"
 msgstr "Título"
@@ -94,7 +114,7 @@ msgstr "Bloco para exibir conteúdos em destaque no formato de slides."
 #: Blocks/PAFeliz7Play/PAFeliz7Play.php:912
 #: Blocks/PAListButtons/PAListButtons.php:49
 #: Blocks/PAListDownloads/PAListDownloads.php:41
-#: Blocks/PAListIcons/PAListIcons.php:61 Blocks/PAListItems/PAListItems.php:65
+#: Blocks/PAListIcons/PAListIcons.php:64 Blocks/PAListItems/PAListItems.php:65
 #: Blocks/PAListNews/PAListNews.php:59 Blocks/PAListNews/PAListNews.php:89
 #: Blocks/PAListVideos/PAListVideos.php:50
 #: Blocks/PAMagazines/PAMagazines.php:35 Blocks/PASevenCast/PASevenCast.php:41
@@ -177,35 +197,25 @@ msgstr "Bloco para exibir conteúdos de downloads no formato de lista."
 msgid "IASD - Downloads - Buttons"
 msgstr ""
 
-#: Blocks/PAListIcons/PAListIcons.php:19 Blocks/PAListIcons/PAListIcons.php:60
+#: Blocks/PAListIcons/PAListIcons.php:21 Blocks/PAListIcons/PAListIcons.php:63
 msgid "IASD - Icons - List"
 msgstr ""
 
-#: Blocks/PAListIcons/PAListIcons.php:20
+#: Blocks/PAListIcons/PAListIcons.php:22
 msgid "Block to show contents in list format with icons."
 msgstr "Bloco para exibir conteúdos no formato de lista com ícones."
 
-#: Blocks/PAListIcons/PAListIcons.php:63
+#: Blocks/PAListIcons/PAListIcons.php:66
 msgid "Icon"
 msgstr "Ícone"
 
-#: Blocks/PAListIcons/PAListIcons.php:64
-msgid ""
-"Access <a href=\"https://fontawesome.com/v5.15/icons?"
-"d=gallery&p=2&s=solid&m=free\" target=\"_blank\">icon list</a>, and select "
-"an icon and insert the respective css class here."
-msgstr ""
-"Acesse <a href=“https://fontawesome.com/v5.15/icons?"
-"d=gallery&p=2&s=solid&m=free” target=“_blank”>lista de ícones</a>, e "
-"selecione um ícone e insira a respectiva classe csi aqui."
-
-#: Blocks/PAListIcons/PAListIcons.php:69
-#: Blocks/Plugins/LocalData/LocalData.php:668
+#: Blocks/PAListIcons/PAListIcons.php:72
+#: Blocks/Plugins/LocalData/LocalData.php:680
 #: Blocks/Plugins/RemoteData/RemoteData.php:653
 msgid "Link"
 msgstr ""
 
-#: Blocks/PAListIcons/PAListIcons.php:75
+#: Blocks/PAListIcons/PAListIcons.php:78
 msgid "Add item"
 msgstr "Adicionar item"
 
@@ -285,82 +295,78 @@ msgstr "Carregando"
 msgid "No matches found"
 msgstr "Nenhuma correspondência encontrada"
 
-#: Blocks/Plugins/LocalData/LocalData.php:30
+#: Blocks/Plugins/LocalData/LocalData.php:32
 msgid "Local data"
 msgstr "Conteúdo local"
 
-#: Blocks/Plugins/LocalData/LocalData.php:86
-#: Blocks/Plugins/LocalData/LocalData.php:245
+#: Blocks/Plugins/LocalData/LocalData.php:90
+#: Blocks/Plugins/LocalData/LocalData.php:250
 #: Blocks/Plugins/RemoteData/RemoteData.php:110
 #: Blocks/Plugins/RemoteData/RemoteData.php:277
 msgid "Quantity"
 msgstr "Quantidade"
 
-#: Blocks/Plugins/LocalData/LocalData.php:98
+#: Blocks/Plugins/LocalData/LocalData.php:102
 msgid "Filter by Post Type"
 msgstr "Filtrar por tipo de post"
 
-#: Blocks/Plugins/LocalData/LocalData.php:106
+#: Blocks/Plugins/LocalData/LocalData.php:110
 msgid "All post types"
 msgstr "Todos os tipos de post"
 
-#: Blocks/Plugins/LocalData/LocalData.php:116
-#, fuzzy
-#| msgid "Taxonomies"
+#: Blocks/Plugins/LocalData/LocalData.php:120
 msgid "Taxonomias"
 msgstr "Taxonomias"
 
-#: Blocks/Plugins/LocalData/LocalData.php:124
-#, fuzzy
-#| msgid "Select the taxonomies."
-msgid "Selecione as taxonomias"
-msgstr "Selecionar as taxonomias."
-
 #: Blocks/Plugins/LocalData/LocalData.php:128
+msgid "Select taxonomies"
+msgstr "Selecionar as taxonomias"
+
+#: Blocks/Plugins/LocalData/LocalData.php:132
 #: Blocks/Plugins/RemoteData/RemoteData.php:159
 msgid "Enable: Search?"
 msgstr "Habilitar: Buscar?"
 
-#: Blocks/Plugins/LocalData/LocalData.php:136
+#: Blocks/Plugins/LocalData/LocalData.php:140
 msgid "Enable: Number of items?"
 msgstr "Habilitar: Número de itens?"
 
-#: Blocks/Plugins/LocalData/LocalData.php:144
+#: Blocks/Plugins/LocalData/LocalData.php:148
 #: Blocks/Plugins/RemoteData/RemoteData.php:175
 msgid "Enable: Sticky itens?"
 msgstr "Habilitar: Itens fixos?"
 
-#: Blocks/Plugins/LocalData/LocalData.php:152
+#: Blocks/Plugins/LocalData/LocalData.php:156
 #: Blocks/Plugins/RemoteData/RemoteData.php:183
 msgid "Enable: Manual content?"
 msgstr "Habilitar: Conteúdo manual?"
 
-#: Blocks/Plugins/LocalData/LocalData.php:168
+#: Blocks/Plugins/LocalData/LocalData.php:172
 #: Blocks/Plugins/RemoteData/RemoteData.php:199
 msgid "Manual content fields"
 msgstr "Campos de conteúdo manual"
 
-#: Blocks/Plugins/LocalData/LocalData.php:220
+#: Blocks/Plugins/LocalData/LocalData.php:225
 #: Blocks/Plugins/RemoteData/RemoteData.php:253
 msgid "Add manual itens"
 msgstr "Adicionar item manual"
 
-#: Blocks/Plugins/LocalData/LocalData.php:223
+#: Blocks/Plugins/LocalData/LocalData.php:228
 #: Blocks/Plugins/RemoteData/RemoteData.php:256
 msgid "Refresh"
 msgstr "Atualizar"
 
-#: Blocks/Plugins/LocalData/LocalData.php:236
+#: Blocks/Plugins/LocalData/LocalData.php:241
 #: Blocks/Plugins/RemoteData/RemoteData.php:268
 msgid "Search..."
 msgstr "Buscar…"
 
-#: Blocks/Plugins/LocalData/LocalData.php:245
+#: Blocks/Plugins/LocalData/LocalData.php:250
 #: Blocks/Plugins/RemoteData/RemoteData.php:277
 msgid "Number of items to be displayed."
 msgstr "Número de itens que serão exibidos."
 
-#: Blocks/Plugins/LocalData/LocalData.php:257
+#: Blocks/Plugins/LocalData/LocalData.php:262
 #: Blocks/Plugins/RemoteData/RemoteData.php:286
 msgid ""
 "Filter by post type.<br />Obs: Fixed items are not affected by this filter."
@@ -368,27 +374,27 @@ msgstr ""
 "Filtrar por tipo de post.<br />Obs: Conteúdos fixos não são afetados por "
 "esse filtro."
 
-#: Blocks/Plugins/LocalData/LocalData.php:370
+#: Blocks/Plugins/LocalData/LocalData.php:375
 #: Blocks/Plugins/RemoteData/RemoteData.php:397
 msgid "Results"
 msgstr "Resultados"
 
-#: Blocks/Plugins/LocalData/LocalData.php:379
+#: Blocks/Plugins/LocalData/LocalData.php:384
 #: Blocks/Plugins/RemoteData/RemoteData.php:406
 msgid "Sticky"
 msgstr "Fixos"
 
-#: Blocks/Plugins/LocalData/LocalData.php:383
+#: Blocks/Plugins/LocalData/LocalData.php:388
 #: Blocks/Plugins/RemoteData/RemoteData.php:410
 msgid "Recents"
 msgstr "Recentes"
 
-#: Blocks/Plugins/LocalData/LocalData.php:680
+#: Blocks/Plugins/LocalData/LocalData.php:692
 #: Blocks/Plugins/RemoteData/RemoteData.php:665
 msgid "Thumbnail"
 msgstr "Miniatura"
 
-#: Blocks/Plugins/LocalData/LocalData.php:693
+#: Blocks/Plugins/LocalData/LocalData.php:705
 #: Blocks/Plugins/RemoteData/RemoteData.php:678
 msgid "Excerpt"
 msgstr "Resumo"
@@ -497,48 +503,36 @@ msgid "Local"
 msgstr ""
 
 #: Fields/TaxonomyTerms.php:16
-#, fuzzy
-#| msgid "Taxonomies"
 msgid "Taxonomy Terms"
-msgstr "Taxonomias"
+msgstr "Termos de taxonomia"
 
 #: Fields/TaxonomyTerms.php:701
-#, fuzzy
-#| msgid "Taxonomie"
 msgid "Allow Taxonomy"
-msgstr "Taxonomia"
+msgstr "Permitir Taxonomia"
 
 #: Fields/TaxonomyTerms.php:709
-#, fuzzy
-#| msgid "Add taxonomie"
 msgid "All taxonomies"
-msgstr "Adicionar taxonomia"
+msgstr "Todas as taxonomias"
 
 #: Fields/TaxonomyTerms.php:794
-#, fuzzy
-#| msgid "Terms"
 msgid "Allow Terms"
-msgstr "Termos"
+msgstr "Permitir termos"
 
 #: Fields/TaxonomyTerms.php:803
-#, fuzzy
-#| msgid "All itens"
 msgid "All terms"
-msgstr "Todos os itens"
+msgstr "Todos os termos"
 
 #: Fields/TaxonomyTerms.php:809
-#, fuzzy
-#| msgid "Terms"
 msgid "Terms_level"
-msgstr "Termos"
+msgstr ""
 
 #: Fields/TaxonomyTerms.php:815
 msgid "All"
-msgstr ""
+msgstr "Todos"
 
 #: Fields/TaxonomyTerms.php:822
 msgid "Appearance"
-msgstr ""
+msgstr "Aparência"
 
 #: Fields/TaxonomyTerms.php:823
 msgid "Select the appearance of this field"
@@ -554,19 +548,19 @@ msgstr "Radio Buttons"
 
 #: Fields/TaxonomyTerms.php:830 Fields/TaxonomyTerms.php:905
 msgid "Select"
-msgstr ""
+msgstr "Selecione"
 
 #: Fields/TaxonomyTerms.php:836
 msgid "Default Value"
-msgstr ""
+msgstr "Valor padrão"
 
 #: Fields/TaxonomyTerms.php:837
 msgid "Enter each default value on a new line"
-msgstr ""
+msgstr "Insira cada valor padrão em uma nova linha"
 
 #: Fields/TaxonomyTerms.php:844
 msgid "Return Value"
-msgstr ""
+msgstr "Valor de retorno"
 
 #: Fields/TaxonomyTerms.php:849
 msgid "Term object"
@@ -574,7 +568,7 @@ msgstr "Objeto do termo"
 
 #: Fields/TaxonomyTerms.php:850
 msgid "Term name"
-msgstr ""
+msgstr "Nome do termo"
 
 #: Fields/TaxonomyTerms.php:851
 msgid "Term ID"
@@ -594,23 +588,23 @@ msgstr ""
 
 #: Fields/TaxonomyTerms.php:902
 msgid "Appears within the input"
-msgstr ""
+msgstr "Aparece na entrada"
 
 #: Fields/TaxonomyTerms.php:968
 msgid "Search Input Placeholder"
-msgstr ""
+msgstr "Espaço reservado para entrada de pesquisa"
 
 #: Fields/TaxonomyTerms.php:969
 msgid "Appears within the search input"
-msgstr ""
+msgstr "Aparece na entrada de pesquisa"
 
 #: Fields/TaxonomyTerms.php:996
 msgid "Select multiple values?"
-msgstr ""
+msgstr "Selecione vários valores?"
 
 #: Fields/TaxonomyTerms.php:1014
 msgid "Use AJAX to lazy load choices?"
-msgstr ""
+msgstr "Usar AJAX para opções de carregamento lento?"
 
 #: Fields/TaxonomyTerms.php:1037
 msgid "Layout"
@@ -618,7 +612,7 @@ msgstr ""
 
 #: Fields/TaxonomyTerms.php:1043
 msgid "Vertical"
-msgstr "Vertical"
+msgstr ""
 
 #: Fields/TaxonomyTerms.php:1044
 msgid "Horizontal"
@@ -630,7 +624,7 @@ msgstr ""
 
 #: Fields/TaxonomyTerms.php:1067
 msgid "Prepend an extra checkbox to toggle all choices"
-msgstr ""
+msgstr "Adicione uma caixa de seleção extra para alternar todas as opções"
 
 #: Fields/TaxonomyTerms.php:1084
 msgid "Save Terms"
@@ -638,7 +632,7 @@ msgstr "Salvar Termos"
 
 #: Fields/TaxonomyTerms.php:1085
 msgid "Connect selected terms to the post"
-msgstr ""
+msgstr "Conecte os termos selecionados à postagem"
 
 #: Fields/TaxonomyTerms.php:1093
 msgid "Load Terms"
@@ -646,7 +640,7 @@ msgstr "Carregar Termos"
 
 #: Fields/TaxonomyTerms.php:1094
 msgid "Load value from posts terms"
-msgstr ""
+msgstr "Carregar valor dos termos das postagens"
 
 #: archive.php:15 archive.php:27 author.php:15 author.php:27
 msgid "News"
@@ -716,16 +710,20 @@ msgid "Go to top"
 msgstr "Ir ao topo"
 
 #: components/parts/share.php:20
-msgid "Sharex:"
+msgid "Share:"
 msgstr "Compartilhar:"
 
 #: core/PA_Theme_Sedes_Install.php:68
 msgid "Headquarter - Owner"
 msgstr "Sede Proprietária"
 
-#: core/PA_Theme_Sedes_Install.php:108
+#: core/PA_Theme_Sedes_Install.php:110
 msgid "Quick&nbsp;Edit"
 msgstr "Edição&nbsp;Rápida"
+
+#: core/PA_Theme_Sedes_Install.php:118
+msgid "PA - Menu - Default"
+msgstr ""
 
 #: core/utils/PA_Schedule_Custom.php:8
 msgid "Once every 20 minutes"
@@ -737,10 +735,6 @@ msgstr ""
 
 #: core/utils/PA_Service_Slider_Home.php:16
 msgid "Slider Home"
-msgstr ""
-
-#: functions.php:27
-msgid "PA - Menu - Default"
 msgstr ""
 
 #: page.php:22 single.php:23
@@ -762,6 +756,18 @@ msgstr "Próximo artigo"
 #: template-parts/global/feature.php:3
 msgid "Featured"
 msgstr "Destaque"
+
+#~ msgid "Selecione as taxonomias"
+#~ msgstr "Selecionar as taxonomias"
+
+#~ msgid ""
+#~ "Access <a href=\"https://fontawesome.com/v5.15/icons?"
+#~ "d=gallery&p=2&s=solid&m=free\" target=\"_blank\">icon list</a>, and "
+#~ "select an icon and insert the respective css class here."
+#~ msgstr ""
+#~ "Acesse <a href=“https://fontawesome.com/v5.15/icons?"
+#~ "d=gallery&p=2&s=solid&m=free” target=“_blank”>lista de ícones</a>, e "
+#~ "selecione um ícone e insira a respectiva classe csi aqui."
 
 #~ msgid "All itens"
 #~ msgstr "Todos os itens"
@@ -822,15 +828,6 @@ msgstr "Destaque"
 
 #~ msgid "Regional Headquarter, father"
 #~ msgstr "Sede Regional - Pai"
-
-#~ msgid "Apps"
-#~ msgstr "Aplicativos"
-
-#~ msgid "Apps available for:"
-#~ msgstr "Aplicativos disponíveis para:"
-
-#~ msgid "Access the website"
-#~ msgstr "Acessar o site"
 
 #~ msgid "Latest posts"
 #~ msgstr "Últimos Posts"
