@@ -25,6 +25,7 @@ class PACoreInstall
     add_filter('post_row_actions', array($this, 'linkQuickEdit'), 10, 2);
     add_action('init', array($this, 'pa_wp_custom_menus'));
     add_action('pre_get_posts', array($this, 'modifyCategoryQuery'));
+    add_action('rest_api_init', array($this, 'restApi'));
   }
 
   function installRoutines()
@@ -117,18 +118,19 @@ class PACoreInstall
   {
     register_nav_menu('pa-menu-default', __('PA - Menu - Default', 'iasd'));
   }
-  
-  function modifyCategoryQuery ($query) {
-    if(is_admin() || !is_tax() || !$query->is_main_query())
+
+  function modifyCategoryQuery($query)
+  {
+    if (is_admin() || !is_tax() || !$query->is_main_query())
       return $query;
-  
+
     global $queryFeatured;
     $object = get_queried_object();
-    
+
     $queryFeatured = new WP_Query(
       array(
         'posts_per_page' => 1,
-        'post_status'	   => 'publish',
+        'post_status'     => 'publish',
         'post__in'       => get_option('sticky_posts'),
         'tax_query'      => array(
           array(
@@ -138,12 +140,12 @@ class PACoreInstall
         ),
       )
     );
-  
-    if(empty($queryFeatured->found_posts)):
+
+    if (empty($queryFeatured->found_posts)) :
       $queryFeatured = new WP_Query(
         array(
-          'posts_per_page' 	   => 1,
-          'post_status'	 	   => 'publish',
+          'posts_per_page'      => 1,
+          'post_status'        => 'publish',
           'ignore_sticky_posts ' => true,
           'tax_query'            => array(
             array(
@@ -154,12 +156,40 @@ class PACoreInstall
         )
       );
     endif;
-  
+
     $query->set('posts_per_page', 15);
     $query->set('ignore_sticky_posts', true);
     $query->set('post__not_in', !empty($queryFeatured->found_posts) ? array($queryFeatured->posts[0]->ID) : null);
-  
+
     return $query;
+  }
+
+  function restApi()
+  {
+    register_rest_field(
+      array('post', 'press'),
+      'featured_media_url',
+      array(
+        'get_callback'    => array($this, 'featured_media_url_callback'),
+        'update_callback' => null,
+        'schema'          => null,
+      )
+    );
+  }
+
+  function featured_media_url_callback($post)
+  {
+    $img_id = get_post_thumbnail_id($post['id']);
+
+    $img_scr = array(
+      'full'             => !empty($full    = wp_get_attachment_image_src($img_id, ''))             ? $full[0]    : '',
+      'medium'           => !empty($medium  = wp_get_attachment_image_src($img_id, 'medium_large')) ? $medium[0]  : '',
+      'small'            => !empty($small   = wp_get_attachment_image_src($img_id, 'thumbnail'))    ? $small[0]   : '',
+      'pa-block-preview' => !empty($preview = wp_get_attachment_image_src($img_id, 'thumbnail')) ? $preview[0] : '',
+      'pa-block-render'  => !empty($render  = wp_get_attachment_image_src($img_id, 'medium')) ? $render[0]  : '',
+    );
+
+    return $img_scr;
   }
 }
 

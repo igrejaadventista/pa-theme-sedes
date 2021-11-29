@@ -39,7 +39,9 @@ class PaRestCleanup
       '/wp/v2/pattern-directory/patterns',
       '/wp/v2/widgets',
       '/wp/v2/widget-types',
-      '/wp/v2/sidebars'
+      '/wp/v2/sidebars',
+      '/wp/v2/yoast_head_json',
+      '/wp/v2/yoast_head'
     );
 
     return $endpoints_to_remove;
