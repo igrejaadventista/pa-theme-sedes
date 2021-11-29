@@ -4,6 +4,7 @@ namespace Blocks\PAImage;
 
 use Blocks\Block;
 use WordPlate\Acf\Fields\Image;
+use WordPlate\Acf\Fields\Link;
 use WordPlate\Acf\Fields\Select;
 
 /**
@@ -38,6 +39,14 @@ class PAImage extends Block {
         ])
         ->defaultValue('1/3'),
       Image::make(__('Image', 'iasd'), 'image')
+          ->returnFormat('id')
+          ->wrapper([
+            'width' => 50,
+          ]),
+      Link::make(__('Link', 'iasd'), 'link')
+        ->wrapper([
+          'width' => 50,
+        ])
     ];
   }
 
@@ -50,6 +59,7 @@ class PAImage extends Block {
     return [
       'block_format' => get_field('block_format'),
       'image'        => get_field('image'),
+      'link'         => get_field('link'),
     ];
   }
 }
