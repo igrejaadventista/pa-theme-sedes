@@ -11,16 +11,18 @@ use WordPlate\Acf\Fields\Text;
  * Class PAListIcons
  * @package Blocks\PAListIcons
  */
-class PAListIcons extends Block {
+class PAListIcons extends Block
+{
 
-	public function __construct() {
-		// Set block settings
-		parent::__construct( [
-			'title'       => __('IASD - Icons - List', 'iasd'),
-			'description' => __('Block to show contents in list format with icons.', 'iasd'),
-			'category'    => 'pa-adventista',
-			'keywords'    => [ 'category', 'select' ],
-			'icon'        => '<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+  public function __construct()
+  {
+    // Set block settings
+    parent::__construct([
+      'title'       => __('IASD - Icons - List', 'iasd'),
+      'description' => __('Block to show contents in list format with icons.', 'iasd'),
+      'category'    => 'pa-adventista',
+      'keywords'    => ['category', 'select'],
+      'icon'        => '<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 								width="32px" height="32px" viewBox="0 0 297.114 297.114" style="enable-background:new 0 0 297.114 297.114;" xml:space="preserve">
 								<g>
 									<path d="M247.869,56.499L193.586,2.197C192.179,0.791,190.271,0,188.282,0H54.549c-4.143,0-7.5,3.357-7.5,7.5v282.114
@@ -45,47 +47,49 @@ class PAListIcons extends Block {
 										c4.143,0,7.5-3.357,7.5-7.5C109.053,238.451,105.696,235.094,101.553,235.094z"/>
 								</g>
 								</svg>',
-			// Other valid acf_register_block() settings
-		] );
-	}
+      // Other valid acf_register_block() settings
+    ]);
+  }
 
-	/**
-	 * setFields Register ACF fields with WordPlate/Acf lib
-	 *
-	 * @return array Fields array
-	 */
-	protected function setFields(): array {
-		return [
-			Text::make(__('Title', 'iasd'), 'title')
-				->defaultValue(__('IASD - Icons - List', 'iasd')),
-			Repeater::make(__('Itens', 'iasd'), 'items')
-				->fields([
-					Text::make(__('Icon', 'iasd'), 'icon')
-						->instructions(__('Access <a href="https://fontawesome.com/v5.15/icons?d=gallery&p=2&s=solid&m=free" target="_blank">icon list</a>, and select an icon and insert the respective css class here.', 'iasd'))
-						->placeholder('fas fa-ad')
-						->wrapper([
-							'width' => 50,
-						]),
-					Link::make(__('Link', 'iasd'), 'link')
-						->wrapper([
-							'width' => 50,
-						]),
-				])
-				->collapsed('link')
-				->buttonLabel(__('Add item', 'iasd'))
-				->layout('block'),
-		];
-	}
+  /**
+   * setFields Register ACF fields with WordPlate/Acf lib
+   *
+   * @return array Fields array
+   */
+  protected function setFields(): array
+  {
+    return [
+      Text::make(__('Title', 'iasd'), 'title')
+        ->defaultValue(__('IASD - Icons - List', 'iasd')),
+      Repeater::make(__('Itens', 'iasd'), 'items')
+        ->fields([
+          Text::make(__('Icon', 'iasd'), 'icon')
+            ->instructions('Access <a href="https://fontawesome.com/v5.15/icons?d=gallery&p=2&s=solid&m=free" target="_blank">icon list</a>, and select an icon and insert the respective css class here.', 'iasd')
+            ->placeholder('fas fa-ad')
+            ->wrapper([
+              'width' => 50,
+            ]),
+          Link::make(__('Link', 'iasd'), 'link')
+            ->wrapper([
+              'width' => 50,
+            ]),
+        ])
+        ->collapsed('link')
+        ->buttonLabel(__('Add item', 'iasd'))
+        ->layout('block'),
+    ];
+  }
 
-	/**
-	 * with Inject fields values into template
-	 *
-	 * @return array
-	 */
-	public function with(): array {
-		return [
-			'title' => get_field('title'),
-			'items' => get_field('items'),
-		];
-	}
+  /**
+   * with Inject fields values into template
+   *
+   * @return array
+   */
+  public function with(): array
+  {
+    return [
+      'title' => get_field('title'),
+      'items' => get_field('items'),
+    ];
+  }
 }

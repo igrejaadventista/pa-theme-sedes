@@ -19,8 +19,8 @@
 										class="d-block"
 									>
 										<div class="ratio ratio-16x9">
-											<figure class="figure m-xl-0">
-													<img class="figure-img img-fluid m-0 rounded"
+											<figure class="figure m-xl-0 rounded overflow-hidden">
+													<img class="figure-img img-fluid m-0"
 														src="{{ isset($item['featured_media_url']) ? $item['featured_media_url']['pa_block_render'] : get_the_post_thumbnail_url($item['id'], 'medium') }}"
 														alt="{{ $item['title']['rendered'] }}" 
 													/>
