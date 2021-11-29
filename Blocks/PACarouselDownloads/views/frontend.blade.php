@@ -39,16 +39,14 @@
 										@endif
 
 										@notempty($item['title'])
-											<h3 class="card-title fw-bold h6 mb-4">{!! $item['title']['rendered'] !!}</h3>
-										@endnotempty
-										
-										<a 
-											class="border border-1 px-4 py-2 rounded-pill btn-outline-primary"
+                    <a 
+											class="stretched-link"
 											href="{{ is_array($item['link']) ? $item['link']['url'] : $item['link'] }}" 
 											target="{{ is_array($item['link']) && !empty($item['link']['target']) ? $item['link']['target'] : '_self' }}"
 										>
-											<i class="fas fa-arrow-circle-down me-2"></i> Baixar
-										</a>
+											<h3 class="card-title fw-bold h6">{!! $item['title']['rendered'] !!}</h3>
+                    </a>
+										@endnotempty										
 									</div>
 								</div>
 							</div>

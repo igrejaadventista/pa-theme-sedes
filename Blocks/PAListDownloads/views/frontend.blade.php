@@ -39,7 +39,7 @@
 										@endnotempty
 
 										@notempty($item['title'])
-											<h3 class="card-title h6 m-0 pa-truncate-1">{!! $item['title']['rendered'] !!}</h3>
+											<h3 class="card-title h6 m-0 pa-truncate-3">{!! $item['title']['rendered'] !!}</h3>
 										@endnotempty
 									</div>
 								</div>

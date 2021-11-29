@@ -29,7 +29,7 @@
 													alt="{{ $item['title']['rendered'] }}" 
 												/>
 												{{-- TODO: Obter dados da editoria --}}
-												@if(($block_format == '2/3' && isset($item['editorial']) && !empty($editorial = $item['editorial'])) ||
+												@if(($block_format == '2/3' && isset($item['terms']['editorial']) && !empty($editorial = $item['terms']['editorial'])) ||
 													$block_format == '2/3' && !empty($editorial = get_the_terms($item['id'], 'xtt-pa-editorias')))
 													<figcaption class="pa-img-tag figure-caption text-uppercase rounded-right d-none d-xl-block pa-truncate-3">
 														{{ is_array($editorial) ? $editorial[0]->name : $editorial }}
@@ -43,8 +43,8 @@
 								<div class="col-12 col-md-7">
 									<div class="card-body p-0">
 										{{-- TODO: Obter dados de formato de post --}}
-										@notempty($item['post_format'])
-											<span class="pa-tag text-uppercase d-none d-xl-table-cell rounded">{{ $item['post_format'] }}</span>
+										@notempty($item['terms']['format'])
+											<span class="pa-tag text-uppercase d-none d-xl-table-cell rounded">{{ $item['terms']['format'] }}</span>
 										@endnotempty
 
 										@notempty($item['title'])
