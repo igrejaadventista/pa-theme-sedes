@@ -13,6 +13,7 @@ use Blocks\PAListItems\PAListItems;
 use Blocks\PATwitter\PATwitter;
 use Blocks\PACarouselMinistry\PACarouselMinistry;
 use Blocks\PAFeliz7Play\PAFeliz7Play;
+use Blocks\PAFindChurch\PAFindChurch;
 use Blocks\PAImage\PAImage;
 use Blocks\PAListDownloads\PAListDownloads;
 use Blocks\PAListNews\PAListNews;
@@ -80,6 +81,7 @@ class Blocks
             PAFeliz7Play::class,
             PAListVideos::class,
             PAImage::class,
+            PAFindChurch::class,
         ];
 
         // Merge registered blocks with new blocks
