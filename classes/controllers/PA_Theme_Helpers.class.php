@@ -24,6 +24,10 @@ class PaThemeHelpers
       wp_schedule_event(time(), 'hourly', 'PA-update_banner_global');
     }
 
+    add_action('init', 'wp_rest_headless_boot_plugin', 9 );
+    add_filter('wp_headless_rest__disable_front_end', '__return_false' );
+    add_filter('run_wptexturize', '__return_false' );
+
     define('LANG', $this->getInfoLang());
   }
 
@@ -32,7 +36,6 @@ class PaThemeHelpers
     add_theme_support('title-tag');
     add_theme_support('post-thumbnails');
     add_theme_support('responsive-embeds');
-    //add_theme_support( 'post-formats', array( 'gallery', 'video', 'audio') );
 
     remove_action('wp_head', 'wp_generator');
     remove_action('wp_head', 'print_emoji_detection_script', 7);
@@ -110,14 +113,13 @@ class PaThemeHelpers
         'get_callback' => function ($post) {
           $img_id = get_post_thumbnail_id($post['id']);
 
-          $img_scr = array(
+          return array(
             'full' => wp_get_attachment_image_src($img_id, '')[0],
             'medium' => wp_get_attachment_image_src($img_id, 'medium_large')[0],
             'small' => wp_get_attachment_image_src($img_id, 'thumbnail')[0],
             'pa-block-preview' => wp_get_attachment_image_src($img_id, 'thumbnail')[0],
-            'pa-block-render' => wp_get_attachment_image_src($img_id, 'full')[0]
+            'pa-block-render' => wp_get_attachment_image_src($img_id, 'medium')[0]
           );
-          return $img_scr;
         },
         'update_callback'   => null,
         'schema'            => null,

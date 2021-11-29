@@ -32,6 +32,12 @@ function Service_Taxonomy()
 		 * IDEAL IDEA: API RETURN EVERYTHING WITHOUT PAGINATE.
 		 */
 		$resultAPI = $restAPIService->CallAPI('GET', "$tax?per_page=300&filter[parent]=0&order=desc");
+
+    // die(var_dump([
+    //   'resultAPI',
+    //   $resultAPI
+    // ]));
+
 		PAFunctions::add_update_term_tax($tax, $resultAPI);
 	}
 }

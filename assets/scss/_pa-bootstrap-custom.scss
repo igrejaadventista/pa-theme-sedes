@@ -21,6 +21,10 @@ body {
 .btn-primary {
   background: var(--pa-color-default);
   border: none;
+
+  &:hover {
+    background: var(--pa-color-default-light);
+  }
 }
 
 .btn-outline-primary {

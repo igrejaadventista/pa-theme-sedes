@@ -178,8 +178,10 @@
 }
 
 .pa-w-carousel-ministry {
-  .glide__slide {
-    @include pa-figure-overlay;
+  .glide__slide { 
+    figure{
+      @include pa-figure-overlay;
+    }
   }
 }
 

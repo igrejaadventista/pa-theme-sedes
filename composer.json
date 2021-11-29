@@ -41,6 +41,23 @@
       }
     },
     {
+      "type": "package",
+      "package": {
+        "name": "ben.moody/wp-rest-headless",
+        "type": "wordpress-plugin",
+        "version": "dev-master",
+        "dist": {
+          "url": "https://downloads.wordpress.org/plugin/wp-rest-headless.zip",
+          "type": "zip"
+        },
+        "autoload": {
+          "files": [
+            "wp-rest-headless.php"
+          ]
+        }
+      }
+    },
+    {
 			"type": "git",
 			"url": "https://github.com/igrejaadventista/pa-register-taxonomy"
 		}
@@ -57,7 +74,8 @@
     "wordplate/acf": "^11.0.1",
     "studiovisual/acf-gutenblocks": "dev-release/0.4.2",
     "lordealeister/acf-multisite-options": "dev-master",
-    "webdsa/pa-plugin-register-taxonomy": "dev-main"
+    "webdsa/pa-plugin-register-taxonomy": "dev-main",
+    "ben.moody/wp-rest-headless": "dev-master"
   },
   "config": {
 		"preferred-install": "source",

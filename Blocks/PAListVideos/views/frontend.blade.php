@@ -30,8 +30,8 @@
 											<div class="figure-caption position-absolute w-100 h-100 d-block">
 												<i class="pa-play far fa-play-circle position-absolute"></i>
 
-												@notempty($item['time'])
-													<span class="pa-video-time position-absolute px-2 rounded-1"><i class="far fa-clock me-1"></i> {{ date('i:s', mktime(0, 0, $item['time'])) }}</span>
+												@notempty($item['acf']['video_length'])
+													<span class="pa-video-time position-absolute px-2 rounded-1"><i class="far fa-clock me-1"></i> {{ date('i:s', mktime(0, 0, $item['acf']['video_length'])) }}</span>
 												@endnotempty
 											</div>
 										</figure>
@@ -70,9 +70,9 @@
 													/>
 												@endnotempty
 
-												@notempty($item['time'])
+												@notempty($item['acf']['video_length'])
 													<div class="figure-caption position-absolute w-100 h-100 d-block">
-														<span class="pa-video-time position-absolute px-2 rounded-1"><i class="far fa-clock me-1"></i>{{ date('i:s', mktime(0, 0, $item['time'])) }}</span>
+														<span class="pa-video-time position-absolute px-2 rounded-1"><i class="far fa-clock me-1"></i>{{ date('i:s', mktime(0, 0, $item['acf']['video_length'])) }}</span>
 													</div>
 												@endnotempty
 											</figure>
