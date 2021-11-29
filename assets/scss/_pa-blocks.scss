@@ -65,8 +65,32 @@
 }
 
 .pa-find-church {
-  background-image: image-url("bg-find-church-mask.png"), linear-gradient(94.83deg, #036 -3.92%, #4066b3 114.08%);
   color: #fff;
+
+  &::before,
+  &::after {
+    content: "";
+    height: 100%;
+    left: 50%;
+    position: absolute;
+    top: 0;
+    transform: translateX(-50.01%);
+    width: 100vw;
+
+    @media(min-width: 1200px) {
+      transform: translateX(-43%);
+    }
+  }
+
+  &::before {
+    background: linear-gradient(94.83deg, #036 -3.92%, #4066b3 114.08%);
+    z-index: -2;
+  }
+
+  &::after {
+    background: url("./assets/imgs/bg-find-church-mask.png");
+    z-index: -1;
+  }
 
   h2,
   h3,
