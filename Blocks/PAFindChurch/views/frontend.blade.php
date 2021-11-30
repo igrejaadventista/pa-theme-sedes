@@ -1,7 +1,7 @@
 @if(is_admin())
   <img class="img-preview" src="{{ get_template_directory_uri() }}/Blocks/PAFindChurch/preview.png" alt="{{ __('Illustrative image of the front end of the block.', 'iasd') }}" />
 @else
-	<div class="pa-widget pa-find-church col mb-5 position-relative">
+	<div class="pa-widget pa-find-church col-12 mb-5 position-relative">
     <div class="row py-5 px-3 px-xl-5">
       <div class="col-md-5 text-center text-md-start">
         <h1>{{ __('Encontre uma igreja', 'iasd') }}</h1>
