@@ -100,7 +100,7 @@ class PaThemeHelpers
       $lang = get_locale();
     }
     $lang = substr($lang, 0, 2);
-
+ 
     return $lang;
   }
 
@@ -171,7 +171,7 @@ class PaThemeHelpers
   {
     $json = file_get_contents("https://" . API_PA . "/tax/" . LANG . "/banner");
     $json_content = json_decode($json);
-    add_option('banner_global', $json_content, '', 'yes');
+    update_option('banner_global', $json_content, '', 'yes');
   }
 
   function bodyClass($classes)
