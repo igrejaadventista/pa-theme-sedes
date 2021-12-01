@@ -1,7 +1,7 @@
 <div class="pa-share">
   <?php
 
-  $texto = "Recentemente, alguns artistas do chamado mundo gospel foram confrontados com uma série de críticas por conta de posicionamentos contrários à prática da homossexualidade.";
+  $texto = get_the_excerpt();
   $url = get_permalink();
   $titulo = get_the_title();
   $site = get_bloginfo('name');
