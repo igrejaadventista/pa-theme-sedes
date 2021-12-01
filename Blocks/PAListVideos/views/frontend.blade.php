@@ -5,7 +5,7 @@
 		<img class="img-preview" src="{{ get_template_directory_uri() }}/Blocks/PAListVideos/preview-1-3.png" alt="{{ __('Illustrative image of the front end of the block.', 'iasd')}}"/>
 	@endif
 @else
-	<div class="pa-widget pa-w-list-videos col mb-5 {{ $block_format == '2/3' ? 'col-md-8' : 'col-md-4' }}">
+	<div class="pa-widget pa-w-list-videos col-12 mb-5 {{ $block_format == '2/3' ? 'col-md-8' : 'col-md-4' }}">
 		@notempty($title)
 			<h2>{!! $title !!}</h2>
 		@endnotempty
@@ -30,8 +30,8 @@
 											<div class="figure-caption position-absolute w-100 h-100 d-block">
 												<i class="pa-play far fa-play-circle position-absolute"></i>
 
-												@notempty($item['time'])
-													<span class="pa-video-time position-absolute px-2 rounded-1"><i class="far fa-clock me-1"></i> {{ date('i:s', mktime(0, 0, $item['time'])) }}</span>
+												@notempty($item['acf']['video_length'])
+													<span class="pa-video-time position-absolute px-2 rounded-1"><i class="far fa-clock me-1"></i> {{ date('i:s', mktime(0, 0, $item['acf']['video_length'])) }}</span>
 												@endnotempty
 											</div>
 										</figure>
@@ -70,9 +70,9 @@
 													/>
 												@endnotempty
 
-												@notempty($item['time'])
+												@notempty($item['acf']['video_length'])
 													<div class="figure-caption position-absolute w-100 h-100 d-block">
-														<span class="pa-video-time position-absolute px-2 rounded-1"><i class="far fa-clock me-1"></i>{{ date('i:s', mktime(0, 0, $item['time'])) }}</span>
+														<span class="pa-video-time position-absolute px-2 rounded-1"><i class="far fa-clock me-1"></i>{{ date('i:s', mktime(0, 0, $item['acf']['video_length'])) }}</span>
 													</div>
 												@endnotempty
 											</figure>

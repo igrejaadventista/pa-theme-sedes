@@ -88,6 +88,12 @@
 
       @include pa-figure-overlay;
     }
+
+    h3 {
+      @media(max-width: 575px) {
+        font-size: 1rem; // 16px
+      }  
+    }
   }
 
   h2 {

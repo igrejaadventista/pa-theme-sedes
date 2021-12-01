@@ -7,7 +7,12 @@ class PARestAPITax
 {
   function CallAPI($method, $route, $data = false)
   {
-    $baseURL = get_option('PA_Taxonomy_Host') . '/wp-json/wp/v2/';
+    $baseURL = "https://" . API_PA . "/tax/" . LANG . '/';
+
+    // die(var_dump([
+    //   '$baseURL',
+    //   $baseURL
+    // ]));
     $curl = curl_init();
 
     switch ($method) {

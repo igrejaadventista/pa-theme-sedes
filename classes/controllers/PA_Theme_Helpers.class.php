@@ -24,9 +24,9 @@ class PaThemeHelpers
       wp_schedule_event(time(), 'hourly', 'PA-update_banner_global');
     }
 
-    add_action('init', 'wp_rest_headless_boot_plugin', 9 );
-    add_filter('wp_headless_rest__disable_front_end', '__return_false' );
-    add_filter('run_wptexturize', '__return_false' );
+    // add_action('init', 'wp_rest_headless_boot_plugin', 9 );
+    add_filter('wp_headless_rest__disable_front_end', '__return_false');
+    add_filter('run_wptexturize', '__return_false');
 
     define('LANG', $this->getInfoLang());
   }
@@ -100,7 +100,7 @@ class PaThemeHelpers
       $lang = get_locale();
     }
     $lang = substr($lang, 0, 2);
-
+ 
     return $lang;
   }
 
@@ -154,7 +154,7 @@ class PaThemeHelpers
     foreach ($menus as $name) {
       $json = file_get_contents("https://" . API_PA . "/tax/" . LANG . "/menus/{$name}");
       $json_content = json_decode($json);
-      add_option('menu_' . $name, $json_content, '', 'yes');
+      update_option('menu_' . $name, $json_content, '', 'yes');
     }
   }
 
@@ -171,7 +171,7 @@ class PaThemeHelpers
   {
     $json = file_get_contents("https://" . API_PA . "/tax/" . LANG . "/banner");
     $json_content = json_decode($json);
-    add_option('banner_global', $json_content, '', 'yes');
+    update_option('banner_global', $json_content, '', 'yes');
   }
 
   function bodyClass($classes)

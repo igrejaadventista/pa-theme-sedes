@@ -3,10 +3,10 @@ $campo = get_info_sedes();
 $menu_global = PaThemeHelpers::getGlobalMenu('global-header');
 $relative_site = network_site_url("", "relative");
 $relative_sites = [
-  '/'    => 'PT',
   '/pt/' => 'PT',
   '/es/' => 'ES'
 ];
+
 ?>
 
 <header class="pa-menu" id="topo">
@@ -27,17 +27,19 @@ $relative_sites = [
               </li>
             <?php endif; ?>
 
-            <li class="nav-item dropdown pa-menu-lang">
-              <a class="nav-link dropdown-toggle pa-search" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <i class="<?= strtolower($relative_sites[array_key_exists($relative_site, $relative_sites) ? $relative_site : array_key_first($relative_sites)]) ?> me-2" aria-hidden="true"></i>
-                <?= $relative_sites[array_key_exists($relative_site, $relative_sites) ? $relative_site : array_key_first($relative_sites)] ?>
-              </a>
-              <ul class="dropdown-menu p-0">
-                <?php foreach ($relative_sites as $key => $value) : ?>
-                  <li class=""><a class="dropdown-item" href="<?= $key ?>"><i class="<?= strtolower($value) ?> me-2" aria-hidden="true"></i> <?= $value ?></a></li>
-                <?php endforeach; ?>
-              </ul>
-            </li>
+            <?php if (defined('PA_LANG') && PA_LANG == true) { ?>
+              <li class="nav-item dropdown pa-menu-lang">
+                <a class="nav-link dropdown-toggle pa-search" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <i class="<?= strtolower($relative_sites[array_key_exists($relative_site, $relative_sites) ? $relative_site : array_key_first($relative_sites)]) ?> me-2" aria-hidden="true"></i>
+                  <?= $relative_sites[array_key_exists($relative_site, $relative_sites) ? $relative_site : array_key_first($relative_sites)] ?>
+                </a>
+                <ul class="dropdown-menu p-0">
+                  <?php foreach ($relative_sites as $key => $value) : ?>
+                    <li class=""><a class="dropdown-item" href="<?= $key ?>"><i class="<?= strtolower($value) ?> me-2" aria-hidden="true"></i> <?= $value ?></a></li>
+                  <?php endforeach; ?>
+                </ul>
+              </li>
+            <?php } ?>
           </ul>
         </nav>
 
@@ -73,21 +75,23 @@ $relative_sites = [
 
       <div class="menu" id="pa_menu">
         <ul class="menu_sub">
-          <li class="pa-dropdown">
-            <a href="#" onclick="event.preventDefault();" class="<?= strtolower($relative_sites[$relative_site]) ?>"><?= $relative_sites[$relative_site]  ?></a>
-            <div class="pa-sub-dropdown">
-              <ul>
-                <?php
-                foreach ($relative_sites as $key => $value) :
-                  if ($key == $relative_site) continue;
-                ?>
-                  <li><a href="<?= $key ?>" class="<?= strtolower($value) ?>"> <?= $value ?></a></li>
-                <?php
-                endforeach;
-                ?>
-              </ul>
-            </div>
-          </li>
+          <?php if (defined('PA_LANG') && PA_LANG == true) { ?>
+            <li class="pa-dropdown">
+              <a href="#" onclick="event.preventDefault();" class="<?= strtolower($relative_sites[$relative_site]) ?>"><?= $relative_sites[$relative_site]  ?></a>
+              <div class="pa-sub-dropdown">
+                <ul>
+                  <?php
+                  foreach ($relative_sites as $key => $value) :
+                    if ($key == $relative_site) continue;
+                  ?>
+                    <li><a href="<?= $key ?>" class="<?= strtolower($value) ?>"> <?= $value ?></a></li>
+                  <?php
+                  endforeach;
+                  ?>
+                </ul>
+              </div>
+            </li>
+          <?php } ?>
           <li><img src="<?= get_template_directory_uri() . "/assets/imgs/close.svg" ?>" alt="" onclick="window.Menus.pa_action_menu()">
           </li>
         </ul>
