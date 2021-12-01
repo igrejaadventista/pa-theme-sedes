@@ -64,6 +64,16 @@
   }
 }
 
+.row > .pa-find-church:first-child {
+  margin-top: 0 !important;
+  //background-color: red;
+}
+
+.row > .pa-find-church:last-child {
+  margin-bottom: -3rem !important;
+  //background-color: yellow;
+}
+
 .pa-find-church {
   color: #fff;
 
@@ -77,7 +87,7 @@
     transform: translateX(-50.01%);
     width: 100vw;
 
-    @media(min-width: 1200px) {
+    @media (min-width: 1200px) {
       transform: translateX(-43%);
     }
   }
@@ -202,8 +212,8 @@
 }
 
 .pa-w-carousel-ministry {
-  .glide__slide { 
-    figure{
+  .glide__slide {
+    figure {
       @include pa-figure-overlay;
     }
   }
