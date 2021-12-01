@@ -1,5 +1,5 @@
 <?php
-$campo = get_info_sedes();
+$sede = getSiteInfo();
 $menu_global = PaThemeHelpers::getGlobalMenu('global-header');
 $relative_site = network_site_url("", "relative");
 $relative_sites = [
@@ -12,7 +12,7 @@ $relative_sites = [
 <header class="pa-menu" id="topo">
   <div class="pa-menu-desktop container d-none d-xl-block">
     <div class="row g-0 h-100">
-      <?php get_template_part('components/menu/header-logo', 'logo', ['campo' => $campo]); ?>
+      <?php get_template_part('components/menu/header-logo', 'logo'); ?>
       <div class="col d-flex flex-column justify-content-between">
         <nav class="pa-menu-global navbar navbar-expand-lg justify-content-end">
           <ul class="navbar-nav">
@@ -65,8 +65,8 @@ $relative_sites = [
   <div class="pa-menu-mobile container-fluid d-xl-none">
 
     <div class="row g-0 pt-3 pb-3">
-      <?php if (!empty($campo)) : ?>
-        <?php get_template_part('components/menu/header-logo', 'logo', ['campo' => $campo]); ?>
+      <?php if (!empty($sede)) : ?>
+        <?php get_template_part('components/menu/header-logo', 'logo'); ?>
       <?php endif; ?>
 
       <div class="col-auto ms-auto d-flex flex-row-reverse align-items-center">

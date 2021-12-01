@@ -1,11 +1,14 @@
 <?php
-    $campo = get_info_sedes();
-    $adress = get_info_adress();
-    $telephone = get_info_telephone();
-    $facebook = get_info_facebook();
-    $twitter = get_info_twitter();
-    $youtube = get_info_youtube();
-    $instagram = get_info_instagram();
+
+    $sede = getSiteInfo(); 
+
+    $campo = $sede['ct_headquarter'];
+    $adress = $sede['ct_adress'];
+    $telephone = $sede['ct_telephone'];
+    $facebook = $sede['sn_facebook'];
+    $twitter = $sede['sn_twitter'];
+    $youtube = $sede['sn_youtube'];
+    $instagram = $sede['sn_instagram'];
 	$menus = PaThemeHelpers::getGlobalMenu('global-footer');
 ?>
 
@@ -15,7 +18,7 @@
             <div class="col d-flex flex-column justify-content-xl-between">
                 <div class="d-flex flex-column align-items-center align-items-xl-start px-5 px-xl-0">
                     <div class="pa-brand">
-                        <a href="/" title="<?= !empty($campo->name) ? $campo->name : '' ?>"><img src="<?= get_template_directory_uri() . "/assets/sedes/" . LANG . "/logo-iasd-vertical.svg" ?>" alt="<?= $campo->name ?>" title="<?= $campo->name ?>" class="img-fluid"></a>
+                        <a href="/" title="<?= !empty($campo->name) ? $campo->name : '' ?>" class="d-flex flex-column justify-content-center"><img src="<?= get_template_directory_uri() . "/assets/sedes/" . LANG . "/logo-iasd-vertical.svg" ?>" alt="<?= $campo->name ?>" title="<?= $campo->name ?>" class="img-fluid"></a>
                         <span class="d-block mt-4"><?= !empty($campo->name) ? $campo->name : '' ?></span>
                     </div>
                     <hr class="mt-4 mb-4">

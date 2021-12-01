@@ -21,6 +21,7 @@ class PaAcfSiteSettings
   {
     acf_add_options_sub_page(array(
       'network' => true,
+      'post_id' => 'pa_network_settings',
       'page_title'   => __('IASD Site - Custom Settings', 'iasd'),
       'menu_title'  => __('IASD Site - Custom Settings', 'iasd'),
       'menu_slug'     => 'iasd_custom_settings_network',
@@ -28,6 +29,7 @@ class PaAcfSiteSettings
     ));
 
     acf_add_options_sub_page(array(
+      'post_id' => 'pa_settings',
       'page_title'   => __('IASD Site - Custom Settings', 'iasd'),
       'menu_title'  => __('IASD Site - Custom Settings', 'iasd'),
       'menu_slug'     => 'iasd_custom_settings',
@@ -44,21 +46,21 @@ class PaAcfSiteSettings
 
     $fields = [
       Tab::make('Contact'),
-      Taxonomy::make(__('Headquarter', 'iasd'), "ct_headquarter{$network}")
+      Taxonomy::make(__('Headquarter', 'iasd'), "ct_headquarter")
         ->taxonomy('xtt-pa-sedes')
         ->appearance('select') // checkbox, multi_select, radio or select
         ->addTerm(false) // Allow new terms to be created whilst editing (true or false)
         ->returnFormat('object'), // object or id (default)
-      Textarea::make(__('Address', 'iasd'), "ct_adress{$network}")
+      Textarea::make(__('Address', 'iasd'), "ct_adress")
         ->newLines('br') // br or wpautop
         ->characterLimit(200)
         ->rows(4),
-      Text::make(__('Telephone', 'iasd'), "ct_telephone{$network}"),
+      Text::make(__('Telephone', 'iasd'), "ct_telephone"),
       Tab::make(__('Social Networks', 'iasd')),
-      Url::make('Facebook', "sn_facebook{$network}"),
-      Url::make('Twitter', "sn_twitter{$network}"),
-      Url::make('Youtube', "sn_youtube{$network}"),
-      Url::make('Instagram', "sn_instagram{$network}"),
+      Url::make('Facebook', "sn_facebook"),
+      Url::make('Twitter', "sn_twitter"),
+      Url::make('Youtube', "sn_youtube"),
+      Url::make('Instagram', "sn_instagram"),
     ];
 
     if (empty($network)) :
