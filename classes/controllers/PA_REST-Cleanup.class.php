@@ -4,15 +4,15 @@ class PaRestCleanup
 {
   public function __construct()
   {
-    add_filter( 'wp_headless_rest__enable_rest_cleanup', '__return_true' );
+    add_filter('wp_headless_rest__enable_rest_cleanup', '__return_true');
     add_filter('wp_headless_rest__rest_endpoints_to_remove', array($this, 'wp_rest_headless_disable_endpoints'));
-    add_filter('wp_headless_rest__rest_object_remove_nodes', array($this,'wp_rest_headless_clean_response_nodes'));
+    add_filter('wp_headless_rest__post_types_to_clean', array($this, 'wp_rest_headless_clean_post_types'));
+    add_filter('wp_headless_rest__rest_object_remove_nodes', array($this, 'wp_rest_headless_clean_response_nodes'));
   }
 
-  function wp_rest_headless_disable_endpoints($endpoints_to_remove)
+  function wp_rest_headless_disable_endpoints()
   {
-
-    $endpoints_to_remove = array(
+    $to_remove = array(
       // '/wp/v2/post',
       '/wp/v2/media',
       '/wp/v2/types',
@@ -44,19 +44,26 @@ class PaRestCleanup
       '/wp/v2/yoast_head'
     );
 
-    return $endpoints_to_remove;
+    return $to_remove;
   }
 
-  function wp_rest_headless_clean_response_nodes($items_to_remove)
+  function wp_rest_headless_clean_response_nodes()
   {
-
-    $items_to_remove = array(
+    $to_remove = array(
       'guid',
       '_links',
       'ping_status'
     );
-
-    return $items_to_remove;
+    return $to_remove;
+  }
+  function wp_rest_headless_clean_post_types()
+  {
+    $to_clean = array(
+      'post',
+      'press',
+      'columnists'
+    );
+    return $to_clean;
   }
 }
 
