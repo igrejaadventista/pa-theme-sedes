@@ -7,7 +7,7 @@ define('API_F7P', 'api.feliz7play.com');
 if (file_exists($composer = __DIR__ . '/vendor/autoload.php'))
   require_once $composer;
 
-if (function_exists('get_current_site')) {
+if (is_multisite()) {
   require_once(dirname(__FILE__) . '/vendor/lordealeister/acf-multisite-options/acf-multisite-options.php');
 }
 

@@ -19,14 +19,18 @@ class PaAcfSiteSettings
 
   function addPageSettings()
   {
-    acf_add_options_sub_page(array(
-      'network' => true,
-      'post_id' => 'pa_network_settings',
-      'page_title'   => __('IASD Site - Custom Settings', 'iasd'),
-      'menu_title'  => __('IASD Site - Custom Settings', 'iasd'),
-      'menu_slug'     => 'iasd_custom_settings_network',
-      'parent_slug'  => 'themes.php',
-    ));
+    if (is_multisite()) {
+      acf_add_options_sub_page(array(
+        'network' => true,
+        'post_id' => 'pa_network_settings',
+        'page_title'   => __('IASD Site - Custom Settings', 'iasd'),
+        'menu_title'  => __('IASD Site - Custom Settings', 'iasd'),
+        'menu_slug'     => 'iasd_custom_settings_network',
+        'parent_slug'  => 'themes.php',
+      ));
+
+      $this->createAcfFields(true);
+    }
 
     acf_add_options_sub_page(array(
       'post_id' => 'pa_settings',
@@ -36,7 +40,7 @@ class PaAcfSiteSettings
       'parent_slug'  => 'themes.php',
     ));
 
-    $this->createAcfFields(true);
+
     $this->createAcfFields();
   }
 
@@ -63,17 +67,20 @@ class PaAcfSiteSettings
       Url::make('Instagram', "sn_instagram"),
     ];
 
-    if (empty($network)) :
-      foreach ($fields as &$field)
-        $field->conditionalLogic([ConditionalLogic::if('overwrite_global_settings')->equals(1)]);
-    endif;
+    if (is_multisite()) {
+      if (empty($network)) :
+        foreach ($fields as &$field)
+          $field->conditionalLogic([ConditionalLogic::if('overwrite_global_settings')->equals(1)]);
+      endif;
+    }
+
 
     register_extended_field_group([
       'title' => __('Site settings', 'iasd'),
       'key' => "site_settings_contact{$network}",
       'style' => 'default',
       'fields' => array_merge(
-        empty($network) ?
+        is_multisite() && empty($network) ?
           [
             TrueFalse::make(__('Rewrite global settings', 'iasd'), 'overwrite_global_settings')
               ->defaultValue(false)
