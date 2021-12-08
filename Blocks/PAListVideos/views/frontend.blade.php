@@ -15,7 +15,7 @@
 				@foreach($items as $item)
 					@if($loop->index == 0)
 						<div class="col">
-							<div class="card mb-4 border-0">
+							<div class="card mb-5 border-0">
 								<a href="{{ is_array($item['link']) ? $item['link']['title'] : $item['link'] }}">
 									<div class="ratio ratio-16x9">
 										<figure class="figure bg-light rounded overflow-hidden">
@@ -37,9 +37,9 @@
 										</figure>
 									</div>
 
-									<div class="card-body p-0 mt-4">
+									<div class="card-body p-0 mt-3">
 										@notempty($item['title'])
-											<h3 class="card-text h5 fw-bold pa-truncate-1">{!! $item['title']['rendered'] !!}</h3>
+											<h3 class="card-text h5 fw-bold pa-truncate-2">{!! $item['title']['rendered'] !!}</h3>
 										@endnotempty
 										
 										@notempty($item['excerpt'])
