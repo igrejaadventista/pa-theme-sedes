@@ -7,6 +7,7 @@ RUN apk add --no-cache bash nano zip wget git curl
 COPY --chown=www-data:www-data --from=internetdsa/pa-theme-sedes /var/www/build /var/www/build/themes/pa-theme-sedes
 COPY --chown=www-data:www-data --from=internetdsa/pa-theme-sedes-child /var/www/build /var/www/build/themes/pa-theme-sedes-child
 COPY --from=wordpress:cli-php8.1 /usr/local/bin/wp /usr/local/bin/wp
+RUN find /var/www/build/themes/ -type d -exec chmod 755 {} \; && find /var/www/build/themes/ -type f -exec chmod 644 {} \;
 
 ARG ACF_KEY
 
