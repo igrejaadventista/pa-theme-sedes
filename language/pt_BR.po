@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2021-11-24 22:31-0300\n"
-"PO-Revision-Date: 2021-11-24 22:32-0300\n"
+"POT-Creation-Date: 2021-12-06 21:26-0300\n"
+"PO-Revision-Date: 2021-12-06 21:28-0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: pt_BR\n"
@@ -40,6 +40,23 @@ msgstr ""
 msgid "Access the website"
 msgstr "Acessar o site"
 
+#: Blocks/PAFindChurch/views/frontend.blade.php:7
+msgid "Finding a church"
+msgstr "Encontre uma igreja"
+
+#: Blocks/PAFindChurch/views/frontend.blade.php:8
+msgid "Adventist churches that are located in the South American Division."
+msgstr "Igrejas adventistas localizadas na América do Sul."
+
+#: Blocks/PAFindChurch/views/frontend.blade.php:12
+msgid "Church search"
+msgstr "Buscar igreja"
+
+#: Blocks/PAFindChurch/views/frontend.blade.php:17 404.php:23
+#: components/menu/header.php:26 search.php:26
+msgid "Search"
+msgstr "Buscar"
+
 #: 404.php:10 404.php:16
 msgid "I'm sorry! Content not found! :("
 msgstr "Me desculpe! Conteúdo não encontrado! :("
@@ -56,15 +73,11 @@ msgstr "Você quer fazer uma nova busca?"
 msgid "New search"
 msgstr "Nova busca"
 
-#: 404.php:23 components/menu/header.php:26 search.php:26
-msgid "Search"
-msgstr "Buscar"
-
-#: Blocks/Blocks.php:146
+#: Blocks/Blocks.php:150
 msgid "Adventist"
 msgstr "Adventista"
 
-#: Blocks/Blocks.php:220
+#: Blocks/Blocks.php:224
 msgid "Sync data"
 msgstr "Sincronizar dados"
 
@@ -77,21 +90,21 @@ msgid "App"
 msgstr "Aplicativo"
 
 #: Blocks/PAApps/PAApps.php:220
-#: Blocks/PACarouselDownloads/PACarouselDownloads.php:36
+#: Blocks/PACarouselDownloads/PACarouselDownloads.php:39
 #: Blocks/PACarouselFeature/PACarouselFeature.php:35
 #: Blocks/PACarouselMinistry/PACarouselMinistry.php:34
-#: Blocks/PAFacebook/PAFacebook.php:34
+#: Blocks/PAFacebook/PAFacebook.php:34 Blocks/PAFindChurch/PAFindChurch.php:47
 #: Blocks/PAListButtons/PAListButtons.php:47
 #: Blocks/PAListDownloads/PAListDownloads.php:38
 #: Blocks/PAListIcons/PAListIcons.php:62 Blocks/PAListItems/PAListItems.php:62
-#: Blocks/PAListNews/PAListNews.php:56 Blocks/PAListVideos/PAListVideos.php:47
+#: Blocks/PAListNews/PAListNews.php:59 Blocks/PAListVideos/PAListVideos.php:50
 #: Blocks/PAMagazines/PAMagazines.php:33 Blocks/PASevenCast/PASevenCast.php:38
 #: Blocks/PATwitter/PATwitter.php:34 Blocks/Plugins/LocalData/LocalData.php:673
 #: Blocks/Plugins/RemoteData/RemoteData.php:646
 msgid "Title"
 msgstr "Título"
 
-#: Blocks/PAApps/PAApps.php:222
+#: Blocks/PAApps/PAApps.php:222 Blocks/PAFindChurch/PAFindChurch.php:48
 msgid "Description"
 msgstr "Descrição"
 
@@ -99,34 +112,34 @@ msgstr "Descrição"
 msgid "Button"
 msgstr "Botão"
 
-#: Blocks/PACarouselDownloads/PACarouselDownloads.php:18
-#: Blocks/PACarouselDownloads/PACarouselDownloads.php:37
+#: Blocks/PACarouselDownloads/PACarouselDownloads.php:20
+#: Blocks/PACarouselDownloads/PACarouselDownloads.php:40
 msgid "IASD - Downloads - Carousel"
 msgstr ""
 
-#: Blocks/PACarouselDownloads/PACarouselDownloads.php:19
+#: Blocks/PACarouselDownloads/PACarouselDownloads.php:21
 msgid "Block from downloads content on carousel format."
 msgstr "Bloco para exibir conteúdos em destaque no formato de slides."
 
-#: Blocks/PACarouselDownloads/PACarouselDownloads.php:39
+#: Blocks/PACarouselDownloads/PACarouselDownloads.php:42
 #: Blocks/PACarouselFeature/PACarouselFeature.php:38
 #: Blocks/PACarouselMinistry/PACarouselMinistry.php:36
 #: Blocks/PAFeliz7Play/PAFeliz7Play.php:912
 #: Blocks/PAListButtons/PAListButtons.php:49
 #: Blocks/PAListDownloads/PAListDownloads.php:41
 #: Blocks/PAListIcons/PAListIcons.php:64 Blocks/PAListItems/PAListItems.php:65
-#: Blocks/PAListNews/PAListNews.php:59 Blocks/PAListNews/PAListNews.php:89
-#: Blocks/PAListVideos/PAListVideos.php:50
+#: Blocks/PAListNews/PAListNews.php:62 Blocks/PAListNews/PAListNews.php:93
+#: Blocks/PAListVideos/PAListVideos.php:53
 #: Blocks/PAMagazines/PAMagazines.php:35 Blocks/PASevenCast/PASevenCast.php:41
 msgid "Itens"
 msgstr ""
 
-#: Blocks/PACarouselDownloads/PACarouselDownloads.php:50
+#: Blocks/PACarouselDownloads/PACarouselDownloads.php:56
 #: Blocks/PAListDownloads/PAListDownloads.php:52
 msgid "File format"
 msgstr "Formato do arquivo"
 
-#: Blocks/PACarouselDownloads/PACarouselDownloads.php:52
+#: Blocks/PACarouselDownloads/PACarouselDownloads.php:58
 #: Blocks/PAListDownloads/PAListDownloads.php:54
 msgid "File size"
 msgstr "Tamanho do arquivo"
@@ -173,6 +186,51 @@ msgstr ""
 msgid "Feliz7Play content block."
 msgstr "Bloco do Feliz7Play."
 
+#: Blocks/PAFindChurch/PAFindChurch.php:19
+msgid "IASD - Find church"
+msgstr ""
+
+#: Blocks/PAFindChurch/PAFindChurch.php:20
+msgid "Block to show a box to find church."
+msgstr "Bloco para exibir as revistas no formato de carrossel."
+
+#: Blocks/PAFindChurch/PAFindChurch.php:34
+msgid "Quick access"
+msgstr ""
+
+#: Blocks/PAFindChurch/PAFindChurch.php:36
+#: Blocks/PAListIcons/PAListIcons.php:66
+msgid "Icon"
+msgstr "Ícone"
+
+#: Blocks/PAFindChurch/PAFindChurch.php:43 Blocks/PAImage/PAImage.php:46
+#: Blocks/PAListIcons/PAListIcons.php:72
+#: Blocks/Plugins/LocalData/LocalData.php:680
+#: Blocks/Plugins/RemoteData/RemoteData.php:653
+msgid "Link"
+msgstr ""
+
+#: Blocks/PAFindChurch/PAFindChurch.php:53
+#: Blocks/PAListIcons/PAListIcons.php:78
+msgid "Add item"
+msgstr "Adicionar item"
+
+#: Blocks/PAImage/PAImage.php:19
+msgid "IASD - Image"
+msgstr ""
+
+#: Blocks/PAImage/PAImage.php:20
+msgid "Block to show a image."
+msgstr "Bloco para exibir conteúdos no formato de lista com imagens."
+
+#: Blocks/PAImage/PAImage.php:34 Blocks/PAListVideos/PAListVideos.php:43
+msgid "Format"
+msgstr "Formato"
+
+#: Blocks/PAImage/PAImage.php:41
+msgid "Image"
+msgstr ""
+
 #: Blocks/PAListButtons/PAListButtons.php:19
 msgid "IASD - Button - List"
 msgstr ""
@@ -205,20 +263,6 @@ msgstr ""
 msgid "Block to show contents in list format with icons."
 msgstr "Bloco para exibir conteúdos no formato de lista com ícones."
 
-#: Blocks/PAListIcons/PAListIcons.php:66
-msgid "Icon"
-msgstr "Ícone"
-
-#: Blocks/PAListIcons/PAListIcons.php:72
-#: Blocks/Plugins/LocalData/LocalData.php:680
-#: Blocks/Plugins/RemoteData/RemoteData.php:653
-msgid "Link"
-msgstr ""
-
-#: Blocks/PAListIcons/PAListIcons.php:78
-msgid "Add item"
-msgstr "Adicionar item"
-
 #: Blocks/PAListItems/PAListItems.php:19 Blocks/PAListItems/PAListItems.php:63
 msgid "IASD - Itens - List"
 msgstr ""
@@ -227,39 +271,35 @@ msgstr ""
 msgid "Block to show contents in list format with images."
 msgstr "Bloco para exibir conteúdos no formato de lista com imagens."
 
-#: Blocks/PAListNews/PAListNews.php:23 Blocks/PAListNews/PAListNews.php:57
+#: Blocks/PAListNews/PAListNews.php:25 Blocks/PAListNews/PAListNews.php:60
 msgid "IASD - News - List"
 msgstr ""
 
-#: Blocks/PAListNews/PAListNews.php:24
+#: Blocks/PAListNews/PAListNews.php:26
 msgid "Block to show news content in list format."
 msgstr "Bloco para exibir as notícias no formato de lista."
 
-#: Blocks/PAListNews/PAListNews.php:71 Blocks/PAListNews/PAListNews.php:93
+#: Blocks/PAListNews/PAListNews.php:75 Blocks/PAListNews/PAListNews.php:97
 msgid "Post format"
 msgstr "Formato do post"
 
-#: Blocks/PAListNews/PAListNews.php:97
+#: Blocks/PAListNews/PAListNews.php:101
 msgid "Editorial"
 msgstr "Editoria"
 
-#: Blocks/PAListVideos/PAListVideos.php:21
+#: Blocks/PAListVideos/PAListVideos.php:23
 msgid "IASD - Videos - List(A)"
 msgstr ""
 
-#: Blocks/PAListVideos/PAListVideos.php:22
+#: Blocks/PAListVideos/PAListVideos.php:24
 msgid "Block to show videos content in list format."
 msgstr "Bloco para exibir os vídeos no formato de lista."
 
-#: Blocks/PAListVideos/PAListVideos.php:40
-msgid "Format"
-msgstr "Formato"
-
-#: Blocks/PAListVideos/PAListVideos.php:48
+#: Blocks/PAListVideos/PAListVideos.php:51
 msgid "IASD - Videos - List"
 msgstr ""
 
-#: Blocks/PAListVideos/PAListVideos.php:62
+#: Blocks/PAListVideos/PAListVideos.php:66
 msgid "Time (in seconds)"
 msgstr "Time (em segundos)"
 
@@ -646,34 +686,34 @@ msgstr "Carregar valor dos termos das postagens"
 msgid "News"
 msgstr "Notícias"
 
-#: classes/controllers/PA_ACF_Site-settings.class.php:21
-#: classes/controllers/PA_ACF_Site-settings.class.php:22
-#: classes/controllers/PA_ACF_Site-settings.class.php:28
-#: classes/controllers/PA_ACF_Site-settings.class.php:29
+#: classes/controllers/PA_ACF_Site-settings.class.php:26
+#: classes/controllers/PA_ACF_Site-settings.class.php:27
+#: classes/controllers/PA_ACF_Site-settings.class.php:37
+#: classes/controllers/PA_ACF_Site-settings.class.php:38
 msgid "IASD Site - Custom Settings"
 msgstr "IASD Site - Configurações customizadas"
 
-#: classes/controllers/PA_ACF_Site-settings.class.php:43
+#: classes/controllers/PA_ACF_Site-settings.class.php:53
 msgid "Headquarter"
 msgstr "Sede Regional"
 
-#: classes/controllers/PA_ACF_Site-settings.class.php:48
+#: classes/controllers/PA_ACF_Site-settings.class.php:58
 msgid "Address"
 msgstr "Endereço"
 
-#: classes/controllers/PA_ACF_Site-settings.class.php:52
+#: classes/controllers/PA_ACF_Site-settings.class.php:62
 msgid "Telephone"
 msgstr "Telefone"
 
-#: classes/controllers/PA_ACF_Site-settings.class.php:53
+#: classes/controllers/PA_ACF_Site-settings.class.php:63
 msgid "Social Networks"
 msgstr "Redes sociais"
 
-#: classes/controllers/PA_ACF_Site-settings.class.php:66
+#: classes/controllers/PA_ACF_Site-settings.class.php:79
 msgid "Site settings"
 msgstr "Configurações do site"
 
-#: classes/controllers/PA_ACF_Site-settings.class.php:72
+#: classes/controllers/PA_ACF_Site-settings.class.php:85
 msgid "Rewrite global settings"
 msgstr "Reescrever configurações globais"
 
@@ -697,31 +737,31 @@ msgstr ""
 msgid "Single"
 msgstr ""
 
-#: components/menu/footer.php:33
+#: components/menu/footer.php:36
 msgid "Our social networks"
 msgstr "Nossas redes sociais"
 
-#: components/menu/footer.php:79 footer.php:5
+#: components/menu/footer.php:82 footer.php:5
 msgid "Seventh-day Adventist Church"
 msgstr "Igreja Adventista do Sétimo Dia"
 
-#: components/menu/footer.php:83
+#: components/menu/footer.php:86
 msgid "Go to top"
 msgstr "Ir ao topo"
 
-#: components/parts/share.php:20
+#: components/parts/share.php:19
 msgid "Share:"
 msgstr "Compartilhar:"
 
-#: core/PA_Theme_Sedes_Install.php:68
+#: core/PA_Theme_Sedes_Install.php:69
 msgid "Headquarter - Owner"
 msgstr "Sede Proprietária"
 
-#: core/PA_Theme_Sedes_Install.php:110
+#: core/PA_Theme_Sedes_Install.php:111
 msgid "Quick&nbsp;Edit"
 msgstr "Edição&nbsp;Rápida"
 
-#: core/PA_Theme_Sedes_Install.php:118
+#: core/PA_Theme_Sedes_Install.php:119
 msgid "PA - Menu - Default"
 msgstr ""
 

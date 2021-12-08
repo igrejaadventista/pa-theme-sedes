@@ -11,6 +11,7 @@ if (is_multisite()) {
   require_once(dirname(__FILE__) . '/vendor/lordealeister/acf-multisite-options/acf-multisite-options.php');
 }
 
+require_once(dirname(__FILE__) . '/classes/controllers/PA_AdminUser.class.php');
 require_once(dirname(__FILE__) . '/classes/controllers/PA_Theme_Helpers.class.php');
 require_once(dirname(__FILE__) . '/classes/controllers/PA_ACF_Helpers.class.php');
 require_once(dirname(__FILE__) . '/classes/controllers/PA_ACF_Site-settings.class.php');
@@ -23,6 +24,7 @@ require_once(dirname(__FILE__) . '/classes/controllers/PA_REST-Cleanup.class.php
 require_once(dirname(__FILE__) . '/classes/controllers/PA_Sedes_Infos.php');
 require_once(dirname(__FILE__) . '/classes/controllers/PA_Header_Title.class.php');
 require_once(dirname(__FILE__) . '/Fields/TaxonomyTerms.php');
+require_once(dirname(__FILE__) . '/classes/controllers/PA_SearchPage.class.php');
 
 
 // CORE INSTALL
