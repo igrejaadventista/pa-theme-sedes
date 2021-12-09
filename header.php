@@ -8,6 +8,7 @@
 
   <?php wp_head(); ?>
 
+  <link rel="icon" href="<?php echo get_template_directory_uri(); ?>/assets/imgs/favicon.png">
 
   <!-- Google Tag Manager -->
   <script>

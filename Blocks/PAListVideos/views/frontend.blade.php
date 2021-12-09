@@ -11,7 +11,7 @@
 		@endnotempty
 
 		@notempty($items)
-			<div class="row row-cols-auto mt-4 {{ $block_format == '2/3' ? 'row-cols-md-2' : 'row-cols-md-1' }}">
+			<div class="row row-cols-auto mt-4 mb-0 {{ $block_format == '2/3' ? 'row-cols-md-2' : 'row-cols-md-1' }}">
 				@foreach($items as $item)
 					@if($loop->index == 0)
 						<div class="col">
