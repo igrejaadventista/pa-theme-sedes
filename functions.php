@@ -1,6 +1,6 @@
 <?php
 
-define('API_PA', 'api.adventistas.org');
+define('API_PA', 'api.adventistas.dev');
 define('API_7CAST', 'api.adv.st');
 define('API_F7P', 'api.feliz7play.com');
 
