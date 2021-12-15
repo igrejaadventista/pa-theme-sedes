@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.3.0] - 2021-12-15
+
+### Changed
+
+- Altera a rota da API dos conteúdos de api.adventistas.org p/ api.adventistas.dev
+
 ## [1.2.2] - 2021-12-13
 
 ### Fix
