@@ -42,7 +42,7 @@ class PAListNews extends Block
 
     return array_merge(
       [
-        Select::make('Format', 'block_format')
+        Select::make(__('Format', 'iasd'), 'block_format')
           ->choices([
             '1/3' => '1/3',
             '2/3' => '2/3',
