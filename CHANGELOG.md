@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 
+## [1.3.5] - 2021-12-22
+
+### Fix
+
+- Corrige o espaçamento dos textos na lista de posts.
+- Corrige o espaçamento das linhas dos títulos dos blocos.
+
 ## [1.3.4] - 2021-12-22
 
 ### Fix
