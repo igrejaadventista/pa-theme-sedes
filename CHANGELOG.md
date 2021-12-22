@@ -6,7 +6,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 
-## [1.3.3] - 2021-12-15
+## [1.3.4] - 2021-12-22
+
+### Fix
+
+- Corrige o tamanho do texto no header dos conteúdos.
+
+## [1.3.3] - 2021-12-21
 
 ### Fix
 
