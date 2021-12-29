@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 
+## [1.3.6] - 2021-12-29
+
+### Fix
+
+- Corrige o espaçamento, tamanho da fonte e cor, dos textos no single.
+- Corrige as opções de compartilhamento do single.
+
 ## [1.3.5] - 2021-12-22
 
 ### Fix

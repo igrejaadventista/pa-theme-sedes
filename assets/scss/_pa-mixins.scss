@@ -76,10 +76,11 @@
   }
 }
 
-@mixin pa-wp-block-embed-caption {
+@mixin pa-wp-block-embed-caption($color: var(--pa-color-gray03)) {
   font-style: normal !important;
-  color: var(--pa-color-gray03);
+  color: $color;
   font-size: 0.85rem;
+  line-height: initial;
 }
 
 @mixin pa-numbers {
