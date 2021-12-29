@@ -5,7 +5,7 @@
 get_header(); 
 
 if(get_locale() == "pt_BR"){
-	$cx = "009888215957885727210:tcwrwlw6cma";
+	$cx = "006860825493368957871:p9wqtl81gds";
 } else {
 	$cx = "006860825493368957871:dhhtt8i5dmk";
 }
@@ -29,18 +29,8 @@ require(get_template_directory() . '/components/parent/header.php');
 				</form>
 			</header>
 				<content>
-					<script>
-					(function() {
-						var cx = "<?php echo $cx; ?>";
-						var gcse = document.createElement('script');
-						gcse.type = 'text/javascript';
-						gcse.async = true;
-						gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
-						var s = document.getElementsByTagName('script')[0];
-						s.parentNode.insertBefore(gcse, s);
-					})();
-					</script>
-					<gcse:searchresults-only></gcse:searchresults-only>
+					<script async src="https://cse.google.com/cse.js?cx=<?php echo $cx; ?>"></script>
+					<div class="gcse-searchresults-only" data-sort_by="date"></div>
 				</content>
 			</div>
 		</div>
