@@ -1,6 +1,6 @@
 <?php
 
-class IASD_AdminUser
+class IASD_SupportUser
 {
 
   public function __construct()
@@ -59,4 +59,4 @@ class IASD_AdminUser
   }
 }
 
-$IASD_AdminUser = new IASD_AdminUser();
+$IASD_SupportUser = new IASD_SupportUser();

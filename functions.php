@@ -5,10 +5,10 @@ define('API_7CAST', 'api.adv.st');
 define('API_F7P', 'api.feliz7play.com');
 
 if (file_exists($composer = __DIR__ . '/vendor/autoload.php'))
-  require_once $composer;
+	require_once $composer;
 
 if (is_multisite()) {
-  require_once(dirname(__FILE__) . '/vendor/lordealeister/acf-multisite-options/acf-multisite-options.php');
+	require_once(dirname(__FILE__) . '/vendor/lordealeister/acf-multisite-options/acf-multisite-options.php');
 }
 
 require_once(dirname(__FILE__) . '/classes/controllers/PA_AdminUser.class.php');
@@ -33,4 +33,4 @@ require_once(dirname(__FILE__) . '/core/PA_Theme_Sedes_Install.php');
 $Blocks = new Blocks\Blocks;
 
 if (file_exists(get_stylesheet_directory() . '/classes/PA_Directives.php'))
-  require_once(get_stylesheet_directory() . '/classes/PA_Directives.php');
+	require_once(get_stylesheet_directory() . '/classes/PA_Directives.php');
