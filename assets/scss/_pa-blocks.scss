@@ -39,6 +39,10 @@
     text-decoration: none;
 
     @include pa-list-posts;
+
+    &:hover {
+      text-decoration: none;
+    }
   }
 
   .pa-w-apps {
@@ -72,12 +76,10 @@
 
 .row > .pa-find-church:first-child {
   margin-top: 0 !important;
-  //background-color: red;
 }
 
 .row > .pa-find-church:last-child {
   margin-bottom: -3rem !important;
-  //background-color: yellow;
 }
 
 .pa-find-church {
@@ -124,8 +126,11 @@
     color: rgba(255, 255, 255, 0.2);
   }
 
-  a {
+  p, a {
     color: #fff;
+  }
+
+  a, a:hover{
     text-decoration: none;
   }
 
@@ -165,7 +170,6 @@
 }
 
 .pa-slider-controle {
-  // background-color: #004d99;
   color: var(--pa-color-default-aux);
   cursor: pointer;
   position: relative;

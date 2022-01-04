@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 
+## [1.3.8] - 2022-01-04
+
+### Fix
+
+- Corrige a cor do texto do bloco "Encontre uma igreja"
+- Corrige o hover dos links dos blocos.
+- Ajusta o nome de algumas classes p/ evitar conflito com o código legado do PA-Plugin-Utilities.
+
 ## [1.3.7] - 2021-12-29
 
 ### Fix
