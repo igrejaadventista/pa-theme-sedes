@@ -1,6 +1,6 @@
 <?php
 
-class IASD_SearchPage
+class IASD_CreateSearchPage
 {
   public function __construct()
   {
@@ -28,4 +28,4 @@ class IASD_SearchPage
   }
 }
 
-$IASD_SearchPage = new IASD_SearchPage();
+$IASD_CreateSearchPage = new IASD_CreateSearchPage();

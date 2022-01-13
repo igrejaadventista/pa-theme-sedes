@@ -3,6 +3,7 @@
     padding: 0;
     font-family: var(--pa-font-default);
     font-size: 1rem;
+    background-color: #fff !important;
   }
 
   .gsc-control-cse .gsc-table-result {
@@ -84,6 +85,7 @@
 
   .gsc-webResult.gsc-result {
     padding: 1rem 0;
+    background-color: #fff !important;
   }
 
   .search_form {
@@ -134,4 +136,8 @@
   .gsc-webResult .gsc-result {
     border: none;
   }
+}
+
+.gsc-adBlock {
+  display: none !important;
 }

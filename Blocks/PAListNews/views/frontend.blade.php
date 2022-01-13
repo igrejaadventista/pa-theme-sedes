@@ -13,7 +13,7 @@
 		@notempty($items)
 			<div class="mt-4">
 				@foreach($items as $item)
-					<div class="card mb-4 mb-xl-5 border-0">
+					<div class="card mb-4 mb-xl-4 border-0">
 						<a 
 							href="{{ isset($item['link']) ? (is_array($item['link']) ? $item['link']['url'] : $item['link']) : get_permalink($item['id']) }}"
 							target="{{ isset($item['link']) && is_array($item['link']) && !empty($item['link']['target']) ? $item['link']['target'] : '_self' }}" 
@@ -46,7 +46,7 @@
 										@endnotempty
 
 										@notempty($item['title'])
-											<h3 class="card-title mt-2 {{ $block_format == '2/3' ? 'fw-bold h5' : 'h6' }}">{!! $item['title']['rendered'] !!}</h3>
+											<h3 class="card-title mt-2 {{ $block_format == '2/3' ? 'fw-bold h5' : 'h6 pa-truncate-3' }}">{!! $item['title']['rendered'] !!}</h3>
 										@endnotempty
 
 										@notempty($item['excerpt'])

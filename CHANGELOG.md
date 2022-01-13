@@ -5,6 +5,60 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.3.9] - 2022-01-13
+
+### Fix
+
+- Ajusta a versão do tema.
+- Adicionando logo do campo asuma - Associação Sul Maranhense.
+
+## [1.3.8] - 2022-01-04
+
+### Fix
+
+- Corrige a cor do texto do bloco "Encontre uma igreja"
+- Corrige o hover dos links dos blocos.
+- Ajusta o nome de algumas classes p/ evitar conflito com o código legado do PA-Plugin-Utilities.
+
+## [1.3.7] - 2021-12-29
+
+### Fix
+
+- Corrige o comportamento da página de busca.
+
+## [1.3.6] - 2021-12-29
+
+### Fix
+
+- Corrige o espaçamento, tamanho da fonte e cor, dos textos no single.
+- Corrige as opções de compartilhamento do single.
+
+## [1.3.5] - 2021-12-22
+
+### Fix
+
+- Corrige o espaçamento dos textos na lista de posts.
+- Corrige o espaçamento das linhas dos títulos dos blocos.
+
+## [1.3.4] - 2021-12-22
+
+### Fix
+
+- Corrige o tamanho do texto no header dos conteúdos.
+
+## [1.3.3] - 2021-12-21
+
+### Fix
+
+- Corrige os textos das legendas das imagens da galeria.
+
+## [1.3.2] - 2021-12-15
+
+### Fix
+
+- Corrige as margens do bloco de notícias.
+- Corrige traduções dos blocos.
+
 ## [1.3.1] - 2021-12-15
 
 ### Fix

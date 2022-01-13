@@ -3,17 +3,18 @@
 namespace Blocks\Plugins\RemoteData;
 
 // exit if accessed directly
-if(!defined('ABSPATH'))
+if (!defined('ABSPATH'))
 	exit;
 
 
 // check if class already exists
-if(!class_exists('RemoteData')):
+if (!class_exists('RemoteData')) :
 
 	/**
 	 * Class RemoteData
 	 */
-	class RemoteData extends \acf_field {
+	class RemoteData extends \acf_field
+	{
 
 		/*
 		*  __construct
@@ -26,7 +27,8 @@ if(!class_exists('RemoteData')):
 		*
 		*  @return	n/a
 		*/
-		function __construct() {
+		function __construct()
+		{
 			$this->name = 'remote_data';
 			$this->label = __('Remote data', 'acf-rest');
 			$this->category = 'relational';
@@ -67,7 +69,8 @@ if(!class_exists('RemoteData')):
 		*  @param	$post_id (int)
 		*  @return	$post_id (int)
 		*/
-		function input_admin_enqueue_scripts() {
+		function input_admin_enqueue_scripts()
+		{
 			\wp_enqueue_style('acf-remote-data-css', get_template_directory_uri() . '/Blocks/Plugins/RemoteData/Assets/remote-data.css', false);
 			\wp_enqueue_script('acf-remote-data.js', get_template_directory_uri() . '/Blocks/Plugins/RemoteData/Assets/remote-data.js', ['jquery'], null, true);
 		}
@@ -85,11 +88,12 @@ if(!class_exists('RemoteData')):
 		*  @param	$field (array) the $field being edited
 		*  @return	n/a
 		*/
-		function render_field_settings($field) {
+		function render_field_settings($field)
+		{
 			$field['limit'] = empty($field['limit']) ? '' : $field['limit'];
 			$choices = [];
-			if(!empty($field['fields'])):
-				foreach($field['fields'] as $value)
+			if (!empty($field['fields'])) :
+				foreach ($field['fields'] as $value)
 					$choices[$value] = $value;
 			endif;
 
@@ -140,7 +144,7 @@ if(!class_exists('RemoteData')):
 			$taxonomies = \get_taxonomies(['_builtin' => false], 'objects');
 			$choices = [];
 
-			foreach($taxonomies as $taxonomy)
+			foreach ($taxonomies as $taxonomy)
 				$choices[$taxonomy->name] = $taxonomy->label;
 
 			\acf_render_field_setting($field, array(
@@ -193,16 +197,16 @@ if(!class_exists('RemoteData')):
 				'parent' => $field['ID']
 			);
 
-			?>
-				<tr class="acf-field acf-field-setting-sub_fields" data-setting="group" data-name="sub_fields">
-					<td class="acf-label">
-						<label><?= __('Manual content fields', 'iasd'); ?></label>
-					</td>
-					<td class="acf-input">
-						<?php \acf_get_view('field-group-fields', $args); ?>
-					</td>
-				</tr>
-			<?php
+?>
+			<tr class="acf-field acf-field-setting-sub_fields" data-setting="group" data-name="sub_fields">
+				<td class="acf-label">
+					<label><?= __('Manual content fields', 'iasd'); ?></label>
+				</td>
+				<td class="acf-input">
+					<?php \acf_get_view('field-group-fields', $args); ?>
+				</td>
+			</tr>
+		<?php
 		}
 
 		/*
@@ -218,13 +222,14 @@ if(!class_exists('RemoteData')):
 		*
 		*  @return	n/a
 		*/
-		function render_field($field) {
+		function render_field($field)
+		{
 			$values = get_field($field['key']);
 			$endpoints = acf_get_array($field['endpoints']);
 			$endpointsChoices = array();
 
-			if(!empty($endpoints)):
-				foreach($endpoints as $endpoint):
+			if (!empty($endpoints)) :
+				foreach ($endpoints as $endpoint) :
 					$endpointValues = explode('>', $endpoint);
 					$endpointsChoices[trim($endpointValues[0])] = trim($endpointValues[count($endpointValues) > 1 ? 1 : 0]);
 				endforeach;
@@ -238,7 +243,7 @@ if(!class_exists('RemoteData')):
 				'data-can_sticky' => $field['can_sticky'],
 			);
 
-			?>
+		?>
 
 			<div <?php acf_esc_attr_e($atts); ?>>
 				<!-- API Data -->
@@ -249,7 +254,7 @@ if(!class_exists('RemoteData')):
 				<?php acf_hidden_input(array('name' => $field['name'] . "[sticky]", 'value' => isset($values['sticky']) ? $values['sticky'] : '', 'data-sticky' => '')); ?>
 
 				<div class="action-toolbar">
-					<?php if(!empty($field['manual_items'])): ?>
+					<?php if (!empty($field['manual_items'])) : ?>
 						<button type="button" class="buttonAddManualPost disabled acf-js-tooltip" data-action="manual-new-post" title="<?= _e('Add manual itens', 'iasd'); ?>" disabled><?= _e('Add', 'iasd'); ?></button>
 					<?php endif; ?>
 
@@ -263,7 +268,7 @@ if(!class_exists('RemoteData')):
 				</div>
 
 				<div class="filters -f3">
-					<?php if(!empty($field['search_filter'])): ?>
+					<?php if (!empty($field['search_filter'])) : ?>
 						<div class="filter -search">
 							<?php acf_text_input(array('placeholder' => __('Search...', 'iasd'), 'data-filter' => 's')); ?>
 							<i class="acf-loading"></i>
@@ -271,28 +276,28 @@ if(!class_exists('RemoteData')):
 						</div>
 					<?php endif; ?>
 
-					<?php if(!empty($field['limit_filter'])): ?>
+					<?php if (!empty($field['limit_filter'])) : ?>
 						<div class="filter -limit">
 							<label>
 								<span class="acf-js-tooltip" title="<?= _e('Number of items to be displayed.', 'iasd'); ?>"><?= _e('Quantity', 'iasd'); ?></span>
 								<?php acf_text_input(array('name' => $field['name'] . "[limit]", 'value' => isset($values['limit']) ? $values['limit'] : $field['limit'], 'type' => 'number', 'step' => 1, 'min' => 1, 'max' => 100, 'data-limit' => '', 'data-filter' => 'limit')); ?>
 							</label>
 						</div>
-          <?php else: ?>
-            <?php acf_hidden_input(array('name' => $field['name'] . "[limit]", 'value' => $field['limit'], 'data-limit' => '')); ?>
-          <?php endif; ?>
+					<?php else : ?>
+						<?php acf_hidden_input(array('name' => $field['name'] . "[limit]", 'value' => $field['limit'], 'data-limit' => '')); ?>
+					<?php endif; ?>
 
-					<?php if(count($endpointsChoices) > 1): ?>
+					<?php if (count($endpointsChoices) > 1) : ?>
 						<div class="filter -endpoint filter__endpoint acf-js-tooltip" title="<?= _e('Filter by post type.<br />Obs: Fixed items are not affected by this filter.', 'iasd'); ?>">
 							<?php
-								acf_select_input(
-									array(
-										'name' => $field['name'] . "[endpoint]",
-										'choices' => $endpointsChoices,
-										'value' => isset($values['endpoint']) ? $values['endpoint'] : (!empty($endpointsChoices) ? $endpointsChoices[0] : ''),
-										'data-filter' => 'endpoint',
-									)
-								);
+							acf_select_input(
+								array(
+									'name' => $field['name'] . "[endpoint]",
+									'choices' => $endpointsChoices,
+									'value' => isset($values['endpoint']) ? $values['endpoint'] : (!empty($endpointsChoices) ? $endpointsChoices[0] : ''),
+									'data-filter' => 'endpoint',
+								)
+							);
 							?>
 						</div>
 					<?php endif ?>
@@ -310,13 +315,13 @@ if(!class_exists('RemoteData')):
 				</div>
 
 				<?php
-				if(!empty($field['taxonomies'])):
+				if (!empty($field['taxonomies'])) :
 					$taxonomies = [];
 
-					foreach($field['taxonomies'] as $tax):
+					foreach ($field['taxonomies'] as $tax) :
 						$taxonomy = get_taxonomy($tax);
 
-						if(empty($taxonomy))
+						if (empty($taxonomy))
 							continue;
 
 						$taxonomies[$tax] = [];
@@ -328,18 +333,18 @@ if(!class_exists('RemoteData')):
 							'hide_empty' => false,
 						));
 
-						if(is_wp_error($terms))
+						if (is_wp_error($terms))
 							continue;
 
-						foreach($terms as $term)
+						foreach ($terms as $term)
 							$taxonomies[$tax]['terms'][$term->slug] = $term->name;
 					endforeach;
 				?>
 
 					<div class="taxonomies-selection" data-taxonomies='<?= json_encode($taxonomies) ?>'>
 
-					<?php acf_text_input(array('name' => $field['name'] . "[taxonomies]", 'value' => isset($values['taxonomies']) ? $values['taxonomies'] : '', 'type' => 'hidden', 'data-taxonomies-value' => '')); ?>
-					<?php acf_text_input(array('name' => $field['name'] . "[terms]", 'value' => isset($values['terms']) ? $values['terms'] : '', 'type' => 'hidden', 'data-terms-value' => '')); ?>
+						<?php acf_text_input(array('name' => $field['name'] . "[taxonomies]", 'value' => isset($values['taxonomies']) ? $values['taxonomies'] : '', 'type' => 'hidden', 'data-taxonomies-value' => '')); ?>
+						<?php acf_text_input(array('name' => $field['name'] . "[terms]", 'value' => isset($values['terms']) ? $values['terms'] : '', 'type' => 'hidden', 'data-terms-value' => '')); ?>
 
 						<div class="taxonomy-row" style="display: none;">
 							<label>
@@ -356,7 +361,7 @@ if(!class_exists('RemoteData')):
 						</div>
 
 						<?php
-						if(!empty($values['taxonomies'])) :
+						if (!empty($values['taxonomies'])) :
 							$choicesTaxonomies = [];
 							foreach ($taxonomies as $key => $value)
 								$choicesTaxonomies[$key] = $value['label'];
@@ -365,7 +370,7 @@ if(!class_exists('RemoteData')):
 							$values['terms'] = json_decode($values['terms']);
 
 							foreach ($values['taxonomies'] as $key => $taxonomy) :
-							?>
+						?>
 								<div class="taxonomy-row">
 									<label>
 										<span class="acf-js-tooltip" title="<?= _e('Number of itens to be displayed. From 1 to 100.', 'iasd'); ?>"><? _e('Taxonomie', 'iasd'); ?></span>
@@ -396,7 +401,7 @@ if(!class_exists('RemoteData')):
 						<div class="list-tile">
 							<span><?= _e('Results', 'iasd'); ?></span>
 						</div>
-						
+
 						<ul class="acf-bl list remote-list choices-list"></ul>
 					</div>
 					<div class="values">
@@ -413,7 +418,7 @@ if(!class_exists('RemoteData')):
 					</div>
 				</div>
 
-				<?php if(!empty($field['manual_items'])): ?>
+				<?php if (!empty($field['manual_items'])) : ?>
 					<div class="widgets-acf-modal -fields">
 						<div class="widgets-acf-modal-wrapper">
 							<div class="widgets-acf-modal-content">
@@ -422,7 +427,7 @@ if(!class_exists('RemoteData')):
 					</div>
 				<?php endif; ?>
 			</div><!-- End: -->
-			<?php
+<?php
 		}
 
 		/*
@@ -439,19 +444,21 @@ if(!class_exists('RemoteData')):
 		*  @return	$field - the field array holding all the field options
 		*/
 
-		function load_field($field) {
+		function load_field($field)
+		{
 			$sub_fields = acf_get_fields($field);
 
-			if($sub_fields)
+			if ($sub_fields)
 				$field['sub_fields'] = $sub_fields;
 
 			return $field;
 		}
 
-		function format_value($value, $post_id, $field) {
-			if(is_admin())
+		function format_value($value, $post_id, $field)
+		{
+			if (is_admin())
 				return $value;
-				
+
 			$manual = json_decode($value['manual'], true);
 			$data = is_array($value['data']) ? $value['data'] : json_decode($value['data'], true);
 			$value['data'] = array();
@@ -459,23 +466,23 @@ if(!class_exists('RemoteData')):
 
 			$posts = empty($manual) ? $data : array_merge($manual, $data);
 
-			if(isset($value['taxonomies']) && isset($value['terms'])):  
-				if(!empty($value['taxonomies']) && !empty($value['terms'])):  
+			if (isset($value['taxonomies']) && isset($value['terms'])) :
+				if (!empty($value['taxonomies']) && !empty($value['terms'])) :
 					$value['taxonomies'] = json_decode($value['taxonomies']);
 					$value['terms'] = json_decode($value['terms']);
 				endif;
 			endif;
-			
-			if(!empty($stickys)):
-				foreach($stickys as $sticky):
+
+			if (!empty($stickys)) :
+				foreach ($stickys as $sticky) :
 					$key = array_search($sticky, array_column(json_decode(json_encode($posts), TRUE), 'id'));
 
-					if($key >= 0)
+					if ($key >= 0)
 						$value['data'][] = $posts[$key];
 				endforeach;
 			endif;
 
-			foreach($value['data'] as $key => $postValue)
+			foreach ($value['data'] as $key => $postValue)
 				unset($posts[$key]);
 
 			$value['data'] = array_unique(array_merge($value['data'], $data), SORT_REGULAR);
@@ -487,7 +494,8 @@ if(!class_exists('RemoteData')):
 		 * @param $response_code
 		 * @return bool
 		 */
-		private static function responseSuccess($response_code) {
+		private static function responseSuccess($response_code)
+		{
 			return $response_code === 200;
 		}
 
@@ -504,9 +512,10 @@ if(!class_exists('RemoteData')):
 		*  @return	$post_id (int)
 		*/
 
-		function queryAjax() {
+		function queryAjax()
+		{
 			// validate
-			if(!acf_verify_ajax())
+			if (!acf_verify_ajax())
 				die();
 
 			$response = self::getData($_POST);
@@ -526,15 +535,16 @@ if(!class_exists('RemoteData')):
 		*  @param	$options (array)
 		*  @return	(array)
 		*/
-		static function getData($options = array()) {
+		static function getData($options = array())
+		{
 			// load field
 			$field = acf_get_field($options['field_key']);
-			if(!$field)
+			if (!$field)
 				return false;
 
 			$endpointValues = array();
 
-			if(!empty($field['endpoints']))
+			if (!empty($field['endpoints']))
 				$endpointValues = explode('>', $field['endpoints'][0]);
 
 			// defaults
@@ -547,8 +557,8 @@ if(!class_exists('RemoteData')):
 			$results = [];
 			$url = $options['endpoint'];
 			$queryArgs = [];
-			
-			if(!empty($field['filter_fields']))
+
+			if (!empty($field['filter_fields']))
 				$queryArgs['_fields'] = 'id,title,date,link';
 
 			$sticky = isset($options['sticky']) ? $options['sticky'] : 0;
@@ -559,15 +569,15 @@ if(!class_exists('RemoteData')):
 				return substr($v, 0, 1) !== 'm';
 			});
 
-			if(!empty($field['fields']) && !empty($field['filter_fields']))
+			if (!empty($field['fields']) && !empty($field['filter_fields']))
 				$queryArgs['_fields'] .= ',' . implode(',', $field['fields']);
 
-			if(!empty($stickyItemsFilter)):
+			if (!empty($stickyItemsFilter)) :
 				$response = \wp_remote_get(\add_query_arg(array_merge($queryArgs, ['include' => implode(',', $stickyItemsFilter), 'orderby' => 'include']), $url));
 				$responseCode = \wp_remote_retrieve_response_code($response);
 				$responseData = \wp_remote_retrieve_body($response);
 
-				if(self::responseSuccess($responseCode))
+				if (self::responseSuccess($responseCode))
 					$results = json_decode($responseData, true);
 			endif;
 
@@ -576,32 +586,38 @@ if(!class_exists('RemoteData')):
 			$limit = $limit <= 100 ? $limit : 100;
 			$queryArgs['per_page'] = $limit;
 
-			if($limit > count($stickyItems)):
+			if ($limit > count($stickyItems)) :
 				$queryArgs['per_page'] = count($stickyItems) <= $limit ? $limit - count($stickyItems) : $limit;
 
-				if(isset($options['taxonomies']) && isset($options['terms'])):
-		  			if(!is_array($options['taxonomies']))
+				if (isset($options['taxonomies']) && isset($options['terms'])) :
+					if (!is_array($options['taxonomies']))
 						$options['taxonomies'] = json_decode($options['taxonomies']);
-		  			if(!is_array($options['terms']))
+					if (!is_array($options['terms']))
 						$options['terms'] = json_decode($options['terms']);
 
-					foreach($options['taxonomies'] as $key => $taxonomy)
+					foreach ($options['taxonomies'] as $key => $taxonomy)
 						$queryArgs["$taxonomy-tax"] = implode(',', $options['terms'][$key]);
 				endif;
 
-				if(!empty($stickyItemsFilter))
+				if (!empty($stickyItemsFilter))
 					$queryArgs['exclude'] = implode(',', $stickyItemsFilter);
+
+				
+        if ( WP_DEBUG == true ){
+          var_dump(\add_query_arg(array_merge($queryArgs, ['orderby' => 'date']), $url));
+          die;
+        }
 
 				$response = \wp_remote_get(\add_query_arg(array_merge($queryArgs, ['orderby' => 'date']), $url));
 				$responseCode = \wp_remote_retrieve_response_code($response);
 				$responseData = \wp_remote_retrieve_body($response);
 
-				if(self::responseSuccess($responseCode))
+				if (self::responseSuccess($responseCode))
 					$results = array_unique(array_merge($results, json_decode($responseData, true)), SORT_REGULAR);
 			endif;
 
 			self::parseResults($results);
-			
+
 			// vars
 			return array(
 				'results' => $results,
@@ -609,16 +625,17 @@ if(!class_exists('RemoteData')):
 			);
 		}
 
-		static function parseResults(&$results) {
-			if(!empty($results)):
-				foreach($results as &$result):
-					if(!array_key_exists('featured_media_url', $result))
+		static function parseResults(&$results)
+		{
+			if (!empty($results)) :
+				foreach ($results as &$result) :
+					if (!array_key_exists('featured_media_url', $result))
 						continue;
 
-					foreach($result['featured_media_url'] as $key => $value):
-						if($key == 'pa_block_render')
+					foreach ($result['featured_media_url'] as $key => $value) :
+						if ($key == 'pa_block_render')
 							continue;
-						if($key == 'pa-block-render')
+						if ($key == 'pa-block-render')
 							$result['featured_media_url']['pa_block_render'] = $value;
 
 						unset($result['featured_media_url'][$key]);
@@ -627,7 +644,8 @@ if(!class_exists('RemoteData')):
 			endif;
 		}
 
-		function modalAjax() {
+		function modalAjax()
+		{
 			// validate
 			if (!acf_verify_ajax())
 				die();
@@ -637,7 +655,8 @@ if(!class_exists('RemoteData')):
 			wp_die();
 		}
 
-		function getSubfields($options) {
+		function getSubfields($options)
+		{
 			$field = acf_get_field($options['field_key']);
 
 			$fixedFields = array();
@@ -659,7 +678,7 @@ if(!class_exists('RemoteData')):
 				)
 			);
 
-			if(empty($field['hide_fields']) || !in_array('featured_media_url', $field['hide_fields'])):
+			if (empty($field['hide_fields']) || !in_array('featured_media_url', $field['hide_fields'])) :
 				$fixedFields[] = array(
 					'key' => $options['field_key'] . '_thumbnail',
 					'label' => __('Thumbnail', 'iasd'),
@@ -672,7 +691,7 @@ if(!class_exists('RemoteData')):
 				);
 			endif;
 
-			if(empty($field['hide_fields']) || !in_array('content', $field['hide_fields'])):
+			if (empty($field['hide_fields']) || !in_array('content', $field['hide_fields'])) :
 				$fixedFields[] = array(
 					'key' => $options['field_key'] . '_content',
 					'label' => __('Excerpt', 'iasd'),
@@ -683,16 +702,16 @@ if(!class_exists('RemoteData')):
 				);
 			endif;
 
-			for($i = count($fixedFields) - 1; $i > -1; --$i)
+			for ($i = count($fixedFields) - 1; $i > -1; --$i)
 				array_unshift($field['sub_fields'], $fixedFields[$i]);
-	
+
 			// load values
-			if(isset($options['data'])):
-				foreach($field['sub_fields'] as &$sub_field):
-					if(isset($options['data'][$sub_field['name']])):
-						if($sub_field['name'] == 'title' || $sub_field['name'] == 'content')
+			if (isset($options['data'])) :
+				foreach ($field['sub_fields'] as &$sub_field) :
+					if (isset($options['data'][$sub_field['name']])) :
+						if ($sub_field['name'] == 'title' || $sub_field['name'] == 'content')
 							$sub_field['value'] = $options['data'][$sub_field['name']]['rendered'];
-						elseif($sub_field['name'] == 'featured_media_url')
+						elseif ($sub_field['name'] == 'featured_media_url')
 							$sub_field['value'] = $options['data'][$sub_field['name']]['id'];
 						else
 							$sub_field['value'] = $options['data'][$sub_field['name']];
@@ -702,7 +721,7 @@ if(!class_exists('RemoteData')):
 			endif;
 
 			echo '<div class="acf-fields -top -border">';
-			foreach($field['sub_fields'] as &$sub_field):
+			foreach ($field['sub_fields'] as &$sub_field) :
 				acf_render_field_wrap($sub_field);
 			endforeach;
 			unset($sub_field);
@@ -722,13 +741,14 @@ if(!class_exists('RemoteData')):
 		*  @return	$post_id (int)
 		*/
 
-		function searchAjax() {
+		function searchAjax()
+		{
 			// validate
-			if(!acf_verify_ajax()) 
+			if (!acf_verify_ajax())
 				die();
-			
+
 			$response = $this->getSearchData($_POST);
-			acf_send_ajax_results($response);	
+			acf_send_ajax_results($response);
 		}
 
 		/*
@@ -744,15 +764,16 @@ if(!class_exists('RemoteData')):
 		*  @return	(array)
 		*/
 
-		function getSearchData($options = array()) {
+		function getSearchData($options = array())
+		{
 			// load field
 			$field = acf_get_field($options['field_key']);
-			if(!$field)
+			if (!$field)
 				return false;
 
 			$endpointValues = array();
 
-			if(!empty($field['endpoints']))
+			if (!empty($field['endpoints']))
 				$endpointValues = explode('>', $field['endpoints'][0]);
 
 			// defaults
@@ -766,17 +787,17 @@ if(!class_exists('RemoteData')):
 			$url = $options['endpoint'];
 			$queryArgs = [];
 
-			if(!empty($field['filter_fields']))
+			if (!empty($field['filter_fields']))
 				$queryArgs['_fields'] = 'id,title,date,link';
 
 			$sticky = isset($options['sticky']) ? $options['sticky'] : 0;
 
-			if(!empty($sticky) || isset($options['exclude'])):
+			if (!empty($sticky) || isset($options['exclude'])) :
 				$queryArgs['exclude'] = [];
 
-				if(isset($options['exclude']))
+				if (isset($options['exclude']))
 					$queryArgs['exclude'] = array_merge($queryArgs['exclude'], $options['exclude']);
-				if(!empty($sticky))
+				if (!empty($sticky))
 					$queryArgs['exclude'] = array_merge($queryArgs['exclude'], explode(',', $sticky));
 
 				$excludeFilter = array_filter($queryArgs['exclude'], function ($v) {
@@ -786,7 +807,7 @@ if(!class_exists('RemoteData')):
 				$queryArgs['exclude'] = implode(',', $excludeFilter);
 			endif;
 
-			if(!empty($field['fields']) && !empty($field['filter_fields']))
+			if (!empty($field['fields']) && !empty($field['filter_fields']))
 				$queryArgs['_fields'] .= ',' . implode(',', $field['fields']);
 
 			// search
@@ -799,7 +820,7 @@ if(!class_exists('RemoteData')):
 			$responseCode = \wp_remote_retrieve_response_code($response);
 			$responseData = \wp_remote_retrieve_body($response);
 
-			if(self::responseSuccess($responseCode))
+			if (self::responseSuccess($responseCode))
 				$results = array_merge($results, json_decode($responseData, true));
 
 			self::parseResults($results);
@@ -810,8 +831,6 @@ if(!class_exists('RemoteData')):
 				'data'		=> json_encode($results),
 			);
 		}
-
-
 	}
 
 	// initialize

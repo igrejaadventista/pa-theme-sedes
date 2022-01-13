@@ -77,8 +77,37 @@
 
 .pa-content-container,
 .pa-content {
-  p img {
-    max-width: 100%;
+  p {
+    color: var(--pa-color-gray03);
+    line-height: 2rem;
+    margin-bottom: 1.5rem;
+
+    img {
+      max-width: 100%;
+    }
+  }
+  
+  a {
+    color: var(--pa-color-default-light);
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  .wp-block-quote p {
+    margin: 2rem 0 2rem 3rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--pa-color-gray03);
+  }
+
+  figcaption {
+    color: var(--pa-color-gray03);
+    font-size: 0.9rem;
+    margin-top: 0.8rem;
+    line-height: 1.3rem;
   }
 
   .pa-blog-feature {
@@ -123,8 +152,13 @@
 
   header {
     h1 {
-      font-size: 2.625rem;
+      font-size: 2.6rem;
       line-height: 1.095;
+
+      @media (max-width: 576px) {
+        font-size: 2.1rem;
+        letter-spacing: -1px;
+      }
     }
 
     h2 {
@@ -133,7 +167,7 @@
       font-weight: normal;
       padding: 0;
       border: none;
-      font-size: 1.125rem;
+      font-size: 1.1rem;
       line-height: 1.389;
     }
 
@@ -143,7 +177,7 @@
 
     .pa-post-meta {
       color: var(--pa-color-gray03);
-      font-size: 0.875rem;
+      font-size: 1rem;
       line-height: 1.357;
     }
 
@@ -167,7 +201,7 @@
     }
   }
 
-  .pa-accessibility {
+  .pa-accessibility ul {
     li {
       margin-left: 0.5rem;
 
@@ -212,34 +246,9 @@
     }
   }
 
-  .pa-content {
-    line-height: 2rem;
-
-    p {
-      color: var(--pa-color-gray03);
-    }
-
-    a {
-      color: var(--pa-color-default-light);
-      font-weight: bold;
-      text-decoration: none;
-
-      &:hover {
-        text-decoration: underline;
-      }
-    }
-
-    .wp-block-quote p {
-      margin: 2rem 0 2rem 3rem;
-      font-size: 1.5rem;
-      font-weight: bold;
-      color: var(--pa-color-gray03);
-    }
-
+  .wp-block-gallery {
     figcaption {
-      font-size: 0.9rem;
-      color: var(--pa-color-gray03);
-      margin-top: 0;
+      @include pa-wp-block-embed-caption($color: #fff);
     }
   }
 
