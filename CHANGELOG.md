@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.3.9] - 2022-01-13
+
+### Fix
+
+- Ajusta a versão do tema.
+- Adicionando logo do campo asuma - Associação Sul Maranhense.
 
 ## [1.3.8] - 2022-01-04
 
