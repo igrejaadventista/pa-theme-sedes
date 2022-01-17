@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.3.10] - 2022-01-17
+
+### Fix
+
+- Colocando o arquivo da logo do campo asuma no diretório correto.
+
 ## [1.3.9] - 2022-01-13
 
 ### Fix
