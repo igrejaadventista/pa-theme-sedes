@@ -7,10 +7,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [1.3.12] - 2022-01-18
 
+### Added
+
+- Adicionando função que oculta e impedir que o campo "Confirmar o uso de uma senha fraca" seja ativado levando assim o usuário a criar uma senha forte.
+
+## [1.3.12] - 2022-01-18
+
 ### Fix
 
 - Adicionando logo do campo ALM.
-
 
 ## [1.3.11] - 2022-01-18
 
