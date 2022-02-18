@@ -5,7 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [1.3.11] - 2022-01-18
+## [1.5.0] - 2022-02-18
+
+### Added
+
+- Adicionando novo template de página para dar suporte ao Elementor.
+- Para tal foi criado os seguintes arquivos:
+  -- Template page -> ./page-elementor.php
+  -- Template footer -> ./footer-elementor.php e ./components/menu/footer-elementor.php
+
+## [1.4.2] - 2022-01-18
 
 ### Fix
 
