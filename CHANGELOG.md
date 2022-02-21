@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Fix
 
-- Atibuindo cor ao header menu, afim de ajustar incompatibilidade com o elementor
+- Atribuindo cor ao header menu, afim de ajustar incompatibilidade com o elementor
 
 ## [1.5.0] - 2022-02-18
 
