@@ -1,7 +1,7 @@
 @if(is_admin())
   <img class="img-preview" src="{{ get_template_directory_uri() }}/Blocks/PAImage/preview.png" alt="{{ __('Illustrative image of the front end of the block.', 'iasd') }}" />
 @else
-	<div class="pa-widget pa-w-image col mt-5 {{ $block_format == '1/3' ? 'col-md-4' : ($block_format == '2/3' ? 'col-md-8' : '') }}">
+	<div class="pa-widget pa-w-image col-12 mt-5 {{ $block_format == '1/3' ? 'col-md-4' : ($block_format == '2/3' ? 'col-md-8' : '') }}">
     @notempty($link)
       <a 
         href="{{ $link['url'] }}"
