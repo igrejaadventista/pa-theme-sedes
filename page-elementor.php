@@ -13,4 +13,4 @@ require(get_template_directory() . '/components/parent/header.php');
 </div>
 
 
-<?php get_footer('elementor'); ?>
+<?php get_footer(); ?>
