@@ -5,7 +5,7 @@
 		<img class="img-preview" src="{{ get_template_directory_uri() }}/Blocks/PAListVideos/preview-1-3.png" alt="{{ __('Illustrative image of the front end of the block.', 'iasd')}}"/>
 	@endif
 @else
-	<div class="pa-widget pa-w-list-videos col-12 mt-5 {{ $block_format == '2/3' ? 'col-md-8' : 'col-md-4' }}">
+	<div class="pa-widget pa-w-list-videos col-12 mb-5 {{ $block_format == '2/3' ? 'col-md-8' : 'col-md-4' }}">
 		@notempty($title)
 			<h2>{!! $title !!}</h2>
 		@endnotempty
