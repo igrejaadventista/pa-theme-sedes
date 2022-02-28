@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.5.4] - 2022-02-28
+
+### Fix
+
+- Add new post type (Page - Elementor)
+
 ## [1.5.3] - 2022-02-25
 
 ### Fix
