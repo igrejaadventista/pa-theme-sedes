@@ -1,6 +1,9 @@
 <?php
 
-/* Template name: Page - Elementor */
+/* 
+  Template name: Page - Elementor 
+  Template Post Type: projetos, proyectos, post, page
+*/
 
 get_header();
 ?>
