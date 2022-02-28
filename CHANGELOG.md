@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.5.5] - 2022-02-28
+
+### Fix
+
+- Removendo margem bottom negativa do bloco encontre uma igreja
+- Condicionando a apresentação do leitor de tela poly no arquivo page.php
+
 ## [1.5.4] - 2022-02-28
 
 ### Fix
