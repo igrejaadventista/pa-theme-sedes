@@ -50,7 +50,7 @@ class PAListButtons extends Block
         Text::make(__('Title', 'iasd'), 'title')
           ->defaultValue(__('IASD - Buttons - List', 'iasd')),
         LocalData::make(__('Itens', 'iasd'), 'items')
-          ->postTypes([__('projects', 'iasd')])
+          ->postTypes(['projects'])
           ->initialLimit(4)
           ->hideFields(['content', 'featured_media_url']),
       ],

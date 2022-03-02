@@ -9,6 +9,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Fix
 
+- Ajustando nome do post type que são chamados nos blocos.
+- Ajustando titulo da página quando aberto um projeto
+
+## [1.5.5] - 2022-02-28
+
+### Fix
+
 - Removendo margem bottom negativa do bloco encontre uma igreja
 - Condicionando a apresentação do leitor de tela poly no arquivo page.php
 
