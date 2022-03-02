@@ -66,7 +66,7 @@ class PAListItems extends Block
           ->defaultValue(__('IASD - Itens - List', 'iasd')),
 
         LocalData::make(__('Itens', 'iasd'), 'items')
-          ->postTypes(['post', __('projects', 'iasd')])
+          ->postTypes(['post', 'projects'])
           ->initialLimit(3)
           ->hideFields(['content']),
       ],
