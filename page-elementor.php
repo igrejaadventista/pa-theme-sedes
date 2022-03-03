@@ -2,7 +2,7 @@
 
 /* 
   Template name: Page - Elementor 
-  Template Post Type: projetos, proyectos, post, page
+  Template Post Type: projects, post, page
 */
 
 get_header();
