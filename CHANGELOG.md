@@ -5,13 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.5.8] - 2022-03-03
+
+### Fix
+
+- Acidiona o tmanho da thumbnail dos blocos. De 'medium' para 'large'
 
 ## [1.5.7] - 2022-03-03
 
 ### Fix
 
 - Acidiona o post-type projects no page template page-elementor.
-
 
 ## [1.5.6] - 2022-02-28
 

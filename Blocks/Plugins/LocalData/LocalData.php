@@ -528,7 +528,7 @@ if (!class_exists('LocalData')) :
           'rendered'      => \get_post_type_object(\get_post_type($post->ID))->labels->singular_name,
         ),
         'featured_media_url'   => array(
-          'pa_block_render'   => \get_the_post_thumbnail_url($post->ID, 'medium'),
+          'pa_block_render'   => \get_the_post_thumbnail_url($post->ID, 'large'),
         ),
         'excerpt'         => array(
           'rendered'       => $post->post_excerpt,
