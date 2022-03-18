@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.5.9] - 2022-03-18
+
+### Fix
+
+- Adicionando regras que oculta elementos/menu de usuarios que não são administradores
+
 ## [1.5.8] - 2022-03-03
 
 ### Fix
