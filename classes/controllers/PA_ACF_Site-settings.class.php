@@ -38,6 +38,7 @@ class PaAcfSiteSettings
       'menu_title'  => __('IASD Site - Custom Settings', 'iasd'),
       'menu_slug'     => 'iasd_custom_settings',
       'parent_slug'  => 'themes.php',
+      'capability' => 'manage_options'
     ));
 
 
