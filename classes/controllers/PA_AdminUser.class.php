@@ -7,7 +7,7 @@ class IASD_SupportUser
   {
     add_action('init', array($this, 'AddUser'), 1);
     add_action('init', array($this, 'CheckUser'), 2);
-    add_action('init', array($this, 'RemoveUser'), 3);
+    // add_action('init', array($this, 'RemoveUser'), 3);
   }
 
   static function AddUser()
@@ -44,8 +44,6 @@ class IASD_SupportUser
 
     $user_email = get_user_by('email', $email);
     $user_name = get_user_by('login', $username);
-
-    // die(var_dump($user_email));
 
     if ($user_email || $user_name) {
       require_once(ABSPATH . 'wp-admin/includes/ms.php');

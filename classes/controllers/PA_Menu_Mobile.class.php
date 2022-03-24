@@ -74,7 +74,7 @@ class PaMenuMobile
   static function getMenuGlobal($menu_global)
   {
 
-    if (!empty($menu_global) && property_exists($menu_global, 'itens') && !empty($menu_global->itens)) : ?>
+    if (!empty($menu_global) && isset($menu_global->itens) && !empty($menu_global->itens)) : ?>
 
       <li class="pa-dropdown">
         <a href="#">Adventistas.org</a>

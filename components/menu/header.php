@@ -16,7 +16,7 @@ $relative_sites = [
       <div class="col d-flex flex-column justify-content-between">
         <nav class="pa-menu-global navbar navbar-expand-lg justify-content-end">
           <ul class="navbar-nav">
-            <?php if (!empty($menu_global) && property_exists($menu_global, 'itens') && !empty($menu_global->itens)) : ?>
+            <?php if (!empty($menu_global) && isset($menu_global->itens) && !empty($menu_global->itens)) : ?>
               <?php foreach ($menu_global->itens as $item) : ?>
                 <li class="nav-item">
                   <a class="nav-link" href="<?= $item->url ?>" title="<?= $item->title ?>" target="<?= !empty($item->target) ? $item->target : '_self' ?>"><?= $item->title ?></a>

@@ -55,7 +55,7 @@ $menus = PaThemeHelpers::getGlobalMenu('global-footer');
       <div class="col-9 d-none d-xl-block">
         <?php if (is_array($menus) && !empty($menus)) : ?>
           <?php foreach ($menus as $menu) : ?>
-            <?php if (property_exists($menu, 'itens') && !empty($menu->itens)) : ?>
+            <?php if (isset($menu->itens) && !empty($menu->itens)) : ?>
               <div class="pa-menu pb-4 mb-4">
                 <?php if (!empty($menu->name)) : ?>
                   <h2><?= $menu->name ?></h2>
