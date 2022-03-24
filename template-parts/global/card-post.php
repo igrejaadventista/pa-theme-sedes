@@ -19,8 +19,8 @@
 
         <div class="col">
           <div class="card-body <?= has_post_thumbnail($args['post']) ? 'p-0' : 'ps-4 pe-0 py-4 border-start border-5 pa-border' ?>">
-            <?php if (isset($$args['format']) && !empty($$args['format'])) : ?>
-              <span class="pa-tag text-uppercase d-none d-xl-table-cell rounded"><?= $$args['format'] ?></span>
+            <?php if (isset($args['format']) && !empty($args['format'])) : ?>
+              <span class="pa-tag text-uppercase d-none d-xl-table-cell rounded"><?= $args['format'] ?></span>
             <?php endif; ?>
 
             <h3 class="fw-bold h6 mt-xl-2 pa-truncate-4"><?= get_the_title($args['post']->ID) ?></h3>
