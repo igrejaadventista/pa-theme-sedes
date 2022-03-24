@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.5.11] - 2022-03-24
+
+### Fix
+
+- Alterando a função que checa a propriedade de um objeto, de property_exists para isser, a fim de remover os warnings do console
+
 ## [1.5.10] - 2022-03-23
 
 ### Fix
