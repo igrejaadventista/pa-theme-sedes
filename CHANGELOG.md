@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.5.12] - 2022-04-04
+
+### Fix
+
+- Ajustando comportamento do menu mobile.
+
 ## [1.5.11] - 2022-03-24
 
 ### Fix
