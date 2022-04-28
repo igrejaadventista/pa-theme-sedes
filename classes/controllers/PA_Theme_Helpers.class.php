@@ -11,7 +11,6 @@ class PaThemeHelpers
     add_filter('nav_menu_css_class', [$this, 'specialNavClass'], 10, 2);
     add_filter('after_setup_theme', [$this, 'getInfoLang'], 10, 2);
     add_filter('body_class', [$this, 'bodyClass']);
-    add_action('init', [$this, 'unregisterTaxonomy']);
     add_action('PA-update_menu_global', [$this, 'setGlobalMenu']);
     add_action('PA-update_banner_global', [$this, 'setGlobalBanner']);
     add_action('rest_api_init', [$this, 'adding_collection_meta_rest']);
@@ -57,16 +56,7 @@ class PaThemeHelpers
     }
   }
 
-  function unregisterTaxonomy()
-  {
-    global $wp_taxonomies;
-    $taxonomy = array('category', 'post_tag');
-    foreach ($taxonomy as &$value) {
-      if (taxonomy_exists($value)) {
-        unset($wp_taxonomies[$value]);
-      }
-    }
-  }
+
 
   function registerAssets()
   {

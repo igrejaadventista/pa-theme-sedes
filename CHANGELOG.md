@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.5.13] - 2022-04-28
+
+### Fix
+
+- Removendo responsabilidade do tema da pai, unregister da taxonomia category e teg
+
 ## [1.5.12] - 2022-04-04
 
 ### Fix
