@@ -18,6 +18,7 @@ use Blocks\PAImage\PAImage;
 use Blocks\PAListDownloads\PAListDownloads;
 use Blocks\PAListNews\PAListNews;
 use Blocks\PAListVideos\PAListVideos;
+use Blocks\PAQueroVidaSaude\PAQueroVidaSaude;
 use Blocks\PARow\PARow;
 use Blocks\PASevenCast\PASevenCast;
 use Blocks\Plugins\RemoteData\RemoteData;
@@ -82,6 +83,7 @@ class Blocks
             PAListVideos::class,
             PAImage::class,
             PAFindChurch::class,
+            PAQueroVidaSaude::class,
         ];
 
         // Merge registered blocks with new blocks
