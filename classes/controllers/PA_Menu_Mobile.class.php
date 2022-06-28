@@ -7,7 +7,7 @@ class PaMenuMobile
     echo '<ul class="menu_inf">';
     self::getMenuGlobal($menu_global);
     foreach ($menu as $m) {
-      echo '<li class="' . (empty($m['children']) ? "" : "pa-dropdown") . '"><a href="' . $m['url'] . '">' . $m['title'] . '</a>';
+      echo '<li class="' . (empty($m['children']) ? "" : "pa-dropdown") . '"><a href="' . ($m['url'] != "" ? $m['url'] : "#") . '">' . $m['title'] . '</a>';
       self::getMenuChild($m['children']);
       echo '</li>';
     }
@@ -39,15 +39,18 @@ class PaMenuMobile
       return $children;
     }
 
-    foreach ($menu_array as $m) {
-      if (empty($m->menu_item_parent)) {
-        $menu[$m->ID] = array();
-        $menu[$m->ID]['ID'] = $m->ID;
-        $menu[$m->ID]['title'] = $m->title;
-        $menu[$m->ID]['url'] = $m->url;
-        $menu[$m->ID]['children'] = populate_children($menu_array, $m);
+    if (!empty($menu_array)) {
+      foreach ($menu_array as $m) {
+        if (empty($m->menu_item_parent)) {
+          $menu[$m->ID] = array();
+          $menu[$m->ID]['ID'] = $m->ID;
+          $menu[$m->ID]['title'] = $m->title;
+          $menu[$m->ID]['url'] = $m->url;
+          $menu[$m->ID]['children'] = populate_children($menu_array, $m);
+        }
       }
     }
+
     return $menu;
   }
 
@@ -71,7 +74,7 @@ class PaMenuMobile
   static function getMenuGlobal($menu_global)
   {
 
-    if (!empty($menu_global) && property_exists($menu_global, 'itens') && !empty($menu_global->itens)) : ?>
+    if (!empty($menu_global) && isset($menu_global->itens) && !empty($menu_global->itens)) : ?>
 
       <li class="pa-dropdown">
         <a href="#">Adventistas.org</a>

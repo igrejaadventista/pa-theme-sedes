@@ -5,7 +5,7 @@
 		<img class="img-preview" src="{{ get_template_directory_uri() }}/Blocks/PAListNews/preview-1-3.png" alt="{{ __('Illustrative image of the front end of the block.', 'iasd') }}"/>
 	@endif
 @else
-	<div class="pa-widget pa-w-list-news col mb-5 {{ $block_format == '2/3' ? 'col-md-8' : 'col-md-4' }}">
+	<div class="pa-widget pa-w-list-news col-12 mb-5 {{ $block_format == '2/3' ? 'col-md-8' : 'col-md-4' }}">
 		@notempty($title)
 			<h2>{!! $title !!}</h2>
 		@endnotempty
@@ -13,7 +13,7 @@
 		@notempty($items)
 			<div class="mt-4">
 				@foreach($items as $item)
-					<div class="card mb-5 mb-xl-4 border-0">
+					<div class="card mb-4 mb-xl-4 border-0">
 						<a 
 							href="{{ isset($item['link']) ? (is_array($item['link']) ? $item['link']['url'] : $item['link']) : get_permalink($item['id']) }}"
 							target="{{ isset($item['link']) && is_array($item['link']) && !empty($item['link']['target']) ? $item['link']['target'] : '_self' }}" 
@@ -28,33 +28,38 @@
 													src="{{ isset($item['featured_media_url']) ? $item['featured_media_url']['pa_block_render'] : get_the_post_thumbnail_url($item['id'], 'medium') }}"
 													alt="{{ $item['title']['rendered'] }}" 
 												/>
-												{{-- TODO: Obter dados da editoria --}}
-												@if(($block_format == '2/3' && isset($item['terms']['editorial']) && !empty($editorial = $item['terms']['editorial'])) ||
+												{{-- @if(($block_format == '2/3' && isset($item['terms']['editorial']) && !empty($editorial = $item['terms']['editorial'])) ||
 													$block_format == '2/3' && !empty($editorial = get_the_terms($item['id'], 'xtt-pa-editorias')))
-													<figcaption class="pa-img-tag figure-caption text-uppercase rounded-right d-none d-xl-block pa-truncate-3">
+													<figcaption class="pa-img-tag figure-caption text-uppercase rounded-right pa-truncate-3">
+														{{ is_array($editorial) ? $editorial[0]->name : $editorial }}
+													</figcaption>
+												@endif --}}
+
+                        @if((isset($item['terms']['editorial']) && !empty($editorial = $item['terms']['editorial'])) || !empty($editorial = get_the_terms($item['id'], 'xtt-pa-editorias')))
+													<figcaption class="pa-img-tag figure-caption text-uppercase rounded-right {{ ($block_format == '1/3') ? 'd-md-none' : '' }}">
 														{{ is_array($editorial) ? $editorial[0]->name : $editorial }}
 													</figcaption>
 												@endif
+
 											</figure>
 										</div>
 									@endnotempty
 								</div>
 								
-								<div class="col-12 col-md-7">
+								<div class="col-12 col-md-7 teste">
 									<div class="card-body p-0">
-										{{-- TODO: Obter dados de formato de post --}}
 										@notempty($item['terms']['format'])
 											<span class="pa-tag text-uppercase d-none d-xl-table-cell rounded">{{ $item['terms']['format'] }}</span>
 										@endnotempty
 
 										@notempty($item['title'])
-											<h3 class="card-title mt-xl-2 {{ $block_format == '2/3' ? 'fw-bold h5' : 'h6' }}">{!! $item['title']['rendered'] !!}</h3>
+											<h3 class="card-title mt-2 h5 pa-truncate-3 {{ $block_format == '2/3' ? 'fw-bold' : 'fw-normal' }}">{!! $item['title']['rendered'] !!}</h3>
 										@endnotempty
 
 										@notempty($item['excerpt'])
-											@if($block_format == '2/3')
-												<p class="card-text d-none d-xl-block pa-truncate-3">{{ wp_strip_all_tags($item['excerpt']['rendered']) }}</p>
-											@endif
+											
+											<p class="card-text d-block {{ $block_format == '2/3' ? 'pa-truncate-3' : 'd-md-none' }}">{{ wp_strip_all_tags($item['excerpt']['rendered']) }}</p>
+											
 										@endnotempty
 									</div>
 								</div>

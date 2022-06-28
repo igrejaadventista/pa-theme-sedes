@@ -5,6 +5,12 @@
     object-fit: cover;
   }
 
+  p {
+    font-size: 1rem;
+    line-height: normal;
+    margin-bottom: auto;
+  }
+
   h2 {
     @include pa-h2-widget-title;
   }
@@ -33,6 +39,10 @@
     text-decoration: none;
 
     @include pa-list-posts;
+
+    &:hover {
+      text-decoration: none;
+    }
   }
 
   .pa-w-apps {
@@ -64,9 +74,37 @@
   }
 }
 
+.row > .pa-find-church:first-child {
+  margin-top: 0 !important;
+}
+
 .pa-find-church {
-  background-image: image-url("bg-find-church-mask.png"), linear-gradient(94.83deg, #036 -3.92%, #4066b3 114.08%);
   color: #fff;
+
+  &::before,
+  &::after {
+    content: "";
+    height: 100%;
+    left: 50%;
+    position: absolute;
+    top: 0;
+    transform: translateX(-50.01%);
+    width: 100vw;
+
+    @media (min-width: 1200px) {
+      transform: translateX(-43%);
+    }
+  }
+
+  &::before {
+    background: linear-gradient(94.83deg, #036 -3.92%, #4066b3 114.08%);
+    z-index: -2;
+  }
+
+  &::after {
+    background: url("./assets/imgs/bg-find-church-mask.png");
+    z-index: -1;
+  }
 
   h2,
   h3,
@@ -84,8 +122,11 @@
     color: rgba(255, 255, 255, 0.2);
   }
 
-  a {
+  p, a {
     color: #fff;
+  }
+
+  a, a:hover{
     text-decoration: none;
   }
 
@@ -125,7 +166,6 @@
 }
 
 .pa-slider-controle {
-  // background-color: #004d99;
   color: var(--pa-color-default-aux);
   cursor: pointer;
   position: relative;
@@ -178,8 +218,8 @@
 }
 
 .pa-w-carousel-ministry {
-  .glide__slide { 
-    figure{
+  .glide__slide {
+    figure {
       @include pa-figure-overlay;
     }
   }

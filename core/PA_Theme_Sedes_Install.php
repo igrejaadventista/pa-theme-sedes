@@ -26,6 +26,7 @@ class PACoreInstall
     add_action('init', array($this, 'pa_wp_custom_menus'));
     add_action('pre_get_posts', array($this, 'modifyCategoryQuery'));
     add_action('rest_api_init', array($this, 'restApi'));
+    add_action('send_headers', 'send_frame_options_header', 10, 0 );
   }
 
   function installRoutines()

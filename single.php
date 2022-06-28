@@ -25,13 +25,11 @@ $prev_post = get_previous_post();
 						<hr class="my-45">
 		
 						<div class="d-flex justify-content-between">
-							<div class="pa-share d-none d-xl-block">
-								<?php 
-									require(get_template_directory() . '/components/parts/share.php');
-								?>
-							</div>
-							<div class="">
-								<ul class="pa-accessibility list-inline">
+              <?php 
+                require(get_template_directory() . '/components/parts/share.php');
+              ?>
+							<div class="pa-accessibility">
+								<ul class="list-inline">
 									<li class="pa-text-dec list-inline-item"><a href="#" class="rounded p-2" onclick="window.TextSize.pa_diminui_texto(event)" >-A</a></li>
 									<li class="pa-text-inc list-inline-item"><a href="#" class="rounded p-2" onclick="window.TextSize.pa_aumenta_texto(event)" >+A</a></li>
 									<?php if(get_post_meta(get_the_ID(), 'amazon_polly_enable', true)){ ?><li class="pa-text-listen list-inline-item"><a href="#" class="rounded p-2" onclick="pa_play(event, this)" alt="<?= _e('Hear text', 'iasd'); ?>" title="<?= _e('Hear text', 'iasd'); ?>"><i class="fas fa-volume-up"></i> <?= _e('Hear text', 'iasd'); ?></a><audio id="pa-accessibility-player" src="<?= get_post_meta( get_the_ID(), 'amazon_polly_audio_link_location', true) ?>" controls></audio></li><?php } ?>
@@ -51,7 +49,7 @@ $prev_post = get_previous_post();
 								?>
 							</div>
 							<div class="pa-post-prev col-6 col-xl-3 order-xl-1 text-left">
-								<a href=""><i class="fas fa-arrow-left"></i><?=  e_('Previous article', 'iasd'); ?></a>
+								<a href=""><i class="fas fa-arrow-left"></i><?=  _e('Previous article', 'iasd'); ?></a>
 							</div>
 							<div class="pa-post-next col-6 col-xl-3 order-xl-3 text-right">
 								<a href=""><?= _e('Next article', 'iasd'); ?><i class="fas fa-arrow-right"></i></a>

@@ -11,7 +11,6 @@ class PaThemeHelpers
     add_filter('nav_menu_css_class', [$this, 'specialNavClass'], 10, 2);
     add_filter('after_setup_theme', [$this, 'getInfoLang'], 10, 2);
     add_filter('body_class', [$this, 'bodyClass']);
-    add_action('init', [$this, 'unregisterTaxonomy']);
     add_action('PA-update_menu_global', [$this, 'setGlobalMenu']);
     add_action('PA-update_banner_global', [$this, 'setGlobalBanner']);
     add_action('rest_api_init', [$this, 'adding_collection_meta_rest']);
@@ -25,8 +24,8 @@ class PaThemeHelpers
     }
 
     add_action('init', 'wp_rest_headless_boot_plugin', 9 );
-    add_filter('wp_headless_rest__disable_front_end', '__return_false' );
-    add_filter('run_wptexturize', '__return_false' );
+    add_filter('wp_headless_rest__disable_front_end', '__return_false');
+    add_filter('run_wptexturize', '__return_false');
 
     define('LANG', $this->getInfoLang());
   }
@@ -57,16 +56,7 @@ class PaThemeHelpers
     }
   }
 
-  function unregisterTaxonomy()
-  {
-    global $wp_taxonomies;
-    $taxonomy = array('category', 'post_tag');
-    foreach ($taxonomy as &$value) {
-      if (taxonomy_exists($value)) {
-        unset($wp_taxonomies[$value]);
-      }
-    }
-  }
+
 
   function registerAssets()
   {
@@ -100,7 +90,7 @@ class PaThemeHelpers
       $lang = get_locale();
     }
     $lang = substr($lang, 0, 2);
-
+ 
     return $lang;
   }
 
@@ -154,7 +144,7 @@ class PaThemeHelpers
     foreach ($menus as $name) {
       $json = file_get_contents("https://" . API_PA . "/tax/" . LANG . "/menus/{$name}");
       $json_content = json_decode($json);
-      add_option('menu_' . $name, $json_content, '', 'yes');
+      update_option('menu_' . $name, $json_content, '', 'yes');
     }
   }
 
@@ -171,7 +161,7 @@ class PaThemeHelpers
   {
     $json = file_get_contents("https://" . API_PA . "/tax/" . LANG . "/banner");
     $json_content = json_decode($json);
-    add_option('banner_global', $json_content, '', 'yes');
+    update_option('banner_global', $json_content, '', 'yes');
   }
 
   function bodyClass($classes)

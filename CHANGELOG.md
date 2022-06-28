@@ -1,0 +1,235 @@
+# Change Log
+
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](http://keepachangelog.com/)
+and this project adheres to [Semantic Versioning](http://semver.org/).
+
+## [1.5.13] - 2022-04-28
+
+### Fix
+
+- Removendo responsabilidade do tema da pai, unregister da taxonomia category e teg
+
+## [1.5.12] - 2022-04-04
+
+### Fix
+
+- Ajustando comportamento do menu mobile.
+
+## [1.5.11] - 2022-03-24
+
+### Fix
+
+- Alterando a função que checa a propriedade de um objeto, de property_exists para isser, a fim de remover os warnings do console
+
+## [1.5.10] - 2022-03-23
+
+### Fix
+
+- Reformando regras que oculta elementos/menu de usuarios que não são administradores
+
+## [1.5.9] - 2022-03-18
+
+### Fix
+
+- Adicionando regras que oculta elementos/menu de usuarios que não são administradores
+
+## [1.5.8] - 2022-03-03
+
+### Fix
+
+- Acidiona o tmanho da thumbnail dos blocos. De 'medium' para 'large'
+
+## [1.5.7] - 2022-03-03
+
+### Fix
+
+- Acidiona o post-type projects no page template page-elementor.
+
+## [1.5.6] - 2022-02-28
+
+### Fix
+
+- Ajustando nome do post type que são chamados nos blocos.
+- Ajustando titulo da página quando aberto um projeto
+
+## [1.5.5] - 2022-02-28
+
+### Fix
+
+- Removendo margem bottom negativa do bloco encontre uma igreja
+- Condicionando a apresentação do leitor de tela poly no arquivo page.php
+
+## [1.5.4] - 2022-02-28
+
+### Fix
+
+- Add new post type (Page - Elementor)
+
+## [1.5.3] - 2022-02-25
+
+### Fix
+
+- Ajustando largura do bloco de vídeso
+- Ajustando margem-top dos blocos.
+- Almentando o z-index do menu mobile.
+- Ajustando altura do titulo do bloco facebook
+
+## [1.5.2] - 2022-02-24
+
+### Fix
+
+- Ajustando largura dos blocos
+
+## [1.5.1] - 2022-02-18
+
+### Fix
+
+- Atribuindo cor ao header menu, afim de ajustar incompatibilidade com o elementor
+
+## [1.5.0] - 2022-02-18
+
+### Added
+
+- Adicionando novo template de página para dar suporte ao Elementor.
+- Para tal foi criado os seguintes arquivos:
+  -- Template page -> ./page-elementor.php
+  -- Template footer -> ./footer-elementor.php e ./components/menu/footer-elementor.php
+
+## [1.4.2] - 2022-01-18
+
+### Fix
+
+- Adicionando logo do campo ANRA.
+
+## [1.4.1] - 2022-01-18
+
+### Fix
+
+- Ajustando mecanismo que lida com a senha forte.
+
+## [1.4.0] - 2022-01-18
+
+### Added
+
+- Adicionando função que oculta e impedir que o campo "Confirmar o uso de uma senha fraca" seja ativado levando assim o usuário a criar uma senha forte.
+
+## [1.3.12] - 2022-01-18
+
+### Fix
+
+- Adicionando logo do campo ALM.
+
+## [1.3.11] - 2022-01-18
+
+### Fix
+
+- Ajustando espaçamnto do bloco Feliz7Play.
+
+## [1.3.10] - 2022-01-17
+
+### Fix
+
+- Colocando o arquivo da logo do campo asuma no diretório correto.
+
+## [1.3.9] - 2022-01-13
+
+### Fix
+
+- Ajusta a versão do tema.
+- Adicionando logo do campo asuma - Associação Sul Maranhense.
+
+## [1.3.8] - 2022-01-04
+
+### Fix
+
+- Corrige a cor do texto do bloco "Encontre uma igreja"
+- Corrige o hover dos links dos blocos.
+- Ajusta o nome de algumas classes p/ evitar conflito com o código legado do PA-Plugin-Utilities.
+
+## [1.3.7] - 2021-12-29
+
+### Fix
+
+- Corrige o comportamento da página de busca.
+
+## [1.3.6] - 2021-12-29
+
+### Fix
+
+- Corrige o espaçamento, tamanho da fonte e cor, dos textos no single.
+- Corrige as opções de compartilhamento do single.
+
+## [1.3.5] - 2021-12-22
+
+### Fix
+
+- Corrige o espaçamento dos textos na lista de posts.
+- Corrige o espaçamento das linhas dos títulos dos blocos.
+
+## [1.3.4] - 2021-12-22
+
+### Fix
+
+- Corrige o tamanho do texto no header dos conteúdos.
+
+## [1.3.3] - 2021-12-21
+
+### Fix
+
+- Corrige os textos das legendas das imagens da galeria.
+
+## [1.3.2] - 2021-12-15
+
+### Fix
+
+- Corrige as margens do bloco de notícias.
+- Corrige traduções dos blocos.
+
+## [1.3.1] - 2021-12-15
+
+### Fix
+
+- Ajustando arquivo css para não importa @charset.
+
+## [1.3.0] - 2021-12-15
+
+### Changed
+
+- Altera a rota da API dos conteúdos de api.adventistas.org p/ api.adventistas.dev
+
+## [1.2.2] - 2021-12-13
+
+### Fix
+
+- Corrige a tradução do bloco Find Church.
+
+## [1.2.1] - 2021-12-13
+
+### Added
+
+- Adiciona a logo do campo Associação Leste Matogrossense.
+
+## [1.2.0] - 2021-12-09
+
+### Added
+
+- Adiciona o favicon.
+
+### Fix
+
+- Ajusta as margens dos blocos.
+
+## [1.1.1] - 2021-12-09
+
+### Fix
+
+- Ajuste na logo da USeB.
+- Ajuste na colunagem dos blocos Downloads e 7Cast.
+
+## [1.1.0] - 2021-12-09
+
+### Added
+
+- Adicionado uma action que seta o header X-Frame-Option.

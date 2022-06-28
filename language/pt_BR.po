@@ -1,17 +1,17 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2021-11-24 22:31-0300\n"
-"PO-Revision-Date: 2021-11-24 22:32-0300\n"
+"POT-Creation-Date: 2022-02-03 17:46-0300\n"
+"PO-Revision-Date: 2022-02-03 17:46-0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.0\n"
-"X-Poedit-Basepath: ..\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Poedit 3.0.1\n"
+"X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_x;esc_html__;esc_html_e;esc_html_x;esc_attr__;"
 "esc_attr_e;esc_attr_x\n"
 "X-Poedit-SourceCharset: UTF-8\n"
@@ -40,6 +40,23 @@ msgstr ""
 msgid "Access the website"
 msgstr "Acessar o site"
 
+#: Blocks/PAFindChurch/views/frontend.blade.php:7
+msgid "Finding a church"
+msgstr "Encontre uma igreja"
+
+#: Blocks/PAFindChurch/views/frontend.blade.php:8
+msgid "Adventist churches that are located in the South American Division."
+msgstr "Igrejas adventistas localizadas na América do Sul."
+
+#: Blocks/PAFindChurch/views/frontend.blade.php:12
+msgid "Church search"
+msgstr "Buscar igreja"
+
+#: Blocks/PAFindChurch/views/frontend.blade.php:17 404.php:23
+#: components/menu/header.php:26 search.php:26
+msgid "Search"
+msgstr "Buscar"
+
 #: 404.php:10 404.php:16
 msgid "I'm sorry! Content not found! :("
 msgstr "Me desculpe! Conteúdo não encontrado! :("
@@ -56,15 +73,11 @@ msgstr "Você quer fazer uma nova busca?"
 msgid "New search"
 msgstr "Nova busca"
 
-#: 404.php:23 components/menu/header.php:26 search.php:26
-msgid "Search"
-msgstr "Buscar"
-
-#: Blocks/Blocks.php:146
+#: Blocks/Blocks.php:150
 msgid "Adventist"
 msgstr "Adventista"
 
-#: Blocks/Blocks.php:220
+#: Blocks/Blocks.php:224
 msgid "Sync data"
 msgstr "Sincronizar dados"
 
@@ -77,21 +90,21 @@ msgid "App"
 msgstr "Aplicativo"
 
 #: Blocks/PAApps/PAApps.php:220
-#: Blocks/PACarouselDownloads/PACarouselDownloads.php:36
+#: Blocks/PACarouselDownloads/PACarouselDownloads.php:39
 #: Blocks/PACarouselFeature/PACarouselFeature.php:35
 #: Blocks/PACarouselMinistry/PACarouselMinistry.php:34
-#: Blocks/PAFacebook/PAFacebook.php:34
+#: Blocks/PAFacebook/PAFacebook.php:34 Blocks/PAFindChurch/PAFindChurch.php:47
 #: Blocks/PAListButtons/PAListButtons.php:47
 #: Blocks/PAListDownloads/PAListDownloads.php:38
 #: Blocks/PAListIcons/PAListIcons.php:62 Blocks/PAListItems/PAListItems.php:62
-#: Blocks/PAListNews/PAListNews.php:56 Blocks/PAListVideos/PAListVideos.php:47
+#: Blocks/PAListNews/PAListNews.php:59 Blocks/PAListVideos/PAListVideos.php:50
 #: Blocks/PAMagazines/PAMagazines.php:33 Blocks/PASevenCast/PASevenCast.php:38
 #: Blocks/PATwitter/PATwitter.php:34 Blocks/Plugins/LocalData/LocalData.php:673
-#: Blocks/Plugins/RemoteData/RemoteData.php:646
+#: Blocks/Plugins/RemoteData/RemoteData.php:665
 msgid "Title"
 msgstr "Título"
 
-#: Blocks/PAApps/PAApps.php:222
+#: Blocks/PAApps/PAApps.php:222 Blocks/PAFindChurch/PAFindChurch.php:48
 msgid "Description"
 msgstr "Descrição"
 
@@ -99,34 +112,34 @@ msgstr "Descrição"
 msgid "Button"
 msgstr "Botão"
 
-#: Blocks/PACarouselDownloads/PACarouselDownloads.php:18
-#: Blocks/PACarouselDownloads/PACarouselDownloads.php:37
+#: Blocks/PACarouselDownloads/PACarouselDownloads.php:20
+#: Blocks/PACarouselDownloads/PACarouselDownloads.php:40
 msgid "IASD - Downloads - Carousel"
 msgstr ""
 
-#: Blocks/PACarouselDownloads/PACarouselDownloads.php:19
+#: Blocks/PACarouselDownloads/PACarouselDownloads.php:21
 msgid "Block from downloads content on carousel format."
 msgstr "Bloco para exibir conteúdos em destaque no formato de slides."
 
-#: Blocks/PACarouselDownloads/PACarouselDownloads.php:39
+#: Blocks/PACarouselDownloads/PACarouselDownloads.php:42
 #: Blocks/PACarouselFeature/PACarouselFeature.php:38
 #: Blocks/PACarouselMinistry/PACarouselMinistry.php:36
 #: Blocks/PAFeliz7Play/PAFeliz7Play.php:912
 #: Blocks/PAListButtons/PAListButtons.php:49
 #: Blocks/PAListDownloads/PAListDownloads.php:41
 #: Blocks/PAListIcons/PAListIcons.php:64 Blocks/PAListItems/PAListItems.php:65
-#: Blocks/PAListNews/PAListNews.php:59 Blocks/PAListNews/PAListNews.php:89
-#: Blocks/PAListVideos/PAListVideos.php:50
+#: Blocks/PAListNews/PAListNews.php:62 Blocks/PAListNews/PAListNews.php:93
+#: Blocks/PAListVideos/PAListVideos.php:53
 #: Blocks/PAMagazines/PAMagazines.php:35 Blocks/PASevenCast/PASevenCast.php:41
 msgid "Itens"
 msgstr ""
 
-#: Blocks/PACarouselDownloads/PACarouselDownloads.php:50
+#: Blocks/PACarouselDownloads/PACarouselDownloads.php:56
 #: Blocks/PAListDownloads/PAListDownloads.php:52
 msgid "File format"
 msgstr "Formato do arquivo"
 
-#: Blocks/PACarouselDownloads/PACarouselDownloads.php:52
+#: Blocks/PACarouselDownloads/PACarouselDownloads.php:58
 #: Blocks/PAListDownloads/PAListDownloads.php:54
 msgid "File size"
 msgstr "Tamanho do arquivo"
@@ -173,6 +186,52 @@ msgstr ""
 msgid "Feliz7Play content block."
 msgstr "Bloco do Feliz7Play."
 
+#: Blocks/PAFindChurch/PAFindChurch.php:19
+msgid "IASD - Find church"
+msgstr ""
+
+#: Blocks/PAFindChurch/PAFindChurch.php:20
+msgid "Block to show a box to find a church."
+msgstr "Exibe o bloco encontre uma igreja."
+
+#: Blocks/PAFindChurch/PAFindChurch.php:34
+msgid "Quick access"
+msgstr "Acesso rápido"
+
+#: Blocks/PAFindChurch/PAFindChurch.php:36
+#: Blocks/PAListIcons/PAListIcons.php:66
+msgid "Icon"
+msgstr "Ícone"
+
+#: Blocks/PAFindChurch/PAFindChurch.php:43 Blocks/PAImage/PAImage.php:46
+#: Blocks/PAListIcons/PAListIcons.php:72
+#: Blocks/Plugins/LocalData/LocalData.php:680
+#: Blocks/Plugins/RemoteData/RemoteData.php:672
+msgid "Link"
+msgstr ""
+
+#: Blocks/PAFindChurch/PAFindChurch.php:53
+#: Blocks/PAListIcons/PAListIcons.php:78
+msgid "Add item"
+msgstr "Adicionar item"
+
+#: Blocks/PAImage/PAImage.php:19
+msgid "IASD - Image"
+msgstr ""
+
+#: Blocks/PAImage/PAImage.php:20
+msgid "Block to show a image."
+msgstr "Bloco para exibir conteúdos no formato de lista com imagens."
+
+#: Blocks/PAImage/PAImage.php:34 Blocks/PAListNews/PAListNews.php:45
+#: Blocks/PAListVideos/PAListVideos.php:43
+msgid "Format"
+msgstr "Formato"
+
+#: Blocks/PAImage/PAImage.php:41
+msgid "Image"
+msgstr "Imagem"
+
 #: Blocks/PAListButtons/PAListButtons.php:19
 msgid "IASD - Button - List"
 msgstr ""
@@ -205,20 +264,6 @@ msgstr ""
 msgid "Block to show contents in list format with icons."
 msgstr "Bloco para exibir conteúdos no formato de lista com ícones."
 
-#: Blocks/PAListIcons/PAListIcons.php:66
-msgid "Icon"
-msgstr "Ícone"
-
-#: Blocks/PAListIcons/PAListIcons.php:72
-#: Blocks/Plugins/LocalData/LocalData.php:680
-#: Blocks/Plugins/RemoteData/RemoteData.php:653
-msgid "Link"
-msgstr ""
-
-#: Blocks/PAListIcons/PAListIcons.php:78
-msgid "Add item"
-msgstr "Adicionar item"
-
 #: Blocks/PAListItems/PAListItems.php:19 Blocks/PAListItems/PAListItems.php:63
 msgid "IASD - Itens - List"
 msgstr ""
@@ -227,39 +272,35 @@ msgstr ""
 msgid "Block to show contents in list format with images."
 msgstr "Bloco para exibir conteúdos no formato de lista com imagens."
 
-#: Blocks/PAListNews/PAListNews.php:23 Blocks/PAListNews/PAListNews.php:57
+#: Blocks/PAListNews/PAListNews.php:25 Blocks/PAListNews/PAListNews.php:60
 msgid "IASD - News - List"
 msgstr ""
 
-#: Blocks/PAListNews/PAListNews.php:24
+#: Blocks/PAListNews/PAListNews.php:26
 msgid "Block to show news content in list format."
 msgstr "Bloco para exibir as notícias no formato de lista."
 
-#: Blocks/PAListNews/PAListNews.php:71 Blocks/PAListNews/PAListNews.php:93
+#: Blocks/PAListNews/PAListNews.php:75 Blocks/PAListNews/PAListNews.php:97
 msgid "Post format"
 msgstr "Formato do post"
 
-#: Blocks/PAListNews/PAListNews.php:97
+#: Blocks/PAListNews/PAListNews.php:101
 msgid "Editorial"
 msgstr "Editoria"
 
-#: Blocks/PAListVideos/PAListVideos.php:21
+#: Blocks/PAListVideos/PAListVideos.php:23
 msgid "IASD - Videos - List(A)"
 msgstr ""
 
-#: Blocks/PAListVideos/PAListVideos.php:22
+#: Blocks/PAListVideos/PAListVideos.php:24
 msgid "Block to show videos content in list format."
 msgstr "Bloco para exibir os vídeos no formato de lista."
 
-#: Blocks/PAListVideos/PAListVideos.php:40
-msgid "Format"
-msgstr "Formato"
-
-#: Blocks/PAListVideos/PAListVideos.php:48
+#: Blocks/PAListVideos/PAListVideos.php:51
 msgid "IASD - Videos - List"
 msgstr ""
 
-#: Blocks/PAListVideos/PAListVideos.php:62
+#: Blocks/PAListVideos/PAListVideos.php:66
 msgid "Time (in seconds)"
 msgstr "Time (em segundos)"
 
@@ -301,8 +342,8 @@ msgstr "Conteúdo local"
 
 #: Blocks/Plugins/LocalData/LocalData.php:90
 #: Blocks/Plugins/LocalData/LocalData.php:250
-#: Blocks/Plugins/RemoteData/RemoteData.php:110
-#: Blocks/Plugins/RemoteData/RemoteData.php:277
+#: Blocks/Plugins/RemoteData/RemoteData.php:114
+#: Blocks/Plugins/RemoteData/RemoteData.php:282
 msgid "Quantity"
 msgstr "Quantidade"
 
@@ -323,7 +364,7 @@ msgid "Select taxonomies"
 msgstr "Selecionar as taxonomias"
 
 #: Blocks/Plugins/LocalData/LocalData.php:132
-#: Blocks/Plugins/RemoteData/RemoteData.php:159
+#: Blocks/Plugins/RemoteData/RemoteData.php:163
 msgid "Enable: Search?"
 msgstr "Habilitar: Buscar?"
 
@@ -332,42 +373,42 @@ msgid "Enable: Number of items?"
 msgstr "Habilitar: Número de itens?"
 
 #: Blocks/Plugins/LocalData/LocalData.php:148
-#: Blocks/Plugins/RemoteData/RemoteData.php:175
+#: Blocks/Plugins/RemoteData/RemoteData.php:179
 msgid "Enable: Sticky itens?"
 msgstr "Habilitar: Itens fixos?"
 
 #: Blocks/Plugins/LocalData/LocalData.php:156
-#: Blocks/Plugins/RemoteData/RemoteData.php:183
+#: Blocks/Plugins/RemoteData/RemoteData.php:187
 msgid "Enable: Manual content?"
 msgstr "Habilitar: Conteúdo manual?"
 
 #: Blocks/Plugins/LocalData/LocalData.php:172
-#: Blocks/Plugins/RemoteData/RemoteData.php:199
+#: Blocks/Plugins/RemoteData/RemoteData.php:203
 msgid "Manual content fields"
 msgstr "Campos de conteúdo manual"
 
 #: Blocks/Plugins/LocalData/LocalData.php:225
-#: Blocks/Plugins/RemoteData/RemoteData.php:253
+#: Blocks/Plugins/RemoteData/RemoteData.php:258
 msgid "Add manual itens"
 msgstr "Adicionar item manual"
 
 #: Blocks/Plugins/LocalData/LocalData.php:228
-#: Blocks/Plugins/RemoteData/RemoteData.php:256
+#: Blocks/Plugins/RemoteData/RemoteData.php:261
 msgid "Refresh"
 msgstr "Atualizar"
 
 #: Blocks/Plugins/LocalData/LocalData.php:241
-#: Blocks/Plugins/RemoteData/RemoteData.php:268
+#: Blocks/Plugins/RemoteData/RemoteData.php:273
 msgid "Search..."
 msgstr "Buscar…"
 
 #: Blocks/Plugins/LocalData/LocalData.php:250
-#: Blocks/Plugins/RemoteData/RemoteData.php:277
+#: Blocks/Plugins/RemoteData/RemoteData.php:282
 msgid "Number of items to be displayed."
 msgstr "Número de itens que serão exibidos."
 
 #: Blocks/Plugins/LocalData/LocalData.php:262
-#: Blocks/Plugins/RemoteData/RemoteData.php:286
+#: Blocks/Plugins/RemoteData/RemoteData.php:291
 msgid ""
 "Filter by post type.<br />Obs: Fixed items are not affected by this filter."
 msgstr ""
@@ -375,102 +416,102 @@ msgstr ""
 "esse filtro."
 
 #: Blocks/Plugins/LocalData/LocalData.php:375
-#: Blocks/Plugins/RemoteData/RemoteData.php:397
+#: Blocks/Plugins/RemoteData/RemoteData.php:402
 msgid "Results"
 msgstr "Resultados"
 
 #: Blocks/Plugins/LocalData/LocalData.php:384
-#: Blocks/Plugins/RemoteData/RemoteData.php:406
+#: Blocks/Plugins/RemoteData/RemoteData.php:411
 msgid "Sticky"
 msgstr "Fixos"
 
 #: Blocks/Plugins/LocalData/LocalData.php:388
-#: Blocks/Plugins/RemoteData/RemoteData.php:410
+#: Blocks/Plugins/RemoteData/RemoteData.php:415
 msgid "Recents"
 msgstr "Recentes"
 
 #: Blocks/Plugins/LocalData/LocalData.php:692
-#: Blocks/Plugins/RemoteData/RemoteData.php:665
+#: Blocks/Plugins/RemoteData/RemoteData.php:684
 msgid "Thumbnail"
 msgstr "Miniatura"
 
 #: Blocks/Plugins/LocalData/LocalData.php:705
-#: Blocks/Plugins/RemoteData/RemoteData.php:678
+#: Blocks/Plugins/RemoteData/RemoteData.php:697
 msgid "Excerpt"
 msgstr "Resumo"
 
-#: Blocks/Plugins/RemoteData/RemoteData.php:31
+#: Blocks/Plugins/RemoteData/RemoteData.php:33
 msgid "Remote data"
 msgstr "Conteúdo remoto"
 
-#: Blocks/Plugins/RemoteData/RemoteData.php:97
+#: Blocks/Plugins/RemoteData/RemoteData.php:101
 msgid "Endpoints"
 msgstr "Endereço"
 
-#: Blocks/Plugins/RemoteData/RemoteData.php:98
+#: Blocks/Plugins/RemoteData/RemoteData.php:102
 msgid "Endpoint where the content will be catch."
 msgstr "Endereço onde o conteúdo será capturado."
 
-#: Blocks/Plugins/RemoteData/RemoteData.php:106
+#: Blocks/Plugins/RemoteData/RemoteData.php:110
 msgid "Write the URLs"
 msgstr "Escreva as URLs"
 
-#: Blocks/Plugins/RemoteData/RemoteData.php:121
+#: Blocks/Plugins/RemoteData/RemoteData.php:125
 msgid "Filter field?"
 msgstr "Filtrar campo?"
 
-#: Blocks/Plugins/RemoteData/RemoteData.php:129
+#: Blocks/Plugins/RemoteData/RemoteData.php:133
 msgid "Fields"
 msgstr "Campos"
 
-#: Blocks/Plugins/RemoteData/RemoteData.php:137
+#: Blocks/Plugins/RemoteData/RemoteData.php:141
 msgid "Write the fields names."
 msgstr "Escreva os nomes dos campos."
 
-#: Blocks/Plugins/RemoteData/RemoteData.php:147
+#: Blocks/Plugins/RemoteData/RemoteData.php:151
 msgid "Taxonomies"
 msgstr "Taxonomias"
 
-#: Blocks/Plugins/RemoteData/RemoteData.php:155
+#: Blocks/Plugins/RemoteData/RemoteData.php:159
 msgid "Select the taxonomies."
 msgstr "Selecionar as taxonomias."
 
-#: Blocks/Plugins/RemoteData/RemoteData.php:167
+#: Blocks/Plugins/RemoteData/RemoteData.php:171
 msgid "Enable: Number of itens?"
 msgstr "Habilitar: Número de itens?"
 
-#: Blocks/Plugins/RemoteData/RemoteData.php:253
+#: Blocks/Plugins/RemoteData/RemoteData.php:258
 msgid "Add"
 msgstr "Adicionar"
 
-#: Blocks/Plugins/RemoteData/RemoteData.php:346
 #: Blocks/Plugins/RemoteData/RemoteData.php:351
-#: Blocks/Plugins/RemoteData/RemoteData.php:371
+#: Blocks/Plugins/RemoteData/RemoteData.php:356
 #: Blocks/Plugins/RemoteData/RemoteData.php:376
+#: Blocks/Plugins/RemoteData/RemoteData.php:381
 msgid "Number of itens to be displayed. From 1 to 100."
 msgstr "Número de itens a serem exibidos. De 1 a 100."
 
-#: Blocks/Plugins/RemoteData/RemoteData.php:346
-#: Blocks/Plugins/RemoteData/RemoteData.php:371
+#: Blocks/Plugins/RemoteData/RemoteData.php:351
+#: Blocks/Plugins/RemoteData/RemoteData.php:376
 msgid "Taxonomie"
 msgstr "Taxonomia"
 
-#: Blocks/Plugins/RemoteData/RemoteData.php:351
-#: Blocks/Plugins/RemoteData/RemoteData.php:376
+#: Blocks/Plugins/RemoteData/RemoteData.php:356
+#: Blocks/Plugins/RemoteData/RemoteData.php:381
 msgid "Terms"
 msgstr "Termos"
 
-#: Blocks/Plugins/RemoteData/RemoteData.php:352
-#: Blocks/Plugins/RemoteData/RemoteData.php:377
+#: Blocks/Plugins/RemoteData/RemoteData.php:357
+#: Blocks/Plugins/RemoteData/RemoteData.php:382
 msgid "Select the wanted terms:"
 msgstr "Selecionar os termos desejados:"
 
-#: Blocks/Plugins/RemoteData/RemoteData.php:355
-#: Blocks/Plugins/RemoteData/RemoteData.php:380
+#: Blocks/Plugins/RemoteData/RemoteData.php:360
+#: Blocks/Plugins/RemoteData/RemoteData.php:385
 msgid "Remove taxonomie"
 msgstr "Remover taxonomia"
 
-#: Blocks/Plugins/RemoteData/RemoteData.php:388
+#: Blocks/Plugins/RemoteData/RemoteData.php:393
 msgid "Add taxonomie"
 msgstr "Adicionar taxonomia"
 
@@ -646,34 +687,34 @@ msgstr "Carregar valor dos termos das postagens"
 msgid "News"
 msgstr "Notícias"
 
-#: classes/controllers/PA_ACF_Site-settings.class.php:21
-#: classes/controllers/PA_ACF_Site-settings.class.php:22
-#: classes/controllers/PA_ACF_Site-settings.class.php:28
-#: classes/controllers/PA_ACF_Site-settings.class.php:29
+#: classes/controllers/PA_ACF_Site-settings.class.php:26
+#: classes/controllers/PA_ACF_Site-settings.class.php:27
+#: classes/controllers/PA_ACF_Site-settings.class.php:37
+#: classes/controllers/PA_ACF_Site-settings.class.php:38
 msgid "IASD Site - Custom Settings"
 msgstr "IASD Site - Configurações customizadas"
 
-#: classes/controllers/PA_ACF_Site-settings.class.php:43
+#: classes/controllers/PA_ACF_Site-settings.class.php:53
 msgid "Headquarter"
 msgstr "Sede Regional"
 
-#: classes/controllers/PA_ACF_Site-settings.class.php:48
+#: classes/controllers/PA_ACF_Site-settings.class.php:58
 msgid "Address"
 msgstr "Endereço"
 
-#: classes/controllers/PA_ACF_Site-settings.class.php:52
+#: classes/controllers/PA_ACF_Site-settings.class.php:62
 msgid "Telephone"
 msgstr "Telefone"
 
-#: classes/controllers/PA_ACF_Site-settings.class.php:53
+#: classes/controllers/PA_ACF_Site-settings.class.php:63
 msgid "Social Networks"
 msgstr "Redes sociais"
 
-#: classes/controllers/PA_ACF_Site-settings.class.php:66
+#: classes/controllers/PA_ACF_Site-settings.class.php:79
 msgid "Site settings"
 msgstr "Configurações do site"
 
-#: classes/controllers/PA_ACF_Site-settings.class.php:72
+#: classes/controllers/PA_ACF_Site-settings.class.php:85
 msgid "Rewrite global settings"
 msgstr "Reescrever configurações globais"
 
@@ -697,31 +738,39 @@ msgstr ""
 msgid "Single"
 msgstr ""
 
-#: components/menu/footer.php:33
+#: classes/controllers/PA_Strong_Passwords.php:66
+msgid "User name cannot be empty."
+msgstr "O nome de usuário não pode ser vazio."
+
+#: classes/controllers/PA_Strong_Passwords.php:68
+msgid "Password is not strong enough."
+msgstr "A senha não está forte suficiente, verifique os parâmetros."
+
+#: components/menu/footer.php:36
 msgid "Our social networks"
 msgstr "Nossas redes sociais"
 
-#: components/menu/footer.php:79 footer.php:5
+#: components/menu/footer.php:82 footer.php:5
 msgid "Seventh-day Adventist Church"
 msgstr "Igreja Adventista do Sétimo Dia"
 
-#: components/menu/footer.php:83
+#: components/menu/footer.php:86
 msgid "Go to top"
 msgstr "Ir ao topo"
 
-#: components/parts/share.php:20
+#: components/parts/share.php:19
 msgid "Share:"
 msgstr "Compartilhar:"
 
-#: core/PA_Theme_Sedes_Install.php:68
+#: core/PA_Theme_Sedes_Install.php:70
 msgid "Headquarter - Owner"
 msgstr "Sede Proprietária"
 
-#: core/PA_Theme_Sedes_Install.php:110
+#: core/PA_Theme_Sedes_Install.php:112
 msgid "Quick&nbsp;Edit"
 msgstr "Edição&nbsp;Rápida"
 
-#: core/PA_Theme_Sedes_Install.php:118
+#: core/PA_Theme_Sedes_Install.php:120
 msgid "PA - Menu - Default"
 msgstr ""
 
@@ -741,7 +790,7 @@ msgstr ""
 msgid "By"
 msgstr "Por"
 
-#: page.php:36 single.php:37
+#: page.php:36 single.php:35
 msgid "Hear text"
 msgstr "Ouvir texto"
 
@@ -749,7 +798,13 @@ msgstr "Ouvir texto"
 msgid "Results for:"
 msgstr "Resultados para:"
 
-#: single.php:57
+#: single.php:52
+#, fuzzy
+#| msgid "Next article"
+msgid "Previous article"
+msgstr "Próximo artigo"
+
+#: single.php:55
 msgid "Next article"
 msgstr "Próximo artigo"
 
