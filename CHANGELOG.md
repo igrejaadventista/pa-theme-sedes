@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.5.15] - 2022-06-30
+
+### Fix
+
+- Comentando função que oculta campo que permite criar senha fraca (Esta dando erro em alguns ambientes).
+
 ## [1.5.14] - 2022-06-28
 
 ### Fix
