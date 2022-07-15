@@ -5,17 +5,17 @@
 		<img class="img-preview" src="{{ get_template_directory_uri() }}/Blocks/PAListVideos/preview-1-3.png" alt="{{ __('Illustrative image of the front end of the block.', 'iasd')}}"/>
 	@endif
 @else
-	<div class="pa-widget pa-w-list-videos col mb-5 {{ $block_format == '2/3' ? 'col-md-8' : 'col-md-4' }}">
+	<div class="pa-widget pa-w-list-videos col-12 mb-5 {{ $block_format == '2/3' ? 'col-md-8' : 'col-md-4' }}">
 		@notempty($title)
 			<h2>{!! $title !!}</h2>
 		@endnotempty
 
 		@notempty($items)
-			<div class="row row-cols-auto mt-4 {{ $block_format == '2/3' ? 'row-cols-md-2' : 'row-cols-md-1' }}">
+			<div class="row row-cols-1 mt-4 mb-0 {{ $block_format == '2/3' ? 'row-cols-md-2' : 'row-cols-md-1' }}">
 				@foreach($items as $item)
 					@if($loop->index == 0)
 						<div class="col">
-							<div class="card mb-4 border-0">
+							<div class="card mb-5 border-0">
 								<a href="{{ is_array($item['link']) ? $item['link']['title'] : $item['link'] }}">
 									<div class="ratio ratio-16x9">
 										<figure class="figure bg-light rounded overflow-hidden">
@@ -37,9 +37,9 @@
 										</figure>
 									</div>
 
-									<div class="card-body p-0 mt-4">
+									<div class="card-body p-0 mt-3">
 										@notempty($item['title'])
-											<h3 class="card-text h5 fw-bold pa-truncate-1">{!! $item['title']['rendered'] !!}</h3>
+											<h3 class="card-text h5 fw-bold pa-truncate-2">{!! $item['title']['rendered'] !!}</h3>
 										@endnotempty
 										
 										@notempty($item['excerpt'])

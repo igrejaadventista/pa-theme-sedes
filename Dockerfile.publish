@@ -1,0 +1,54 @@
+FROM php:alpine as build
+
+RUN apk update 
+RUN apk upgrade 
+RUN apk add --no-cache bash nano zip wget git curl 
+    
+COPY --chown=www-data:www-data --from=internetdsa/pa-theme-sedes /var/www/build /var/www/build/themes/pa-theme-sedes
+COPY --chown=www-data:www-data --from=internetdsa/pa-theme-sedes-child /var/www/build /var/www/build/themes/pa-theme-sedes-child
+COPY --from=wordpress:cli-php8.1 /usr/local/bin/wp /usr/local/bin/wp
+RUN find /var/www/build/themes/ -type d -exec chmod 755 {} \; && find /var/www/build/themes/ -type f -exec chmod 644 {} \;
+
+ARG ACF_KEY
+
+RUN mkdir /var/www/build/plugins
+RUN curl "https://connect.advancedcustomfields.com/v2/plugins/download?p=pro&k=${ACF_KEY}" --output /var/www/build/plugins/advanced-custom-fields-pro.zip
+RUN curl "https://codeload.github.com/cloudflare/Cloudflare-WordPress/zip/refs/heads/master" --output /var/www/build/plugins/cloudflare.zip
+
+RUN mkdir /var/www/build/wp /var/www/build/wp/pt_BR /var/www/build/wp/es_ES
+RUN cd /var/www/build/wp/pt_BR \
+  && wp core download --locale=pt_BR --allow-root \
+  && rm -rf wp-content/themes/* && touch index.php \
+  && rm -rf wp-content/plugins/* && touch index.php \
+  && cp -a /var/www/build/themes/* /var/www/build/wp/pt_BR/wp-content/themes/ \
+  && cp -a /var/www/build/plugins/* /var/www/build/wp/pt_BR/wp-content/plugins/ \
+  && cd /var/www/build/wp/pt_BR/wp-content/plugins/ && for z in ./*.zip; do unzip -qq $z -d /var/www/build/wp/pt_BR/wp-content/plugins/; done && rm -rf *.zip \
+  && mv /var/www/build/wp/pt_BR/wp-content/plugins/Cloudflare-WordPress-master /var/www/build/wp/pt_BR/wp-content/plugins/cloudflare 
+
+RUN cd /var/www/build/wp/es_ES \
+  &&  wp core download --locale=es_ES --allow-root \
+  && rm -rf wp-content/themes/* && touch index.php \
+  && rm -rf wp-content/plugins/* && touch index.php \ 
+  && cp -a /var/www/build/themes/* /var/www/build/wp/es_ES/wp-content/themes/ \
+  && cp -a /var/www/build/plugins/* /var/www/build/wp/es_ES/wp-content/plugins/ \
+  && cd /var/www/build/wp/es_ES/wp-content/plugins/ && for z in ./*.zip; do unzip -qq $z -d /var/www/build/wp/es_ES/wp-content/plugins/; done && rm -rf *.zip \
+  && mv /var/www/build/wp/es_ES/wp-content/plugins/Cloudflare-WordPress-master /var/www/build/wp/es_ES/wp-content/plugins/cloudflare 
+
+RUN cd /var/www/build/wp \
+  && for d in ./*; do zip -rqq $d.zip ./$d; done
+RUN cd /var/www/build/themes \
+  && for d in ./*; do zip -rqq $d.zip ./$d; done
+
+RUN mkdir /var/www/dist /var/www/dist/plugins /var/www/dist/themes /var/www/dist/wp \ 
+  && cp /var/www/build/plugins/*.zip /var/www/dist/plugins \
+  && cp /var/www/build/themes/*.zip /var/www/dist/themes \
+  && cp /var/www/build/wp/*.zip   /var/www/dist/wp
+
+
+FROM httpd:latest
+
+COPY --from=build /var/www/dist /usr/local/apache2/htdocs/
+
+RUN rm -rf /usr/local/apache2/htdocs/index.html \ 
+  && touch /usr/local/apache2/htdocs/health.html
+

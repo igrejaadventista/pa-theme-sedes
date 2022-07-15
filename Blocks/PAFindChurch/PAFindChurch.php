@@ -17,7 +17,7 @@ class PAFindChurch extends Block {
     // Set block settings
     parent::__construct([
       'title'       => __('IASD - Find church', 'iasd'),
-      'description' => __('Block to show a box to find church.', 'iasd'),
+      'description' => __('Block to show a box to find a church.', 'iasd'),
       'category'    => 'pa-adventista',
       'keywords'    => ['find'],
       'icon'        => 'search',

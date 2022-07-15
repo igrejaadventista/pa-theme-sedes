@@ -11,16 +11,18 @@ use WordPlate\Acf\Fields\Text;
  * Class PAListItems
  * @package Blocks\PAListItems
  */
-class PAListItems extends Block {
+class PAListItems extends Block
+{
 
-	public function __construct() {
-		// Set block settings
-		parent::__construct( [
-			'title'       => __('IASD - Itens - List', 'iasd'),
-			'description' => __('Block to show contents in list format with images.', 'iasd'),
-			'category'    => 'pa-adventista',
-			'keywords'    => [ 'list', 'slider' ],
-			'icon'        => '<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" 
+  public function __construct()
+  {
+    // Set block settings
+    parent::__construct([
+      'title'       => __('IASD - Itens - List', 'iasd'),
+      'description' => __('Block to show contents in list format with images.', 'iasd'),
+      'category'    => 'pa-adventista',
+      'keywords'    => ['list', 'slider'],
+      'icon'        => '<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" 
 								width="32px" height="32px" viewBox="0 0 490.1 490.1" style="enable-background:new 0 0 490.1 490.1;" xml:space="preserve">
 								<g>
 									<g>
@@ -48,40 +50,42 @@ class PAListItems extends Block {
 									</g>
 								</g>
 								</svg>',
-		] );
-	}
+    ]);
+  }
 
-	/**
-	 * setFields Register ACF fields with WordPlate/Acf lib
-	 *
-	 * @return array Fields array
-	 */
-	protected function setFields(): array {
-		return array_merge(
-			[
-				Text::make(__('Title', 'iasd'), 'title')
-					->defaultValue(__('IASD - Itens - List', 'iasd')),
+  /**
+   * setFields Register ACF fields with WordPlate/Acf lib
+   *
+   * @return array Fields array
+   */
+  protected function setFields(): array
+  {
+    return array_merge(
+      [
+        Text::make(__('Title', 'iasd'), 'title')
+          ->defaultValue(__('IASD - Itens - List', 'iasd')),
 
-				LocalData::make(__('Itens', 'iasd'), 'items')
-				->postTypes(['post', 'projetos'])
-				->initialLimit(3)
-				->hideFields(['content']),
-			],
-			MoreContent::make()
-		);
-	}
+        LocalData::make(__('Itens', 'iasd'), 'items')
+          ->postTypes(['post', 'projects'])
+          ->initialLimit(3)
+          ->hideFields(['content']),
+      ],
+      MoreContent::make()
+    );
+  }
 
-	/**
-	 * with Inject fields values into template
-	 *
-	 * @return array
-	 */
-	public function with(): array {
-		return [
-			'title'       => get_field('title'),
-			'items'       => get_field('items')['data'],
-			'enable_link' => get_field('enable_link'),
-			'link'    	  => get_field('link'),
-		];
-	}
+  /**
+   * with Inject fields values into template
+   *
+   * @return array
+   */
+  public function with(): array
+  {
+    return [
+      'title'       => get_field('title'),
+      'items'       => get_field('items')['data'],
+      'enable_link' => get_field('enable_link'),
+      'link'        => get_field('link'),
+    ];
+  }
 }

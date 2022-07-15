@@ -1,4 +1,4 @@
-name: Cria imagem e envia ao Docker Hub
+name: Docker hub
 
 on:
   push:

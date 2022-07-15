@@ -1,20 +1,20 @@
 @if(is_admin())
   <img class="img-preview" src="{{ get_template_directory_uri() }}/Blocks/PAFindChurch/preview.png" alt="{{ __('Illustrative image of the front end of the block.', 'iasd') }}" />
 @else
-	<div class="pa-widget pa-find-church col my-5 position-relative">
+	<div class="pa-widget pa-find-church col-12 mb-5 position-relative">
     <div class="row py-5 px-3 px-xl-5">
       <div class="col-md-5 text-center text-md-start">
-        <h1>{{ __('Encontre uma igreja', 'iasd') }}</h1>
-        <p>{{ __('Igrejas Adventistas estão localizadas na Divisão Sul-Americana', 'iasd') }}</p>
+        <h1>{{ __('Finding a church', 'iasd') }}</h1>
+        <p>{{ __('Adventist churches that are located in the South American Division.', 'iasd') }}</p>
 
         <form class="pt-4 pt-xl-3 d-flex flex-column align-items-stretch" method="GET" target="_blank" action="https://igrejas.adventistas.org/{{ LANG }}/Mapa">
           <div class="mb-3">
-            <label for="find-church-input" class="form-label">{{ __('Buscar igreja', 'iasd') }}</label>
+            <label for="find-church-input" class="form-label">{{ __('Church search', 'iasd') }}</label>
           
-            <input id="find-church-input" name="q" type="search" class="form-control" placeholder="Busque por CEP, Cidade ou Bairro" required />
+            <input id="find-church-input" name="q" type="search" class="form-control" placeholder="{{ __('Search by Postcode, city, neighborhood.', 'iasd') }}" required />
           </div>
 
-          <button type="submit" class="btn btn-primary align-self-xl-start ">{{ __('Pesquisar', 'iasd') }}</button>
+          <button type="submit" class="btn btn-primary align-self-xl-start ">{{ __('Search', 'iasd') }}</button>
         </form>
       </div>
 
