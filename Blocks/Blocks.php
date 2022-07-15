@@ -7,6 +7,7 @@ use Blocks\PACarouselDownloads\PACarouselDownloads;
 use Blocks\PAListButtons\PAListButtons;
 use Blocks\PAMagazines\PAMagazines;
 use Blocks\PACarouselFeature\PACarouselFeature;
+use Blocks\PACarouselKits\PACarouselKits;
 use Blocks\PAListIcons\PAListIcons;
 use Blocks\PAFacebook\PAFacebook;
 use Blocks\PAListItems\PAListItems;
@@ -82,6 +83,7 @@ class Blocks
             PAListVideos::class,
             PAImage::class,
             PAFindChurch::class,
+            PACarouselKits::class,
         ];
 
         // Merge registered blocks with new blocks
