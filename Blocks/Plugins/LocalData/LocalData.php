@@ -827,10 +827,35 @@ if (!class_exists('LocalData')) :
         'data'    => json_encode($results),
       );
     }
+
+     /**
+		 * Apply basic formatting to prepare the value for default REST output.
+		 *
+		 * @param mixed      $value
+		 * @param string|int $post_id
+		 * @param array      $field
+		 * @return mixed
+		 */
+		public function format_value_for_rest($value, $post_id, array $field) {
+      $data = $this->format_value($value, $post_id, $field);
+
+      if(!is_array($data) || !array_key_exists('sticky', $data) || !array_key_exists('data', $data))
+        return $value;
+
+      $ids = explode(',', $data['sticky']);
+
+      $values = array_filter($data['data'], function($post) use($ids) {
+        return in_array($post['id'], $ids);
+      });
+
+			return $values;
+		}
+
   }
 
   // initialize
   $initializeLocalData = new LocalData();
+  acf_register_field_type($initializeLocalData);
 
 // class_exists check
 endif;
