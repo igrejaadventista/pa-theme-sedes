@@ -31,7 +31,7 @@ class PAQueroVidaSaude extends Block {
 	 */
 	protected function setFields(): array {
 
-		$api = "https://". API_PA ."/qvs/". LANG ."/posts";
+		$api = "https://". API_PA ."/qvs/". LANG ."/pa-blocks";
 
 		return array_merge(
 			[
