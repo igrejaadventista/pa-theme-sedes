@@ -1,5 +1,5 @@
 @if(is_admin())
-	<img class="img-preview" src="{{ get_template_directory_uri() }}/Blocks/PAListDownloads/preview.png" alt="{{ __('Illustrative image of the front end of the block.', 'iasd') }}"/>
+	<img class="img-preview" src="{{ get_template_directory_uri() }}/Blocks/PAQueroVidaSaude/preview.png" alt="{{ __('Illustrative image of the front end of the block.', 'iasd') }}"/>
 @else 
 	<div class="pa-widget col-12 col-md-4 mb-5">
 		@notempty($title)
@@ -12,7 +12,7 @@
 					<div class="card mb-2 mb-xl-4 border-0">
 						<a 
 							href="{{ is_array($item['link']) ? $item['link']['url'] : $item['link'] }}" 
-							target="{{ is_array($item['link']) && !empty($item['link']['target']) ? $item['link']['target'] : '_self' }}"
+							target="{{ is_array($item['link']) && !empty($item['link']['target']) ? $item['link']['target'] : '_blank' }}"
 						>
 							<div class="row">
 								<div class="col-4">

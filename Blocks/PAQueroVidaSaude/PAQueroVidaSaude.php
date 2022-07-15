@@ -31,8 +31,7 @@ class PAQueroVidaSaude extends Block {
 	 */
 	protected function setFields(): array {
 
-		// $api = "https://". API_PA ."/downloads/". LANG ."/posts";
-    $api = "https://querovidaesaude.com/wp-json/wp/v2/posts";
+		$api = "https://". API_PA ."/qvs/". LANG ."/posts";
 
 		return array_merge(
 			[
