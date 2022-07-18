@@ -63,9 +63,20 @@ class PACarouselKits extends Block
    */
   public function with(): array
   {
+    $kits = get_field('items')['data'];
+
+    $items = array_filter($kits, function($item) {
+      return substr($item['id'], 0, 1) === "m";
+    });
+
+    array_map(function($item) use(&$items) {
+      if(array_key_exists('acf', $item) && array_key_exists('downloads_kits', $item['acf']))
+        $items = array_merge($items, $item['acf']['downloads_kits']);
+    }, $kits);
+
     return [
       'title' => get_field('title'),
-      'items' => get_field('items')['data'],
+      'items' => $items,
     ];
   }
 }
