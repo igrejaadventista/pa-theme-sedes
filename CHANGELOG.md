@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Fix
 
+- Recebendo pull request
 - Comentando função que oculta campo que permite criar senha fraca (Esta dando erro em alguns ambientes).
 
 ## [1.5.14] - 2022-06-28
