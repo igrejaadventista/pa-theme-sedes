@@ -118,9 +118,9 @@ function esp_is_password_ok($password, $user_name)
   return $is_ok;
 }
 
-
-add_action('login_init', 'no_weak_password_header');
-add_action('admin_head', 'no_weak_password_header');
+// Isso não é a ,elhor maneira de ocultar o campo que libera criar senha fraca, precisamso pensar numa forma melhor, pois desse jeito esta dando erro no site QS e BS
+//add_action('login_init', 'no_weak_password_header');
+//add_action('admin_head', 'no_weak_password_header');
 function no_weak_password_header()
 {
   echo "<style>.pw-weak{display:none!important}</style>";
