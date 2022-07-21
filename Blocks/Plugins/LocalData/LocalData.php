@@ -439,11 +439,11 @@ if (!class_exists('LocalData')) :
       $value['data'] = array();
 
       if (!is_admin()) :
-        $stickys = explode(',', $value['sticky']);
+        $stickys = explode(',', isset($value['sticky']) ? $value['sticky'] : '');
 
         $args = [
           'limit' => isset($value['limit']) ? $value['limit'] : $field['limit'],
-          'sticky' => $value['sticky'],
+          'sticky' => isset($value['sticky']) ? $value['sticky'] : '',
           'field_key' => $field['key'],
           'post_type' => !empty($value['post_type_filter']) ? $value['post_type_filter'] : $value['post_type'],
         ];
@@ -847,6 +847,12 @@ if (!class_exists('LocalData')) :
       $values = array_filter($data['data'], function($post) use($ids) {
         return in_array($post['id'], $ids);
       });
+
+      $values = array_map(function($post) {
+        $post['link'] = get_permalink($post['id']);
+
+        return $post;
+      }, $values);
 
 			return $values;
 		}
