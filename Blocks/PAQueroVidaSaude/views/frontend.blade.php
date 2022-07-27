@@ -1,7 +1,7 @@
 @if(is_admin())
 	<img class="img-preview" src="{{ get_template_directory_uri() }}/Blocks/PAQueroVidaSaude/preview.png" alt="{{ __('Illustrative image of the front end of the block.', 'iasd') }}"/>
 @else 
-	<div class="pa-widget col-12 col-md-4 mb-5">
+	<div class="pa-widget pa-w-qvs col-12 col-md-4 mb-5">
 		@notempty($title)
 			<h2>{!! $title !!}</h2>
 		@endnotempty
@@ -25,13 +25,22 @@
 													alt="{{ $item['title']['rendered'] }}" 
 												/>
 											@endnotempty
+                      
 										</figure>	
 									</div>
+                  {{-- @notempty($item['terms']['editorial'])
+                    <figcaption class="pa-img-tag-qvs mt-0 figure-caption text-uppercase rounded-bottom ">
+                      {{$item['terms']['editorial']}}
+                    </figcaption>
+                  @endnotempty --}}
 								</div>
 								<div class="col-8">
 									<div class="card-body p-0">
+                    @notempty($item['terms']['editorial'])
+											<span class="pa-tag-qvs text-uppercase me-1 rounded">{{ $item['terms']['editorial'] }}</span>
+										@endnotempty
 										@notempty($item['title'])
-											<h3 class="card-title h6 m-0 pa-truncate-3">{!! $item['title']['rendered'] !!}</h3>
+											<h3 class="card-title h6 mt-1 m-0 pa-truncate-3">{!! $item['title']['rendered'] !!}</h3>
 										@endnotempty
 									</div>
 								</div>
