@@ -43,7 +43,7 @@ class PAQueroVidaSaude extends Block {
 						$api .' > Posts',
 					])
 					->initialLimit(5)
-					->getFields(['featured_media_url'])
+					->getFields(['featured_media_url', 'terms'])
 					->hideFields(['excerpt'])
 			],
 			MoreContent::make()
