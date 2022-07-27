@@ -7,6 +7,7 @@ use Blocks\PACarouselDownloads\PACarouselDownloads;
 use Blocks\PAListButtons\PAListButtons;
 use Blocks\PAMagazines\PAMagazines;
 use Blocks\PACarouselFeature\PACarouselFeature;
+use Blocks\PACarouselKits\PACarouselKits;
 use Blocks\PAListIcons\PAListIcons;
 use Blocks\PAFacebook\PAFacebook;
 use Blocks\PAListItems\PAListItems;
@@ -18,6 +19,7 @@ use Blocks\PAImage\PAImage;
 use Blocks\PAListDownloads\PAListDownloads;
 use Blocks\PAListNews\PAListNews;
 use Blocks\PAListVideos\PAListVideos;
+use Blocks\PAQueroVidaSaude\PAQueroVidaSaude;
 use Blocks\PARow\PARow;
 use Blocks\PASevenCast\PASevenCast;
 use Blocks\Plugins\RemoteData\RemoteData;
@@ -82,6 +84,8 @@ class Blocks
             PAListVideos::class,
             PAImage::class,
             PAFindChurch::class,
+            PACarouselKits::class,
+            PAQueroVidaSaude::class,
         ];
 
         // Merge registered blocks with new blocks
