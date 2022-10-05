@@ -51,8 +51,8 @@
 
 										@notempty($item['terms']['format'])
 
-                      @if (sanitize_title($item['terms']['format']) == 'noticia')
-                      <span class="pa-tag-icon d-inline-block pag-tag-icon-video"><i class="fas fa-play"></i></span>
+                      @if (sanitize_title($item['terms']['format']) == 'video')
+                        <span class="pa-tag-icon d-inline-block pag-tag-icon-video"><i class="fas fa-play"></i></span>
                       @endif
   
                       @if (sanitize_title($item['terms']['format']) == 'audio')
