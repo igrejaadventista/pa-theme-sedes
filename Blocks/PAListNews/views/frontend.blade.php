@@ -46,10 +46,20 @@
 									@endnotempty
 								</div>
 								
-								<div class="col-12 col-md-7 teste">
+								<div class="col-12 col-md-7">
 									<div class="card-body p-0">
+
 										@notempty($item['terms']['format'])
-											<span class="pa-tag text-uppercase d-none d-xl-table-cell rounded">{{ $item['terms']['format'] }}</span>
+
+                      @if (sanitize_title($item['terms']['format']) == 'noticia')
+                      <span class="pa-tag-icon d-inline-block pag-tag-icon-video"><i class="fas fa-play"></i></span>
+                      @endif
+  
+                      @if (sanitize_title($item['terms']['format']) == 'audio')
+                        <span class="pa-tag-icon d-inline-block pag-tag-icon-audio"><i class="fas fa-headphones-alt"></i></span>
+                      @endif
+                    
+											<span class="pa-tag text-uppercase d-inline-block rounded-1 px-2">{{ $item['terms']['format'] }}</span>
 										@endnotempty
 
 										@notempty($item['title'])
