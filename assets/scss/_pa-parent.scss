@@ -110,6 +110,43 @@
     line-height: 1.3rem;
   }
 
+  .meta-video {
+    padding-top: 7px;
+  }
+
+  .dark-content-bg {
+    background-color: #252525;
+    position: relative;
+    color: white;
+    margin-top: -1px;
+    
+    &::before, &::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-color: #252525;
+      z-index: -2;
+      top: 0;
+    }
+
+    &::before{
+      left: -99%;
+    }
+    
+    &::after{
+      right: -99%;
+    }
+    
+    .post-meta-date{
+      text-align: end;
+      
+      @media (max-width: 767px) {
+        text-align: initial;
+      }
+    }
+  }
+
   .pa-blog-feature {
     figure {
       width: 100%;
@@ -147,6 +184,32 @@
   aside {
     .pa-widget {
       width: 100%;
+    }
+  }
+
+  .post-header-audio, .post-header-video {
+    background-color: #252525;
+    position: relative;
+    h1{
+      color: white;
+    }
+    
+    &::after, &::before {
+      content: '';
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      background-color: #252525;
+      top: 0;
+      z-index: -5;
+    }
+    
+    &::after{
+      right: -99%;
+    }
+    
+    &::before{
+      left: -99%;
     }
   }
 
