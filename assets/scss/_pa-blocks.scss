@@ -72,16 +72,36 @@
       color: #004d99;
     }
   }
-}
 
-.pa-w-qvs {
-  img {
-    //border: solid 1px var(--pa-color-default-qvs);
+  .pa-tag-icon{
+    color: var(--pa-color-default);
+    background-color: var(--pa-color-default-aux);
+    vertical-align: middle;
+    margin-right: 8px;
+  }
+
+  .pag-tag-icon-video{
+    font-size: 0.45rem;
+    padding: 3px 5px 3px 6px;
+    border-radius: 50%;
+  }
+
+  .pag-tag-icon-audio{
+    padding: 1px 4px 1px 4px;
+    border-radius: 50%;
+    font-size: 0.65rem;
   }
 }
 
-.row > .pa-find-church:first-child {
-  margin-top: 0 !important;
+
+.row .pa-find-church:first-of-type,.row .pa-w-feliz7play:first-of-type {
+  background-color: red;
+  margin-top: -3rem !important;
+}
+
+.row .pa-find-church:last-of-type,.row .pa-w-feliz7play:last-of-type {
+  background-color: red;
+  margin-bottom: 0rem !important;
 }
 
 .pa-find-church {
