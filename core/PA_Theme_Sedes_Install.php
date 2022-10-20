@@ -122,7 +122,7 @@ class PACoreInstall
 
   function modifyCategoryQuery($query)
   {
-    if (is_admin() || !is_tax() || !$query->is_main_query())
+    if (is_admin() || !is_tax() || !$query->is_main_query() || is_tax('xtt-pa-region'))
       return $query;
 
     global $queryFeatured;
