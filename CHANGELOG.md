@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+
+## [1.5.21] - 2022-10-21
+
+### Fix
+
+- Ajustando espaçamento entre o top da row e os blocos de encontre uma igreja e f7
+
+## [1.5.20] - 2022-10-07
+
+### Fix
+
+- Ajustando tamanho do texto H2.
+
 ## [1.5.19] - 2022-09-16
 
 ### Fix
