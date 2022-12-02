@@ -5,7 +5,7 @@ export function pa_dataLayer() {
         if(document.querySelector('body').classList.contains('single-post')){
             const data = get_dataLayerData();
             dataLayer.push(data);
-        }  
+        }
     }
 }
 
@@ -15,14 +15,14 @@ function get_dataLayerData(){
         'event': 'Pageview',
     }
 
-    const noticia_autor = document.querySelector('[name="noticia_autor"]')?.content;
-    const noticia_sedes_regionais = document.querySelector('[name="noticia_sedes_regionais"]')?.content;
-    const noticia_sedes_proprietarias = document.querySelector('[name="noticia_sedes_proprietarias"]')?.content;
-    const noticia_editoriais = document.querySelector('[name="noticia_editoriais"]')?.content;
-    const noticia_departamento = document.querySelector('[name="noticia_departamento"]')?.content;
-    const noticia_projeto = document.querySelector('[name="noticia_projeto"]')?.content;
-    const noticia_regiao = document.querySelector('[name="noticia_regiao"]')?.content;
-    const noticia_formato_post = document.querySelector('[name="noticia_formato_post"]')?.content;
+    const noticia_autor = document.querySelector('meta[name="noticia_autor"]')?.content;
+    const noticia_sedes_regionais = document.querySelector('meta[name="noticia_sedes_regionais"]')?.content;
+    const noticia_sedes_proprietarias = document.querySelector('meta[name="noticia_sedes_proprietarias"]')?.content;
+    const noticia_editoriais = document.querySelector('meta[name="noticia_editoriais"]')?.content;
+    const noticia_departamento = document.querySelector('meta[name="noticia_departamento"]')?.content;
+    const noticia_projeto = document.querySelector('meta[name="noticia_projeto"]')?.content;
+    const noticia_regiao = document.querySelector('meta[name="noticia_regiao"]')?.content;
+    const noticia_formato_post = document.querySelector('meta[name="noticia_formato_post"]')?.content;
 
     noticia_autor ? data['noticia_autor'] = noticia_autor : '';
     noticia_sedes_regionais ? data['noticia_sedes_regionais'] = noticia_sedes_regionais : '';
