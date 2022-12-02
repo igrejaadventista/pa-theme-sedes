@@ -28,6 +28,6 @@ function onload() {
 	utils.pa_truncate();
 	Menus.pa_number_of_columns_menu();
 	SliderDownloads.pa_slider_downloads();
-	DataLayer.pa_datalayer();
+	DataLayer.pa_dataLayer();
 }
 document.addEventListener("DOMContentLoaded", onload, false);
