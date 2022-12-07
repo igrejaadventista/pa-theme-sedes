@@ -5,6 +5,7 @@ class PaThemeHelpers
 
   public function __construct()
   {
+    add_action('wp_head', [$this, 'generate_datalayer_meta'] );
     add_action('after_setup_theme', [$this, 'themeSupport']);
     add_action('wp_enqueue_scripts', [$this, 'registerAssets']);
     add_action('admin_enqueue_scripts', [$this, 'registerAssetsAdmin']);
@@ -244,5 +245,37 @@ class PaThemeHelpers
 
     echo '</ul>' . "\n";
   }
+
+  function generate_datalayer_meta()
+  {
+    if(is_singular('post')){
+
+      if($author = get_the_author())
+        echo '<meta name="pa_autor" content="'.$author.'">';
+
+      if($sedes_regionais = wp_get_object_terms( get_the_ID(), 'xtt-pa-sedes', array( 'fields' => 'names' ) ))
+        echo '<meta name="pa_sedes_regionais" content="'.implode(", ",$sedes_regionais).'">';
+
+      if($sedes_proprietarias = wp_get_object_terms( get_the_ID(), 'xtt-pa-owner', array( 'fields' => 'names' ) ))
+        echo '<meta name="pa_sedes_proprietarias" content="'.implode(", ",$sedes_proprietarias).'">';
+        
+      if($editoriais = wp_get_object_terms( get_the_ID(), 'xtt-pa-editorias', array( 'fields' => 'names' ) ))
+        echo '<meta name="pa_editoriais" content="'.implode(", ",$editoriais).'">';
+
+      if($departamentos = wp_get_object_terms( get_the_ID(), 'xtt-pa-departamentos', array( 'fields' => 'names' ) ))
+        echo '<meta name="pa_departamento" content="'.implode(", ",$departamentos).'">';
+
+      if($projetos = wp_get_object_terms( get_the_ID(), 'xtt-pa-projetos', array( 'fields' => 'names' ) ))
+        echo '<meta name="pa_projeto" content="'.implode(", ",$projetos ).'">';
+
+      if($regioes = wp_get_object_terms( get_the_ID(), 'xtt-pa-regiao', array( 'fields' => 'names' ) ))
+        echo '<meta name="pa_regiao" content="'.implode(", ",$regioes ).'">';
+
+      if($formato = wp_get_object_terms( get_the_ID(), 'xtt-pa-format', array( 'fields' => 'names' ) ))
+        echo '<meta name="pa_formato_post" content="'.implode(", ",$formato ).'">';
+
+    }
+  }
+  
 }
 $PaThemeHelpers = new PaThemeHelpers();
