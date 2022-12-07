@@ -1,18 +1,18 @@
 FROM php:alpine
+FROM node:14-alpine AS node
 
 RUN apk update 
 RUN apk upgrade 
-RUN apk add --no-cache bash lcms2-dev g++ make git pkgconfig autoconf automake libtool nasm build-base zlib-dev libpng libpng-dev jpeg-dev libc6-compat npm zip
-RUN apk add --no-cache --update-cache --repository http://dl-cdn.alpinelinux.org/alpine/v3.12/community yarn=1.22.4-r0
-COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
-
-FROM node:14-alpine AS node
 
 COPY --from=node /usr/lib /usr/lib
 COPY --from=node /usr/local/share /usr/local/share
 COPY --from=node /usr/local/lib /usr/local/lib
 COPY --from=node /usr/local/include /usr/local/include
 COPY --from=node /usr/local/bin /usr/local/bin
+
+RUN apk add --no-cache bash lcms2-dev g++ make git pkgconfig autoconf automake libtool nasm build-base zlib-dev libpng libpng-dev jpeg-dev libc6-compat npm zip
+RUN apk add --no-cache --update-cache --repository http://dl-cdn.alpinelinux.org/alpine/v3.12/community yarn=1.22.4-r0
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 COPY --chown=www-data:www-data . /var/www/build
 
