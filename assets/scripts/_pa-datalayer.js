@@ -1,12 +1,14 @@
 export function pa_dataLayer() {
-    window.onload = () => {
-        window.dataLayer = window.dataLayer || [];
-        
-        if(document.querySelector('body').classList.contains('single-post')){
-            const data = get_dataLayerData();
-            dataLayer.push(data);
-        }
-    }
+    //window.onload = () => {
+    //    setTimeout(() => {
+            window.dataLayer = window.dataLayer || [];
+            
+            if(document.querySelector('body').classList.contains('single-post')){
+                const data = get_dataLayerData();
+                dataLayer.push(data);
+            }
+    //    }, 1000);
+    //}
 }
 
 function get_dataLayerData(){
