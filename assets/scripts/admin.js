@@ -32,7 +32,7 @@ function set_inline_xtt_pa_owner(event, widgetSet, nonce) {
    * @param {string} props.slug Taxonomy slug
    * @return {WPElement}        Dropdown term selector component
    */
-  window.DropdownTermSelector = function DropdownTermSelector({ slug }) {  
+  window.DropdownTermSelector = function DropdownTermSelector({ slug, selected = false }) {  
     /**
      * Module Constants
      */
@@ -40,12 +40,12 @@ function set_inline_xtt_pa_owner(event, widgetSet, nonce) {
       per_page: -1,
       orderby: "name",
       order: "asc",
-      _fields: "id,name,parent",
+      _fields: "id,name,parent,slug",
       context: "view",
     };
     const EMPTY_ARRAY = [];
 
-    const { terms, availableTerms, taxonomy } = useSelect(() => {
+    const { terms, availableTerms, taxonomy, selectedTerm } = useSelect(() => {
       const _taxonomy = data.select("core").getTaxonomy(slug);
 
       return {
@@ -59,11 +59,16 @@ function set_inline_xtt_pa_owner(event, widgetSet, nonce) {
             .select("core")
             .getEntityRecords("taxonomy", slug, DEFAULT_QUERY) || EMPTY_ARRAY,
         taxonomy: _taxonomy,
+        selectedTerm: selected ? 
+          data
+            .select("core")
+            .getEntityRecords("taxonomy", slug, DEFAULT_QUERY) : false,
       };
     }, [slug]);
-
+    
     const { editPost } = dispatch("core/editor");
-
+    // console.log(availableTerms.findIndex(term => term.slug === selected));
+    // console.log(availableTerms.find((a) => a.slug === selected));
     /**
      * Update terms for post.
      *
@@ -87,8 +92,26 @@ function set_inline_xtt_pa_owner(event, widgetSet, nonce) {
 
     const groupLabel = get(taxonomy, ["name"], __("Terms"));
 
-    if (!terms.length && availableTerms.length)
-      onUpdateTerms([availableTerms[0].id]);
+    /**
+     * Update terms based on first checking.
+     * Add selected terms as default if terms is empty.
+     *
+     * @param {number} termId
+     */
+    if(availableTerms.length && !terms.length){
+      let selectedId;
+      if(selected) {
+        selectedId = availableTerms.reduce(function (id, item) {
+          if (item.slug === selected) {
+            id = item.id;
+          }
+          return id;
+        });
+      } else {
+        selectedId = availableTerms[0].id;
+      }
+      onUpdateTerms([selectedId]);
+    }
 
     return createElement(
       "div",

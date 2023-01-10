@@ -5,6 +5,43 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.5.25] - 2022-12-07
+
+### Fix
+
+- Ajustando chamada da função que seta a datalayer.
+
+## [1.5.24] - 2022-12-07
+
+### Fix
+
+- Ajustando chamada com prefixo do datalayer.
+
+
+## [1.5.23] - 2022-12-07
+
+### Fix
+
+- Adicionando data layer GA4
+
+## [1.5.22] - 2022-11-21
+
+### Fix
+
+- Adicionando class que formata o h2 na página de archive
+
+## [1.5.21] - 2022-10-21
+
+### Fix
+
+- Ajustando espaçamento entre o top da row e os blocos de encontre uma igreja e f7
+
+## [1.5.20] - 2022-10-07
+
+### Fix
+
+- Ajustando tamanho do texto H2.
+
 ## [1.5.19] - 2022-09-16
 
 ### Fix

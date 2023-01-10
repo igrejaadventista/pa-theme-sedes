@@ -1,5 +1,5 @@
 <?php if (isset($args['post']) && !empty($args['post'])) : ?>
-  <div class="pa-blog-itens mb-5">
+  <div class="pa-blog-itens mb-5 pa-widget">
     <h2 class="mb-4"><?= _e('Featured', 'iasd') ?></h2>
 
     <div class="pa-blog-feature">
