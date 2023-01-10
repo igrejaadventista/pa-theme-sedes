@@ -10,6 +10,8 @@
 
   <link rel="icon" href="<?php echo get_template_directory_uri(); ?>/assets/imgs/favicon.png">
 
+  <?php require_once(get_template_directory() . '/components/parent/datalayer.php'); ?>
+
   <!-- Google Tag Manager -->
   <script>
     (function(w, d, s, l, i) {
