@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.5.26] - 2023-01-10
+
+### Fix
+
+- Mudando chamada da camada de dataLayar para o header.
+
 ## [1.5.25] - 2022-12-07
 
 ### Fix

@@ -9,7 +9,6 @@ import * as SliderDownloads from './_pa-slider-downloads';
 import * as TextSize from './_pa-tamanho-texto';
 import * as Share from './_pa-share';
 import Glide from '@glidejs/glide';
-import * as DataLayer from './_pa-datalayer';
 
 window.Menus = Menus;
 window.TextSize = TextSize;
@@ -28,6 +27,5 @@ function onload() {
 	utils.pa_truncate();
 	Menus.pa_number_of_columns_menu();
 	SliderDownloads.pa_slider_downloads();
-	DataLayer.pa_dataLayer();
 }
 document.addEventListener("DOMContentLoaded", onload, false);
