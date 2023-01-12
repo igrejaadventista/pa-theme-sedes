@@ -10,8 +10,7 @@
 
     function get_dataLayerData(){
         let data = {
-            'url': window.location.href,
-            'event': 'Pageview',
+            'url': window.location.href
         }
 
         const pa_autor = document.querySelector('meta[name="pa_autor"]')?.content;
