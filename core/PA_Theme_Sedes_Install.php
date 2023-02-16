@@ -1,8 +1,7 @@
 <?php
 
-require_once(dirname(__FILE__) . '/utils/PA_Service_Taxonomy.php');
+require_once(dirname(__FILE__) . '/PATaxonomiesSync.php');
 require_once(dirname(__FILE__) . '/utils/PA_Schedule_Custom.php');
-require_once(dirname(__FILE__) . '/utils/PA_RestAPI_Tax.php');
 require_once(dirname(__FILE__) . '/utils/PA_Ui_Configurations.php');
 
 /**
