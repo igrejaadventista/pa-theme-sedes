@@ -9,12 +9,22 @@ class PASynchronization {
     add_action('admin_menu',            array($this, 'createMenu'));
     add_action('admin_bar_menu',        array($this, 'addToolbar'), 999);
   }
-
-  function enqueueAdminAssets() {
+  
+  /**
+   * enqueueAdminAssets Enqueues scripts for admin
+   *
+   * @return void
+   */
+  function enqueueAdminAssets(): void {
     wp_enqueue_script('sync-admin-script', get_template_directory_uri() . '/core/assets/scripts/admin.js', array('jquery'));
   }
-
-  function createMenu() {
+  
+  /**
+   * createMenu Create a new menu item
+   *
+   * @return void
+   */
+  function createMenu(): void {
     add_options_page(
       __('Synchronization', 'iasd'),
       __('Synchronization', 'iasd'),
@@ -23,8 +33,13 @@ class PASynchronization {
       array($this, 'renderPage')
     );
   }
-
-  function renderPage() {
+  
+  /**
+   * renderPage Render the page
+   *
+   * @return void
+   */
+  function renderPage(): void {
     ?>
     <div class="wrap">
       <h1><?= __('Synchronization', 'iasd') ?></h1>
@@ -40,8 +55,15 @@ class PASynchronization {
     </div>
     <?php
   }
-
-  function addToolbar($wp_admin_bar) {
+  
+  /**
+   * addToolbar Adds a toolbar tom run synchronization
+   *
+   * @param  object $wp_admin_bar The toolbar object
+   * 
+   * @return void
+   */
+  function addToolbar(object $wp_admin_bar): void {
     $wp_admin_bar->add_node([
         'id'    => 'sync_remote_data',
         'title' => __('Sync data', 'iasd'),
