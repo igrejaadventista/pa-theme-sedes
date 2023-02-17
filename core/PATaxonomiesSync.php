@@ -1,52 +1,30 @@
 <?php
 
-// // ADDING META RETURN IN GET_TERM
-// add_filter('get_term', function ($term) {
-// 	$term->meta = get_term_meta($term->term_id); // all metadata
-// 	return $term;
-// });
-
-
-// 	// 	/**
-// 	// 	 * TODO!!!!
-// 	// 	 * 
-// 	// 	 * REVIEW PAGINATE (API LIMITED UNTIL 100 PER PAGE)
-// 	// 	 * 
-// 	// 	 * FIRST MOMENT, IT`S NECESSARY CHECK IF EXIST SOMETHING IN NEXT PAGE (DARK PERFORMANCE).
-// 	// 	 * IDEAL IDEA: API RETURN EVERYTHING WITHOUT PAGINATE.
-// 	// 	 */
-
-// // add_action('PA-Service_Taxonomy_Schedule', 'Service_Taxonomy');
-
 namespace Core;
 
 class PATaxonomiesSync {
 
   protected $taxonomies = [
-    // 'xtt-pa-colecoes', 
-    // 'xtt-pa-sedes', 
-    // 'xtt-pa-editorias', 
-    // 'xtt-pa-departamentos', 
-    // 'xtt-pa-projetos', 
+    'xtt-pa-colecoes', 
+    'xtt-pa-sedes', 
+    'xtt-pa-editorias', 
+    'xtt-pa-departamentos', 
+    'xtt-pa-projetos', 
     'xtt-pa-owner',
   ];
 
   protected $baseURL = 'https://' . API_PA . '/tax/' . LANG . '/';
 
   public function __construct() {
-    $this->sync();
+    if(!wp_next_scheduled('PA-Service_Taxonomy_Schedule'))
+      wp_schedule_event(time(), '20min', 'PA-Service_Taxonomy_Schedule');
+
+    add_action('PA-Service_Taxonomy_Schedule', array($this, 'sync'));
+    add_action('wp_ajax_sync/taxonomies', array($this, 'sync'));
   }
 
-  protected function sync() {
+  public function sync() {
     foreach($this->taxonomies as $taxonomy):
-      /**
-       * TODO!!!!
-       * 
-       * REVIEW PAGINATE (API LIMITED UNTIL 100 PER PAGE)
-       * 
-       * FIRST MOMENT, IT`S NECESSARY CHECK IF EXIST SOMETHING IN NEXT PAGE (DARK PERFORMANCE).
-       * IDEAL IDEA: API RETURN EVERYTHING WITHOUT PAGINATE.
-       */
       $response = $this->request("$taxonomy?per_page=300&filter[parent]=0&order=desc");
 
       if(is_array($response))
@@ -88,9 +66,8 @@ class PATaxonomiesSync {
     foreach($childs as $term)
       $child_ids[$term->id] = $this->updateTerm($taxonomy, $term, $parent_ids);
 
-    $term_ids = array_merge($parent_ids, $child_ids);
-
-    $this->deleteTerms($taxonomy, $term_ids);
+    // $term_ids = array_merge($parent_ids, $child_ids);
+    // $this->deleteTerms($taxonomy, $term_ids);
   }
 
   protected function updateTerm($taxonomy, $term, $parents = []) {
@@ -123,7 +100,7 @@ class PATaxonomiesSync {
         array(
           'name'   => $term->name,
           'slug'   => $term->slug,
-          'parent' => $parents[$term->parent] ?? $term->parent,
+          'parent' => $parents[$term->parent] ?? 0,
         )
       );
 
@@ -137,7 +114,7 @@ class PATaxonomiesSync {
         array(
           'name'   => $term->name,
           'slug'   => $term->slug,
-          'parent' => $parents[$term->parent] ?? $term->parent,
+          'parent' => $parents[$term->parent] ?? 0,
         )
       );
     endif;
