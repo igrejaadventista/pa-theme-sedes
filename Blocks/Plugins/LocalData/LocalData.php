@@ -203,7 +203,7 @@ if (!class_exists('LocalData')) :
       // post_type filter
       if (in_array('post_type', $filters)) :
         $filter_post_type_choices = array(
-          ''  => 'Filtros'
+          ''  => 'Todos'
         ) + acf_get_pretty_post_types($post_type);
       endif;
 
