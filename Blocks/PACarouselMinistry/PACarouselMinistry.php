@@ -37,7 +37,7 @@ class PACarouselMinistry extends Block
       Text::make(__('Title', 'iasd'), 'title')
         ->defaultValue(__('IASD - Feature Slider - Ministry', 'iasd')),
       LocalData::make(__('Itens', 'iasd'), 'items')
-        ->postTypes(['post', 'projects'])
+        ->postTypes(['page', 'post', 'projects'])
         ->hideFields(['content'])
         ->manualFields([
           Text::make(__('Tag', 'iasd'), 'tag')
