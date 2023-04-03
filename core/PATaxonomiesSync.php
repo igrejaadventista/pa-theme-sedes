@@ -121,7 +121,6 @@ class PATaxonomiesSync {
     $args = array(
       'taxonomy'   => $taxonomy,
       'hide_empty' => false,
-      'fields'     => 'ids',
       'meta_query' => array(
         array(
           'key'     => 'pa_tax_id_remote',
@@ -150,14 +149,10 @@ class PATaxonomiesSync {
           'parent' => $parents[$term->parent] ?? 0,
         )
       );
-
-      if(!is_wp_error($updated_term)):
-        add_term_meta($updated_term['term_id'], 'pa_tax_id_remote', $term->id, true);
-      endif;
     // Else update the term
     else:
       $updated_term = wp_update_term(
-        $local_term, 
+        $local_term->term_id, 
         $taxonomy, 
         array(
           'name'   => $term->name,
@@ -165,6 +160,10 @@ class PATaxonomiesSync {
           'parent' => $parents[$term->parent] ?? 0,
         )
       );
+    endif;
+
+    if(!is_wp_error($updated_term)):
+      add_term_meta($updated_term['term_id'], 'pa_tax_id_remote', $term->id, true);
     endif;
 
     return $updated_term['term_id']; // Return the updated term id
