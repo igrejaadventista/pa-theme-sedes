@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+
+## [1.5.28] - 2023-04-03
+
+### Fix
+
+- Ajustando script que sincroniza as taxonomias, adicionando logo do campo mibes
+
+
 ## [1.5.27] - 2023-01-12
 
 ### Fix

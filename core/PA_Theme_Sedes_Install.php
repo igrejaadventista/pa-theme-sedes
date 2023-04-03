@@ -1,9 +1,8 @@
 <?php
 
-require_once(dirname(__FILE__) . '/utils/PA_Service_Taxonomy.php');
+require_once(dirname(__FILE__) . '/PATaxonomiesSync.php');
+require_once(dirname(__FILE__) . '/settings/PASynchronization.php');
 require_once(dirname(__FILE__) . '/utils/PA_Schedule_Custom.php');
-require_once(dirname(__FILE__) . '/utils/PA_RestAPI_Tax.php');
-require_once(dirname(__FILE__) . '/utils/PA_Ui_Configurations.php');
 
 /**
  * 
@@ -15,7 +14,6 @@ class PACoreInstall
 {
   public function __construct()
   {
-    add_action('after_setup_theme', array($this, 'installRoutines'));
     add_action('admin_enqueue_scripts', array($this, 'enqueueAssets'));
     // add_filter('manage_posts_columns', array($this, 'addFakeColumn'));
     // add_filter('manage_edit-post_columns', array($this, 'removeFakeColumn'));
@@ -27,14 +25,6 @@ class PACoreInstall
     add_action('pre_get_posts', array($this, 'modifyCategoryQuery'));
     add_action('rest_api_init', array($this, 'restApi'));
     add_action('send_headers', 'send_frame_options_header', 10, 0 );
-  }
-
-  function installRoutines()
-  {
-    // Install routine to create or update taxonomies
-    if (!wp_next_scheduled('PA-Service_Taxonomy_Schedule')) {
-      wp_schedule_event(time(), '20min', 'PA-Service_Taxonomy_Schedule');
-    }
   }
 
   function enqueueAssets()

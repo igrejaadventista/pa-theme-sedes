@@ -41,7 +41,6 @@ class Blocks
 
         \add_action('acf/include_field_types', array($this, 'registerPlugins'));
         \add_action('enqueue_block_editor_assets', array($this, 'enqueueAssets'));
-        \add_action('admin_enqueue_scripts', array($this, 'enqueueAdminAssets'));
         \add_filter('block_categories_all', array($this, 'addCategory'));
 
         require_once('Directives.php');
@@ -54,7 +53,6 @@ class Blocks
 
         \add_action('PA-update_remote_data', array($this, 'UpdateRemoteData'));
         \add_action('wp_ajax_blocks/update_remote_data', array($this, 'UpdateRemoteData'));
-        \add_action('admin_bar_menu', array($this, 'addToolbarUpdate'), 999);
     }
 
     /**
@@ -140,11 +138,6 @@ class Blocks
         wp_enqueue_script('blocks-script', get_template_directory_uri() . '/Blocks/assets/scripts/blocks.js', array('wp-hooks', 'wp-blocks', 'wp-dom-ready'));
     }
 
-    function enqueueAdminAssets()
-    {
-        wp_enqueue_script('blocks-admin-script', get_template_directory_uri() . '/Blocks/assets/scripts/admin.js', array('jquery'));
-    }
-
     function addCategory($categories)
     {
         return array_merge(
@@ -219,18 +212,6 @@ class Blocks
 
         if(!empty($hasUpdate))
             \wp_update_post($args);
-    }
-
-    function addToolbarUpdate($wp_admin_bar)
-    {
-        $wp_admin_bar->add_node([
-            'id'    => 'sync_remote_data',
-            'title' => __('Sync data', 'iasd'),
-            'href'  => '#',
-            'meta'  => [
-                'onclick' => 'syncRemoteData(event)',
-            ],
-        ]);
     }
 
     function cronAdd($schedules)
