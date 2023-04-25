@@ -31,6 +31,11 @@ require_once(dirname(__FILE__) . '/classes/controllers/PA_Strong_Passwords.php')
 // CORE INSTALL
 require_once(dirname(__FILE__) . '/core/PA_Theme_Sedes_Install.php');
 
+\add_filter('blade/cache/path', function ($path) {
+	$uploadDir = wp_upload_dir();
+	return $uploadDir['basedir'] . '/.bladecache/';
+});
+
 $Blocks = new Blocks\Blocks;
 
 if (file_exists(get_stylesheet_directory() . '/classes/PA_Directives.php'))
