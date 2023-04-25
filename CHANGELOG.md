@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 
+## [1.5.29] - 2023-04-25
+
+### Fix
+
+- Expecificando caminho dos arquivos de cache do blaid (/uploads/.bladecache)
+- Acertando alguns pontos que estavam gerando PHP warning
+
 ## [1.5.28] - 2023-04-03
 
 ### Fix
