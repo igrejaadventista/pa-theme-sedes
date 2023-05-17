@@ -12,23 +12,25 @@
 					<div class="pa-slider-magazines d-flex align-items-center ">
 						<div class="glide__track" data-glide-el="track">
 							<div class="glide__slides">
-								@foreach($items as $item)
-									<div class="glide__slide">
-										<a 
+								@if(is_array($items))
+									@foreach($items as $item)
+										<div class="glide__slide">
+											<a 
 											class="ratio ratio-16x21 d-block"
 											href="{{ isset($item['link']) ? $item['link']['url'] : get_permalink($item['id']) }}"
 											target="{{ isset($item['link']) && !empty($item['link']['target']) ? $item['link']['target'] : '_self' }}"
-										>
+											>
 											<figure class="figure m-xl-0">
 												<img
-													src="{{ isset($item['featured_media_url']) ? $item['featured_media_url']['pa_block_render'] : get_the_post_thumbnail_url($item['id'], 'medium') }}"
-													alt="{{ $item['title']['rendered'] }}" 
-													class="rounded img-fluid" 
+												src="{{ isset($item['featured_media_url']) ? $item['featured_media_url']['pa_block_render'] : get_the_post_thumbnail_url($item['id'], 'medium') }}"
+												alt="{{ $item['title']['rendered'] }}" 
+												class="rounded img-fluid" 
 												/>
 											</figure>
 										</a>
 									</div>
-								@endforeach
+									@endforeach
+								@endif
 							</div>
 						</div>
 

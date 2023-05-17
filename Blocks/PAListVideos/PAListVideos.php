@@ -82,12 +82,24 @@ class PAListVideos extends Block
    */
   public function with(): array
   {
+    $block_format = get_field('block_format');
+    $title = get_field('title');
+    $items = null;
+    $items_field = get_field('items');
+    
+    if ($items_field !== null) {
+        $items = $items_field['data'];
+    }
+    
+    $enable_link = get_field('enable_link');
+    $link = get_field('link');
+    
     return [
-      'block_format'  => get_field('block_format'),
-      'title'         => get_field('title'),
-      'items'         => get_field('items')['data'],
-      'enable_link'   => get_field('enable_link'),
-      'link'          => get_field('link'),
+        'block_format'  => $block_format,
+        'title'         => $title,
+        'items'         => $items,
+        'enable_link'   => $enable_link,
+        'link'          => $link,
     ];
   }
 }
