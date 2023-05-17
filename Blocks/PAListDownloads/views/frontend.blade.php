@@ -8,6 +8,7 @@
 
 		@notempty($items)
 			<div class="mt-4">
+			@if(is_array($items))
 				@foreach($items as $item)
 					<div class="card mb-2 mb-xl-4 border-0">
 						<a 
@@ -47,6 +48,7 @@
 						</a>
 					</div>
 				@endforeach
+			@endif
 			</div>
 		@endnotempty
 

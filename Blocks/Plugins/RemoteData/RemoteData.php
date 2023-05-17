@@ -284,7 +284,7 @@ if (!class_exists('RemoteData')) :
 							</label>
 						</div>
 					<?php else : ?>
-						<?php acf_hidden_input(array('name' => $field['name'] . "[limit]", 'value' => $field['limit'], 'data-limit' => '')); ?>
+						<?php acf_hidden_input(array('name' => $field['name'] . "[limit]", 'value' => $field['limit'] = empty($field['limit']) ? '' : $field['limit'], 'data-limit' => '')); ?>
 					<?php endif; ?>
 
 					<?php if (count($endpointsChoices) > 1) : ?>

@@ -8,6 +8,7 @@
 
 		@notempty($items)
 			<div class="mt-4">
+			@if(is_array($items))
 				@foreach($items as $item)
 					<div class="project mb-2 mb-xl-4 border-0">
 						<div class="row">
@@ -29,6 +30,7 @@
 						</div>
 					</div>
 				@endforeach
+				@endif
 			</div>
 		@endnotempty
 
