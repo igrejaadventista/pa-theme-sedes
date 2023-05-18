@@ -60,7 +60,7 @@
   "autoload": {
     "psr-4": {
       "Blocks\\": "Blocks/",
-      "Extended\\": "Extended/",
+      "ExtendedLocal\\": "Extended/",
       "Fields\\": "Fields/"
     }
   },
