@@ -3,8 +3,8 @@
 namespace Blocks\PACarouselDownloads;
 
 use Blocks\Block;
-use Extended\RemoteData;
-use WordPlate\Acf\Fields\Text;
+use ExtendedLocal\RemoteData;
+use Extended\ACF\Fields\Text;
 
 /**
  * Class PACarouselDownloads

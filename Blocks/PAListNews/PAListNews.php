@@ -3,13 +3,13 @@
 namespace Blocks\PAListNews;
 
 use Blocks\Block;
-use Extended\LocalData;
-use Extended\RemoteData;
+use ExtendedLocal\LocalData;
+use ExtendedLocal\RemoteData;
 use Fields\MoreContent;
 use Fields\Source;
-use WordPlate\Acf\ConditionalLogic;
-use WordPlate\Acf\Fields\Select;
-use WordPlate\Acf\Fields\Text;
+use Extended\ACF\ConditionalLogic;
+use Extended\ACF\Fields\Select;
+use Extended\ACF\Fields\Text;
 
 /**
  * Class PAListNews
@@ -88,7 +88,7 @@ class PAListNews extends Block
             'xtt-pa-projetos',
           ])
           ->conditionalLogic([
-            ConditionalLogic::if('source')->equals('remote')
+            ConditionalLogic::where('source', '==', 'remote')
           ]),
         LocalData::make(__('Itens', 'iasd'), 'items_local')
           ->initialLimit(4)
@@ -104,7 +104,7 @@ class PAListNews extends Block
               ]),
           ])
           ->conditionalLogic([
-            ConditionalLogic::if('source')->equals('local')
+            ConditionalLogic::where('source', '==', 'local')
           ]),
       ],
       MoreContent::make()

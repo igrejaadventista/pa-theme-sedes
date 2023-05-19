@@ -3,9 +3,9 @@
 namespace Blocks\PASevenCast;
 
 use Blocks\Block;
-use Extended\RemoteData;
+use ExtendedLocal\RemoteData;
 use Fields\MoreContent;
-use WordPlate\Acf\Fields\Text;
+use Extended\ACF\Fields\Text;
 
 /**
  * Class PASevenCast

@@ -3,8 +3,8 @@
 namespace Blocks\PATwitter;
 
 use Blocks\Block;
-use WordPlate\Acf\Fields\Text;
-use WordPlate\Acf\Fields\Url;
+use Extended\ACF\Fields\Text;
+use Extended\ACF\Fields\Url;
 
 /**
  * Class PATwitter

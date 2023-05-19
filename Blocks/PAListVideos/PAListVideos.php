@@ -3,11 +3,11 @@
 namespace Blocks\PAListVideos;
 
 use Blocks\Block;
-use Extended\RemoteData;
+use ExtendedLocal\RemoteData;
 use Fields\MoreContent;
-use WordPlate\Acf\Fields\Number;
-use WordPlate\Acf\Fields\Select;
-use WordPlate\Acf\Fields\Text;
+use Extended\ACF\Fields\Number;
+use Extended\ACF\Fields\Select;
+use Extended\ACF\Fields\Text;
 
 /**
  * Class PAListVideos
