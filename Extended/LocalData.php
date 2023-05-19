@@ -1,12 +1,11 @@
 <?php
 
-namespace Extended;
+namespace ExtendedLocal;
 
-use WordPlate\Acf\Fields\Field;
-use WordPlate\Acf\Fields\Attributes\ConditionalLogic;
-use WordPlate\Acf\Fields\Attributes\Instructions;
-use WordPlate\Acf\Fields\Attributes\Wrapper;
-
+use Extended\ACF\Fields\Field;
+use Extended\ACF\Fields\Settings\ConditionalLogic;
+use Extended\ACF\Fields\Settings\Wrapper;
+use Extended\ACF\Fields\Settings\Instructions;
 /**
  * Register new local data field
  */
@@ -16,7 +15,7 @@ class LocalData extends Field {
     use Instructions;
     use Wrapper;
 
-    protected $type = 'localposts_data';
+    protected null|string $type = 'localposts_data';
 
 	/**
 	 * initialLimit Initial number of items to be returned
@@ -25,8 +24,8 @@ class LocalData extends Field {
 	 * @return self
 	 */
 	public function initialLimit(int $value): self {
-        $this->config->set('limit', $value);
-
+        $this->withSettings(array('limit' => $value));
+        
         return $this;
     }
 
@@ -37,7 +36,7 @@ class LocalData extends Field {
 	 * @return self
 	 */
 	public function postTypes(array $values): self {
-        $this->config->set('post_type', $values);
+    $this->withSettings(array('post_type' => $values));
 
         return $this;
     }
@@ -49,8 +48,8 @@ class LocalData extends Field {
 	 * @return self
 	 */
 	public function manualFields(array $values): self {
-        $this->config->set('sub_fields', $values);
-
+        $this->withSettings(array('sub_fieldsLocal' => $values));
+ 
         return $this;
     }
 
@@ -61,8 +60,8 @@ class LocalData extends Field {
 	 * @return self
 	 */
 	public function hideFields(array $values): self {
-        $this->config->set('hide_fields', $values);
-
+        $this->withSettings(array('hide_fields' => $values));
+     
         return $this;
     }
 
@@ -73,8 +72,8 @@ class LocalData extends Field {
 	 * @return self
 	 */
 	public function manualItems(bool $value): self {
-        $this->config->set('manual_items', intval($value));
-
+        $this->withSettings(array('manual_items' => intval($value)));
+        
         return $this;
     }
 
