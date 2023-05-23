@@ -12,6 +12,7 @@
 			@notempty($items)
 				<div class="glide__track" data-glide-el="track">
 					<div class="glide__slides">
+					@if(is_array($items))
 						@foreach($items as $item)
 							<div class="glide__slide">
 								<div class="card shadow-sm border-0">
@@ -51,6 +52,7 @@
 								</div>
 							</div>
 						@endforeach
+						@endif
 					</div>
 				</div>
 			@endnotempty

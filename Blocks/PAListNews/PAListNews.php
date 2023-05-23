@@ -118,12 +118,32 @@ class PAListNews extends Block
    */
   public function with(): array
   {
+    
+    $block_format = get_field('block_format');
+    $title = get_field('title');
+    $items = null;
+    
+    if (get_field('source') == 'remote') {
+        $items_remote = get_field('items_remote');
+        if ($items_remote !== null) {
+            $items = $items_remote['data'];
+        }
+    } else {
+        $items_local = get_field('items_local');
+        if ($items_local !== null) {
+            $items = $items_local['data'];
+        }
+    }
+    
+    $enable_link = get_field('enable_link');
+    $link = get_field('link');
+    
     return [
-      'block_format'  => get_field('block_format'),
-      'title'         => get_field('title'),
-      'items'         => get_field('source') == 'remote' ? get_field('items_remote')['data'] : get_field('items_local')['data'],
-      'enable_link'   => get_field('enable_link'),
-      'link'          => get_field('link'),
+        'block_format'  => $block_format,
+        'title'         => $title,
+        'items'         => $items,
+        'enable_link'   => $enable_link,
+        'link'          => $link,
     ];
   }
 }

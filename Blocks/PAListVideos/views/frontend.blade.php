@@ -12,6 +12,7 @@
 
 		@notempty($items)
 			<div class="row row-cols-1 mt-4 mb-0 {{ $block_format == '2/3' ? 'row-cols-md-2' : 'row-cols-md-1' }}">
+			@if(is_array($items))	
 				@foreach($items as $item)
 					@if($loop->index == 0)
 						<div class="col">
@@ -95,6 +96,7 @@
 						@endif
 					@endif
 				@endforeach
+			@endif
 
 				@notempty($enable_link)
 					<a 

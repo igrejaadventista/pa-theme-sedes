@@ -8,6 +8,7 @@
 
 		@notempty($items)
 			<ul class="list-unstyled mt-4">
+			@if(is_array($items))
 				@foreach($items as $item)
 					@notempty($item['link'])
 						<li class="pa-widget-button h-25 mb-4">
@@ -27,6 +28,7 @@
 						</li>
 					@endnotempty
 				@endforeach
+			@endif
 			</ul>
 		@endnotempty
 	</div>

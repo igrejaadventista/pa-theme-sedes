@@ -928,8 +928,15 @@ class PAFeliz7Play extends Block {
 	 * @return array
 	 */
 	public function with(): array {
+		$items = null;
+		$items_field = get_field('items');
+		
+		if ($items_field !== null) {
+			$items = $items_field['data'];
+		}
+		
 		return [
-			'items'	=> get_field('items')['data'],
+			'items' => $items,
 		];
 	}
 }

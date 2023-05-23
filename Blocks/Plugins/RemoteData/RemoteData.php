@@ -284,7 +284,7 @@ if (!class_exists('RemoteData')) :
 							</label>
 						</div>
 					<?php else : ?>
-						<?php acf_hidden_input(array('name' => $field['name'] . "[limit]", 'value' => $field['limit'], 'data-limit' => '')); ?>
+						<?php acf_hidden_input(array('name' => $field['name'] . "[limit]", 'value' => $field['limit'] = empty($field['limit']) ? '' : $field['limit'], 'data-limit' => '')); ?>
 					<?php endif; ?>
 
 					<?php if (count($endpointsChoices) > 1) : ?>
@@ -601,12 +601,6 @@ if (!class_exists('RemoteData')) :
 
 				if (!empty($stickyItemsFilter))
 					$queryArgs['exclude'] = implode(',', $stickyItemsFilter);
-
-				
-        if ( WP_DEBUG == true ){
-          var_dump(\add_query_arg(array_merge($queryArgs, ['orderby' => 'date']), $url));
-          die;
-        }
 
 				$response = \wp_remote_get(\add_query_arg(array_merge($queryArgs, ['orderby' => 'date']), $url));
 				$responseCode = \wp_remote_retrieve_response_code($response);

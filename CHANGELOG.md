@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.5.31] - 2023-05-18
+
+### Fix
+
+- Removendo trecho de códio desconhecido no arquivo RemoteData.php que estava causando erro nas chamadas que alimenta os blocos quando o WP_DEBUG está ativo. 
+
+## [1.5.30] - 2023-05-17
+
+### Fix
+
+- Corrigindo mensagens de warning 
 
 ## [1.5.29] - 2023-04-25
 
