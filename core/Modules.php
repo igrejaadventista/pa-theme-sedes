@@ -8,27 +8,61 @@ use Extended\ACF\ConditionalLogic;
 use Extended\ACF\Location;
 
 class Modules {
-
-  private $key = 'iasd_modules';
+  
+  /**
+   * The key modules field
+   *
+   * @var string
+   */
+  private static $key = 'iasd_modules';
   
   public function __construct() {
     add_action('after_setup_theme', [$this, 'createPage']);
     add_action('after_setup_theme', [$this, 'createFields'], 11);
   }
-
+  
+  /**
+   * Create modules page options
+   *
+   * @return void
+   */
   function createPage(): void {
     acf_add_options_sub_page(array(
-      'post_id'     => $this->key,
+      'post_id'     => self::$key,
       'page_title'  => __('Modules', 'iasd'),
       'menu_title'  => __('Modules', 'iasd'),
-      'menu_slug'   => $this->key,
+      'menu_slug'   => self::$key,
       'parent_slug' => 'themes.php',
       'capability'  => 'manage_options',
     ));
   }
+  
+  /**
+   * Create modules fields
+   *
+   * @return void
+   */
+  function createFields(): void {
+    $fields = $this->blocksFields();
 
-  function createFields() {
-    $fields = [
+    register_extended_field_group([
+      'title'    => ' ',
+      'key'      => 'iasd_modules',
+      'style'    => 'default',
+      'fields'   => $fields,
+      'location' => [
+        Location::where('options_page', '==', self::$key),
+      ],
+    ]);
+  }
+  
+  /**
+   * Create blocks modules fields
+   *
+   * @return array Array of fields
+   */
+  function blocksFields(): array {
+    return [
       Tab::make(__('Blocks', 'iasd')),
 
       TrueFalse::make(__('All blocks', 'iasd'), 'module_blocks')
@@ -195,16 +229,20 @@ class Modules {
         ])
         ->conditionalLogic([ConditionalLogic::where('module_blocks', '==', 1)]),
     ];
+  }
+  
+  /**
+   * Check if a module is enabled
+   *
+   * @param  string $module The module name
+   * 
+   * @return bool True if the module is enabled, false otherwise
+   */
+  public static function isActiveModule(string $module): bool {
+    if(!empty($module))
+      return !empty(get_field($module, self::$key));
 
-    register_extended_field_group([
-      'title'    => ' ',
-      'key'      => 'iasd_modules',
-      'style'    => 'default',
-      'fields'   => $fields,
-      'location' => [
-        Location::where('options_page', '==', $this->key),
-      ],
-    ]);
+    return false;
   }
   
 }

@@ -23,6 +23,7 @@ use Blocks\PAQueroVidaSaude\PAQueroVidaSaude;
 use Blocks\PARow\PARow;
 use Blocks\PASevenCast\PASevenCast;
 use Blocks\Plugins\RemoteData\RemoteData;
+use IASD\Core\Modules;
 use stdClass;
 
 /**
@@ -63,6 +64,9 @@ class Blocks
      */
     public function registerBlocks(array $blocks): array
     {
+      if(!Modules::isActiveModule('module_blocks'))
+        return $blocks;
+
         $newBlocks = [
             PACarouselFeature::class,
             PATwitter::class,
@@ -128,18 +132,27 @@ class Blocks
 
     public function registerPlugins()
     {
+      if(!Modules::isActiveModule('module_blocks'))
+        return;
+
         include_once('Plugins/LocalData/LocalData.php');
         include_once('Plugins/RemoteData/RemoteData.php');
     }
 
     function enqueueAssets()
     {
+      if(!Modules::isActiveModule('module_blocks'))
+        return;
+
         wp_enqueue_style('blocks-stylesheet', get_template_directory_uri() . '/Blocks/assets/styles/blocks.css', array(), \wp_get_theme()->get('Version'), 'all');
         wp_enqueue_script('blocks-script', get_template_directory_uri() . '/Blocks/assets/scripts/blocks.js', array('wp-hooks', 'wp-blocks', 'wp-dom-ready'));
     }
 
     function addCategory($categories)
     {
+      if(!Modules::isActiveModule('module_blocks'))
+        return;
+
         return array_merge(
             array(
                 array(
@@ -153,6 +166,9 @@ class Blocks
 
     function UpdateRemoteData()
     {
+      if(!Modules::isActiveModule('module_blocks'))
+        return;
+        
         $ids = \get_posts([
             'fields'          => 'ids', // Only get post IDs
             'post_type'       => 'page',
