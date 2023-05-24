@@ -29,6 +29,7 @@ require_once(dirname(__FILE__) . '/classes/controllers/PA_Strong_Passwords.php')
 
 
 // CORE INSTALL
+require_once(dirname(__FILE__) . '/core/Modules.php');
 require_once(dirname(__FILE__) . '/core/PA_Theme_Sedes_Install.php');
 
 \add_filter('blade/cache/path', function ($path) {
