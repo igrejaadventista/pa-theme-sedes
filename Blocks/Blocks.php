@@ -90,6 +90,13 @@ class Blocks
             PAQueroVidaSaude::class,
         ];
 
+        $newBlocks = array_filter($newBlocks, function ($block) {
+          $name = explode('\\', $block);
+          $name = last($name);
+
+          return Modules::isActiveModule("module_block_{$name}");
+        });
+
         // Merge registered blocks with new blocks
         return array_merge($blocks, $newBlocks);
     }
@@ -168,7 +175,7 @@ class Blocks
     {
       if(!Modules::isActiveModule('module_blocks'))
         return;
-        
+
         $ids = \get_posts([
             'fields'          => 'ids', // Only get post IDs
             'post_type'       => 'page',
