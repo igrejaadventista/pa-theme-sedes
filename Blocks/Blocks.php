@@ -78,7 +78,6 @@ class Blocks
             PAListButtons::class,
             PACarouselMinistry::class,
             PASevenCast::class,
-            PARow::class,
             PAListDownloads::class,
             PACarouselDownloads::class,
             PAListNews::class,
@@ -96,6 +95,8 @@ class Blocks
 
           return Modules::isActiveModule("module_block_{$name}");
         });
+
+        $newBlocks[] = PARow::class;
 
         // Merge registered blocks with new blocks
         return array_merge($blocks, $newBlocks);
