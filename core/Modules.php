@@ -43,7 +43,10 @@ class Modules {
    * @return void
    */
   function createFields(): void {
-    $fields = $this->blocksFields();
+    $fields = array_merge(
+      $this->generalFields(),
+      $this->blocksFields()
+    );
 
     register_extended_field_group([
       'title'    => ' ',
@@ -54,6 +57,22 @@ class Modules {
         Location::where('options_page', '==', self::$key),
       ],
     ]);
+  }
+
+  /**
+   * Create general modules fields
+   *
+   * @return array Array of fields
+   */
+  function generalFields(): array {
+    return [
+      Tab::make(__('General', 'iasd')),
+
+      TrueFalse::make(__('Sidebars', 'iasd'), 'module_sidebars')
+        ->instructions(__('Enable/disable all IASD sidebars', 'iasd'))
+        ->stylisedUi()
+        ->defaultValue(true),
+    ];
   }
   
   /**
@@ -251,10 +270,10 @@ class Modules {
    * @return bool True if the module is enabled, false otherwise
    */
   public static function isActiveModule(string $module): bool {
-    if(!empty($module))
-      return !empty(get_field($module, self::$key));
+    if(!empty($module) && ($field = get_field($module, self::$key)) !== null)
+      return !empty($field);
 
-    return false;
+    return true;
   }
   
 }
