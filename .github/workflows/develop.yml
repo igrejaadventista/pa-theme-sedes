@@ -1,0 +1,66 @@
+name: Ambiente de testes - adv.intest.com.br
+on:
+  push:
+    branches:
+      - develop
+
+jobs:
+  release:
+    name: Obtém o código-fonte e realiza a construção da aplicação.
+    runs-on: ubuntu
+    steps:         
+      - name: Checkout do repositório
+        uses: actions/checkout@v2
+
+      - name: Verificando o cache dos pacotes do Composer
+        uses: actions/cache@v2
+        with:
+          path: /tmp/composer-cache
+          key: ${{ runner.os }}-${{ hashFiles('**/composer.lock') }}
+          
+      - name: Setup do NodeJS para o tema
+        uses: actions/setup-node@v2
+        with:
+          node-version: "14.21.1"   
+
+      - name: Yarn Install
+        uses: borales/actions-yarn@v4
+        with:
+          cmd: install
+
+      - name: Yarn Build
+        uses: borales/actions-yarn@v4
+        with:
+          cmd: build   
+          
+      - name: Ajusta permissão antes de copia dos arquivos
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ secrets.SSH_DEV_DEPLOY_HOST }}
+          username: studio
+          key: ${{ secrets.SSH_DEV_DEPLOY_KEY}}
+          port: 22
+          script: echo "${{ secrets.SUDO }}" | sudo -S chmod -R 777  /mnt/intest_volume_timejp/adventistas_seed/public/app/pt/wp-content/themes/pa-theme-sedes
+      
+      - name: Copiando arquivos do plugin para ambiente de testes
+        uses: burnett01/rsync-deployments@4.1
+        with:
+          switches: --no-perms -O --filter="merge rsync-filter.txt" --delete -Prltvz
+          path: ./
+          remote_path: /mnt/intest_volume_timejp/adventistas_seed/public/app/pt/wp-content/themes/pa-theme-sedes/
+          remote_host: ${{ secrets.SSH_DEV_DEPLOY_HOST }}
+          remote_port: 22
+          remote_user: studio
+          remote_key: ${{ secrets.SSH_DEV_DEPLOY_KEY }}
+          
+      - name: Ajusta Permissões
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ secrets.SSH_DEV_DEPLOY_HOST }}
+          username: studio
+          key: ${{ secrets.SSH_DEV_DEPLOY_KEY}}
+          port: 22
+          script: |
+            echo "${{ secrets.SUDO }}" | sudo -S chown -R www-data:www-data  /mnt/intest_volume_timejp/adventistas_seed/public/app/pt/wp-content/themes/pa-theme-sedes
+            echo "${{ secrets.SUDO }}" | sudo -S find  /mnt/intest_volume_timejp/adventistas_seed/public/app/pt/wp-content/themes/pa-theme-sedesn -type d -exec chmod 750 {} \;
+            echo "${{ secrets.SUDO }}" | sudo -S find /mnt/intest_volume_timejp/adventistas_seed/public/app/pt/wp-content/themes/pa-theme-sedes -type f -exec chmod 640 {} \;
