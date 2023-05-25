@@ -84,7 +84,7 @@ class LocalData extends Field {
 	 * @return self
 	 */
 	public function searchFilter(bool $value): self {
-        $this->config->set('search_filter', intval($value));
+       $this->withSettings(array('search_filter' => intval($value)));
 
         return $this;
     }
@@ -96,8 +96,7 @@ class LocalData extends Field {
 	 * @return self
 	 */
 	public function limitFilter(bool $value): self {
-        $this->config->set('limit_filter', intval($value));
-
+        $this->withSettings(array('limit_filter' => intval($value)));
         return $this;
     }
 
@@ -108,7 +107,7 @@ class LocalData extends Field {
 	 * @return self
 	 */
 	public function canSticky(bool $value): self {
-        $this->config->set('can_sticky', intval($value));
+      $this->withSettings(array('can_sticky' => intval($value)));
 
         return $this;
     }
@@ -120,8 +119,7 @@ class LocalData extends Field {
 	 * @return self
 	 */
 	public function filterTaxonomies(array $values): self {
-    $this->config->set('taxonomies', $values);
-
+    $this->withSettings(array('taxonomies' => $values));
     return $this;
   }
 
