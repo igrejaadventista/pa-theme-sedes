@@ -71,7 +71,18 @@ class Modules {
       TrueFalse::make(__('Sidebars', 'iasd'), 'module_sidebars')
         ->instructions(__('Enable/disable all IASD sidebars', 'iasd'))
         ->stylisedUi()
-        ->defaultValue(true),
+        ->defaultValue(true)
+        ->wrapper([
+          'width' => 50,
+        ]),
+
+      TrueFalse::make(__('Search page', 'iasd'), 'module_searchpage')
+        ->instructions(__('Enable/disable IASD custom search page', 'iasd'))
+        ->stylisedUi()
+        ->defaultValue(true)
+        ->wrapper([
+          'width' => 50,
+        ]),
     ];
   }
   

@@ -1,5 +1,7 @@
 <?php
 
+use IASD\Core\Modules;
+
 class IASD_CreateSearchPage
 {
   public function __construct()
@@ -9,6 +11,9 @@ class IASD_CreateSearchPage
 
   public static function IASD_SearchPageFilter()
   {
+    if(!Modules::isActiveModule('module_searchpage'))
+        return;
+
     $page = "/busca/";
     $page = get_page_by_path($page);
 
