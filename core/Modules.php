@@ -91,6 +91,14 @@ class Modules {
         ->wrapper([
           'width' => 50,
         ]),
+
+      TrueFalse::make(__('REST cleanup', 'iasd'), 'module_restcleanup')
+        ->instructions(__('Enable/disable IASD REST cleanup', 'iasd'))
+        ->stylisedUi()
+        ->defaultValue(true)
+        ->wrapper([
+          'width' => 50,
+        ]),
     ];
   }
   
