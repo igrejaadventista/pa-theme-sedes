@@ -17,11 +17,11 @@ class PaThemeHelpers
     add_action('rest_api_init', [$this, 'adding_collection_meta_rest']);
 
     if (!wp_next_scheduled('PA-update_menu_global')) {
-      wp_schedule_event(time(), 'hourly', 'PA-update_menu_global');
+      wp_schedule_event(time(), 'daily', 'PA-update_menu_global');
     }
 
     if (!wp_next_scheduled('PA-update_banner_global')) {
-      wp_schedule_event(time(), 'hourly', 'PA-update_banner_global');
+      wp_schedule_event(time(), 'daily', 'PA-update_banner_global');
     }
 
     add_action('init', 'wp_rest_headless_boot_plugin', 9 );

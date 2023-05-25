@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.5.32] - 2023-05-24
+
+### Fix
+
+- Ajustando a frequência de acionamento do cron: blocos (30 minutos), menus banner global e taxonomias (Uma vez por dia);
 ## [1.5.31] - 2023-05-18
 
 ### Fix
