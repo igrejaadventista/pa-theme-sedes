@@ -17,11 +17,19 @@ jobs:
         with:
           path: /tmp/composer-cache
           key: ${{ runner.os }}-${{ hashFiles('**/composer.lock') }}
-          
+      
+      - name: Executando composer install para dependências do Tema
+        uses: php-actions/composer@v5
+        with:
+          php_version: 8.2
+          version: 2
+          dev: no
+          args: -o --ignore-platform-reqs -d ./    
+      
       - name: Setup do NodeJS para o tema
         uses: actions/setup-node@v2
         with:
-          node-version: "14.21.1"   
+          node-version: "16"   
 
       - name: Yarn Install
         uses: borales/actions-yarn@v4
