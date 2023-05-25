@@ -83,6 +83,14 @@ class Modules {
         ->wrapper([
           'width' => 50,
         ]),
+
+      TrueFalse::make(__('Header title', 'iasd'), 'module_headertitle')
+        ->instructions(__('Enable/disable IASD custom header title', 'iasd'))
+        ->stylisedUi()
+        ->defaultValue(true)
+        ->wrapper([
+          'width' => 50,
+        ]),
     ];
   }
   
