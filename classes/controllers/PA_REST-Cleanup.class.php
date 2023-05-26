@@ -1,6 +1,6 @@
 <?php
 
-use IASD\Core\Modules;
+use IASD\Core\Settings\Modules;
 
 class PaRestCleanup
 {
@@ -14,12 +14,12 @@ class PaRestCleanup
 
   function wp_headless_rest_enable_rest_cleanup() 
   {
-    return Modules::isActiveModule('module_restcleanup');
+    return Modules::isActiveModule('restcleanup');
   }
 
   function wp_rest_headless_disable_endpoints()
   {
-    if(!Modules::isActiveModule('module_restcleanup'))
+    if(!Modules::isActiveModule('restcleanup'))
         return [];
 
     $to_remove = array(
@@ -59,7 +59,7 @@ class PaRestCleanup
 
   function wp_rest_headless_clean_response_nodes()
   {
-    if(!Modules::isActiveModule('module_restcleanup'))
+    if(!Modules::isActiveModule('restcleanup'))
         return [];
 
     $to_remove = array(
@@ -71,7 +71,7 @@ class PaRestCleanup
   }
   function wp_rest_headless_clean_post_types()
   {
-    if(!Modules::isActiveModule('module_restcleanup'))
+    if(!Modules::isActiveModule('restcleanup'))
         return [];
 
     $to_clean = array(

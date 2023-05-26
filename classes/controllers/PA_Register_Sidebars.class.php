@@ -1,6 +1,6 @@
 <?php
 
-use IASD\Core\Modules;
+use IASD\Core\Settings\Modules;
 
 class PaRegisterSidebars {
 	public function __construct(){
@@ -8,7 +8,7 @@ class PaRegisterSidebars {
 	}
 
 	function registerSidebars(){
-    if(!Modules::isActiveModule('module_sidebars'))
+    if(!Modules::isActiveModule('sidebars'))
       return;
 
 		// Page - Front Page

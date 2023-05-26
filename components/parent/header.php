@@ -1,8 +1,8 @@
 <?php
 
-use IASD\Core\Modules;
+use IASD\Core\Settings\Modules;
 
-if(Modules::isActiveModule('module_headertitle')): ?>
+if(Modules::isActiveModule('headertitle')): ?>
   <section class="pa-header py-3">
     <header class="container">
       <div class="row">

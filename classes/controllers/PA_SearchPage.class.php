@@ -1,6 +1,6 @@
 <?php
 
-use IASD\Core\Modules;
+use IASD\Core\Settings\Modules;
 
 class IASD_CreateSearchPage
 {
@@ -11,7 +11,7 @@ class IASD_CreateSearchPage
 
   public static function IASD_SearchPageFilter()
   {
-    if(!Modules::isActiveModule('module_searchpage'))
+    if(!Modules::isActiveModule('searchpage'))
         return;
 
     $page = "/busca/";

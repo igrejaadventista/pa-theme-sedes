@@ -1,6 +1,8 @@
 <?php
 
-namespace Core;
+namespace IASD\Core;
+
+use IASD\Core\Settings\Modules;
 
 class PATaxonomiesSync {
   
@@ -26,6 +28,9 @@ class PATaxonomiesSync {
   protected $baseURL = 'https://' . API_PA . '/tax/' . LANG . '/';
 
   public function __construct() {
+    if(!Modules::isActiveModule('taxonomiessync'))
+      return;
+
     if(!wp_next_scheduled('PA-Service_Taxonomy_Schedule'))
       wp_schedule_event(time(), '20min', 'PA-Service_Taxonomy_Schedule'); // Register cron schedule event
 

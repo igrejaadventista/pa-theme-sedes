@@ -1,6 +1,6 @@
 <?php
 
-namespace IASD\Core;
+namespace IASD\Core\Settings;
 
 use Extended\ACF\Fields\Tab;
 use Extended\ACF\Fields\TrueFalse;
@@ -15,6 +15,13 @@ class Modules {
    * @var string
    */
   private static $key = 'iasd_modules';
+
+  /**
+   * The prefix for modules field
+   *
+   * @var string
+   */
+  private static $prefix = 'module_';
   
   public function __construct() {
     add_action('after_setup_theme', [$this, 'createPage']);
@@ -68,7 +75,7 @@ class Modules {
     return [
       Tab::make(__('General', 'iasd')),
 
-      TrueFalse::make(__('Sidebars', 'iasd'), 'module_sidebars')
+      TrueFalse::make(__('Sidebars', 'iasd'), self::$prefix . 'sidebars')
         ->instructions(__('Enable/disable all IASD sidebars', 'iasd'))
         ->stylisedUi()
         ->defaultValue(true)
@@ -76,7 +83,7 @@ class Modules {
           'width' => 50,
         ]),
 
-      TrueFalse::make(__('Search page', 'iasd'), 'module_searchpage')
+      TrueFalse::make(__('Search page', 'iasd'), self::$prefix . 'searchpage')
         ->instructions(__('Enable/disable IASD custom search page', 'iasd'))
         ->stylisedUi()
         ->defaultValue(true)
@@ -84,7 +91,7 @@ class Modules {
           'width' => 50,
         ]),
 
-      TrueFalse::make(__('Header title', 'iasd'), 'module_headertitle')
+      TrueFalse::make(__('Header title', 'iasd'), self::$prefix . 'headertitle')
         ->instructions(__('Enable/disable IASD custom header title', 'iasd'))
         ->stylisedUi()
         ->defaultValue(true)
@@ -92,8 +99,16 @@ class Modules {
           'width' => 50,
         ]),
 
-      TrueFalse::make(__('REST cleanup', 'iasd'), 'module_restcleanup')
+      TrueFalse::make(__('REST cleanup', 'iasd'), self::$prefix . 'restcleanup')
         ->instructions(__('Enable/disable IASD REST cleanup', 'iasd'))
+        ->stylisedUi()
+        ->defaultValue(true)
+        ->wrapper([
+          'width' => 50,
+        ]),
+
+      TrueFalse::make(__('Taxonomies synchronization', 'iasd'), self::$prefix . 'taxonomiessync')
+        ->instructions(__('Enable/disable IASD taxonomies synchronization', 'iasd'))
         ->stylisedUi()
         ->defaultValue(true)
         ->wrapper([
@@ -297,7 +312,7 @@ class Modules {
    * @return bool True if the module is enabled, false otherwise
    */
   public static function isActiveModule(string $module): bool {
-    if(!empty($module) && ($field = get_field($module, self::$key)) !== null)
+    if(!empty($module) && ($field = get_field(self::$prefix . $module, self::$key)) !== null)
       return !empty($field);
 
     return true;
