@@ -6,6 +6,7 @@ use Extended\ACF\Fields\Tab;
 use Extended\ACF\Fields\TrueFalse;
 use Extended\ACF\ConditionalLogic;
 use Extended\ACF\Location;
+use IASD\Core\Taxonomies;
 
 class Modules {
   
@@ -52,7 +53,8 @@ class Modules {
   function createFields(): void {
     $fields = array_merge(
       $this->generalFields(),
-      $this->blocksFields()
+      $this->blocksFields(),
+      $this->taxonomiesFields()
     );
 
     register_extended_field_group([
@@ -101,14 +103,6 @@ class Modules {
 
       TrueFalse::make(__('REST cleanup', 'iasd'), self::$prefix . 'restcleanup')
         ->instructions(__('Enable/disable IASD REST cleanup', 'iasd'))
-        ->stylisedUi()
-        ->defaultValue(true)
-        ->wrapper([
-          'width' => 50,
-        ]),
-
-      TrueFalse::make(__('Taxonomies synchronization', 'iasd'), self::$prefix . 'taxonomiessync')
-        ->instructions(__('Enable/disable IASD taxonomies synchronization', 'iasd'))
         ->stylisedUi()
         ->defaultValue(true)
         ->wrapper([
@@ -302,6 +296,47 @@ class Modules {
         ])
         ->conditionalLogic([ConditionalLogic::where('module_blocks', '==', 1)]),
     ];
+  }
+
+  /**
+   * Create taxonomies modules fields
+   *
+   * @return array Array of fields
+   */
+  function taxonomiesFields(): array {
+    $fields = [
+      Tab::make(__('Taxonomies', 'iasd')),
+
+      TrueFalse::make(__('All taxonomies', 'iasd'), self::$prefix . 'taxonomies')
+        ->instructions(__('Enable/disable all IASD taxonomies', 'iasd'))
+        ->stylisedUi()
+        ->defaultValue(true)
+        ->wrapper([
+          'width' => 50,
+        ]),
+
+      TrueFalse::make(__('Taxonomies synchronization', 'iasd'), self::$prefix . 'taxonomiessync')
+        ->instructions(__('Enable/disable IASD taxonomies synchronization', 'iasd'))
+        ->stylisedUi()
+        ->defaultValue(true)
+        ->wrapper([
+          'width' => 50,
+        ])
+        ->conditionalLogic([ConditionalLogic::where(self::$prefix . 'taxonomies', '==', 1)]),
+    ];
+
+    foreach(Taxonomies::$taxonomies as $key => $value):
+      $fields[] = TrueFalse::make($value['name'], self::$prefix . 'taxonomy_' . $key)
+                    ->instructions($value['description'])
+                    ->stylisedUi()
+                    ->defaultValue(true)
+                    ->wrapper([
+                      'width' => 50,
+                    ])
+                    ->conditionalLogic([ConditionalLogic::where(self::$prefix . 'taxonomies', '==', 1)]);
+    endforeach;
+
+    return $fields;
   }
   
   /**

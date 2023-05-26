@@ -16,7 +16,7 @@ class Synchronization {
    * @return void
    */
   function enqueueAdminAssets(): void {
-    if(!Modules::isActiveModule('blocks') && !Modules::isActiveModule('taxonomiessync'))
+    if(!Modules::isActiveModule('blocks') && (Modules::isActiveModule('taxonomies') || !Modules::isActiveModule('taxonomiessync')))
       return;
 
     wp_enqueue_script('sync-admin-script', get_template_directory_uri() . '/core/assets/scripts/admin.js', array('jquery'));
@@ -28,7 +28,7 @@ class Synchronization {
    * @return void
    */
   function createMenu(): void {
-    if(!Modules::isActiveModule('blocks') && !Modules::isActiveModule('taxonomiessync'))
+    if(!Modules::isActiveModule('blocks') && (Modules::isActiveModule('taxonomies') || !Modules::isActiveModule('taxonomiessync')))
       return;
       
     add_options_page(
@@ -57,7 +57,7 @@ class Synchronization {
         <button class="button button-primary" onclick="syncBlocks(event)"><?= __('Sync', 'iasd') ?></button>
       <?php endif; ?>
 
-      <?php if(Modules::isActiveModule('taxonomiessync')): ?>
+      <?php if(Modules::isActiveModule('taxonomies') && Modules::isActiveModule('taxonomiessync')): ?>
         <h2><?= __('Taxonomies', 'iasd') ?></h2>
         <p><?= __('Sync taxonomies data', 'iasd') ?></p>
         <button class="button button-primary" onclick="syncTaxonomies(event)"><?= __('Sync', 'iasd') ?></button>
@@ -75,7 +75,7 @@ class Synchronization {
    */
   function addToolbar(object $wp_admin_bar): void {
     $blocks     = Modules::isActiveModule('blocks');
-    $taxonomies = Modules::isActiveModule('taxonomiessync');
+    $taxonomies = Modules::isActiveModule('taxonomies') && Modules::isActiveModule('taxonomiessync');
 
     if(!$blocks && !$taxonomies)
       return;

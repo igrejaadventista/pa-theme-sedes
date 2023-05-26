@@ -2,6 +2,8 @@
 
 namespace IASD\Core;
 
+use IASD\Core\Settings\Modules;
+
 class Taxonomies {
   
   /**
@@ -9,22 +11,62 @@ class Taxonomies {
    *
    * @var array
    */
-  private $taxonomies = [];
+  public static $taxonomies = [];
 
   public function __construct() {
-    $this->taxonomies = [
-      'xtt-pa-colecoes'      => [__('Collections', 'webdsa'),           __('Collection', 'webdsa'),           false],
-      'xtt-pa-editorias'     => [__('Editorials', 'webdsa'),            __('Editorial', 'webdsa'),            true],
-      'xtt-pa-departamentos' => [__('Ministries', 'webdsa'),            __('Ministry', 'webdsa'),             false],
-      'xtt-pa-projetos'      => [__('Projects', 'webdsa'),              __('Project', 'webdsa'),              false],
-      'xtt-pa-regiao'        => [__('Region', 'webdsa'),                __('Regions', 'webdsa'),              false],
-      'xtt-pa-sedes'         => [__('Regional Headquarters', 'webdsa'), __('Regional Headquarter', 'webdsa'), true],
-      'xtt-pa-owner'         => [__('Owner Headquarter', 'webdsa'),     __('Owner Headquarter', 'webdsa'),    true],
-      'xtt-pa-materiais'     => [__('File type', 'webdsa'),             __('File type', 'webdsa'),            false]
+    self::$taxonomies = [
+      'xtt-pa-colecoes'      => [
+        'name'              => __('Collections', 'webdsa'),           
+        'singular_name'     => __('Collection', 'webdsa'),
+        'description'       => __('', 'webdsa'), 
+        'show_admin_column' => false
+      ],
+      'xtt-pa-editorias'     => [
+        'name'              => __('Editorials', 'webdsa'),            
+        'singular_name'     => __('Editorial', 'webdsa'),            
+        'description'       => __('', 'webdsa'), 
+        'show_admin_column' => true
+      ],
+      'xtt-pa-departamentos' => [
+        'name'              => __('Ministries', 'webdsa'),            
+        'singular_name'     => __('Ministry', 'webdsa'),             
+        'description'       => __('', 'webdsa'), 
+        'show_admin_column' => false
+      ],
+      'xtt-pa-projetos'      => [
+        'name'              => __('Projects', 'webdsa'),              
+        'singular_name'     => __('Project', 'webdsa'),              
+        'description'       => __('', 'webdsa'), 
+        'show_admin_column' => false
+      ],
+      'xtt-pa-regiao'        => [
+        'name'              => __('Region', 'webdsa'),                
+        'singular_name'     => __('Regions', 'webdsa'),              
+        'description'       => __('', 'webdsa'), 
+        'show_admin_column' => false
+      ],
+      'xtt-pa-sedes'         => [
+        'name'              => __('Regional Headquarters', 'webdsa'), 
+        'singular_name'     => __('Regional Headquarter', 'webdsa'), 
+        'description'       => __('', 'webdsa'), 
+        'show_admin_column' => true
+      ],
+      'xtt-pa-owner'         => [
+        'name'              => __('Owner Headquarter', 'webdsa'),     
+        'singular_name'     => __('Owner Headquarter', 'webdsa'),    
+        'description'       => __('', 'webdsa'), 
+        'show_admin_column' => true
+      ],
+      'xtt-pa-materiais'     => [
+        'name'              => __('File type', 'webdsa'),             
+        'singular_name'     => __('File type', 'webdsa'),            
+        'description'       => __('', 'webdsa'), 
+        'show_admin_column' => false
+      ],
     ];
 
-    add_action('after_setup_theme', [$this, 'register'], 8);
-    add_filter('rest_post_query',   [$this, 'filterQuery'], 10, 2);
+    add_action('init',            [$this, 'register'], 8);
+    add_filter('rest_post_query', [$this, 'filterQuery'], 10, 2);
 
     // Desativar o delete default de terms do WP
     add_filter('pre_delete_term', [$this, 'delete']);
@@ -45,6 +87,9 @@ class Taxonomies {
    * @return void
    */
   function styles(): void {
+    if(!Modules::isActiveModule('taxonomies'))
+      return;
+
     echo '<style>
             .edit-tags-php #wpbody-content .actions.bulkactions, 
             #wpbody-content .form-field.term-parent-wrap a,
@@ -60,10 +105,16 @@ class Taxonomies {
    * @return void
    */
   function register(): void {
-    foreach($this->taxonomies as $key => $value):
+    if(!Modules::isActiveModule('taxonomies'))
+      return;
+
+    foreach(self::$taxonomies as $key => $value):
+      if(!Modules::isActiveModule('taxonomy_' . $key))
+        continue;
+
       $labels = array(
-        'name'              => $value[0],
-        'singular_name'     => $value[1],
+        'name'              => $value['name'],
+        'singular_name'     => $value['singular_name'],
         'search_items'      => __('Search', 'webdsa'),
         'all_items'         => __('All itens', 'webdsa'),
         'parent_item'       => $value[1] . ', father',
@@ -76,11 +127,12 @@ class Taxonomies {
       );
 
       $args   = array(
+        'description'         => $value['description'], 
         'hierarchical'        => true, // make it hierarchical (like categories)
         'labels'              => $labels,
         'show_ui'             => true,
         'show_in_menu'        => current_user_can('administrator'),
-        'show_admin_column'   => $value[2],
+        'show_admin_column'   => $value['show_admin_column'],
         'query_var'           => true,
         'rewrite'             => array('slug' => sanitize_title($value[1])),
         'public'              => true,
@@ -100,6 +152,9 @@ class Taxonomies {
    * @return array Modified arguments
    */
   function filterQuery(array $args, \WP_REST_Request $request): array {
+    if(!Modules::isActiveModule('taxonomies'))
+      return $args;
+
     $params = $request->get_params();
 
     foreach($this->taxonomies as $key => $value):
@@ -126,6 +181,9 @@ class Taxonomies {
    * @return void
    */
   function delete(int $term_id): void {
+    if(!Modules::isActiveModule('taxonomies'))
+      return;
+
     $term_trash = get_term_meta($term_id, 'term_trash', true);
     $user       = wp_get_current_user();
     $roles      = (array) $user->roles;
@@ -142,6 +200,9 @@ class Taxonomies {
    * @return array Modified terms
    */
   function get(array $terms): array {
+    if(!Modules::isActiveModule('taxonomies'))
+      return $terms;
+
     if (!isset($_GET['tag_ID'])) {
       $actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 
@@ -186,6 +247,9 @@ class Taxonomies {
    * @return array Modified actions
    */
   function filterActions(array $actions, \WP_Term $tag): array {
+    if(!Modules::isActiveModule('taxonomies'))
+      return $actions;
+
     $term_id = $tag->term_id;
 
     if(isset($_GET['terms_trashed'])) {
@@ -206,6 +270,9 @@ class Taxonomies {
    * @return void
    */
   function restore(): void {
+    if(!Modules::isActiveModule('taxonomies'))
+      return;
+
     if(!isset($_GET['restore_term']))
       return;
 
