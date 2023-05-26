@@ -51,11 +51,7 @@
           ]
         }
       }
-    },
-    {
-			"type": "git",
-			"url": "https://github.com/igrejaadventista/pa-register-taxonomy"
-		}
+    }
   ],
   "autoload": {
     "psr-4": {
@@ -69,7 +65,6 @@
     "wordplate/acf": "^13.0.1",
     "studiovisual/acf-gutenblocks": "dev-release/0.4.2",
     "lordealeister/acf-multisite-options": "dev-master",
-    "webdsa/pa-plugin-register-taxonomy": "dev-main",
     "ben.moody/wp-rest-headless": "dev-master"
   },
   "config": {
