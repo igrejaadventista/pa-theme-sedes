@@ -169,9 +169,11 @@ class PATaxonomiesSync {
 
     if(!is_wp_error($updated_term)):
       add_term_meta($updated_term['term_id'], 'pa_tax_id_remote', $term->id, true);
+
+      return $updated_term['term_id']; // Return the updated term id
     endif;
 
-    return $updated_term['term_id']; // Return the updated term id
+    return 0;
 	}
   
   /**

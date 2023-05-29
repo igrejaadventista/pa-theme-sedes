@@ -117,13 +117,13 @@ class Taxonomies {
         'singular_name'     => $value['singular_name'],
         'search_items'      => __('Search', 'iasd'),
         'all_items'         => __('All itens', 'iasd'),
-        'parent_item'       => $value[1] . ', father',
-        'parent_item_colon' => $value[1] . ', father',
+        'parent_item'       => $value['singular_name'] . ', father',
+        'parent_item_colon' => $value['singular_name'] . ', father',
         'edit_item'         => __('Edit', 'iasd'),
         'update_item'       => __('Update', 'iasd'),
         'add_new_item'      => __('Add new', 'iasd'),
         'new_item_name'     => __('New', 'iasd'),
-        'menu_name'         => $value[1],
+        'menu_name'         => $value['singular_name'],
       );
 
       $args   = array(
@@ -134,7 +134,7 @@ class Taxonomies {
         'show_in_menu'        => current_user_can('administrator'),
         'show_admin_column'   => $value['show_admin_column'],
         'query_var'           => true,
-        'rewrite'             => array('slug' => sanitize_title($value[1])),
+        'rewrite'             => array('slug' => sanitize_title($value['singular_name'])),
         'public'              => true,
         'show_in_rest'        => true, // add support for Gutenberg editor
       );
