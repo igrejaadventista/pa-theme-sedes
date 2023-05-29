@@ -96,7 +96,8 @@ class Blocks
           return Modules::isActiveModule("block_{$name}");
         });
 
-        $newBlocks[] = PARow::class;
+        if(!in_array('Blocks\PARow\PARow', $blocks))
+          $newBlocks[] = PARow::class;
 
         // Merge registered blocks with new blocks
         return array_merge($blocks, $newBlocks);
