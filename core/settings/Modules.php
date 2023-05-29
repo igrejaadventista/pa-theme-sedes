@@ -108,6 +108,11 @@ class Modules {
         ->wrapper([
           'width' => 50,
         ]),
+
+      TrueFalse::make(__('Seventh column', 'iasd'), self::$prefix . 'seventhcolumn')
+        ->instructions(__('Enable/disable IASD seventh column', 'iasd'))
+        ->stylisedUi(__('Enabled', 'iasd'), __('Disabled', 'iasd'))
+        ->defaultValue(true),
     ];
   }
   
@@ -123,7 +128,10 @@ class Modules {
       TrueFalse::make(__('All blocks', 'iasd'), self::$prefix . 'blocks')
         ->instructions(__('Enable/disable all IASD blocks', 'iasd'))
         ->stylisedUi(__('Enabled', 'iasd'), __('Disabled', 'iasd'))
-        ->defaultValue(true),
+        ->defaultValue(true)
+        ->wrapper([
+          'width' => 50,
+        ]),
 
       TrueFalse::make(__('IASD - Feature - Carousel', 'iasd'), self::$prefix . 'block_PACarouselFeature')
         ->instructions(__('Block to feature content on carousel format.', 'iasd'))
