@@ -16,51 +16,51 @@ class Taxonomies {
   public function __construct() {
     self::$taxonomies = [
       'xtt-pa-colecoes'      => [
-        'name'              => __('Collections', 'webdsa'),           
-        'singular_name'     => __('Collection', 'webdsa'),
-        'description'       => __('', 'webdsa'), 
+        'name'              => __('Collections', 'iasd'),           
+        'singular_name'     => __('Collection', 'iasd'),
+        'description'       => __('Collections taxonomy', 'iasd'), 
         'show_admin_column' => false
       ],
       'xtt-pa-editorias'     => [
-        'name'              => __('Editorials', 'webdsa'),            
-        'singular_name'     => __('Editorial', 'webdsa'),            
-        'description'       => __('', 'webdsa'), 
+        'name'              => __('Editorials', 'iasd'),            
+        'singular_name'     => __('Editorial', 'iasd'),            
+        'description'       => __('Editorials taxonomy', 'iasd'), 
         'show_admin_column' => true
       ],
       'xtt-pa-departamentos' => [
-        'name'              => __('Ministries', 'webdsa'),            
-        'singular_name'     => __('Ministry', 'webdsa'),             
-        'description'       => __('', 'webdsa'), 
+        'name'              => __('Ministries', 'iasd'),            
+        'singular_name'     => __('Ministry', 'iasd'),             
+        'description'       => __('Ministries taxonomy', 'iasd'), 
         'show_admin_column' => false
       ],
       'xtt-pa-projetos'      => [
-        'name'              => __('Projects', 'webdsa'),              
-        'singular_name'     => __('Project', 'webdsa'),              
-        'description'       => __('', 'webdsa'), 
+        'name'              => __('Projects', 'iasd'),              
+        'singular_name'     => __('Project', 'iasd'),              
+        'description'       => __('Projects taxonomy', 'iasd'), 
         'show_admin_column' => false
       ],
       'xtt-pa-regiao'        => [
-        'name'              => __('Region', 'webdsa'),                
-        'singular_name'     => __('Regions', 'webdsa'),              
-        'description'       => __('', 'webdsa'), 
+        'name'              => __('Regions', 'iasd'),                
+        'singular_name'     => __('Region', 'iasd'),              
+        'description'       => __('Regions taxonomy', 'iasd'), 
         'show_admin_column' => false
       ],
       'xtt-pa-sedes'         => [
-        'name'              => __('Regional Headquarters', 'webdsa'), 
-        'singular_name'     => __('Regional Headquarter', 'webdsa'), 
-        'description'       => __('', 'webdsa'), 
+        'name'              => __('Regional Headquarters', 'iasd'), 
+        'singular_name'     => __('Regional Headquarter', 'iasd'), 
+        'description'       => __('Regional Headquarters taxonomy', 'iasd'), 
         'show_admin_column' => true
       ],
       'xtt-pa-owner'         => [
-        'name'              => __('Owner Headquarter', 'webdsa'),     
-        'singular_name'     => __('Owner Headquarter', 'webdsa'),    
-        'description'       => __('', 'webdsa'), 
+        'name'              => __('Owner Headquarters', 'iasd'),     
+        'singular_name'     => __('Owner Headquarter', 'iasd'),    
+        'description'       => __('Owner Headquarters taxonomy', 'iasd'), 
         'show_admin_column' => true
       ],
       'xtt-pa-materiais'     => [
-        'name'              => __('File type', 'webdsa'),             
-        'singular_name'     => __('File type', 'webdsa'),            
-        'description'       => __('', 'webdsa'), 
+        'name'              => __('File types', 'iasd'),             
+        'singular_name'     => __('File type', 'iasd'),            
+        'description'       => __('File types taxonomy', 'iasd'), 
         'show_admin_column' => false
       ],
     ];
@@ -115,14 +115,14 @@ class Taxonomies {
       $labels = array(
         'name'              => $value['name'],
         'singular_name'     => $value['singular_name'],
-        'search_items'      => __('Search', 'webdsa'),
-        'all_items'         => __('All itens', 'webdsa'),
+        'search_items'      => __('Search', 'iasd'),
+        'all_items'         => __('All itens', 'iasd'),
         'parent_item'       => $value[1] . ', father',
         'parent_item_colon' => $value[1] . ', father',
-        'edit_item'         => __('Edit', 'webdsa'),
-        'update_item'       => __('Update', 'webdsa'),
-        'add_new_item'      => __('Add new', 'webdsa'),
-        'new_item_name'     => __('New', 'webdsa'),
+        'edit_item'         => __('Edit', 'iasd'),
+        'update_item'       => __('Update', 'iasd'),
+        'add_new_item'      => __('Add new', 'iasd'),
+        'new_item_name'     => __('New', 'iasd'),
         'menu_name'         => $value[1],
       );
 

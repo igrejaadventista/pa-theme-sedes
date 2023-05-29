@@ -79,7 +79,7 @@ class Modules {
 
       TrueFalse::make(__('Sidebars', 'iasd'), self::$prefix . 'sidebars')
         ->instructions(__('Enable/disable all IASD sidebars', 'iasd'))
-        ->stylisedUi()
+        ->stylisedUi(__('Enabled', 'iasd'), __('Disabled', 'iasd'))
         ->defaultValue(true)
         ->wrapper([
           'width' => 50,
@@ -87,7 +87,7 @@ class Modules {
 
       TrueFalse::make(__('Search page', 'iasd'), self::$prefix . 'searchpage')
         ->instructions(__('Enable/disable IASD custom search page', 'iasd'))
-        ->stylisedUi()
+        ->stylisedUi(__('Enabled', 'iasd'), __('Disabled', 'iasd'))
         ->defaultValue(true)
         ->wrapper([
           'width' => 50,
@@ -95,7 +95,7 @@ class Modules {
 
       TrueFalse::make(__('Header title', 'iasd'), self::$prefix . 'headertitle')
         ->instructions(__('Enable/disable IASD custom header title', 'iasd'))
-        ->stylisedUi()
+        ->stylisedUi(__('Enabled', 'iasd'), __('Disabled', 'iasd'))
         ->defaultValue(true)
         ->wrapper([
           'width' => 50,
@@ -103,7 +103,7 @@ class Modules {
 
       TrueFalse::make(__('REST cleanup', 'iasd'), self::$prefix . 'restcleanup')
         ->instructions(__('Enable/disable IASD REST cleanup', 'iasd'))
-        ->stylisedUi()
+        ->stylisedUi(__('Enabled', 'iasd'), __('Disabled', 'iasd'))
         ->defaultValue(true)
         ->wrapper([
           'width' => 50,
@@ -122,12 +122,12 @@ class Modules {
 
       TrueFalse::make(__('All blocks', 'iasd'), self::$prefix . 'blocks')
         ->instructions(__('Enable/disable all IASD blocks', 'iasd'))
-        ->stylisedUi()
+        ->stylisedUi(__('Enabled', 'iasd'), __('Disabled', 'iasd'))
         ->defaultValue(true),
 
       TrueFalse::make(__('IASD - Feature - Carousel', 'iasd'), self::$prefix . 'block_PACarouselFeature')
         ->instructions(__('Block to feature content on carousel format.', 'iasd'))
-        ->stylisedUi()
+        ->stylisedUi(__('Enabled', 'iasd'), __('Disabled', 'iasd'))
         ->defaultValue(true)
         ->wrapper([
           'width' => 50,
@@ -136,7 +136,7 @@ class Modules {
 
       TrueFalse::make(__('IASD - Twitter', 'iasd'), self::$prefix . 'block_PATwitter')
         ->instructions(__('IASD Twitter block.', 'iasd'))
-        ->stylisedUi()
+        ->stylisedUi(__('Enabled', 'iasd'), __('Disabled', 'iasd'))
         ->defaultValue(true)
         ->wrapper([
           'width' => 50,
@@ -145,7 +145,7 @@ class Modules {
 
       TrueFalse::make(__('IASD - Facebook', 'iasd'), self::$prefix . 'block_PAFacebook')
         ->instructions(__('IASD Facebok block.', 'iasd'))
-        ->stylisedUi()
+        ->stylisedUi(__('Enabled', 'iasd'), __('Disabled', 'iasd'))
         ->defaultValue(true)
         ->wrapper([
           'width' => 50,
@@ -154,7 +154,7 @@ class Modules {
 
       TrueFalse::make(__('IASD - Icons - List', 'iasd'), self::$prefix . 'block_PAListIcons')
         ->instructions(__('Block to show contents in list format with icons.', 'iasd'))
-        ->stylisedUi()
+        ->stylisedUi(__('Enabled', 'iasd'), __('Disabled', 'iasd'))
         ->defaultValue(true)
         ->wrapper([
           'width' => 50,
@@ -163,7 +163,7 @@ class Modules {
 
       TrueFalse::make(__('IASD - Itens - List', 'iasd'), self::$prefix . 'block_PAListItems')
         ->instructions(__('Block to show contents in list format with images.', 'iasd'))
-        ->stylisedUi()
+        ->stylisedUi(__('Enabled', 'iasd'), __('Disabled', 'iasd'))
         ->defaultValue(true)
         ->wrapper([
           'width' => 50,
@@ -172,7 +172,7 @@ class Modules {
 
       TrueFalse::make(__('IASD - Apps', 'iasd'), self::$prefix . 'block_PAApps')
         ->instructions(__('App', 'iasd'))
-        ->stylisedUi()
+        ->stylisedUi(__('Enabled', 'iasd'), __('Disabled', 'iasd'))
         ->defaultValue(true)
         ->wrapper([
           'width' => 50,
@@ -181,7 +181,7 @@ class Modules {
 
       TrueFalse::make(__('IASD - Magazines', 'iasd'), self::$prefix . 'block_PAMagazines')
         ->instructions(__('Block to show magazines content in carousel format.', 'iasd'))
-        ->stylisedUi()
+        ->stylisedUi(__('Enabled', 'iasd'), __('Disabled', 'iasd'))
         ->defaultValue(true)
         ->wrapper([
           'width' => 50,
@@ -190,7 +190,7 @@ class Modules {
 
       TrueFalse::make(__('IASD - Button - List', 'iasd'), self::$prefix . 'block_PAListButtons')
         ->instructions(__('Block with links buttons.', 'iasd'))
-        ->stylisedUi()
+        ->stylisedUi(__('Enabled', 'iasd'), __('Disabled', 'iasd'))
         ->defaultValue(true)
         ->wrapper([
           'width' => 50,
@@ -199,7 +199,7 @@ class Modules {
 
       TrueFalse::make(__('IASD - Feature Slider - Ministry', 'iasd'), self::$prefix . 'block_PACarouselMinistry')
         ->instructions(__('Block to feature content in slider format.', 'iasd'))
-        ->stylisedUi()
+        ->stylisedUi(__('Enabled', 'iasd'), __('Disabled', 'iasd'))
         ->defaultValue(true)
         ->wrapper([
           'width' => 50,
@@ -208,7 +208,7 @@ class Modules {
 
       TrueFalse::make(__('IASD - 7Cast', 'iasd'), self::$prefix . 'block_PASevenCast')
         ->instructions(__('Block to show 7cast content in list format.', 'iasd'))
-        ->stylisedUi()
+        ->stylisedUi(__('Enabled', 'iasd'), __('Disabled', 'iasd'))
         ->defaultValue(true)
         ->wrapper([
           'width' => 50,
@@ -217,7 +217,7 @@ class Modules {
         
       TrueFalse::make(__('IASD - Downloads - List', 'iasd'), self::$prefix . 'block_PAListDownloads')
         ->instructions(__('Block to show downloads contents in list format.', 'iasd'))
-        ->stylisedUi()
+        ->stylisedUi(__('Enabled', 'iasd'), __('Disabled', 'iasd'))
         ->defaultValue(true)
         ->wrapper([
           'width' => 50,
@@ -226,7 +226,7 @@ class Modules {
         
       TrueFalse::make(__('IASD - Downloads - Carousel', 'iasd'), self::$prefix . 'block_PACarouselDownloads')
         ->instructions(__('Block from downloads content on carousel format.', 'iasd'))
-        ->stylisedUi()
+        ->stylisedUi(__('Enabled', 'iasd'), __('Disabled', 'iasd'))
         ->defaultValue(true)
         ->wrapper([
           'width' => 50,
@@ -235,7 +235,7 @@ class Modules {
         
       TrueFalse::make(__('IASD - News - List', 'iasd'), self::$prefix . 'block_PAListNews')
         ->instructions(__('Block to show contents in list format with images.', 'iasd'))
-        ->stylisedUi()
+        ->stylisedUi(__('Enabled', 'iasd'), __('Disabled', 'iasd'))
         ->defaultValue(true)
         ->wrapper([
           'width' => 50,
@@ -244,7 +244,7 @@ class Modules {
         
       TrueFalse::make(__('IASD - Feliz7Play', 'iasd'), self::$prefix . 'block_PAFeliz7Play')
         ->instructions(__('Feliz7Play content block.', 'iasd'))
-        ->stylisedUi()
+        ->stylisedUi(__('Enabled', 'iasd'), __('Disabled', 'iasd'))
         ->defaultValue(true)
         ->wrapper([
           'width' => 50,
@@ -253,7 +253,7 @@ class Modules {
         
       TrueFalse::make(__('IASD - Videos - List(A)', 'iasd'), self::$prefix . 'block_PAListVideos')
         ->instructions(__('Block to show videos content in list format.', 'iasd'))
-        ->stylisedUi()
+        ->stylisedUi(__('Enabled', 'iasd'), __('Disabled', 'iasd'))
         ->defaultValue(true)
         ->wrapper([
           'width' => 50,
@@ -262,7 +262,7 @@ class Modules {
         
       TrueFalse::make(__('IASD - Image', 'iasd'), self::$prefix . 'block_PAImage')
         ->instructions(__('Block to show a image.', 'iasd'))
-        ->stylisedUi()
+        ->stylisedUi(__('Enabled', 'iasd'), __('Disabled', 'iasd'))
         ->defaultValue(true)
         ->wrapper([
           'width' => 50,
@@ -271,7 +271,7 @@ class Modules {
         
       TrueFalse::make(__('IASD - Find church', 'iasd'), self::$prefix . 'block_PAFindChurch')
         ->instructions(__('Block to show a box to find a church.', 'iasd'))
-        ->stylisedUi()
+        ->stylisedUi(__('Enabled', 'iasd'), __('Disabled', 'iasd'))
         ->defaultValue(true)
         ->wrapper([
           'width' => 50,
@@ -280,7 +280,7 @@ class Modules {
         
       TrueFalse::make(__('IASD - Kits - Carousel', 'iasd'), self::$prefix . 'block_PACarouselKits')
         ->instructions(__('Block from kits content on carousel format.', 'iasd'))
-        ->stylisedUi()
+        ->stylisedUi(__('Enabled', 'iasd'), __('Disabled', 'iasd'))
         ->defaultValue(true)
         ->wrapper([
           'width' => 50,
@@ -289,7 +289,7 @@ class Modules {
         
       TrueFalse::make(__('IASD - Quero vida e saúde', 'iasd'), self::$prefix . 'block_PAQueroVidaSaude')
         ->instructions(__('Block to show contents from https://querovidaesaude.com/.', 'iasd'))
-        ->stylisedUi()
+        ->stylisedUi(__('Enabled', 'iasd'), __('Disabled', 'iasd'))
         ->defaultValue(true)
         ->wrapper([
           'width' => 50,
@@ -309,7 +309,7 @@ class Modules {
 
       TrueFalse::make(__('All taxonomies', 'iasd'), self::$prefix . 'taxonomies')
         ->instructions(__('Enable/disable all IASD taxonomies', 'iasd'))
-        ->stylisedUi()
+        ->stylisedUi(__('Enabled', 'iasd'), __('Disabled', 'iasd'))
         ->defaultValue(true)
         ->wrapper([
           'width' => 50,
@@ -317,7 +317,7 @@ class Modules {
 
       TrueFalse::make(__('Taxonomies synchronization', 'iasd'), self::$prefix . 'taxonomiessync')
         ->instructions(__('Enable/disable IASD taxonomies synchronization', 'iasd'))
-        ->stylisedUi()
+        ->stylisedUi(__('Enabled', 'iasd'), __('Disabled', 'iasd'))
         ->defaultValue(true)
         ->wrapper([
           'width' => 50,
@@ -328,7 +328,7 @@ class Modules {
     foreach(Taxonomies::$taxonomies as $key => $value):
       $fields[] = TrueFalse::make($value['name'], self::$prefix . 'taxonomy_' . $key)
                     ->instructions($value['description'])
-                    ->stylisedUi()
+                    ->stylisedUi(__('Enabled', 'iasd'), __('Disabled', 'iasd'))
                     ->defaultValue(true)
                     ->wrapper([
                       'width' => 50,
