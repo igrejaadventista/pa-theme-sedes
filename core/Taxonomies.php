@@ -157,7 +157,7 @@ class Taxonomies {
 
     $params = $request->get_params();
 
-    foreach($this->taxonomies as $key => $value):
+    foreach(self::$taxonomies as $key => $value):
       if(isset($params["{$key}-tax"])):
         $args['tax_query'][] = array(
           array(
