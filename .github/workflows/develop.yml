@@ -45,7 +45,7 @@ jobs:
         uses: appleboy/ssh-action@v0.1.10
         with:
           host: ${{ secrets.SSH_DEV_DEPLOY_HOST }}
-          username: ubuntu
+          username: root
           key: ${{ secrets.SSH_DEV_DEPLOY_KEY}}
           port: 22
           script: |
@@ -61,7 +61,7 @@ jobs:
           path: ./var/www/downloads/pt/wp-content/themes/pa-theme-sedes
           remote_host: ${{ secrets.SSH_DEV_DEPLOY_HOST }}
           remote_port: 22
-          remote_user: ubuntu
+          remote_user: root
           remote_key: ${{ secrets.SSH_DEV_DEPLOY_KEY }}
       
       - name: Copiando theme adventistas
@@ -71,7 +71,7 @@ jobs:
           path: ./var/www/adventistas/pt/wp-content/themes/pa-theme-sedes
           remote_host: ${{ secrets.SSH_DEV_DEPLOY_HOST }}
           remote_port: 22
-          remote_user: ubuntu
+          remote_user: root
           remote_key: ${{ secrets.SSH_DEV_DEPLOY_KEY }}      
       
       - name: Copiando theme videos
@@ -81,7 +81,7 @@ jobs:
           path: ./var/www/videos/pt/wp-content/themes/pa-theme-sedes
           remote_host: ${{ secrets.SSH_DEV_DEPLOY_HOST }}
           remote_port: 22
-          remote_user: ubuntu
+          remote_user: root
           remote_key: ${{ secrets.SSH_DEV_DEPLOY_KEY }}
           
       - name: Copiando theme noticias
@@ -91,14 +91,14 @@ jobs:
           path: ./var/www/noticias/pt/wp-content/themes/pa-theme-sedes
           remote_host: ${{ secrets.SSH_DEV_DEPLOY_HOST }}
           remote_port: 22
-          remote_user: ubuntu
+          remote_user: root
           remote_key: ${{ secrets.SSH_DEV_DEPLOY_KEY }}             
       
       - name: Ajusta Permissões
         uses: appleboy/ssh-action@v0.1.10
         with:
           host: ${{ secrets.SSH_DEV_DEPLOY_HOST }}
-          username: ubuntu
+          username: root
           key: ${{ secrets.SSH_DEV_DEPLOY_KEY}}
           port: 22
           script: |
