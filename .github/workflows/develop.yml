@@ -1,4 +1,4 @@
-name: Ambiente de testes - adv.intest.com.br
+name: Ambiente de homologação
 on:
   push:
     branches:
@@ -45,30 +45,63 @@ jobs:
         uses: appleboy/ssh-action@v0.1.10
         with:
           host: ${{ secrets.SSH_DEV_DEPLOY_HOST }}
-          username: studio
+          username: ubuntu
           key: ${{ secrets.SSH_DEV_DEPLOY_KEY}}
           port: 22
-          script: echo "${{ secrets.SUDO }}" | sudo -S chmod -R 777  /mnt/intest_volume_timejp/adventistas_seed/public/app/pt/wp-content/themes/pa-theme-sedes
+          script: |
+            echo "${{ secrets.SUDO }}" | sudo -S chmod -R 777  /var/www/downloads/pt/wp-content/themes/pa-theme-sedes
+            echo "${{ secrets.SUDO }}" | sudo -S chmod -R 777  /var/www/adventistas/pt/wp-content/themes/pa-theme-sedes
+            echo "${{ secrets.SUDO }}" | sudo -S chmod -R 777  /var/www/videos/pt/wp-content/themes/pa-theme-sedes
+            echo "${{ secrets.SUDO }}" | sudo -S chmod -R 777  /var/www/noticias/pt/wp-content/themes/pa-theme-sedes
       
-      - name: Copiando arquivos do plugin para ambiente de testes
+      - name: Copiando theme downloads
         uses: burnett01/rsync-deployments@4.1
         with:
           switches: --no-perms -O --filter="merge rsync-filter.txt" --delete -Prltvz
-          path: ./
-          remote_path: /mnt/intest_volume_timejp/adventistas_seed/public/app/pt/wp-content/themes/pa-theme-sedes/
+          path: ./var/www/downloads/pt/wp-content/themes/pa-theme-sedes
           remote_host: ${{ secrets.SSH_DEV_DEPLOY_HOST }}
           remote_port: 22
-          remote_user: studio
+          remote_user: ubuntu
+          remote_key: ${{ secrets.SSH_DEV_DEPLOY_KEY }}
+      
+      - name: Copiando theme adventistas
+        uses: burnett01/rsync-deployments@4.1
+        with:
+          switches: --no-perms -O --filter="merge rsync-filter.txt" --delete -Prltvz
+          path: ./var/www/adventistas/pt/wp-content/themes/pa-theme-sedes
+          remote_host: ${{ secrets.SSH_DEV_DEPLOY_HOST }}
+          remote_port: 22
+          remote_user: ubuntu
+          remote_key: ${{ secrets.SSH_DEV_DEPLOY_KEY }}      
+      
+      - name: Copiando theme videos
+        uses: burnett01/rsync-deployments@4.1
+        with:
+          switches: --no-perms -O --filter="merge rsync-filter.txt" --delete -Prltvz
+          path: ./var/www/videos/pt/wp-content/themes/pa-theme-sedes
+          remote_host: ${{ secrets.SSH_DEV_DEPLOY_HOST }}
+          remote_port: 22
+          remote_user: ubuntu
           remote_key: ${{ secrets.SSH_DEV_DEPLOY_KEY }}
           
+      - name: Copiando theme noticias
+        uses: burnett01/rsync-deployments@4.1
+        with:
+          switches: --no-perms -O --filter="merge rsync-filter.txt" --delete -Prltvz
+          path: ./var/www/noticias/pt/wp-content/themes/pa-theme-sedes
+          remote_host: ${{ secrets.SSH_DEV_DEPLOY_HOST }}
+          remote_port: 22
+          remote_user: ubuntu
+          remote_key: ${{ secrets.SSH_DEV_DEPLOY_KEY }}             
+      
       - name: Ajusta Permissões
         uses: appleboy/ssh-action@v0.1.10
         with:
           host: ${{ secrets.SSH_DEV_DEPLOY_HOST }}
-          username: studio
+          username: ubuntu
           key: ${{ secrets.SSH_DEV_DEPLOY_KEY}}
           port: 22
           script: |
-            echo "${{ secrets.SUDO }}" | sudo -S chown -R www-data:www-data  /mnt/intest_volume_timejp/adventistas_seed/public/app/pt/wp-content/themes/pa-theme-sedes
-            echo "${{ secrets.SUDO }}" | sudo -S find  /mnt/intest_volume_timejp/adventistas_seed/public/app/pt/wp-content/themes/pa-theme-sedesn -type d -exec chmod 750 {} \;
-            echo "${{ secrets.SUDO }}" | sudo -S find /mnt/intest_volume_timejp/adventistas_seed/public/app/pt/wp-content/themes/pa-theme-sedes -type f -exec chmod 640 {} \;
+            echo "${{ secrets.SUDO }}" | sudo -S chown -R www-data:www-data  /var/www
+            echo "${{ secrets.SUDO }}" | sudo -S find  /var/www -type d -exec chmod 750 {} \;
+            echo "${{ secrets.SUDO }}" | sudo -S find /var/www -type f -exec chmod 640 {} \;
