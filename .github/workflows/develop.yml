@@ -58,7 +58,8 @@ jobs:
         uses: burnett01/rsync-deployments@4.1
         with:
           switches: --no-perms -O --filter="merge rsync-filter.txt" --delete -Prltvz
-          path: ./var/www/downloads/pt/wp-content/themes/pa-theme-sedes
+          path: ./
+          remote_path: ./var/www/downloads/pt/wp-content/themes/pa-theme-sedes
           remote_host: ${{ secrets.SSH_DEV_DEPLOY_HOST }}
           remote_port: 22
           remote_user: root
@@ -68,7 +69,8 @@ jobs:
         uses: burnett01/rsync-deployments@4.1
         with:
           switches: --no-perms -O --filter="merge rsync-filter.txt" --delete -Prltvz
-          path: ./var/www/adventistas/pt/wp-content/themes/pa-theme-sedes
+          path: ./
+          remote_path: ./var/www/adventistas/pt/wp-content/themes/pa-theme-sedes
           remote_host: ${{ secrets.SSH_DEV_DEPLOY_HOST }}
           remote_port: 22
           remote_user: root
@@ -78,7 +80,8 @@ jobs:
         uses: burnett01/rsync-deployments@4.1
         with:
           switches: --no-perms -O --filter="merge rsync-filter.txt" --delete -Prltvz
-          path: ./var/www/videos/pt/wp-content/themes/pa-theme-sedes
+          path: ./
+          remote_path: ./var/www/videos/pt/wp-content/themes/pa-theme-sedes
           remote_host: ${{ secrets.SSH_DEV_DEPLOY_HOST }}
           remote_port: 22
           remote_user: root
@@ -88,7 +91,8 @@ jobs:
         uses: burnett01/rsync-deployments@4.1
         with:
           switches: --no-perms -O --filter="merge rsync-filter.txt" --delete -Prltvz
-          path: ./var/www/noticias/pt/wp-content/themes/pa-theme-sedes
+          path: ./
+          remote_path: ./var/www/noticias/pt/wp-content/themes/pa-theme-sedes
           remote_host: ${{ secrets.SSH_DEV_DEPLOY_HOST }}
           remote_port: 22
           remote_user: root
