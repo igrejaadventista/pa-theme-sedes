@@ -5,6 +5,47 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.5.31] - 2023-05-18
+
+### Fix
+
+- Removendo trecho de códio desconhecido no arquivo RemoteData.php que estava causando erro nas chamadas que alimenta os blocos quando o WP_DEBUG está ativo. 
+
+## [1.5.30] - 2023-05-17
+
+### Fix
+
+- Corrigindo mensagens de warning 
+
+## [1.5.29] - 2023-04-25
+
+### Fix
+
+- Expecificando caminho dos arquivos de cache do blaid (/uploads/.bladecache)
+- Acertando alguns pontos que estavam gerando PHP warning
+
+## [1.5.28] - 2023-04-03
+
+### Fix
+
+- Ajustando script que sincroniza as taxonomias, adicionando logo do campo mibes
+
+
+## [1.5.27] - 2023-01-12
+
+### Fix
+
+- Removendo parâmetro de 'event': 'Pageview', no datalayer.
+- Adicionando logo do campo MBON.
+- Adicionando logo do campo MBOS.
+
+
+## [1.5.26] - 2023-01-10
+
+### Fix
+
+- Mudando chamada da camada de dataLayar para o header.
+
 ## [1.5.25] - 2022-12-07
 
 ### Fix

@@ -11,6 +11,7 @@
 				<div class="pa-glide-destaques">
 					<div class="glide__track" data-glide-el="track">
 						<div class="glide__slides">
+						@if(is_array($items))
 							@foreach($items as $item)
 								<div class="glide__slide position-relative">
 									<div class="ratio ratio-208x241 d-block">
@@ -42,6 +43,7 @@
 									@endnotempty
 								</div>
 							@endforeach
+							@endif
 						</div>
 					</div>
 
@@ -55,9 +57,11 @@
 							</div>
 
 							<div class="mx-2 pa-slider-bullet" data-glide-el="controls[nav]">
-								@foreach($items as $item)
+							@if(is_array($items))	
+							@foreach($items as $item)
 									<i class="fas fa-circle fa-xs mx-1" data-glide-dir="={{ $loop->index }}"></i>
 								@endforeach
+								@endif
 							</div>
 
 							<div data-glide-el="controls">

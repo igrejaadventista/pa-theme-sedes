@@ -3,9 +3,9 @@
 namespace Blocks\PAListDownloads;
 
 use Blocks\Block;
-use Extended\RemoteData;
+use ExtendedLocal\RemoteData;
 use Fields\MoreContent;
-use WordPlate\Acf\Fields\Text;
+use Extended\ACF\Fields\Text;
 
 /**
  * Class PAListDownloads
@@ -70,12 +70,25 @@ class PAListDownloads extends Block {
      *
      * @return array
      */
-    public function with(): array {
-        return [
-            'title' 	  => get_field('title'),
-            'items' 	  => get_field('items')['data'],
-			'enable_link' => get_field('enable_link'),
-			'link'    	  => get_field('link'),
-        ];
-    }
+    public function with(): array
+	{
+		$title = get_field('title');
+		$items = null;
+		$items_field = get_field('items');
+	
+		if ($items_field !== null) {
+			$items = $items_field['data'];
+		}
+	
+		$enable_link = get_field('enable_link');
+		$link = get_field('link');
+	
+		return [
+			'title'        => $title,
+			'items'        => $items,
+			'enable_link'  => $enable_link,
+			'link'         => $link,
+		];
+	}
+	
 }

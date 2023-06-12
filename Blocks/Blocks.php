@@ -23,6 +23,7 @@ use Blocks\PAQueroVidaSaude\PAQueroVidaSaude;
 use Blocks\PARow\PARow;
 use Blocks\PASevenCast\PASevenCast;
 use Blocks\Plugins\RemoteData\RemoteData;
+use IASD\Core\Settings\Modules;
 use stdClass;
 
 /**
@@ -41,7 +42,6 @@ class Blocks
 
         \add_action('acf/include_field_types', array($this, 'registerPlugins'));
         \add_action('enqueue_block_editor_assets', array($this, 'enqueueAssets'));
-        \add_action('admin_enqueue_scripts', array($this, 'enqueueAdminAssets'));
         \add_filter('block_categories_all', array($this, 'addCategory'));
 
         require_once('Directives.php');
@@ -54,7 +54,6 @@ class Blocks
 
         \add_action('PA-update_remote_data', array($this, 'UpdateRemoteData'));
         \add_action('wp_ajax_blocks/update_remote_data', array($this, 'UpdateRemoteData'));
-        \add_action('admin_bar_menu', array($this, 'addToolbarUpdate'), 999);
     }
 
     /**
@@ -65,6 +64,9 @@ class Blocks
      */
     public function registerBlocks(array $blocks): array
     {
+      if(!Modules::isActiveModule('blocks'))
+        return $blocks;
+
         $newBlocks = [
             PACarouselFeature::class,
             PATwitter::class,
@@ -76,7 +78,6 @@ class Blocks
             PAListButtons::class,
             PACarouselMinistry::class,
             PASevenCast::class,
-            PARow::class,
             PAListDownloads::class,
             PACarouselDownloads::class,
             PAListNews::class,
@@ -87,6 +88,16 @@ class Blocks
             PACarouselKits::class,
             PAQueroVidaSaude::class,
         ];
+
+        $newBlocks = array_filter($newBlocks, function ($block) {
+          $name = explode('\\', $block);
+          $name = last($name);
+
+          return Modules::isActiveModule("block_{$name}");
+        });
+
+        if(!in_array('Blocks\PARow\PARow', $blocks))
+          $newBlocks[] = PARow::class;
 
         // Merge registered blocks with new blocks
         return array_merge($blocks, $newBlocks);
@@ -130,23 +141,27 @@ class Blocks
 
     public function registerPlugins()
     {
+      if(!Modules::isActiveModule('blocks'))
+        return;
+
         include_once('Plugins/LocalData/LocalData.php');
         include_once('Plugins/RemoteData/RemoteData.php');
     }
 
     function enqueueAssets()
     {
+      if(!Modules::isActiveModule('blocks'))
+        return;
+
         wp_enqueue_style('blocks-stylesheet', get_template_directory_uri() . '/Blocks/assets/styles/blocks.css', array(), \wp_get_theme()->get('Version'), 'all');
         wp_enqueue_script('blocks-script', get_template_directory_uri() . '/Blocks/assets/scripts/blocks.js', array('wp-hooks', 'wp-blocks', 'wp-dom-ready'));
     }
 
-    function enqueueAdminAssets()
-    {
-        wp_enqueue_script('blocks-admin-script', get_template_directory_uri() . '/Blocks/assets/scripts/admin.js', array('jquery'));
-    }
-
     function addCategory($categories)
     {
+      if(!Modules::isActiveModule('blocks'))
+        return;
+
         return array_merge(
             array(
                 array(
@@ -160,6 +175,9 @@ class Blocks
 
     function UpdateRemoteData()
     {
+      if(!Modules::isActiveModule('blocks'))
+        return;
+
         $ids = \get_posts([
             'fields'          => 'ids', // Only get post IDs
             'post_type'       => 'page',
@@ -219,18 +237,6 @@ class Blocks
 
         if(!empty($hasUpdate))
             \wp_update_post($args);
-    }
-
-    function addToolbarUpdate($wp_admin_bar)
-    {
-        $wp_admin_bar->add_node([
-            'id'    => 'sync_remote_data',
-            'title' => __('Sync data', 'iasd'),
-            'href'  => '#',
-            'meta'  => [
-                'onclick' => 'syncRemoteData(event)',
-            ],
-        ]);
     }
 
     function cronAdd($schedules)

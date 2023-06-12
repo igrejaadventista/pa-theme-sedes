@@ -30,8 +30,11 @@ class IASD_SupportUser
   {
     $email = 'suporte@internetdsa.com';
     $user = get_user_by('email', $email);
-    require_once(ABSPATH . 'wp-admin/includes/ms.php');
-    grant_super_admin($user->ID);
+
+    if(!empty($user)){
+      require_once(ABSPATH . 'wp-admin/includes/ms.php');
+      grant_super_admin($user->ID);
+    }
   }
 
   static function RemoveUser()

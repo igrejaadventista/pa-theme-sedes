@@ -2,13 +2,13 @@
 
 namespace Extended;
 
-use WordPlate\Acf\Fields\Field;
-use WordPlate\Acf\Fields\Attributes\ConditionalLogic;
-use WordPlate\Acf\Fields\Attributes\DefaultValue;
-use WordPlate\Acf\Fields\Attributes\Instructions;
-use WordPlate\Acf\Fields\Attributes\Nullable;
-use WordPlate\Acf\Fields\Attributes\Required;
-use WordPlate\Acf\Fields\Attributes\Wrapper;
+use Extended\ACF\Fields\Field;
+use Extended\ACF\Fields\Attributes\ConditionalLogic;
+use Extended\ACF\Fields\Attributes\DefaultValue;
+use Extended\ACF\Fields\Attributes\Instructions;
+use Extended\ACF\Fields\Attributes\Nullable;
+use Extended\ACF\Fields\Attributes\Required;
+use Extended\ACF\Fields\Attributes\Wrapper;
 
 /**
  * Register Taxonomy Terms field

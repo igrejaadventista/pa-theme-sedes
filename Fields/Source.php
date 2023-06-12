@@ -2,7 +2,7 @@
 
 namespace Fields;
 
-use WordPlate\Acf\Fields\ButtonGroup;
+use Extended\ACF\Fields\ButtonGroup;
 
 class Source {
 
