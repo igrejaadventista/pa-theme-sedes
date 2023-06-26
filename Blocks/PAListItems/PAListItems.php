@@ -3,9 +3,9 @@
 namespace Blocks\PAListItems;
 
 use Blocks\Block;
-use Extended\LocalData;
+use ExtendedLocal\LocalData;
 use Fields\MoreContent;
-use WordPlate\Acf\Fields\Text;
+use Extended\ACF\Fields\Text;
 
 /**
  * Class PAListItems

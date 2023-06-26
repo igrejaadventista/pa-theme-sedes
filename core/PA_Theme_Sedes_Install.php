@@ -1,7 +1,9 @@
 <?php
 
 require_once(dirname(__FILE__) . '/PATaxonomiesSync.php');
-require_once(dirname(__FILE__) . '/settings/PASynchronization.php');
+require_once(dirname(__FILE__) . '/Taxonomies.php');
+require_once(dirname(__FILE__) . '/settings/Modules.php');
+require_once(dirname(__FILE__) . '/settings/Synchronization.php');
 require_once(dirname(__FILE__) . '/utils/PA_Schedule_Custom.php');
 
 /**

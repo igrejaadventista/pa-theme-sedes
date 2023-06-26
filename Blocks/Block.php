@@ -4,8 +4,8 @@ namespace Blocks;
 
 use Itineris\AcfGutenblocks\AbstractBladeBlock;
 
-use WordPlate\Acf\FieldGroup;
-use WordPlate\Acf\Location;
+use Extended\ACF\Fields\Group as FieldGroup;
+use Extended\ACF\Location;
 
 /**
  * Block Base block class
@@ -27,14 +27,14 @@ class Block extends AbstractBladeBlock
    */
   protected function registerFields(): array
   {
-    return (new FieldGroup([
+    return register_extended_field_group([
       'key' => $this->name,
       'title' => $this->title,
       'fields' => $this->setFields(),
       'location' => [
-        Location::if('block', "acf/{$this->name}") // Set fields on this block
+        Location::where('block','==', "acf/{$this->name}") // Set fields on this block
       ],
-    ]))->toArray();
+    ]);
   }
 
   function additionalArgs(array $args)

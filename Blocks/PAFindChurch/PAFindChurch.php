@@ -3,9 +3,9 @@
 namespace Blocks\PAFindChurch;
 
 use Blocks\Block;
-use WordPlate\Acf\Fields\Link;
-use WordPlate\Acf\Fields\Repeater;
-use WordPlate\Acf\Fields\Text;
+use Extended\ACF\Fields\Link;
+use Extended\ACF\Fields\Repeater;
+use Extended\ACF\Fields\Text;
 
 /**
  * Class PAFindChurch

@@ -1,0 +1,8 @@
+- .git/
+- DOCKER_ENV
+- Dockerfile-php-build
+- output.log
+- docker_tag
+- node_modules/
+- .env
+- rsync-filter.txt

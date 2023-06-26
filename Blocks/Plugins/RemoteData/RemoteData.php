@@ -602,12 +602,6 @@ if (!class_exists('RemoteData')) :
 				if (!empty($stickyItemsFilter))
 					$queryArgs['exclude'] = implode(',', $stickyItemsFilter);
 
-				
-        if ( WP_DEBUG == true ){
-          var_dump(\add_query_arg(array_merge($queryArgs, ['orderby' => 'date']), $url));
-          die;
-        }
-
 				$response = \wp_remote_get(\add_query_arg(array_merge($queryArgs, ['orderby' => 'date']), $url));
 				$responseCode = \wp_remote_retrieve_response_code($response);
 				$responseData = \wp_remote_retrieve_body($response);

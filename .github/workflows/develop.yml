@@ -1,0 +1,111 @@
+name: Ambiente de homologação
+on:
+  push:
+    branches:
+      - develop
+
+jobs:
+  release:
+    name: Obtém o código-fonte e realiza a construção da aplicação.
+    runs-on: ubuntu-latest
+    steps:         
+      - name: Checkout do repositório
+        uses: actions/checkout@v2
+
+      - name: Verificando o cache dos pacotes do Composer
+        uses: actions/cache@v2
+        with:
+          path: /tmp/composer-cache
+          key: ${{ runner.os }}-${{ hashFiles('**/composer.lock') }}
+      
+      - name: Executando composer install para dependências do Tema
+        uses: php-actions/composer@v5
+        with:
+          php_version: 8.2
+          version: 2
+          dev: no
+          args: -o --ignore-platform-reqs -d ./    
+      
+      - name: Setup do NodeJS para o tema
+        uses: actions/setup-node@v2
+        with:
+          node-version: "16"   
+
+      - name: Yarn Install
+        uses: borales/actions-yarn@v4
+        with:
+          cmd: install
+
+      - name: Yarn Build
+        uses: borales/actions-yarn@v4
+        with:
+          cmd: build   
+          
+      - name: Ajusta permissão antes de copia dos arquivos
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ secrets.SSH_DEV_DEPLOY_HOST }}
+          username: root
+          key: ${{ secrets.SSH_DEV_DEPLOY_KEY}}
+          port: 22
+          script: |
+            echo "${{ secrets.SUDO }}" | sudo -S chmod -R 777  /var/www/downloads/pt/wp-content/themes/pa-theme-sedes
+            echo "${{ secrets.SUDO }}" | sudo -S chmod -R 777  /var/www/adventistas/pt/wp-content/themes/pa-theme-sedes
+            echo "${{ secrets.SUDO }}" | sudo -S chmod -R 777  /var/www/videos/pt/wp-content/themes/pa-theme-sedes
+            echo "${{ secrets.SUDO }}" | sudo -S chmod -R 777  /var/www/noticias/pt/wp-content/themes/pa-theme-sedes
+      
+      - name: Copiando theme downloads
+        uses: burnett01/rsync-deployments@4.1
+        with:
+          switches: --no-perms -O --filter="merge rsync-filter.txt" --delete -Prltvz
+          path: ./
+          remote_path: /var/www/downloads/pt/wp-content/themes/pa-theme-sedes
+          remote_host: ${{ secrets.SSH_DEV_DEPLOY_HOST }}
+          remote_port: 22
+          remote_user: root
+          remote_key: ${{ secrets.SSH_DEV_DEPLOY_KEY }}
+      
+      - name: Copiando theme adventistas
+        uses: burnett01/rsync-deployments@4.1
+        with:
+          switches: --no-perms -O --filter="merge rsync-filter.txt" --delete -Prltvz
+          path: ./
+          remote_path: /var/www/adventistas/pt/wp-content/themes/pa-theme-sedes
+          remote_host: ${{ secrets.SSH_DEV_DEPLOY_HOST }}
+          remote_port: 22
+          remote_user: root
+          remote_key: ${{ secrets.SSH_DEV_DEPLOY_KEY }}      
+      
+      - name: Copiando theme videos
+        uses: burnett01/rsync-deployments@4.1
+        with:
+          switches: --no-perms -O --filter="merge rsync-filter.txt" --delete -Prltvz
+          path: ./
+          remote_path: /var/www/videos/pt/wp-content/themes/pa-theme-sedes
+          remote_host: ${{ secrets.SSH_DEV_DEPLOY_HOST }}
+          remote_port: 22
+          remote_user: root
+          remote_key: ${{ secrets.SSH_DEV_DEPLOY_KEY }}
+          
+      - name: Copiando theme noticias
+        uses: burnett01/rsync-deployments@4.1
+        with:
+          switches: --no-perms -O --filter="merge rsync-filter.txt" --delete -Prltvz
+          path: ./
+          remote_path: /var/www/noticias/pt/wp-content/themes/pa-theme-sedes
+          remote_host: ${{ secrets.SSH_DEV_DEPLOY_HOST }}
+          remote_port: 22
+          remote_user: root
+          remote_key: ${{ secrets.SSH_DEV_DEPLOY_KEY }}             
+      
+      - name: Ajusta Permissões
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ secrets.SSH_DEV_DEPLOY_HOST }}
+          username: root
+          key: ${{ secrets.SSH_DEV_DEPLOY_KEY}}
+          port: 22
+          script: |
+            echo "${{ secrets.SUDO }}" | sudo -S chown -R www-data:www-data  /var/www
+            echo "${{ secrets.SUDO }}" | sudo -S find  /var/www -type d -exec chmod 750 {} \;
+            echo "${{ secrets.SUDO }}" | sudo -S find /var/www -type f -exec chmod 640 {} \;

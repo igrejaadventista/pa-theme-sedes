@@ -1,13 +1,14 @@
 <?php
 
-use WordPlate\Acf\ConditionalLogic;
-use WordPlate\Acf\Fields\Tab;
-use WordPlate\Acf\Fields\Text;
-use WordPlate\Acf\Fields\Textarea;
-use WordPlate\Acf\Fields\Taxonomy;
-use WordPlate\Acf\Fields\TrueFalse;
-use WordPlate\Acf\Fields\Url;
-use WordPlate\Acf\Location;
+
+use Extended\ACF\ConditionalLogic;
+use Extended\ACF\Fields\Tab;
+use Extended\ACF\Fields\Text;
+use Extended\ACF\Fields\Textarea;
+use Extended\ACF\Fields\Taxonomy;
+use Extended\ACF\Fields\TrueFalse;
+use Extended\ACF\Fields\Url;
+use Extended\ACF\Location;
 
 
 class PaAcfSiteSettings
@@ -71,7 +72,7 @@ class PaAcfSiteSettings
     if (is_multisite()) {
       if (empty($network)) :
         foreach ($fields as &$field)
-          $field->conditionalLogic([ConditionalLogic::if('overwrite_global_settings')->equals(1)]);
+          $field->conditionalLogic([ConditionalLogic::where('overwrite_global_settings', '==', 1)]);
       endif;
     }
 
@@ -92,7 +93,7 @@ class PaAcfSiteSettings
         $fields
       ),
       'location' => [
-        Location::if('options_page', "iasd_custom_settings{$network}"),
+        Location::where('options_page', '==', "iasd_custom_settings{$network}"),
       ],
     ]);
   }

@@ -1,11 +1,11 @@
 <?php
 
-namespace Extended;
+namespace ExtendedLocal;
 
-use WordPlate\Acf\Fields\Field;
-use WordPlate\Acf\Fields\Attributes\ConditionalLogic;
-use WordPlate\Acf\Fields\Attributes\Instructions;
-use WordPlate\Acf\Fields\Attributes\Wrapper;
+use Extended\ACF\Fields\Field;
+use Extended\ACF\Fields\Settings\ConditionalLogic;
+use Extended\ACF\Fields\Settings\Instructions;
+use Extended\ACF\Fields\Settings\Wrapper;
 
 /**
  * Register new remote data field
@@ -16,7 +16,7 @@ class RemoteData extends Field {
     use Instructions;
     use Wrapper;
 
-    protected $type = 'remote_data';
+    protected null|string $type = 'remote_data';
 
 	/**
 	 * endpoints Set the endpoints where information will be fetched
@@ -25,8 +25,9 @@ class RemoteData extends Field {
 	 * @return self
 	 */
 	public function endpoints(array $values): self {
-        $this->config->set('endpoints', $values);
-
+        
+        $this->withSettings(array('endpoints' => $values));
+        
         return $this;
     }
 
@@ -37,9 +38,9 @@ class RemoteData extends Field {
 	 * @return self
 	 */
 	public function initialLimit(int $value): self {
-        $this->config->set('limit', $value);
-
-        return $this;
+    $this->withSettings(array('limit' => $value));
+        
+    return $this;
     }
 
 	/**
@@ -49,9 +50,8 @@ class RemoteData extends Field {
 	 * @return self
 	 */
 	public function getFields(array $values): self {
-        $this->config->set('fields', $values);
-
-        return $this;
+    $this->withSettings(array('fields' => $values));
+    return $this;
     }
 
 	/**
@@ -61,8 +61,7 @@ class RemoteData extends Field {
 	 * @return self
 	 */
 	public function filterTaxonomies(array $values): self {
-        $this->config->set('taxonomies', $values);
-
+    $this->withSettings(array('taxonomies' => $values));
         return $this;
     }
 
@@ -73,8 +72,7 @@ class RemoteData extends Field {
 	 * @return self
 	 */
 	public function manualFields(array $values): self {
-        $this->config->set('sub_fields', $values);
-
+    $this->withSettings(array('sub_fieldsRemote' => $values));
         return $this;
     }
 
@@ -85,8 +83,7 @@ class RemoteData extends Field {
 	 * @return self
 	 */
 	public function manualItems(bool $value): self {
-        $this->config->set('manual_items', intval($value));
-
+    $this->withSettings(array('manual_items' => intval($value)));
         return $this;
     }
 
@@ -97,8 +94,7 @@ class RemoteData extends Field {
 	 * @return self
 	 */
 	public function searchFilter(bool $value): self {
-        $this->config->set('search_filter', intval($value));
-
+        $this->withSettings(array('search_filter' => intval($value)));
         return $this;
     }
 
@@ -109,7 +105,7 @@ class RemoteData extends Field {
 	 * @return self
 	 */
 	public function limitFilter(bool $value): self {
-        $this->config->set('limit_filter', intval($value));
+    $this->withSettings(array('limit_filter' => intval($value)));
 
         return $this;
     }
@@ -121,8 +117,7 @@ class RemoteData extends Field {
 	 * @return self
 	 */
 	public function canSticky(bool $value): self {
-        $this->config->set('can_sticky', intval($value));
-
+    $this->withSettings(array('can_sticky' => intval($value)));
         return $this;
     }
 
@@ -133,8 +128,7 @@ class RemoteData extends Field {
 	 * @return self
 	 */
 	public function filterFields(bool $value): self {
-        $this->config->set('filter_fields', intval($value));
-
+    $this->withSettings(array('filter_fields' => intval($value)));
         return $this;
     }
 
@@ -145,8 +139,7 @@ class RemoteData extends Field {
 	 * @return self
 	 */
 	public function hideFields(array $values): self {
-        $this->config->set('hide_fields', $values);
-
+    $this->withSettings(array('hide_fields' => $values));
         return $this;
     }
 

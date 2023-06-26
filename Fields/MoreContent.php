@@ -2,9 +2,9 @@
 
 namespace Fields;
 
-use WordPlate\Acf\ConditionalLogic;
-use WordPlate\Acf\Fields\Link;
-use WordPlate\Acf\Fields\TrueFalse;
+use Extended\ACF\ConditionalLogic;
+use Extended\ACF\Fields\Link;
+use Extended\ACF\Fields\TrueFalse;
 
 class MoreContent {
 
@@ -14,7 +14,7 @@ class MoreContent {
 				->stylisedUi(__('Enable', 'iasd'), __('Disable', 'iasd')),
 			Link::make('Link', 'link')
 				->conditionalLogic([
-					ConditionalLogic::if('enable_link')->equals(1)
+					ConditionalLogic::where('enable_link', '==', 1)
 				]),
 		];
 	}
