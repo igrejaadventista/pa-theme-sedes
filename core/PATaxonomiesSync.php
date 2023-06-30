@@ -32,7 +32,7 @@ class PATaxonomiesSync {
       return;
 
     if(!wp_next_scheduled('PA-Service_Taxonomy_Schedule'))
-      wp_schedule_event(time(), '20min', 'PA-Service_Taxonomy_Schedule'); // Register cron schedule event
+      wp_schedule_event(time(), 'daily', 'PA-Service_Taxonomy_Schedule'); // Register cron schedule event
 
     add_action('PA-Service_Taxonomy_Schedule', array($this, 'sync')); // Register cron
     add_action('wp_ajax_sync/taxonomies', array($this, 'sync')); // Register ajax handler

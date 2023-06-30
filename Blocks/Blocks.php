@@ -49,7 +49,7 @@ class Blocks
         \add_filter('cron_schedules', array($this, 'cronAdd'));
 
         if (!\wp_next_scheduled('PA-update_remote_data')) {
-            \wp_schedule_event(time(), 'five_minutes', 'PA-update_remote_data');
+            \wp_schedule_event(time(), 'thirty_minutes', 'PA-update_remote_data');
         }
 
         \add_action('PA-update_remote_data', array($this, 'UpdateRemoteData'));
@@ -241,9 +241,9 @@ class Blocks
 
     function cronAdd($schedules)
     {
-        $schedules['five_minutes'] = [
-            'interval' => 5 * 60,
-            'display' => 'Five Minutes',
+        $schedules['thirty_minutes'] = [
+            'interval' => 30 * 60,
+            'display' => 'Thirty Minutes',
         ];
 
         return $schedules;
