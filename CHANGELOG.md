@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
+
+## [1.6.1] - 2023-07-19
+
+### Fix
+
+- Restringindo versão minima do php 8.0
+
 ## [1.6.0] - 2023-07-19
 
 ### Added
