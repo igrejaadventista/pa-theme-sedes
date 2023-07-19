@@ -62,7 +62,7 @@
   },
   "require": {
     "fiskhandlarn/blade": "^0.6.0",
-    "wordplate/acf": "^13.0.1",
+    "vinkla/extended-acf": "13.3.0",
     "studiovisual/acf-gutenblocks": "dev-release/0.4.2",
     "lordealeister/acf-multisite-options": "dev-master",
     "ben.moody/wp-rest-headless": "dev-master"
