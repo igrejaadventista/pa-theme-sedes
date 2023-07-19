@@ -3,8 +3,8 @@
 namespace Blocks\PACarouselFeature;
 
 use Blocks\Block;
-use Extended\LocalData;
-use WordPlate\Acf\Fields\Text;
+use ExtendedLocal\LocalData;
+use Extended\ACF\Fields\Text;
 
 /**
  * Class PACarouselFeature

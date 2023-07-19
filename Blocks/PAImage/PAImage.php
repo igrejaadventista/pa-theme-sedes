@@ -3,9 +3,9 @@
 namespace Blocks\PAImage;
 
 use Blocks\Block;
-use WordPlate\Acf\Fields\Image;
-use WordPlate\Acf\Fields\Link;
-use WordPlate\Acf\Fields\Select;
+use Extended\ACF\Fields\Image;
+use Extended\ACF\Fields\Link;
+use Extended\ACF\Fields\Select;
 
 /**
  * Class PAImage

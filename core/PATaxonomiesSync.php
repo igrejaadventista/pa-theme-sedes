@@ -1,6 +1,8 @@
 <?php
 
-namespace Core;
+namespace IASD\Core;
+
+use IASD\Core\Settings\Modules;
 
 class PATaxonomiesSync {
   
@@ -26,6 +28,9 @@ class PATaxonomiesSync {
   protected $baseURL = 'https://' . API_PA . '/tax/' . LANG . '/';
 
   public function __construct() {
+    if(!Modules::isActiveModule('taxonomiessync'))
+      return;
+
     if(!wp_next_scheduled('PA-Service_Taxonomy_Schedule'))
       wp_schedule_event(time(), 'daily', 'PA-Service_Taxonomy_Schedule'); // Register cron schedule event
 
@@ -164,9 +169,11 @@ class PATaxonomiesSync {
 
     if(!is_wp_error($updated_term)):
       add_term_meta($updated_term['term_id'], 'pa_tax_id_remote', $term->id, true);
+
+      return $updated_term['term_id']; // Return the updated term id
     endif;
 
-    return $updated_term['term_id']; // Return the updated term id
+    return 0;
 	}
   
   /**

@@ -3,9 +3,9 @@
 namespace Blocks\PAApps;
 
 use Blocks\Block;
-use WordPlate\Acf\Fields\Link;
-use WordPlate\Acf\Fields\Text;
-use WordPlate\Acf\Fields\Textarea;
+use Extended\ACF\Fields\Link;
+use Extended\ACF\Fields\Text;
+use Extended\ACF\Fields\Textarea;
 
 /**
  * Class PAApps
