@@ -26,7 +26,7 @@ class PACoreInstall
     add_action('init', array($this, 'pa_wp_custom_menus'));
     add_action('pre_get_posts', array($this, 'modifyCategoryQuery'));
     add_action('rest_api_init', array($this, 'restApi'));
-    add_action('send_headers', 'send_frame_options_header', 10, 0 );
+    add_action('send_headers', 'send_frame_options_header', 10, 0);
   }
 
   function enqueueAssets()
@@ -99,10 +99,12 @@ class PACoreInstall
     $nonce = wp_create_nonce('xtt-pa-owner-sexuality_' . $post->ID);
     $term = wp_get_post_terms($post->ID, 'xtt-pa-owner', array('fields' => 'all'));
 
-    $actions['inline hide-if-no-js'] = '<a href="#" class="editinline"';
-    $actions['inline hide-if-no-js'] .= !empty($term) ? " onclick=\"set_inline__tt_pa_owner(event, '{$term[0]->name}', '{$nonce}')\">" : ">";
-    $actions['inline hide-if-no-js'] .= __('Quick&nbsp;Edit');
-    $actions['inline hide-if-no-js'] .= '</a>';
+    if (!is_wp_error($term) && !empty($term)) {
+      $actions['inline hide-if-no-js'] = '<a href="#" class="editinline"';
+      $actions['inline hide-if-no-js'] .= !empty($term) ? " onclick=\"set_inline__tt_pa_owner(event, '{$term[0]->name}', '{$nonce}')\">" : ">";
+      $actions['inline hide-if-no-js'] .= __('Quick&nbsp;Edit');
+      $actions['inline hide-if-no-js'] .= '</a>';
+    }
 
     return $actions;
   }
