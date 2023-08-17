@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.6.2] - 2023-08-17
+
+### Fix
+
+- Ajustando condicional na chamada para construir a linha especial da taxonomia (owner) no list post.
+
 ## [1.6.1] - 2023-07-19
 
 ### Fix
