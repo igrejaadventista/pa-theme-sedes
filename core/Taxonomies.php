@@ -4,8 +4,12 @@ namespace IASD\Core;
 
 use IASD\Core\Settings\Modules;
 
-class Taxonomies {
-  
+// echo __('App', 'iasd');
+// die;
+
+class Taxonomies
+{
+
   /**
    * List of taxonomies
    *
@@ -13,58 +17,10 @@ class Taxonomies {
    */
   public static $taxonomies = [];
 
-  public function __construct() {
-    self::$taxonomies = [
-      'xtt-pa-colecoes'      => [
-        'name'              => __('Collections', 'iasd'),           
-        'singular_name'     => __('Collection', 'iasd'),
-        'description'       => __('Collections taxonomy', 'iasd'), 
-        'show_admin_column' => false
-      ],
-      'xtt-pa-editorias'     => [
-        'name'              => __('Editorials', 'iasd'),            
-        'singular_name'     => __('Editorial', 'iasd'),            
-        'description'       => __('Editorials taxonomy', 'iasd'), 
-        'show_admin_column' => true
-      ],
-      'xtt-pa-departamentos' => [
-        'name'              => __('Ministries', 'iasd'),            
-        'singular_name'     => __('Ministry', 'iasd'),             
-        'description'       => __('Ministries taxonomy', 'iasd'), 
-        'show_admin_column' => false
-      ],
-      'xtt-pa-projetos'      => [
-        'name'              => __('Projects', 'iasd'),              
-        'singular_name'     => __('Project', 'iasd'),              
-        'description'       => __('Projects taxonomy', 'iasd'), 
-        'show_admin_column' => false
-      ],
-      'xtt-pa-regiao'        => [
-        'name'              => __('Regions', 'iasd'),                
-        'singular_name'     => __('Region', 'iasd'),              
-        'description'       => __('Regions taxonomy', 'iasd'), 
-        'show_admin_column' => false
-      ],
-      'xtt-pa-sedes'         => [
-        'name'              => __('Regional Headquarters', 'iasd'), 
-        'singular_name'     => __('Regional Headquarter', 'iasd'), 
-        'description'       => __('Regional Headquarters taxonomy', 'iasd'), 
-        'show_admin_column' => true
-      ],
-      'xtt-pa-owner'         => [
-        'name'              => __('Owner Headquarters', 'iasd'),     
-        'singular_name'     => __('Owner Headquarter', 'iasd'),    
-        'description'       => __('Owner Headquarters taxonomy', 'iasd'), 
-        'show_admin_column' => true
-      ],
-      'xtt-pa-materiais'     => [
-        'name'              => __('File types', 'iasd'),             
-        'singular_name'     => __('File type', 'iasd'),            
-        'description'       => __('File types taxonomy', 'iasd'), 
-        'show_admin_column' => false
-      ],
-    ];
 
+
+  public function __construct()
+  {
     add_action('init',            [$this, 'register'], 8);
     add_filter('rest_post_query', [$this, 'filterQuery'], 10, 2);
 
@@ -79,15 +35,78 @@ class Taxonomies {
     add_action('admin_init',      [$this, 'restore']);
 
     add_action('admin_head', [$this, 'styles']);
+
+    add_action('after_setup_theme', [$this, 'setTaxonomiesInfo'], 11);
   }
-  
+
+
+  /**
+   * Define as configurações das taxonomias personalizadas.
+   *
+   * @return void
+   */
+  function setTaxonomiesInfo()
+  {
+    self::$taxonomies = [
+      'xtt-pa-colecoes'      => [
+        'name'              => __('Collections', 'iasd'),
+        'singular_name'     => __('Collection', 'iasd'),
+        'description'       => __('Collections taxonomy', 'iasd'),
+        'show_admin_column' => false
+      ],
+      'xtt-pa-editorias'     => [
+        'name'              => __('Editorials', 'iasd'),
+        'singular_name'     => __('Editorial', 'iasd'),
+        'description'       => __('Editorials taxonomy', 'iasd'),
+        'show_admin_column' => true
+      ],
+      'xtt-pa-departamentos' => [
+        'name'              => __('Ministries', 'iasd'),
+        'singular_name'     => __('Ministry', 'iasd'),
+        'description'       => __('Ministries taxonomy', 'iasd'),
+        'show_admin_column' => false
+      ],
+      'xtt-pa-projetos'      => [
+        'name'              => __('Projects', 'iasd'),
+        'singular_name'     => __('Project', 'iasd'),
+        'description'       => __('Projects taxonomy', 'iasd'),
+        'show_admin_column' => false
+      ],
+      'xtt-pa-regiao'        => [
+        'name'              => __('Regions', 'iasd'),
+        'singular_name'     => __('Region', 'iasd'),
+        'description'       => __('Regions taxonomy', 'iasd'),
+        'show_admin_column' => false
+      ],
+      'xtt-pa-sedes'         => [
+        'name'              => __('Regional Headquarters', 'iasd'),
+        'singular_name'     => __('Regional Headquarter', 'iasd'),
+        'description'       => __('Regional Headquarters taxonomy', 'iasd'),
+        'show_admin_column' => true
+      ],
+      'xtt-pa-owner'         => [
+        'name'              => __('Owner Headquarters', 'iasd'),
+        'singular_name'     => __('Owner Headquarter', 'iasd'),
+        'description'       => __('Owner Headquarters taxonomy', 'iasd'),
+        'show_admin_column' => true
+      ],
+      'xtt-pa-materiais'     => [
+        'name'              => __('File types', 'iasd'),
+        'singular_name'     => __('File type', 'iasd'),
+        'description'       => __('File types taxonomy', 'iasd'),
+        'show_admin_column' => false
+      ],
+    ];
+  }
+
   /**
    * Add custom styles
    *
    * @return void
    */
-  function styles(): void {
-    if(!Modules::isActiveModule('taxonomies'))
+  function styles(): void
+  {
+    if (!Modules::isActiveModule('taxonomies'))
       return;
 
     echo '<style>
@@ -98,18 +117,21 @@ class Taxonomies {
             }
           </style>';
   }
-  
+
   /**
    * Register taxonomies
    *
    * @return void
    */
-  function register(): void {
-    if(!Modules::isActiveModule('taxonomies'))
+  function register(): void
+  {
+
+
+    if (!Modules::isActiveModule('taxonomies'))
       return;
 
-    foreach(self::$taxonomies as $key => $value):
-      if(!Modules::isActiveModule('taxonomy_' . $key))
+    foreach (self::$taxonomies as $key => $value) :
+      if (!Modules::isActiveModule('taxonomy_' . $key))
         continue;
 
       $labels = array(
@@ -127,7 +149,7 @@ class Taxonomies {
       );
 
       $args   = array(
-        'description'         => $value['description'], 
+        'description'         => $value['description'],
         'hierarchical'        => true, // make it hierarchical (like categories)
         'labels'              => $labels,
         'show_ui'             => true,
@@ -142,7 +164,7 @@ class Taxonomies {
       register_taxonomy($key, ['post'], $args);
     endforeach;
   }
-  
+
   /**
    * Filter query arguments 
    *
@@ -151,14 +173,15 @@ class Taxonomies {
    * 
    * @return array Modified arguments
    */
-  function filterQuery(array $args, \WP_REST_Request $request): array {
-    if(!Modules::isActiveModule('taxonomies'))
+  function filterQuery(array $args, \WP_REST_Request $request): array
+  {
+    if (!Modules::isActiveModule('taxonomies'))
       return $args;
 
     $params = $request->get_params();
 
-    foreach(self::$taxonomies as $key => $value):
-      if(isset($params["{$key}-tax"])):
+    foreach (self::$taxonomies as $key => $value) :
+      if (isset($params["{$key}-tax"])) :
         $args['tax_query'][] = array(
           array(
             'taxonomy'         => $key,
@@ -172,7 +195,7 @@ class Taxonomies {
 
     return $args;
   }
-  
+
   /**
    * Move term to trash
    *
@@ -180,18 +203,19 @@ class Taxonomies {
    * 
    * @return void
    */
-  function delete(int $term_id): void {
-    if(!Modules::isActiveModule('taxonomies'))
+  function delete(int $term_id): void
+  {
+    if (!Modules::isActiveModule('taxonomies'))
       return;
 
     $term_trash = get_term_meta($term_id, 'term_trash', true);
     $user       = wp_get_current_user();
     $roles      = (array) $user->roles;
 
-    if(!$term_trash || ($term_trash && $roles[0] != 'administrator'))
+    if (!$term_trash || ($term_trash && $roles[0] != 'administrator'))
       wp_die(add_term_meta($term_id, 'term_trash', true));
   }
-  
+
   /**
    * Get terms
    *
@@ -199,8 +223,9 @@ class Taxonomies {
    * 
    * @return array Modified terms
    */
-  function get(array $terms): array {
-    if(!Modules::isActiveModule('taxonomies'))
+  function get(array $terms): array
+  {
+    if (!Modules::isActiveModule('taxonomies'))
       return $terms;
 
     if (!isset($_GET['tag_ID'])) {
@@ -237,7 +262,7 @@ class Taxonomies {
 
     return $terms;
   }
-  
+
   /**
    * Filter tags actions
    *
@@ -246,34 +271,35 @@ class Taxonomies {
    * 
    * @return array Modified actions
    */
-  function filterActions(array $actions, \WP_Term $tag): array {
-    if(!Modules::isActiveModule('taxonomies'))
+  function filterActions(array $actions, \WP_Term $tag): array
+  {
+    if (!Modules::isActiveModule('taxonomies'))
       return $actions;
 
     $term_id = $tag->term_id;
 
-    if(isset($_GET['terms_trashed'])) {
+    if (isset($_GET['terms_trashed'])) {
       $actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
       $actual_link = str_replace('&restore_term=' . $term_id, '', $actual_link);
 
       $actions['restore'] = '<a href="' . $actual_link . '&restore_term=' . $term_id . '">Restaurar</a>';
-    } 
-    else
+    } else
       $actions['delete'] = str_replace('Excluir', 'Lixeira', $actions['delete']);
 
     return $actions;
   }
-  
+
   /**
    * Restore term from trash
    *
    * @return void
    */
-  function restore(): void {
-    if(!Modules::isActiveModule('taxonomies'))
+  function restore(): void
+  {
+    if (!Modules::isActiveModule('taxonomies'))
       return;
 
-    if(!isset($_GET['restore_term']))
+    if (!isset($_GET['restore_term']))
       return;
 
     $term_id = $_GET['restore_term'];
@@ -285,7 +311,6 @@ class Taxonomies {
 
     wp_redirect($actual_link);
   }
-
 }
 
 new Taxonomies();
