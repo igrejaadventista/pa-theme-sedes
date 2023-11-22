@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.6.4] - 2023-11-22
+
+### Fix
+
+- Ajustando termos de tradução. O arquivo .PO foi aberto sem as devidas configurações de extrator para os templates blade. 
+- Utilizando o gia presente na [página](https://github.com/roots/sage/issues/1875) o problema foi resolvido.
+
 ## [1.6.3] - 2023-08-30
 
 ### Fix

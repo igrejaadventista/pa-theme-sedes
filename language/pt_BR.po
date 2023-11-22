@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2023-08-30 14:08-0300\n"
-"PO-Revision-Date: 2023-08-30 14:33-0300\n"
+"POT-Creation-Date: 2023-11-22 11:45-0300\n"
+"PO-Revision-Date: 2023-11-22 11:45-0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: pt_BR\n"
@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Poedit 3.3.2\n"
+"X-Generator: Poedit 3.4.1\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_x;esc_html__;esc_html_e;esc_html_x;esc_attr__;"
 "esc_attr_e;esc_attr_x\n"
@@ -19,6 +19,49 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-0: assets\n"
 "X-Poedit-SearchPathExcluded-1: vendor\n"
 "X-Poedit-SearchPathExcluded-2: node_modules\n"
+"X-Poedit-SearchPathExcluded-3: Blocks/Plugins/RemoteData/Assets\n"
+"X-Poedit-SearchPathExcluded-4: Blocks/Plugins/LocalData/Assets\n"
+
+#: Blocks/PAApps/views/frontend.blade.php:16
+msgid "Apps"
+msgstr "Aplicativos"
+
+#: Blocks/PAApps/views/frontend.blade.php:22
+msgid "Apps available for:"
+msgstr "Aplicativos disponíveis para:"
+
+#: Blocks/PAApps/views/frontend.blade.php:29
+msgid "Apple Store"
+msgstr ""
+
+#: Blocks/PAApps/views/frontend.blade.php:37
+msgid "Google Play"
+msgstr ""
+
+#: Blocks/PAFeliz7Play/views/frontend.blade.php:15
+msgid "Access the website"
+msgstr "Acessar o site"
+
+#: Blocks/PAFindChurch/views/frontend.blade.php:7
+msgid "Finding a church"
+msgstr "Encontre uma igreja"
+
+#: Blocks/PAFindChurch/views/frontend.blade.php:8
+msgid "Adventist churches that are located in the South American Division."
+msgstr "Igrejas adventistas localizadas na América do Sul."
+
+#: Blocks/PAFindChurch/views/frontend.blade.php:12
+msgid "Church search"
+msgstr "Buscar igreja"
+
+#: Blocks/PAFindChurch/views/frontend.blade.php:14
+msgid "Search by Postcode, city, neighborhood."
+msgstr "Buscar pelo CEP, cidade, bairro."
+
+#: Blocks/PAFindChurch/views/frontend.blade.php:17 404.php:23
+#: components/menu/header.php:26 core/Taxonomies.php:140 search.php:26
+msgid "Search"
+msgstr "Buscar"
 
 #: 404.php:10 404.php:16
 msgid "I'm sorry! Content not found! :("
@@ -35,11 +78,6 @@ msgstr "Você quer fazer uma nova busca?"
 #: 404.php:21
 msgid "New search"
 msgstr "Nova busca"
-
-#: 404.php:23 components/menu/header.php:26 core/Taxonomies.php:140
-#: search.php:26
-msgid "Search"
-msgstr "Buscar"
 
 #: Blocks/Blocks.php:169
 msgid "Adventist"
@@ -324,13 +362,6 @@ msgstr ""
 #: Blocks/PARow/PARow.php:17
 msgid "Block to group IASD blocks."
 msgstr "Bloco para agrupar os blocos da IASD."
-
-#: Blocks/Plugins/LocalData/Assets/local-data.js:463
-#: Blocks/Plugins/LocalData/Assets/local-data.js:568
-#: Blocks/Plugins/RemoteData/Assets/remote-data.js:446
-#: Blocks/Plugins/RemoteData/Assets/remote-data.js:526
-msgid "No matches found"
-msgstr "Nenhuma correspondência encontrada"
 
 #: Blocks/Plugins/LocalData/LocalData.php:32
 msgid "Local data"
@@ -1074,23 +1105,8 @@ msgstr "Próximo artigo"
 msgid "Featured"
 msgstr "Destaque"
 
-#~ msgid "Apps"
-#~ msgstr "Aplicativos"
-
-#~ msgid "Apps available for:"
-#~ msgstr "Aplicativos disponíveis para:"
-
-#~ msgid "Access the website"
-#~ msgstr "Acessar o site"
-
-#~ msgid "Finding a church"
-#~ msgstr "Encontre uma igreja"
-
-#~ msgid "Adventist churches that are located in the South American Division."
-#~ msgstr "Igrejas adventistas localizadas na América do Sul."
-
-#~ msgid "Church search"
-#~ msgstr "Buscar igreja"
+#~ msgid "No matches found"
+#~ msgstr "Nenhuma correspondência encontrada"
 
 #~ msgid "Loading"
 #~ msgstr "Carregando"
