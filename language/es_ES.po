@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2023-08-30 15:06-0300\n"
-"PO-Revision-Date: 2023-08-30 15:15-0300\n"
+"POT-Creation-Date: 2023-11-22 11:45-0300\n"
+"PO-Revision-Date: 2023-11-22 11:47-0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: es\n"
@@ -10,13 +10,54 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.3.2\n"
+"X-Generator: Poedit 3.4.1\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_x;esc_html__;esc_html_e;esc_html_x;esc_attr__;"
 "esc_attr_e;esc_attr_x\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: node_modules\n"
 "X-Poedit-SearchPathExcluded-1: vendor\n"
+
+#: Blocks/PAApps/views/frontend.blade.php:16
+msgid "Apps"
+msgstr ""
+
+#: Blocks/PAApps/views/frontend.blade.php:22
+msgid "Apps available for:"
+msgstr "Aplicaciones disponibles para:"
+
+#: Blocks/PAApps/views/frontend.blade.php:29
+msgid "Apple Store"
+msgstr ""
+
+#: Blocks/PAApps/views/frontend.blade.php:37
+msgid "Google Play"
+msgstr ""
+
+#: Blocks/PAFeliz7Play/views/frontend.blade.php:15
+msgid "Access the website"
+msgstr "Acceder"
+
+#: Blocks/PAFindChurch/views/frontend.blade.php:7
+msgid "Finding a church"
+msgstr "Encuentre una iglesia"
+
+#: Blocks/PAFindChurch/views/frontend.blade.php:8
+msgid "Adventist churches that are located in the South American Division."
+msgstr "Iglesias adventistas ubicadas en la División Sudamericana."
+
+#: Blocks/PAFindChurch/views/frontend.blade.php:12
+msgid "Church search"
+msgstr "Búsqueda de iglesias"
+
+#: Blocks/PAFindChurch/views/frontend.blade.php:14
+msgid "Search by Postcode, city, neighborhood."
+msgstr "Búsqueda por código postal, ciudad, barrio."
+
+#: Blocks/PAFindChurch/views/frontend.blade.php:17 404.php:23
+#: components/menu/header.php:26 core/Taxonomies.php:140 search.php:26
+msgid "Search"
+msgstr "Búsqueda"
 
 #: 404.php:10 404.php:16
 msgid "I'm sorry! Content not found! :("
@@ -33,11 +74,6 @@ msgstr "¿Quieres hacer una nueva búsqueda?"
 #: 404.php:21
 msgid "New search"
 msgstr "Nueva búsqueda"
-
-#: 404.php:23 components/menu/header.php:26 core/Taxonomies.php:140
-#: search.php:26
-msgid "Search"
-msgstr "Búsqueda"
 
 #: Blocks/Blocks.php:169
 msgid "Adventist"
@@ -132,8 +168,6 @@ msgid "IASD - Kits - Carousel"
 msgstr ""
 
 #: Blocks/PACarouselKits/PACarouselKits.php:21 core/settings/Modules.php:292
-#, fuzzy
-#| msgid "Block from downloads content on carousel format."
 msgid "Block from kits content on carousel format."
 msgstr "Bloco las descargas de contenido en formato carrusel."
 
@@ -312,10 +346,8 @@ msgstr ""
 
 #: Blocks/PAQueroVidaSaude/PAQueroVidaSaude.php:20
 #: core/settings/Modules.php:301
-#, fuzzy
-#| msgid "Block to show contents in list format with images."
 msgid "Block to show contents from https://querovidaesaude.com/."
-msgstr "Bloco para mostrar contenidos en formato de lista con imágenes."
+msgstr "Bloco para mostrar contenidos del sitio quierovidaysalud.com"
 
 #: Blocks/PARow/PARow.php:16
 msgid "IASD - Row"
@@ -1100,26 +1132,8 @@ msgstr "Artículo siguiente"
 msgid "Featured"
 msgstr "Destaque"
 
-#~ msgid "Apps available for:"
-#~ msgstr "Aplicaciones disponibles para:"
-
-#~ msgid "Access the website"
-#~ msgstr "Acceder"
-
-#~ msgid "Finding a church"
-#~ msgstr "Encuentre una iglesia"
-
-#~ msgid "Adventist churches that are located in the South American Division."
-#~ msgstr "Iglesias adventistas ubicadas en la División Sudamericana."
-
-#~ msgid "Church search"
-#~ msgstr "Búsqueda de iglesias"
-
 #~ msgid "Loading"
 #~ msgstr "Cargando"
-
-#~ msgid "Search by Postcode, city, neighborhood."
-#~ msgstr "Búsqueda por código postal, ciudad, barrio."
 
 #~ msgid "Colunista"
 #~ msgstr "Columnista"
