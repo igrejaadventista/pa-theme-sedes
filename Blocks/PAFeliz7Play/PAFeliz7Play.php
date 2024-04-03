@@ -3,6 +3,8 @@
 namespace Blocks\PAFeliz7Play;
 
 use Blocks\Block;
+use Extended\ACF\Fields\Select;
+use Extended\ACF\Fields\Text;
 use ExtendedLocal\RemoteData;
 
 /**
@@ -907,19 +909,53 @@ class PAFeliz7Play extends Block {
 	protected function setFields(): array {
 
 		$api = "https://". API_F7P ."/v4/". LANG ."/pa-blocks";
+    
+    return array_merge(
+      [
+        Select::make( __( 'Posição das Setas de Nevagação', 'iasd' ), 'nav_position' )
+          ->choices(
+            [
+              '0'  => 'Ao lado dos cards',
+              '1'  => 'A baixo dos cards',
+            ]
+          )
+          ->returnFormat('value')
+          ->defaultValue( 'A baixo dos cards' ),
+        
+        Select::make( __( 'Formato de exibição dos Cards', 'iasd' ), 'display_format' )
+          ->choices(
+            [
+              '0'  => 'Completos',
+              '1'  => 'Parciais',
+            ]
+          )
+          ->returnFormat('value')
+          ->defaultValue( 'Cards visiveis completamente' ),
+        
+        Select::make( __( 'Ativar Autoplay', 'iasd' ), 'active_autoplay' )
+          ->choices(
+            [
+              '0'  => 'Não',
+              '1'  => 'Sim',
+            ]
+          )
+          ->returnFormat('value')
+          ->defaultValue( 'Não' ),
 
-		return [
-			RemoteData::make(__('Itens', 'iasd'), 'items')
-				->endpoints( [
-					$api
-					// 'https://api.feliz7play.com/v4/pt/pa-blocks'
-				])
-				->searchFilter(false)
-				->canSticky(false)
-				->manualItems(false)
-				->filterFields(false)
-				->limitFilter(false),			
-		];
+        RemoteData::make( __( 'Itens', 'iasd' ), 'items' )
+          ->endpoints(
+            [
+              $api
+              // 'https://api.feliz7play.com/v4/pt/pa-blocks'
+            ]
+          )
+          ->searchFilter( false )
+          ->canSticky( false )
+          ->manualItems( false )
+          ->filterFields( false )
+          ->limitFilter( false ),			
+      ],
+    );
 	}
 
 	/**
@@ -930,6 +966,9 @@ class PAFeliz7Play extends Block {
 	public function with(): array {
 		$items = null;
 		$items_field = get_field('items');
+    $nav_position    = get_field('nav_position')    == '0' ? 'pa-arrows-up' : '';
+    $display_format  = get_field('display_format')  == '0' ? '0' : '100';
+    $active_autoplay = get_field('active_autoplay') == '0' ? FALSE : '2500';
 		
 		if ($items_field !== null) {
 			$items = $items_field['data'];
@@ -937,6 +976,9 @@ class PAFeliz7Play extends Block {
 		
 		return [
 			'items' => $items,
+      'nav_position'    => $nav_position,
+      'display_format'  => $display_format,
+      'active_autoplay' => $active_autoplay,
 		];
 	}
 }
