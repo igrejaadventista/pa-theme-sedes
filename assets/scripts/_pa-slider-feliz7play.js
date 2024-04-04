@@ -9,11 +9,9 @@ export function pa_slider_feliz7play() {
 
 	nodes.forEach(function(node) {
     
-    var autoPlay = node.dataset.autoplay,
-      peekFormat = node.dataset.format;
-
-    console.log(peekFormat)
-    
+    var autoPlay    = node.dataset.autoplay,
+        peekFormat  = node.dataset.format;
+     
 		var glide = new Glide(node, {
 			type: "carousel",
 			startAt: 0,
@@ -43,6 +41,21 @@ export function pa_slider_feliz7play() {
 			},
 		});
 
-		glide.mount();
-	});
+    /**
+     * Returns the position of the slide controls after the lib loads.
+     */
+    glide.on( [ 'mount.after' ], function () {
+      var getSlideHeight = node.getElementsByClassName( 'glide__slide' )[ 0 ].height,
+          getArrows = node.querySelectorAll( '.pa-arrows-up' );
+
+      if ( ! getArrows.length || ! getSlideHeight )
+        return;
+
+      getArrows.forEach( function ( control ) {
+        control.style.marginTop = -(getSlideHeight + 64) + "px"
+      });
+    });
+
+    glide.mount();
+  } );
 }
