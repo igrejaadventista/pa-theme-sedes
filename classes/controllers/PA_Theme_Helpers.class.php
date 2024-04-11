@@ -36,6 +36,7 @@ class PaThemeHelpers
     add_theme_support('title-tag');
     add_theme_support('post-thumbnails');
     add_theme_support('responsive-embeds');
+    add_theme_support( 'custom-logo' );
 
     remove_action('wp_head', 'wp_generator');
     remove_action('wp_head', 'print_emoji_detection_script', 7);
