@@ -364,6 +364,32 @@ class Modules {
 
     return true;
   }
+
+  /**
+   * Checks the layout of a given page.
+   *
+   * @param $id The ID of the page to check the layout for.
+   *
+   * @return bool Returns true if the layout is overridden is active and the default option is inactive.
+   *              Returns false if the layout is overridden is active and the default option is active.
+   *              Returns the default option if the layout is not overridden.
+   */
+  public static function isOverwrittenLayoutActive( $id ): bool
+  {
+    if ( $id ) {
+      $isLayoutOverwritten = get_field( 'page_seventhcolumn', $id);
+      $defaultOptionIsActive = Modules::isActiveModule( 'seventhcolumn' );
+      
+      if ( $isLayoutOverwritten ) {
+        return $defaultOptionIsActive ? false : true;
+      }
+
+      return $defaultOptionIsActive;
+    }
+    
+    return true;
+  }
+  
 }
 
 new Modules();

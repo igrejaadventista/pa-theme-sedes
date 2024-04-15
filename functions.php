@@ -14,6 +14,7 @@ if (is_multisite()) {
 require_once(dirname(__FILE__) . '/classes/controllers/PA_AdminUser.class.php');
 require_once(dirname(__FILE__) . '/classes/controllers/PA_Theme_Helpers.class.php');
 require_once(dirname(__FILE__) . '/classes/controllers/PA_ACF_Helpers.class.php');
+require_once(dirname(__FILE__) . '/classes/controllers/PA_ACF_Pages.class.php');
 require_once(dirname(__FILE__) . '/classes/controllers/PA_ACF_Site-settings.class.php');
 require_once(dirname(__FILE__) . '/classes/controllers/PA_Menu_Walker.class.php');
 require_once(dirname(__FILE__) . '/classes/controllers/PA_Menu_Mobile.class.php');
