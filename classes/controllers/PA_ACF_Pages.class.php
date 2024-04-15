@@ -11,21 +11,13 @@ class PaAcfPages
    * @var string
    */
   private static string $prefix = 'page_';
-
-  /**
-   * The posttype for page
-   *
-   * @var string
-   */
-  private static string $post_type = 'page';
-  
   
   public function __construct()
   {
     add_action('after_setup_theme', [$this, 'createFields']);
   }
 
-  function generalFields(): array
+  private function generalFields(): array
   {
     return [
       TrueFalse::make( '', self::$prefix . 'seventhcolumn' )
@@ -35,7 +27,7 @@ class PaAcfPages
     ];
   }
 
-  function createFields(): void
+  private function createFields(): void
   {
     $fields = array_merge(
       $this->generalFields(),
@@ -52,27 +44,6 @@ class PaAcfPages
       ]
     );
   }
-
-//  function register_meta_box()
-//  {
-//    add_meta_box( 
-//      self::$group[ 'key' ], 
-//      'Sétima Coluna', 
-//      [ $this, 'render_meta_box' ], 
-//      self::$post_type, 
-//      'side', 
-//      'high' );
-//  }
-//
-//  function render_meta_box( $post )
-//  {
-//    acf_form(
-//      array(
-//        'form'    => false,
-//        'post_id' => $post->ID
-//      )
-//    );
-//  }
 }
 
 $PaAcfPages = new PaAcfPages();
