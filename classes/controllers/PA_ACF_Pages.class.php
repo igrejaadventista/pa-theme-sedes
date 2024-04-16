@@ -21,7 +21,7 @@ class PaAcfPages
   {
     return [
       TrueFalse::make( '', self::$prefix . 'seventhcolumn' )
-               ->instructions( 'Sobrescreve a opção da sétima coluna definida no TEMA nesta página' )
+               ->instructions( 'Substitui a configuração da sétima coluna especificada nas opções do tema para esta página.' )
                ->stylisedUi( 'Sim', 'Não' )
                ->defaultValue( false ),
     ];
