@@ -8,7 +8,8 @@
 
 		@notempty($items)
 			<div class="mt-4">
-				<div class="pa-destaque-deptos-sliders">
+				<div class="pa-destaque-deptos-sliders"
+             data-autoplay="{{ $autoplay }}" >
 					<div class="glide__track" data-glide-el="track">
 						<div class="glide__slides">
 						@if(is_array($items))

@@ -25,9 +25,13 @@ export function pa_slider_destaque_deptos() {
 		return;
 
 	nodes.forEach(function(node) {
+
+    var autoPlay    = node.dataset.autoplay;
+    
 		var glide = new Glide(node, {
 			type: "carousel",
 			perView: 1,
+      autoplay: autoPlay,
 		});
 
 		glide.mount();
