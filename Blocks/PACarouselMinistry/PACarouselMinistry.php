@@ -5,6 +5,7 @@ namespace Blocks\PACarouselMinistry;
 use Blocks\Block;
 use ExtendedLocal\LocalData;
 use Extended\ACF\Fields\Text;
+use Extended\ACF\Fields\Select;
 
 /**
  * Class PACarouselMinistry
@@ -34,15 +35,28 @@ class PACarouselMinistry extends Block
   protected function setFields(): array
   {
     return [
-      Text::make(__('Title', 'iasd'), 'title')
-        ->defaultValue(__('IASD - Feature Slider - Ministry', 'iasd')),
-      LocalData::make(__('Itens', 'iasd'), 'items')
-        ->postTypes(['page', 'post', 'projects'])
-        ->hideFields(['content'])
-        ->manualFields([
-          Text::make(__('Tag', 'iasd'), 'tag')
-        ])
-        ->initialLimit(4),
+      Text::make( __( 'Title', 'iasd' ), 'title' )
+        ->defaultValue( __( 'IASD - Feature Slider - Ministry', 'iasd' ) ),
+
+      Select::make( __( 'Ativar Autoplay', 'iasd' ), 'active_autoplay' )
+        ->choices(
+          [
+            '0' => 'Não',
+            '1' => 'Sim',
+          ]
+        )
+        ->returnFormat( 'value' )
+        ->defaultValue( 'Não' ),
+
+      LocalData::make( __( 'Itens', 'iasd' ), 'items' )
+        ->postTypes( [ 'page', 'post', 'projects' ] )
+        ->hideFields( [ 'content' ] )
+        ->manualFields(
+          [
+            Text::make( __( 'Tag', 'iasd' ), 'tag' )
+          ]
+        )
+        ->initialLimit( 4 ),
     ];
   }
 
@@ -53,9 +67,12 @@ class PACarouselMinistry extends Block
    */
   public function with(): array
   {
+    $active_autoplay = get_field('active_autoplay') == '0' ? FALSE : '2500';
+    
     return [
-      'title'  => get_field('title'),
-      'items'  => get_field('items')['data'],
+      'title'    => get_field( 'title' ),
+      'items'    => get_field( 'items' )[ 'data' ],
+      'autoplay' => $active_autoplay,
     ];
   }
 }
