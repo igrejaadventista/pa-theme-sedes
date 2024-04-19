@@ -8,16 +8,28 @@ export  function pa_slider_downloads() {
 		return;
 
 	nodes.forEach(function(node) {
+
+    var autoPlay = node.dataset.autoplay,
+      peekFormat = node.dataset.format;
+    
 		var glide = new Glide(node, {
 			type: "carousel",
 			perView: 4,
 			startAt: 0,
 			gap: 24,
 			hoverpause: true,
-			//autoplay: 2500,
+      autoplay: autoPlay,
+      peek: {
+        before: peekFormat,
+        after: peekFormat,
+      },
 			breakpoints: {
 				1024: {
 					perView: 3,
+          peek: {
+            before: 0,
+            after: peekFormat,
+          },
 				},
 				800: {
 					perView: 2,
@@ -32,6 +44,21 @@ export  function pa_slider_downloads() {
 				},
 			},
 		});
+
+    /**
+     * Returns the position of the slide controls after the lib loads.
+     */
+    glide.on( [ 'mount.after' ], function () {
+      var getSlideHeight = node.getElementsByClassName( 'glide__slide' )[ 0 ].offsetHeight,
+          getArrows = node.querySelectorAll( '.pa-arrows-up' );
+
+      if ( ! getArrows.length || ! getSlideHeight )
+        return;
+
+      getArrows.forEach( function ( control ) {
+        control.style.marginTop = -(getSlideHeight + 64) + "px"
+      });
+    });
 
 		glide.mount();
 	});

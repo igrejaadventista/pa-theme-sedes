@@ -2,8 +2,11 @@
 	<img class="img-preview" src="{{ get_template_directory_uri() }}/Blocks/PACarouselKits/preview.png" alt='{{ __('Illustrative image of the front end of the block.', 'iasd') }}'/>
 @else  
 	<div class="pa-widget pa-carousel-download col-12 mb-5">
-		<div class="pa-glide-downloads">
-			@notempty($title)
+		<div class="pa-glide-downloads"
+         data-autoplay="{{ $active_autoplay }}"
+         data-format="{{ $display_format }}">
+			
+      @notempty($title)
 				<div class="d-flex mb-4">
 					<h2 class="flex-grow-1">{!! $title !!}</h2>	
 				</div>
@@ -44,6 +47,31 @@
 					</div>
 				</div>
 			@endnotempty
+      
+      @if( ! is_null($nav_position) and count($items) > 1)
+        <div class="pa-slider-controle d-flex justify-content-between {{ ! $nav_position ? 'justify-content-xl-center' : '' }} align-items-center">
+          <div data-glide-el="controls" class="{{ $nav_position }}">
+            <span class="fa-stack" data-glide-dir="&lt;">
+              <i class="fas fa-circle fa-stack-2x"></i>
+              <i class="icon fas fa-arrow-left fa-stack-1x"></i>
+            </span>
+          </div>
+          <div class="mx-2 pa-slider-bullet" data-glide-el="controls[nav]">
+            @foreach($items as $item)
+              @notempty($item['featured_media_url'])
+              <i class="fas fa-circle fa-xs mx-1" data-glide-dir="={{ $loop->index }}"></i>
+              @endnotempty
+            @endforeach
+          </div >
+          <div data-glide-el="controls" class="{{ $nav_position }}">
+            <span class="fa-stack" data-glide-dir="&gt;">
+              <i class="fas fa-circle fa-stack-2x"></i>
+              <i class="icon fas fa-arrow-right fa-stack-1x"></i>
+            </span>
+          </div>
+        </div>
+      @endif
+      
 		</div>
 	</div>
 @endif
