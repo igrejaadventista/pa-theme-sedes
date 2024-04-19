@@ -281,7 +281,7 @@ class PaThemeHelpers
     }
   }
 
-  function customizer_custom_logo_label( $wp_customize )
+  public function customizer_custom_logo_label( $wp_customize )
   {
     $logo_control = $wp_customize->get_control( 'custom_logo' );
 
