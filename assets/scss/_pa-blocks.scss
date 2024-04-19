@@ -114,10 +114,6 @@
     top: 0;
     transform: translateX(-50.01%);
     width: 100vw;
-
-    @media (min-width: 1200px) {
-      transform: translateX(-43%);
-    }
   }
 
   &::before {
