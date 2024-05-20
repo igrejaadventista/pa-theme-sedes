@@ -24,7 +24,8 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - uses: actions-ecosystem/action-get-latest-tag@v1
+      - name: Get latest tag
+        uses: actions-ecosystem/action-get-latest-tag@v1
         id: get-latest-tag
 
       - name: Build and push
