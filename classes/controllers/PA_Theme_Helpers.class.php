@@ -15,6 +15,7 @@ class PaThemeHelpers
     add_action('PA-update_menu_global', [$this, 'setGlobalMenu']);
     add_action('PA-update_banner_global', [$this, 'setGlobalBanner']);
     add_action('rest_api_init', [$this, 'adding_collection_meta_rest']);
+    add_action( 'customize_register', [$this, 'customizer_custom_logo_label'], 20 );
 
     if (!wp_next_scheduled('PA-update_menu_global')) {
       wp_schedule_event(time(), 'daily', 'PA-update_menu_global');
@@ -36,6 +37,13 @@ class PaThemeHelpers
     add_theme_support('title-tag');
     add_theme_support('post-thumbnails');
     add_theme_support('responsive-embeds');
+    add_theme_support('custom-logo', array(
+      'height'      => 109,  
+      'width'       => 204,  
+      'flex-height' => false,
+      'flex-width'  => false,
+      'crop'        => true  
+    ));;
 
     remove_action('wp_head', 'wp_generator');
     remove_action('wp_head', 'print_emoji_detection_script', 7);
@@ -56,8 +64,6 @@ class PaThemeHelpers
       $content_width = 856;
     }
   }
-
-
 
   function registerAssets()
   {
@@ -272,6 +278,15 @@ class PaThemeHelpers
       foreach ($data as $name => $content) {
         echo '<meta name="' . esc_attr($name) . '" content="' . esc_attr($content) . '">';
       }
+    }
+  }
+
+  public function customizer_custom_logo_label( $wp_customize )
+  {
+    $logo_control = $wp_customize->get_control( 'custom_logo' );
+
+    if ( ! empty( $logo_control ) ) {
+      $logo_control->label = 'Logo - Tamanho recomendado 240x109';
     }
   }
 }
