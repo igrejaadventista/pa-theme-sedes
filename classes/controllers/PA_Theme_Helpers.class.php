@@ -38,8 +38,8 @@ class PaThemeHelpers
     add_theme_support('post-thumbnails');
     add_theme_support('responsive-embeds');
     add_theme_support('custom-logo', array(
-      'height'      => 109,  
-      'width'       => 204,  
+      // 'height'      => 109,  
+      // 'width'       => 204,  
       'flex-height' => false,
       'flex-width'  => false,
       'crop'        => true  
