@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.7.2] - 2023-11-22
+
+### Added
+
+- Criado Custom Post Type Revista com archive e single.
+
 ## [1.7.1] - 2023-11-22
 
 ### Added

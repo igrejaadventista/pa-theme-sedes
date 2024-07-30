@@ -26,6 +26,7 @@ require_once(dirname(__FILE__) . '/classes/controllers/PA_Header_Title.class.php
 require_once(dirname(__FILE__) . '/Fields/TaxonomyTerms.php');
 require_once(dirname(__FILE__) . '/classes/controllers/PA_SearchPage.class.php');
 require_once(dirname(__FILE__) . '/classes/controllers/PA_Strong_Passwords.php');
+require_once(dirname(__FILE__) . '/classes/controllers/PA_ACF_Magazine.class.php');
 
 
 // CORE INSTALL
