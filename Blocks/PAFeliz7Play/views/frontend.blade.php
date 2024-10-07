@@ -16,11 +16,14 @@
 				</a>
 			</div>
 		</div>
-
+    
+    {{-- Slide --}}
 		@notempty($items)
 			<div class="row">
 				<div class="col">
-					<div class="pa-glide-feliz7play">
+					<div class="pa-glide-feliz7play" 
+               data-autoplay="{{ $active_autoplay }}"
+               data-format="{{ $display_format }}">
 						<div class="glide__track" data-glide-el="track">
 							<div class="glide__slides">
 								@foreach($items as $item)
@@ -31,7 +34,7 @@
 										>
 											<div class="ratio ratio-16x9">	
 												<img 
-													class="glide__slide rounded img-fluid" 
+													class="glide__slide rounded" 
 													src="{{ $item['featured_media_url']['pa_block_render'] }}" 
 													alt="{{ $item['title']['rendered'] }}" 
 												/>
@@ -43,8 +46,8 @@
 						</div>
 						
 						@if(count($items) > 1)
-							<div class="pa-slider-controle d-flex justify-content-between justify-content-xl-center align-items-center mt-4">
-								<div data-glide-el="controls">
+							<div class="pa-slider-controle d-flex justify-content-between {{ ! $nav_position ? 'justify-content-xl-center' : '' }} align-items-center mt-4">
+								<div data-glide-el="controls" class="{{ $nav_position }}">
 									<span class="fa-stack" data-glide-dir="&lt;">
 										<i class="fas fa-circle fa-stack-2x"></i>
 										<i class="icon fas fa-arrow-left fa-stack-1x"></i>
@@ -57,7 +60,7 @@
 										@endnotempty
 									@endforeach
 								</div >
-								<div data-glide-el="controls">
+								<div data-glide-el="controls" class="{{ $nav_position }}">
 									<span class="fa-stack" data-glide-dir="&gt;">
 										<i class="fas fa-circle fa-stack-2x"></i>
 										<i class="icon fas fa-arrow-right fa-stack-1x"></i>
@@ -69,5 +72,6 @@
 				</div>
 			</div>
 		@endnotempty
+    
 	</div>
 @endif
