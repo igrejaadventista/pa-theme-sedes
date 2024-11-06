@@ -5,10 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [1.8.0] - 2024-10-07
+## [1.9.0] - 2024-10-07
 ### Added
 
 - Adiciona novas features ao bloco 7Class
+
+## [1.8.0] - 2024-10-07
+### Added
+- Corrige o CSS do bloco "Find a Church"
+- Adiciona novas features ao bloco Carousel Kits
+- Adiciona nova feature de autoplay ao bloco "Carousel Ministry
+- Adiciona novas features ao bloco Felix7Play
 
 ## [1.7.1] - 2023-11-22
 
