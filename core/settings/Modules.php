@@ -359,8 +359,10 @@ class Modules {
    */
   public static function isActiveModule(string $module): bool
   {
-    if (!empty($module) && ($field = get_field(self::$prefix . $module, self::$key)) !== null)
-      return !empty($field);
+    $field = get_field(self::$prefix . $module, self::$key);
+    
+    if (!empty($module) && !empty($field) !== null)
+      return false;
 
     return true;
   }
