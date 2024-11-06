@@ -22,7 +22,7 @@
 
     &::after {
       content: "\f105";
-      font-family: "Font Awesome 5 Free", Arial, Verdana, Tahoma, sans-serif;
+      font-family: "Font Awesome 6 Pro", Arial, Verdana, Tahoma, sans-serif;
       font-weight: 900;
       font-size: 1rem;
       color: var(--pa-color-default);
@@ -114,10 +114,6 @@
     top: 0;
     transform: translateX(-50.01%);
     width: 100vw;
-
-    @media (min-width: 1200px) {
-      transform: translateX(-43%);
-    }
   }
 
   &::before {
