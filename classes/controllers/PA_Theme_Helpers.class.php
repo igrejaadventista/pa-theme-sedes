@@ -149,9 +149,13 @@ class PaThemeHelpers
     $menus = ['global-header', 'global-footer'];
 
     foreach ($menus as $name) {
-      $json = file_get_contents("https://" . API_PA . "/tax/" . LANG . "/menus/{$name}");
+     $file_path = "https://" . API_PA . "/tax/" . LANG . "/menus/{$name}";
+
+     if (file_exists($file_path) && is_readable($file_path)) {
+      $json = file_get_contents( $file_path);   
       $json_content = json_decode($json);
-      update_option('menu_' . $name, $json_content, '', 'yes');
+          update_option('menu_' . $name, $json_content, '', 'yes');
+     }     
     }
   }
 
@@ -166,9 +170,13 @@ class PaThemeHelpers
 
   static function setGlobalBanner()
   {
-    $json = file_get_contents("https://" . API_PA . "/tax/" . LANG . "/banner");
-    $json_content = json_decode($json);
-    update_option('banner_global', $json_content, '', 'yes');
+    $file_path = "https://" . API_PA . "/tax/" . LANG . "/banner";
+    
+    if (file_exists($file_path) && is_readable($file_path)) {
+      $json = file_get_contents($file_path);
+      $json_content = json_decode($json);
+      update_option('banner_global', $json_content, '', 'yes');
+    }    
   }
 
   function bodyClass($classes)

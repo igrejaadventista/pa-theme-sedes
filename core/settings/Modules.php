@@ -361,8 +361,8 @@ class Modules {
   {
     $field = get_field(self::$prefix . $module, self::$key);
     
-    if (!empty($module) && !empty($field) !== null)
-      return false;
+    if (!empty($module) && $field !== null)
+      return !empty($field);
 
     return true;
   }
