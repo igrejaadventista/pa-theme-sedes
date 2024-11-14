@@ -359,6 +359,10 @@ class Modules {
    */
   public static function isActiveModule(string $module): bool
   {
+    if (!is_plugin_active('acf-gutenblocks/acf-gutenblocks.php')) {
+      return false;
+    }
+
     $field = get_field(self::$prefix . $module, self::$key);
     
     if (!empty($module) && $field !== null)
