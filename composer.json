@@ -11,9 +11,9 @@
       "package": {
         "name": "studiovisual/acf-gutenblocks",
         "type": "wordpress-plugin",
-        "version": "dev-release/0.4.3",
+        "version": "dev-release/0.4.2",
         "dist": {
-          "url": "https://github.com/studiovisual/acf-gutenblocks/releases/download/0.4.3/acf-gutenblocks.zip",
+          "url": "https://github.com/studiovisual/acf-gutenblocks/releases/download/0.4.2/acf-gutenblocks.zip",
           "type": "zip"
         },
         "autoload": {
@@ -63,7 +63,7 @@
   "require": {
     "fiskhandlarn/blade": "^0.6.0",
     "vinkla/extended-acf": "^13.3.0",
-    "studiovisual/acf-gutenblocks": "dev-release/0.4.3",
+    "studiovisual/acf-gutenblocks": "dev-release/0.4.2",
     "lordealeister/acf-multisite-options": "dev-master",
     "ben.moody/wp-rest-headless": "dev-master"
   },
