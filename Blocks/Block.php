@@ -27,14 +27,20 @@ class Block extends AbstractBladeBlock
    */
   protected function registerFields(): array
   {
-    return register_extended_field_group([
-      'key' => $this->name,
-      'title' => $this->title,
-      'fields' => $this->setFields(),
-      'location' => [
-        Location::where('block','==', "acf/{$this->name}") // Set fields on this block
-      ],
-    ]);
+    try {
+      $fields = register_extended_field_group([
+        'key' => $this->name,
+        'title' => $this->title,
+        'fields' => $this->setFields(),
+        'location' => [
+          Location::where('block','==', "acf/{$this->name}") // Set fields on this block
+        ],
+      ]);
+    } catch (\Exception $e) {
+      $fields = [];
+    }
+    
+    return $fields;
   }
 
   function additionalArgs(array $args)
