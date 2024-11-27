@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+
+## [1.9.2] - 2023-11-27
+
+### Fix
+
+- Inclui logo do campo MLA
+
+
 ## [1.9.1] - 2024-11-19
 
 ### Added
