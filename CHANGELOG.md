@@ -6,6 +6,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 
+## [1.9.3] - 2023-12-09
+
+### Fix
+
+- Validação JS slide-downloads
+
 ## [1.9.2] - 2023-11-27
 
 ### Fix
