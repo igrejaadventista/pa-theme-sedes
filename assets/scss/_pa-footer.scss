@@ -33,6 +33,13 @@ footer {
 
     .pa-brand {
       font-size: 1rem;
+      
+      span.pa-brand-name {
+        max-width: 200px !important;
+        word-wrap: break-word !important;
+        hyphens: manual !important;
+        width: 100%;
+      }
     }
 
     hr {
