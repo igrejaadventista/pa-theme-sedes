@@ -12,16 +12,15 @@ jobs:
     name: 'Deploy to ECS'
     runs-on: ubuntu-latest
 
-    # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
     defaults:
       run:
         shell: bash
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
-        token: ${{ github.token }}
+        token: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
@@ -34,26 +33,40 @@ jobs:
       id: login-ecr
       uses: aws-actions/amazon-ecr-login@v1
 
-    - name: Build, tag, and push image to Amazon ECR
+    - name: Debug - Verificar arquivos antes do build
+      run: |
+        echo "Verificando arquivos antes do build..."
+        ls -l
+
+    - name: Build, tag e push para o Amazon ECR
       id: build-image
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         ECR_REPOSITORY: ${{ secrets.ECS_TASK }}
         IMAGE_TAG: latest
       run: |
-        # Build a docker container and
-        # push it to ECR so that it can
-        # be deployed to ECS.
+        echo "Iniciando build do Docker..."
         docker build -f Dockerfile.publish -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG \
           --build-arg ACF_KEY='${{ secrets.ACF_KEY }}' .
+        
+        echo "Fazendo push da imagem..."
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+        
         echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
-        echo "Init transform: task-definition.json"
+
+    - name: Debug - Verificar task-definition.json antes da substituição
+      run: |
+        echo "Listando arquivos para verificar task-definition.json"
+        ls -l
+        cat task-definition.json || echo "Arquivo task-definition.json não encontrado!"
+
+    - name: Substituir variáveis no task-definition.json
+      run: |
         sed -i 's/ECSTASK/${{ secrets.ECS_TASK }}/' task-definition.json
         sed -i 's/AWSACCID/${{ secrets.AWS_ACCOUNT_ID }}/' task-definition.json
-        echo "End transform: task-definition.json"
+        echo "Arquivo task-definition.json atualizado"
 
-    - name: Fill in the new image ID in the Amazon ECS task definition
+    - name: Preencher a nova imagem no Amazon ECS task definition
       id: task-def
       uses: aws-actions/amazon-ecs-render-task-definition@v1
       with:
@@ -61,7 +74,10 @@ jobs:
         container-name: ${{ secrets.ECS_TASK }}
         image: ${{ steps.build-image.outputs.image }}
 
-    - name: Deploy Amazon ECS task definition
+    - name: Debug - Verificar task-definition.json após a substituição
+      run: cat task-definition.json
+
+    - name: Deploy para Amazon ECS
       uses: aws-actions/amazon-ecs-deploy-task-definition@v1
       with:
         task-definition: ${{ steps.task-def.outputs.task-definition }}
