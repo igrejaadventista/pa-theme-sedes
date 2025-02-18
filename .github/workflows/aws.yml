@@ -41,13 +41,11 @@ jobs:
         ECR_REPOSITORY: ${{ secrets.ECS_TASK }}
         IMAGE_TAG: latest
       run: |
-        # Add error handling and verbose output
-        set -ex
-        docker build --no-cache -f Dockerfile.publish \
-          -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG \
-          --build-arg ACF_KEY='${{ secrets.ACF_KEY }}' \
-          --progress=plain .
-        
+        # Build a docker container and
+        # push it to ECR so that it can
+        # be deployed to ECS.
+        docker build -f Dockerfile.publish -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG \
+          --build-arg ACF_KEY='${{ secrets.ACF_KEY }}' .
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
         echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
         echo "Init transform: task-definition.json"
