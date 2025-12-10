@@ -74,6 +74,10 @@ class PaThemeHelpers
 
     wp_enqueue_script('fontawesome-js', 'https://kit.fontawesome.com/c992dc3e78.js', array(), false, false);
     wp_enqueue_script('scripts', get_template_directory_uri() . '/assets/js/script.js', array(), false, true);
+
+    if ($pa_settings = get_fields('pa_settings')) {
+      wp_localize_script('scripts', 'data', ['autoplay' => $pa_settings['ct_banner_autoplay']]);
+    }
   }
 
   function registerAssetsAdmin()

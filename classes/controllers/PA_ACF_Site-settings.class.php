@@ -67,6 +67,10 @@ class PaAcfSiteSettings
       Url::make('Twitter', "sn_twitter"),
       Url::make('Youtube', "sn_youtube"),
       Url::make('Instagram', "sn_instagram"),
+      Tab::make(__('Banner', 'iasd')),
+        TrueFalse::make(__('Auto Play Banner', 'iasd'), 'ct_banner_autoplay')
+          ->defaultValue(false)
+          ->stylisedUi()
     ];
 
     if (is_multisite()) {
