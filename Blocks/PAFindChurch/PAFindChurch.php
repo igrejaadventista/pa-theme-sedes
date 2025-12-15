@@ -34,7 +34,7 @@ class PAFindChurch extends Block {
       Repeater::make(__('Quick access', 'iasd'), 'quick_access')
         ->fields([
             Text::make(__('Icon or SVG', 'iasd'), 'icon')
-            ->instructions('Você pode inserir uma classe CSS do FontAwesome (ex: <code>fas fa-bookmark</code>) ou colar um SVG personalizado aqui. Veja a <a href="https://fontawesome.com/v5.15/icons?d=gallery&p=2&s=solid&m=free" target="_blank">lista de ícones</a>.', 'iasd')
+            ->instructions(__('You can enter a FontAwesome CSS class (e.g., <code>fas fa-bookmark</code>) or paste a custom SVG here. See the <a href="https://fontawesome.com/v5.15/icons?d=gallery&p=2&s=solid&m=free" target="_blank">icon list</a>.', 'iasd'))
             ->placeholder('fas fa-bookmark ou &lt;svg&gt;...&lt;/svg&gt;')
             ->defaultValue('fas fa-bookmark')
             ->wrapper([
