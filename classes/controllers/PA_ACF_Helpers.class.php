@@ -4,13 +4,13 @@ class PaAcfHelpers {
 
 	public function __construct(){
 		add_filter('acf/settings/show_admin', [$this, 'acfShowAdmin']);
-		add_filter('wp_kses_allowed_html', [self::class, 'allowSvgTags'], 10, 2);
+		add_filter('wp_kses_allowed_html', [$this, 'allowSvgTags'], 10, 2);
 	}
 
 	/**
 	 * Permite tags SVG no HTML permitido para campos ACF.
 	 */
-	public static function allowSvgTags($allowed, $context) {
+	function allowSvgTags($allowed, $context) {
 		if ($context === 'post') {
 			$allowed['svg'] = [
         'class' => true,
