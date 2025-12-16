@@ -28,16 +28,16 @@
         @notempty($item['icon'])
         <div>
             @if(str_starts_with($item['icon'], '<svg'))
-            <span class="fa-stack fa-2x d-flex align-items-center justify-content-center">
-              <i class="icon fas fa-circle fa-stack-2x"></i>
-              {!! $item['icon'] !!}
-            </span>
-          @else
-            <span class="fa-stack fa-2x">
-              <i class="icon fas fa-circle fa-stack-2x"></i>
-              <i class="icon fa-stack-1x fa-inverse {{ $item['icon'] }}"></i>
-            </span>
-          @endif
+              <span class="fa-stack fa-2x d-flex align-items-center justify-content-center">
+                <i class="icon fas fa-circle fa-stack-2x"></i>
+                {!! $item['icon'] !!}
+              </span>
+            @else
+              <span class="fa-stack fa-2x">
+                <i class="icon fas fa-circle fa-stack-2x"></i>
+                <i class="icon fa-stack-1x fa-inverse {{ $item['icon'] }}"></i>
+              </span>
+            @endif
         </div>
         @endnotempty
 
