@@ -742,6 +742,10 @@ msgstr "Redes sociais"
 msgid "Site settings"
 msgstr "Configurações do site"
 
+#: classes/controllers/PA_ACF_Site-settings.class.php:107
+msgid "Banner Autoplay Settings"
+msgstr "Configurações do Banner Autoplay"
+
 #: classes/controllers/PA_ACF_Site-settings.class.php:87
 msgid "Rewrite global settings"
 msgstr "Reescrever configurações globais"
