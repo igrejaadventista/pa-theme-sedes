@@ -3,7 +3,6 @@ FROM php:cli-alpine3.19
 RUN apk update 
 RUN apk upgrade
 
-
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 COPY --from=node:20 /usr/local/bin/node /usr/bin/node
 COPY --from=node:20 /usr/local/bin/npm /usr/bin/npm

@@ -5,14 +5,31 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [2.0.0] - 2025-02-XX
 
-## [1.9.3] - 2023-12-09
+### Changed
+
+- Auto play nos Slides principais 
+
+## [1.9.5] - 2025-02-12
+
+### Fix
+
+- Ajuste de responsividade do nome do campo no footer
+
+## [1.9.4] - 2024-12-17
+
+### Fix
+
+- Inclui logo do campo ASC, ACRS
+
+## [1.9.3] - 2024-12-09
 
 ### Fix
 
 - Validação JS slide-downloads
 
-## [1.9.2] - 2023-11-27
+## [1.9.2] - 2024-11-27
 
 ### Fix
 
