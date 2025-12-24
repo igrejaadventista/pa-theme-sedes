@@ -44,6 +44,7 @@ class PaAcfSiteSettings
 
 
     $this->createAcfFields();
+    $this->createBannerAutoplaySettings();
   }
 
   function createAcfFields($network = false)
@@ -92,6 +93,25 @@ class PaAcfSiteSettings
           [],
         $fields
       ),
+      'location' => [
+        Location::where('options_page', '==', "iasd_custom_settings{$network}"),
+      ],
+    ]);
+  }
+
+  function createBannerAutoplaySettings($network = false)
+  {
+    $network = $network ? '_network' : '';
+
+    register_extended_field_group([
+      'title' => __('Banner Autoplay Settings', 'iasd'),
+      'key' => 'banner_autoplay_settings',
+      'style' => 'default',
+      'fields' => [
+        TrueFalse::make(__('Auto Play Banner', 'iasd'), 'ct_banner_autoplay')
+          ->defaultValue(false)
+          ->stylisedUi()
+      ],
       'location' => [
         Location::where('options_page', '==', "iasd_custom_settings{$network}"),
       ],
