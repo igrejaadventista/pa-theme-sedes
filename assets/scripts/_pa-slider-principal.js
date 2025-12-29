@@ -1,7 +1,7 @@
 /* Scripsts Slider Principal */
 import Glide from '@glidejs/glide';
 
-export function pa_slider_principal() {
+export function pa_slider_principal(autoplay) {
 	var select = ".pa-glide-principal";
 
 	var node = document.querySelector(select);
@@ -23,7 +23,7 @@ export function pa_slider_principal() {
 			perView: 1,
 			gap: 0,
 			animationDuration: 0,
-			// autoplay: 5000,
+			autoplay: autoplay? 5000 : 0,
 		});
 
 		glide.mount();
