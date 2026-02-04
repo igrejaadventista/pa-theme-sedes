@@ -218,7 +218,7 @@ function set_inline_xtt_pa_owner(event, widgetSet, nonce) {
         terms = newTerms;
   
         if(termsChanged) {
-          if(terms.length === 0) {
+            if(!terms || terms.length === 0) {
             // show notice
             dispatch('core/notices').createNotice(
               'error',
