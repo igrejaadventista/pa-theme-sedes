@@ -199,6 +199,9 @@ function set_inline_xtt_pa_owner(event, widgetSet, nonce) {
       return null;
   
     const requiredTaxonomies = getRequiredTaxonomies();
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const postTypeParam = urlParams.get('post_type');
   
     if(!requiredTaxonomies.length)
       return null;
@@ -218,7 +221,7 @@ function set_inline_xtt_pa_owner(event, widgetSet, nonce) {
         terms = newTerms;
   
         if(termsChanged) {
-            if(!terms || terms.length === 0) {
+            if((!postTypeParam || postTypeParam === 'post') && (!terms || terms.length === 0)) {
             // show notice
             dispatch('core/notices').createNotice(
               'error',
