@@ -221,7 +221,7 @@ function set_inline_xtt_pa_owner(event, widgetSet, nonce) {
         terms = newTerms;
   
         if(termsChanged) {
-            if((!postTypeParam || postTypeParam === 'post') && (!terms || terms.length === 0)) {
+          if((!postTypeParam || postTypeParam === 'post') && (!terms || terms.length === 0)) {
             // show notice
             dispatch('core/notices').createNotice(
               'error',
@@ -231,7 +231,7 @@ function set_inline_xtt_pa_owner(event, widgetSet, nonce) {
                 isDismissible: false,
               }
             );
-          } 
+          }
           else
             // remove notice
             dispatch('core/notices').removeNotice(`notice_${element}`);
