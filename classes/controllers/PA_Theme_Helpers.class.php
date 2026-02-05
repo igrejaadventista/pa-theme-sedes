@@ -150,17 +150,38 @@ class PaThemeHelpers
 
   static function setGlobalMenu()
   {
-    $menus = ['global-header', 'global-footer'];
 
-    foreach ($menus as $name) {
-     $file_path = "https://" . API_PA . "/tax/" . LANG . "/menus/{$name}";
+      if (!defined('API_PA') || !defined('LANG')) {
+          return;
+      }
 
-     if (file_exists($file_path) && is_readable($file_path)) {
-      $json = file_get_contents( $file_path);   
-      $json_content = json_decode($json);
+      $menus = ['global-header', 'global-footer'];
+
+      foreach ($menus as $name) {
+          $url = 'https://' . API_PA . '/tax/' . LANG . '/menus/' . $name;
+
+          $response = wp_remote_get($url);
+
+          if (is_wp_error($response)) {
+              continue;
+          }
+
+          if (wp_remote_retrieve_response_code($response) !== 200) {
+              continue;
+          }
+
+          $body = wp_remote_retrieve_body($response);
+          if (empty($body)) {
+              continue;
+          }
+
+          $json_content = json_decode($body);
+          if (json_last_error() !== JSON_ERROR_NONE) {
+              continue;
+          }
+
           update_option('menu_' . $name, $json_content, '', 'yes');
-     }     
-    }
+      }
   }
 
   static function getGlobalBanner()
@@ -174,13 +195,31 @@ class PaThemeHelpers
 
   static function setGlobalBanner()
   {
-    $file_path = "https://" . API_PA . "/tax/" . LANG . "/banner";
-    
-    if (file_exists($file_path) && is_readable($file_path)) {
-      $json = file_get_contents($file_path);
-      $json_content = json_decode($json);
-      update_option('banner_global', $json_content, '', 'yes');
-    }    
+
+    if (!defined('API_PA') || !defined('LANG')) {
+        return;
+    }
+
+    $url = "https://" . API_PA . "/tax/" . LANG . "/banner";
+
+    $response = wp_remote_get($url);
+
+    if (is_wp_error($response)) {
+        return;
+    }
+
+    if (wp_remote_retrieve_response_code($response) !== 200) {
+        return;
+    }
+
+    $body = wp_remote_retrieve_body($response);
+    $json_content = json_decode($body);
+
+    if (json_last_error() !== JSON_ERROR_NONE) {
+        return;
+    }
+
+    update_option('banner_global', $json_content, '', 'yes');
   }
 
   function bodyClass($classes)
