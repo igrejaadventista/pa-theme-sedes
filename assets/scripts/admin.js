@@ -197,15 +197,12 @@ function set_inline_xtt_pa_owner(event, widgetSet, nonce) {
   const checkRequiredTaxonomies = () => {
     if(!window.iasd || !window.iasd.requiredTaxonomies)
       return null;
-  
+
     const requiredTaxonomies = getRequiredTaxonomies();
 
-    const urlParams = new URLSearchParams(window.location.search);
-    const postTypeParam = urlParams.get('post_type');
-  
     if(!requiredTaxonomies.length)
       return null;
-      
+
     requiredTaxonomies.forEach(element => {
       let terms = [];
   
@@ -221,7 +218,7 @@ function set_inline_xtt_pa_owner(event, widgetSet, nonce) {
         terms = newTerms;
   
         if(termsChanged) {
-          if((!postTypeParam || postTypeParam === 'post') && (!terms || terms.length === 0)) {
+          if(!terms || terms.length === 0) {
             // show notice
             dispatch('core/notices').createNotice(
               'error',
