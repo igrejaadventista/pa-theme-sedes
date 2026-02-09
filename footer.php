@@ -4,14 +4,18 @@ use IASD\Core\Settings\Modules;
 
  require(get_template_directory() . '/components/menu/footer.php'); ?>
 		</div>
-
-    <?php if(Modules::isActiveModule('seventhcolumn')): ?>
+    
+    <?php if ( Modules::isOverwrittenLayoutActive( get_the_ID() ) ): ?>
       <div class="pa-sabbath-column d-none d-xl-block">
         <div class="h-100 d-flex justify-content-center align-items-start">
-          <img src="<?= get_template_directory_uri() . "/assets/imgs/logo-symbol-white.svg" ?>" alt="<?= _e('Seventh-day Adventist Church', 'iasd'); ?>" title="<?= _e('Seventh-day Adventist Church', 'iasd'); ?>" class="pa-grid-logo position-sticky img-fluid p-6">
+          <img src="<?= get_template_directory_uri() . "/assets/imgs/logo-symbol-white.svg" ?>"
+               alt="<?= _e( 'Seventh-day Adventist Church', 'iasd' ); ?>"
+               title="<?= _e( 'Seventh-day Adventist Church', 'iasd' ); ?>"
+               class="pa-grid-logo position-sticky img-fluid p-6">
         </div>
-      </div> 
+      </div>
     <?php endif; ?>
+    
 	</div>
 
   <!-- JavaScript Bundle with Popper -->
