@@ -41,13 +41,13 @@ $menus = PaThemeHelpers::getGlobalMenu('global-footer');
               ?><a href="<?= $facebook ?>" title="Facebook"><i class="fab fa-facebook-f me-4"></i></a><?php
                                                                                                     } ?>
               <?php if ($twitter) {
-              ?><a href="<?= $twitter ?>" title="Twitter"><i class="fab fa-twitter me-4"></i></a><?php
+              ?><a href="<?= $twitter ?>" title="X"><i class="fab fa-x-twitter me-4"></i></a><?php
                                                                                                 } ?>
               <?php if ($youtube) {
               ?><a href="<?= $youtube ?>" title="Youtube"><i class="fab fa-youtube me-4"></i></a><?php
                                                                                                 } ?>
               <?php if ($instagram) {
-              ?><a href="<?= $instagram ?>" title="Instagram"><i class="fab fa-instagram-square"></i></a><?php
+              ?><a href="<?= $instagram ?>" title="Instagram"><i class="fab fa-square-instagram"></i></a><?php
                                                                                                         } ?>
             </div>
           </div>

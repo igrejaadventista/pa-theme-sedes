@@ -72,7 +72,7 @@ class PaThemeHelpers
     wp_enqueue_style('pa-theme-sedes-style', get_template_directory_uri() . '/style.css', null, null);
     wp_enqueue_style('pa-theme-sedes-print', get_template_directory_uri() . '/print.css', null, null);
 
-    wp_enqueue_script('fontawesome-js', 'https://kit.fontawesome.com/c992dc3e78.js', array(), false, false);
+    wp_enqueue_style('fontawesome-css', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css', array(), '6.5.1', 'all');
     wp_enqueue_script('scripts', get_template_directory_uri() . '/assets/js/script.js', array(), false, true);
 
     if ($pa_settings = get_fields('pa_settings')) {
