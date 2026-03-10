@@ -17,7 +17,7 @@
 ?>	
 	<ul class="list-inline">
 		<li class="list-inline-item d-none d-md-inline-block"><?= _e('Share:', 'iasd' ); ?></li>
-		<li class="list-inline-item"><a rel="canonical" target="_blank" href="#" onclick="window.Share.pa_share(event, '<?= $link_twitter  ?>' )" ><i class="fab fa-twitter"></i></a></li>
+		<li class="list-inline-item"><a rel="canonical" target="_blank" href="#" onclick="window.Share.pa_share(event, '<?= $link_twitter  ?>' )" ><i class="fab fa-x-twitter"></i></a></li>
 		<li class="list-inline-item"><a rel="canonical" target="_blank" href="#" onclick="window.Share.pa_share(event, '<?= $link_facebook ?>' )" ><i class="fab fa-facebook-f"></i></a></li>
 		<li class="list-inline-item"><a rel="noopener"  target="_blank" href="<?= $link_email ?>"><i class="fas fa-envelope"></i></a></li>
 		<li class="list-inline-item"><a rel="canonical" target="_blank" href="#" onclick="window.Share.pa_share(event, '<?= $link_whatsapp ?>' )" ><i class="fab fa-whatsapp"></i></a></li>
