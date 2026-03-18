@@ -13,7 +13,7 @@
         "type": "wordpress-plugin",
         "version": "dev-release/0.4.2",
         "dist": {
-          "url": "https://github.com/studiovisual/acf-gutenblocks/releases/download/0.4.2/acf-gutenblocks.zip",
+          "url": "./packages/acf-gutenblocks.zip",
           "type": "zip"
         },
         "autoload": {
