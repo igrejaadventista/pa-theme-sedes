@@ -2,6 +2,7 @@
 .sass-cache
 .bundle
 *.zip
+!packages/*.zip
 node_modules
 style.css
 style.css.map
