@@ -7,21 +7,8 @@
       "url": "https://wpackagist.org"
     },
     {
-      "type": "package",
-      "package": {
-        "name": "studiovisual/acf-gutenblocks",
-        "type": "wordpress-plugin",
-        "version": "dev-master",
-        "dist": {
-          "url": "https://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@github.com/webdsa/acf-gutenblocks-sv/archive/refs/tags/1.0.zip",
-          "type": "zip"
-        }
-        "autoload": {
-          "files": [
-            "acf-gutenblocks.php"
-          ]
-        }
-      }
+      "type": "vcs",
+      "url": "https://github.com/webdsa/acf-gutenblocks-sv"
     },
     {
       "type": "package",
@@ -63,7 +50,7 @@
   "require": {
     "fiskhandlarn/blade": "^0.6.0",
     "vinkla/extended-acf": "^13.3.0",
-    "studiovisual/acf-gutenblocks": "dev-release/0.4.2",
+    "studiovisual/acf-gutenblocks": "dev-master",
     "lordealeister/acf-multisite-options": "dev-master",
     "ben.moody/wp-rest-headless": "dev-master"
   },
