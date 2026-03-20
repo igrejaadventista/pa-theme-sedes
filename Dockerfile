@@ -15,9 +15,10 @@ COPY --chown=www-data:www-data . /var/www/build
 RUN composer clearcache
 
 RUN --mount=type=secret,id=github_token \
-  COMPOSER_AUTH="{\"github-oauth\":{\"github.com\":\"$(cat /run/secrets/github_token)\"}}" \
-  cd /var/www/build \
-  && composer install --no-dev \
+  mkdir -p /root/.composer \
+  && printf '{"github-oauth":{"github.com":"%s"}}' "$(cat /run/secrets/github_token)" > /root/.composer/auth.json \
+  && cd /var/www/build \
+  && composer install --no-dev --prefer-dist \
   && composer dump-autoload -o \
   && yarn \
   && yarn build:production \
