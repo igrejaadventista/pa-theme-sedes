@@ -7,6 +7,7 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 COPY --from=node:20 /usr/local/bin/node /usr/bin/node
 COPY --from=node:20 /usr/local/bin/npm /usr/bin/npm
 
+RUN apk add --no-cache git
 RUN apk add --no-cache --update-cache --repository http://dl-cdn.alpinelinux.org/alpine/v3.12/community yarn=1.22.4-r0
 
 COPY --chown=www-data:www-data . /var/www/build
