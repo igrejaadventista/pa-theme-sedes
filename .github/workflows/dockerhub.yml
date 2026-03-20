@@ -38,8 +38,8 @@ jobs:
         with:
           context: .
           push: true
-          build-args: |
-            GITHUB_TOKEN=${{ secrets.COMPOSER_GITHUB_TOKEN }}
+          secrets: |
+            github_token=${{ secrets.COMPOSER_GITHUB_TOKEN }}
           tags: |
             internetdsa/pa-theme-sedes:latest
             internetdsa/pa-theme-sedes:${{ steps.previoustag.outputs.tag }}
