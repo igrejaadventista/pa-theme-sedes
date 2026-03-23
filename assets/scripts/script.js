@@ -20,7 +20,7 @@ function onload() {
 	Feliz7Play.pa_slider_feliz7play();
 	SliderFeatured.pa_slider_destaques();
 	SliderFeatured.pa_slider_destaque_deptos();
-	SliderMain.pa_slider_principal(data.autoplay);
+	SliderMain.pa_slider_principal(false);
 	SliderFeatured.pa_slider_magazines();
 	SliderVideos.pa_slider_videos();
 	utils.pa_img_error();
