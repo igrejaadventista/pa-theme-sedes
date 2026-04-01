@@ -20,3 +20,19 @@ Após ter instalado todas as dependências globais em seu ambiente, podemos inic
 
         yarn install
         yarn build
+
+### Testando o build localmente
+
+Para validar o build antes de enviar para o GitHub, rode o mesmo `Dockerfile` utilizado pelo CI:
+
+```bash
+docker build -t pa-theme-sedes:test .
+```
+
+Para acompanhar cada etapa com mais detalhes:
+
+```bash
+docker build --progress=plain -t pa-theme-sedes:test .
+```
+
+Se o build finalizar sem erros, o processo está equivalente ao que será executado no GitHub Actions.
