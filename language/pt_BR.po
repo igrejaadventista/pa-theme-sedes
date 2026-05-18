@@ -43,12 +43,16 @@ msgid "Access the website"
 msgstr "Acessar o site"
 
 #: Blocks/PAFindChurch/views/frontend.blade.php:7
-msgid "Finding a church"
-msgstr "Encontre uma igreja"
+msgid "Welcome!"
+msgstr "Bem-vindos!"
 
 #: Blocks/PAFindChurch/views/frontend.blade.php:8
-msgid "Adventist churches that are located in the South American Division."
-msgstr "Igrejas adventistas localizadas na América do Sul."
+msgid "Find an Adventist church near your home."
+msgstr "Encontre uma igreja adventista perto de sua casa."
+
+#: Blocks/PAFindChurch/views/frontend.blade.php:9
+msgid "Have questions? Contact us on WhatsApp."
+msgstr "Você tem dúvidas? Escreva para o nosso WhatsApp."
 
 #: Blocks/PAFindChurch/views/frontend.blade.php:12
 msgid "Church search"
