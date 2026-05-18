@@ -9,11 +9,11 @@
     {
       "type": "package",
       "package": {
-        "name": "studiovisual/acf-gutenblocks",
+        "name": "webdsa/acf-gutenblocks-sv",
         "type": "wordpress-plugin",
-        "version": "dev-release/0.4.2",
+        "version": "1.0",
         "dist": {
-          "url": "https://github.com/studiovisual/acf-gutenblocks/releases/download/0.4.2/acf-gutenblocks.zip",
+          "url": "./packages/acf-gutenblocks.zip",
           "type": "zip"
         },
         "autoload": {
@@ -26,11 +26,11 @@
     {
       "type": "package",
       "package": {
-        "name": "lordealeister/acf-multisite-options",
+        "name": "igrejaadventista/acf-multisite-options",
         "type": "wordpress-plugin",
         "version": "dev-master",
         "dist": {
-          "url": "https://github.com/lordealeister/acf-multisite-options/archive/refs/heads/master.zip",
+          "url": "./packages/acf-multisite-options.zip",
           "type": "zip"
         }
       }
@@ -63,8 +63,8 @@
   "require": {
     "fiskhandlarn/blade": "^0.6.0",
     "vinkla/extended-acf": "^13.3.0",
-    "studiovisual/acf-gutenblocks": "dev-release/0.4.2",
-    "lordealeister/acf-multisite-options": "dev-master",
+    "webdsa/acf-gutenblocks-sv": "1.0",
+    "igrejaadventista/acf-multisite-options": "dev-master",
     "ben.moody/wp-rest-headless": "dev-master"
   },
   "config": {

@@ -8,7 +8,7 @@ if (file_exists($composer = __DIR__ . '/vendor/autoload.php'))
 	require_once $composer;
 
 if (is_multisite()) {
-	require_once(dirname(__FILE__) . '/vendor/lordealeister/acf-multisite-options/acf-multisite-options.php');
+	require_once(dirname(__FILE__) . '/vendor/igrejaadventista/acf-multisite-options/acf-multisite-options.php');
 }
 
 require_once(dirname(__FILE__) . '/classes/controllers/PA_AdminUser.class.php');

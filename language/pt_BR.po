@@ -223,10 +223,17 @@ msgstr "Exibe o bloco encontre uma igreja."
 msgid "Quick access"
 msgstr "Acesso rápido"
 
-#: Blocks/PAFindChurch/PAFindChurch.php:36
 #: Blocks/PAListIcons/PAListIcons.php:66
 msgid "Icon"
 msgstr "Ícone"
+
+#: Blocks/PAFindChurch/PAFindChurch.php:36
+msgid "Icon or SVG"
+msgstr "Ícone ou SVG"
+
+#: Blocks/PAFindChurch/PAFindChurch.php:37
+msgid "You can enter a FontAwesome CSS class (e.g., <code>fas fa-bookmark</code>) or paste a custom SVG here. See the <a href=\"https://fontawesome.com/v5.15/icons?d=gallery&p=2&s=solid&m=free\" target=\"_blank\">icon list</a>."
+msgstr "Você pode inserir uma classe CSS do FontAwesome (ex: <code>fas fa-bookmark</code>) ou colar um SVG personalizado aqui. Veja a <a href=\"https://fontawesome.com/v5.15/icons?d=gallery&p=2&s=solid&m=free\" target=\"_blank\">lista de ícones</a>."
 
 #: Blocks/PAFindChurch/PAFindChurch.php:43 Blocks/PAImage/PAImage.php:46
 #: Blocks/PAListIcons/PAListIcons.php:72

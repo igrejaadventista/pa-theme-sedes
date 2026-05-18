@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [2.2.3] - 2026-04-06
+
+### Fixed
+
+- Ajuste no caminho do plugin ACF Gutenberg Blocks (acf-gutenblocks).
+
+## [2.2.2] - 2026-03-18
+
+### Fixed
+- Realizado ajuste no tema para garantir que a tradução dos blocos não seja afetada durante atualizações do WordPress.
+
 ## [2.2.1] - 2026-02-16
 
 ### Fixed
