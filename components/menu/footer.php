@@ -38,16 +38,16 @@ $menus = PaThemeHelpers::getGlobalMenu('global-footer');
             <span><?= _e('Our social networks', 'iasd'); ?></span>
             <div class="icons mt-3">
               <?php if ($facebook) {
-              ?><a href="<?= $facebook ?>" title="Facebook"><i class="fab fa-facebook-f me-4"></i></a><?php
+              ?><a href="<?= $facebook ?>" title="Facebook" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook-f me-4"></i></a><?php
                                                                                                     } ?>
               <?php if ($twitter) {
-              ?><a href="<?= $twitter ?>" title="Twitter"><i class="fab fa-twitter me-4"></i></a><?php
+              ?><a href="<?= $twitter ?>" title="X" target="_blank" rel="noopener noreferrer"><i class="fab fa-x-twitter me-4" ></i></a><?php
                                                                                                 } ?>
               <?php if ($youtube) {
-              ?><a href="<?= $youtube ?>" title="Youtube"><i class="fab fa-youtube me-4"></i></a><?php
+              ?><a href="<?= $youtube ?>" title="Youtube" target="_blank" rel="noopener noreferrer"><i class="fab fa-youtube me-4"></i></a><?php
                                                                                                 } ?>
               <?php if ($instagram) {
-              ?><a href="<?= $instagram ?>" title="Instagram"><i class="fab fa-instagram-square"></i></a><?php
+              ?><a href="<?= $instagram ?>" title="Instagram" target="_blank" rel="noopener noreferrer"><i class="fab fa-square-instagram"></i></a><?php
                                                                                                         } ?>
             </div>
           </div>

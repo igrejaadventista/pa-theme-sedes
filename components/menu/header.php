@@ -70,7 +70,7 @@ $relative_sites = [
       <?php endif; ?>
 
       <div class="col-auto ms-auto d-flex flex-row-reverse align-items-center">
-        <i class="fa fa-bars fa-2x" aria-hidden="true" onclick="window.Menus.pa_action_menu()"></i>
+        <i class="fas fa-bars fa-2x" aria-hidden="true" onclick="window.Menus.pa_action_menu()"></i>
       </div>
 
       <div class="menu" id="pa_menu">
