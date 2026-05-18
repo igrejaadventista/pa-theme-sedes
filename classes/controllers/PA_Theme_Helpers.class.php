@@ -73,11 +73,15 @@ class PaThemeHelpers
     wp_enqueue_style('pa-theme-sedes-print', get_template_directory_uri() . '/print.css', null, null);
 
     wp_enqueue_script('fontawesome-js', 'https://kit.fontawesome.com/c992dc3e78.js', array(), false, false);
-    wp_enqueue_script('scripts', get_template_directory_uri() . '/assets/js/script.js', array(), false, true);
 
-    if ($pa_settings = get_fields('pa_settings')) {
-      wp_localize_script('scripts', 'data', ['autoplay' => $pa_settings['ct_banner_autoplay']]);
-    }
+    $script_path = get_template_directory() . '/assets/js/script.js';
+    $script_version = file_exists($script_path) ? filemtime($script_path) : false;
+    wp_enqueue_script('scripts', get_template_directory_uri() . '/assets/js/script.js', array(), $script_version, true);
+
+    $pa_settings = get_fields('pa_settings') ?: [];
+    wp_add_inline_script('scripts', sprintf('var data = %s;', wp_json_encode([
+      'autoplay' => !empty($pa_settings['ct_banner_autoplay']),
+    ])), 'before');
   }
 
   function registerAssetsAdmin()
