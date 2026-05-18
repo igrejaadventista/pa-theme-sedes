@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [2.2.4] - 2026-05-18
+
+### Changed
+
+- Atualização do Font Awesome para a versão 6 (ADVC-217).
+- Novos textos e traduções no bloco Encontre uma igreja (ADVC-217).
+- Redes sociais do footer abrem em nova aba (ADVC-217).
+
+### Fixed
+
+- Ajuste na lógica de autoplay do banner (ADVC-237).
+
 ## [2.2.3] - 2026-04-06
 
 ### Fixed
