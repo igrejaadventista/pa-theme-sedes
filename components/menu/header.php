@@ -1,11 +1,90 @@
 <?php
 $sede = getSiteInfo();
 $menu_global = PaThemeHelpers::getGlobalMenu('global-header');
-$relative_site = network_site_url("", "relative");
-$relative_sites = [
-  '/pt/' => 'PT',
-  '/es/' => 'ES'
+$languages = [];
+$current_language = null;
+$current_language_index = 0;
+$language_icon_src = function ($url) {
+  if (strpos($url, 'data:image/svg+xml') === 0) {
+    return esc_attr($url);
+  }
+
+  return esc_url($url);
+};
+$language_flag_icon_url = function ($code) {
+  $code = strtolower($code);
+  $code = $code === 'pt' ? 'br' : $code;
+
+  if (!preg_match('/^[a-z0-9-]+$/', $code)) {
+    return '';
+  }
+
+  return 'https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.5.0/flags/4x3/' . $code . '.svg';
+};
+$default_language_icons = [
+  'br' => $language_flag_icon_url('br'),
+  'es' => $language_flag_icon_url('es'),
 ];
+$default_languages = [
+  [
+    'name' => 'PT',
+    'url' => '/pt',
+    'icon_url' => $default_language_icons['br'],
+    'icon_alt' => 'PT',
+    'path' => '/pt/',
+  ],
+  [
+    'name' => 'ES',
+    'url' => '/es',
+    'icon_url' => $default_language_icons['es'],
+    'icon_alt' => 'ES',
+    'path' => '/es/',
+  ],
+];
+
+if (class_exists('\IASD\Core\Settings\Modules') && \IASD\Core\Settings\Modules::isActiveModule('language_selector')) {
+  $language_settings = get_field('ct_languages', 'pa_settings');
+  $current_path = wp_parse_url(wp_unslash($_SERVER['REQUEST_URI'] ?? '/'), PHP_URL_PATH) ?: '/';
+  $current_path = trailingslashit($current_path);
+
+  foreach (($language_settings ?: []) as $language) {
+    $icon = $language['icon'] ?? [];
+    $icon_url = is_array($icon) ? ($icon['url'] ?? '') : '';
+    $icon_alt = is_array($icon) ? ($icon['alt'] ?? '') : '';
+    $language_name = $language['name'] ?? '';
+    $language_url = $language['url'] ?? '';
+    $language_path = wp_parse_url($language_url, PHP_URL_PATH) ?: $language_url;
+    $language_path = trailingslashit('/' . ltrim($language_path, '/'));
+    $default_icon_key = strtolower(is_string($icon) ? $icon : $language_name);
+    $default_icon_key = $default_icon_key === 'pt' ? 'br' : $default_icon_key;
+    $icon_url = $icon_url ?: ($default_language_icons[$default_icon_key] ?? $language_flag_icon_url($default_icon_key));
+
+    if (empty($language_name) || empty($language_url) || empty($icon_url)) {
+      continue;
+    }
+
+    $languages[] = [
+      'name' => $language_name,
+      'url' => $language_url,
+      'icon_url' => $icon_url,
+      'icon_alt' => $icon_alt ?: $language_name,
+      'path' => $language_path,
+    ];
+  }
+
+  if (empty($languages)) {
+    $languages = $default_languages;
+  }
+
+  foreach ($languages as $index => $language) {
+    if (strpos($current_path, $language['path']) === 0) {
+      $current_language_index = $index;
+      break;
+    }
+  }
+
+  $current_language = $languages[$current_language_index] ?? null;
+}
 
 ?>
 
@@ -27,15 +106,15 @@ $relative_sites = [
               </li>
             <?php endif; ?>
 
-            <?php if (defined('PA_LANG') && PA_LANG == true) { ?>
+            <?php if (!empty($current_language) && !empty($languages)) { ?>
               <li class="nav-item dropdown pa-menu-lang">
                 <a class="nav-link dropdown-toggle pa-search" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  <i class="<?= strtolower($relative_sites[array_key_exists($relative_site, $relative_sites) ? $relative_site : array_key_first($relative_sites)]) ?> me-2" aria-hidden="true"></i>
-                  <?= $relative_sites[array_key_exists($relative_site, $relative_sites) ? $relative_site : array_key_first($relative_sites)] ?>
+                  <img class="pa-menu-lang-icon me-2" src="<?= $language_icon_src($current_language['icon_url']); ?>" alt="<?= esc_attr($current_language['icon_alt']); ?>">
+                  <?= esc_html($current_language['name']); ?>
                 </a>
                 <ul class="dropdown-menu p-0">
-                  <?php foreach ($relative_sites as $key => $value) : ?>
-                    <li class=""><a class="dropdown-item" href="<?= $key ?>"><i class="<?= strtolower($value) ?> me-2" aria-hidden="true"></i> <?= $value ?></a></li>
+                  <?php foreach ($languages as $language) : ?>
+                    <li><a class="dropdown-item" href="<?= esc_url($language['url']); ?>"><img class="pa-menu-lang-icon me-2" src="<?= $language_icon_src($language['icon_url']); ?>" alt="<?= esc_attr($language['icon_alt']); ?>"> <?= esc_html($language['name']); ?></a></li>
                   <?php endforeach; ?>
                 </ul>
               </li>
@@ -75,16 +154,16 @@ $relative_sites = [
 
       <div class="menu" id="pa_menu">
         <ul class="menu_sub">
-          <?php if (defined('PA_LANG') && PA_LANG == true) { ?>
+          <?php if (!empty($current_language) && !empty($languages)) { ?>
             <li class="pa-dropdown">
-              <a href="#" onclick="event.preventDefault();" class="<?= strtolower($relative_sites[$relative_site]) ?>"><?= $relative_sites[$relative_site]  ?></a>
+              <a href="#" onclick="event.preventDefault();"><img class="pa-menu-lang-icon" src="<?= $language_icon_src($current_language['icon_url']); ?>" alt="<?= esc_attr($current_language['icon_alt']); ?>"> <?= esc_html($current_language['name']); ?></a>
               <div class="pa-sub-dropdown">
                 <ul>
                   <?php
-                  foreach ($relative_sites as $key => $value) :
-                    if ($key == $relative_site) continue;
+                  foreach ($languages as $index => $language) :
+                    if ($index === $current_language_index) continue;
                   ?>
-                    <li><a href="<?= $key ?>" class="<?= strtolower($value) ?>"> <?= $value ?></a></li>
+                    <li><a href="<?= esc_url($language['url']); ?>"><img class="pa-menu-lang-icon" src="<?= $language_icon_src($language['icon_url']); ?>" alt="<?= esc_attr($language['icon_alt']); ?>"> <?= esc_html($language['name']); ?></a></li>
                   <?php
                   endforeach;
                   ?>

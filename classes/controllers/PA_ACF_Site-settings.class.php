@@ -2,6 +2,8 @@
 
 
 use Extended\ACF\ConditionalLogic;
+use Extended\ACF\Fields\Repeater;
+use Extended\ACF\Fields\Select;
 use Extended\ACF\Fields\Tab;
 use Extended\ACF\Fields\Text;
 use Extended\ACF\Fields\Textarea;
@@ -16,6 +18,7 @@ class PaAcfSiteSettings
   public function __construct()
   {
     add_action('after_setup_theme', [$this, 'addPageSettings']);
+    add_filter('acf/prepare_field/name=ct_languages', [$this, 'prepareLanguageSelectorField']);
   }
 
   function addPageSettings()
@@ -45,6 +48,7 @@ class PaAcfSiteSettings
 
     $this->createAcfFields();
     $this->createBannerAutoplaySettings();
+    $this->createLanguageSelectorSettings();
   }
 
   function createAcfFields($network = false)
@@ -116,6 +120,106 @@ class PaAcfSiteSettings
         Location::where('options_page', '==', "iasd_custom_settings{$network}"),
       ],
     ]);
+  }
+
+  function createLanguageSelectorSettings()
+  {
+    register_extended_field_group([
+      'title' => __('Language Selector Settings', 'iasd'),
+      'key' => 'language_selector_settings',
+      'style' => 'default',
+      'fields' => [
+        Tab::make(__('Languages', 'iasd')),
+        Repeater::make(__('Languages', 'iasd'), 'ct_languages')
+          ->instructions(__('Add the languages available in the header selector.', 'iasd'))
+          ->layout('row')
+          ->buttonLabel(__('Add language', 'iasd'))
+          ->collapsed('name')
+          ->fields([
+            Text::make(__('Language name', 'iasd'), 'name')
+              ->instructions(__('Name displayed in the selector, for example PT or ES.', 'iasd'))
+              ->required()
+              ->wrapper([
+                'width' => 30,
+              ]),
+            Url::make(__('Redirect URL', 'iasd'), 'url')
+              ->required()
+              ->wrapper([
+                'width' => 40,
+              ]),
+            Select::make(__('Flag/Icon', 'iasd'), 'icon')
+              ->instructions(__('Select one of the available flag icons.', 'iasd'))
+              ->choices($this->getFlagIconChoices())
+              ->defaultValue('br')
+              ->stylisedUi()
+              ->required()
+              ->wrapper([
+                'width' => 30,
+              ]),
+          ]),
+      ],
+      'location' => [
+        Location::where('options_page', '==', 'iasd_custom_settings'),
+      ],
+    ]);
+  }
+
+  function prepareLanguageSelectorField($field)
+  {
+    if (class_exists('\IASD\Core\Settings\Modules') && !\IASD\Core\Settings\Modules::isActiveModule('language_selector')) {
+      return false;
+    }
+
+    return $field;
+  }
+
+  function getFlagIconChoices()
+  {
+    $fallback = [
+      'br' => __('Brazil', 'iasd') . ' - BR',
+      'es' => __('Spain', 'iasd') . ' - ES',
+    ];
+
+    $choices = get_transient('pa_language_flag_icon_choices');
+
+    if (is_array($choices) && !empty($choices)) {
+      return $choices;
+    }
+
+    if (!is_admin()) {
+      return $fallback;
+    }
+
+    $response = wp_remote_get('https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.5.0/country.json');
+
+    if (is_wp_error($response) || wp_remote_retrieve_response_code($response) !== 200) {
+      return $fallback;
+    }
+
+    $countries = json_decode(wp_remote_retrieve_body($response), true);
+
+    if (!is_array($countries)) {
+      return $fallback;
+    }
+
+    $choices = [];
+
+    foreach ($countries as $country) {
+      if (empty($country['iso']) || empty($country['code']) || empty($country['name'])) {
+        continue;
+      }
+
+      $code = sanitize_key($country['code']);
+      $choices[$code] = $country['name'] . ' - ' . strtoupper($code);
+    }
+
+    if (empty($choices)) {
+      return $fallback;
+    }
+
+    set_transient('pa_language_flag_icon_choices', $choices, WEEK_IN_SECONDS);
+
+    return $choices;
   }
 }
 $PaAcfSiteSettings = new PaAcfSiteSettings();
