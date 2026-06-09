@@ -1,9 +1,10 @@
 header.pa-menu {
-  background-color: #ffffff;
+  background-color: #fff;
 }
+
 .pa-menu-desktop {
   height: 109px;
-  
+
   a {
     img {
       height: -webkit-fill-available;
@@ -16,7 +17,8 @@ header.pa-menu {
   }
 }
 
-.pa-menu-desktop, .pa-menu-mobile {
+.pa-menu-desktop,
+.pa-menu-mobile {
   .pa-header-logo {
     z-index: 999;
     height: 100%;
@@ -123,7 +125,7 @@ div.ativo ~ .mask {
 }
 
 .pa-menu-mobile {
-    ul {
+  ul {
     list-style: none;
     // padding: 0;
   }
@@ -131,33 +133,13 @@ div.ativo ~ .mask {
 
 .pa-menu-lang,
 .dropdown-menu {
-  color: red;
-
-  i {
-    padding-right: 1.4rem;
-    position: relative;
-    // background-color: red;
-  }
-
-  i::before {
+  .pa-menu-lang-icon {
+    border-radius: 50%;
     display: inline-block;
-    position: absolute;
-    left: 0;
-    top: 0;
-    content: " ";
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-size: auto 100%;
-    height: 100%;
-    width: 100%;
-  }
-
-  i.pt::before {
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='25' height='25' viewBox='0 0 25 25'%3E%3Cg id='Brasil' transform='translate(-133.905 0.172)'%3E%3Ccircle id='Elipse_3' data-name='Elipse 3' cx='12.5' cy='12.5' r='12.5' transform='translate(133.905 -0.172)' fill='%23008f3e'/%3E%3Cpath id='Intersecao_1' data-name='Intersecao 1' d='M.488,15.871a12.5,12.5,0,0,1,0-6.93L12.414,0,24.336,8.941a12.5,12.5,0,0,1,0,6.93L12.414,24.816Z' transform='translate(133.905 0)' fill='%23f8c300'/%3E%3Cellipse id='Elipse_1' data-name='Elipse 1' cx='8.213' cy='8.272' rx='8.213' ry='8.272' transform='translate(138.106 4.136)' fill='%2328166f'/%3E%3Cpath id='Caminho_2' data-name='Caminho 2' d='M33.9,22.275a6.749,6.749,0,0,0,.532-1.536,11.112,11.112,0,0,0-14.653-5.79l-.709.355a10.652,10.652,0,0,0-.473,1.241,11.08,11.08,0,0,1,14.949,4.963C33.667,21.744,33.785,21.98,33.9,22.275Z' transform='translate(119.801 -5.731)' fill='%23fff'/%3E%3C/g%3E%3C/svg%3E%0A");
-  }
-
-  i.es::before {
-    background-image: url("data:image/svg+xml,%3Csvg id='Espanha' xmlns='http://www.w3.org/2000/svg' width='25' height='25' viewBox='0 0 25 25'%3E%3Cg id='Grupo_4' data-name='Grupo 4'%3E%3Cg id='Grupo_1' data-name='Grupo 1' transform='translate(1.67)'%3E%3Cpath id='Caminho_3' data-name='Caminho 3' d='M55.86,6.25H34.2a12.508,12.508,0,0,1,21.66,0Z' transform='translate(-34.2)' fill='%23c50c1e'/%3E%3C/g%3E%3Cg id='Grupo_2' data-name='Grupo 2' transform='translate(1.67 18.75)'%3E%3Cpath id='Caminho_4' data-name='Caminho 4' d='M55.86,384a12.508,12.508,0,0,1-21.66,0Z' transform='translate(-34.2 -384)' fill='%23c50c1e'/%3E%3C/g%3E%3Cg id='Grupo_3' data-name='Grupo 3' transform='translate(0 6.25)'%3E%3Cpath id='Caminho_5' data-name='Caminho 5' d='M25,134.25a12.492,12.492,0,0,1-1.67,6.25H1.67a12.531,12.531,0,0,1,0-12.5H23.325A12.445,12.445,0,0,1,25,134.25Z' transform='translate(0 -128)' fill='%23fec315'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E%0A");
+    height: 25px;
+    object-fit: cover;
+    vertical-align: middle;
+    width: 25px;
   }
 }
 
@@ -184,24 +166,14 @@ div.ativo ~ .mask {
       color: $text-color;
     }
 
-    a::before {
-      display: inline-block;
-      position: absolute;
+    .pa-menu-lang-icon {
+      border-radius: 50%;
+      height: 1.57rem;
       left: 0;
-      content: " ";
-      background-position: center center;
-      background-repeat: no-repeat;
-      background-size: auto 100%;
-      height: 100%;
+      object-fit: cover;
+      position: absolute;
+      top: 0;
       width: 1.57rem;
-    }
-
-    a.pt::before {
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='25' height='25' viewBox='0 0 25 25'%3E%3Cg id='Brasil' transform='translate(-133.905 0.172)'%3E%3Ccircle id='Elipse_3' data-name='Elipse 3' cx='12.5' cy='12.5' r='12.5' transform='translate(133.905 -0.172)' fill='%23008f3e'/%3E%3Cpath id='Intersecao_1' data-name='Intersecao 1' d='M.488,15.871a12.5,12.5,0,0,1,0-6.93L12.414,0,24.336,8.941a12.5,12.5,0,0,1,0,6.93L12.414,24.816Z' transform='translate(133.905 0)' fill='%23f8c300'/%3E%3Cellipse id='Elipse_1' data-name='Elipse 1' cx='8.213' cy='8.272' rx='8.213' ry='8.272' transform='translate(138.106 4.136)' fill='%2328166f'/%3E%3Cpath id='Caminho_2' data-name='Caminho 2' d='M33.9,22.275a6.749,6.749,0,0,0,.532-1.536,11.112,11.112,0,0,0-14.653-5.79l-.709.355a10.652,10.652,0,0,0-.473,1.241,11.08,11.08,0,0,1,14.949,4.963C33.667,21.744,33.785,21.98,33.9,22.275Z' transform='translate(119.801 -5.731)' fill='%23fff'/%3E%3C/g%3E%3C/svg%3E%0A");
-    }
-
-    a.es::before {
-      background-image: url("data:image/svg+xml,%3Csvg id='Espanha' xmlns='http://www.w3.org/2000/svg' width='25' height='25' viewBox='0 0 25 25'%3E%3Cg id='Grupo_4' data-name='Grupo 4'%3E%3Cg id='Grupo_1' data-name='Grupo 1' transform='translate(1.67)'%3E%3Cpath id='Caminho_3' data-name='Caminho 3' d='M55.86,6.25H34.2a12.508,12.508,0,0,1,21.66,0Z' transform='translate(-34.2)' fill='%23c50c1e'/%3E%3C/g%3E%3Cg id='Grupo_2' data-name='Grupo 2' transform='translate(1.67 18.75)'%3E%3Cpath id='Caminho_4' data-name='Caminho 4' d='M55.86,384a12.508,12.508,0,0,1-21.66,0Z' transform='translate(-34.2 -384)' fill='%23c50c1e'/%3E%3C/g%3E%3Cg id='Grupo_3' data-name='Grupo 3' transform='translate(0 6.25)'%3E%3Cpath id='Caminho_5' data-name='Caminho 5' d='M25,134.25a12.492,12.492,0,0,1-1.67,6.25H1.67a12.531,12.531,0,0,1,0-12.5H23.325A12.445,12.445,0,0,1,25,134.25Z' transform='translate(0 -128)' fill='%23fec315'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E%0A");
     }
 
     > a::after {

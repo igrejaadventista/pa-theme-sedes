@@ -5,6 +5,8 @@ class PaAcfHelpers {
 	public function __construct(){
 		add_filter('acf/settings/show_admin', [$this, 'acfShowAdmin']);
 		add_filter('wp_kses_allowed_html', [$this, 'allowSvgTags'], 10, 2);
+		add_filter('upload_mimes', [$this, 'allowSvgUploads']);
+		add_filter('wp_check_filetype_and_ext', [$this, 'validateSvgUploads'], 10, 5);
 	}
 
 	/**
@@ -38,6 +40,29 @@ class PaAcfHelpers {
       $allowed['title'] = [];
 		}
 		return $allowed;
+	}
+
+	function allowSvgUploads($mimes) {
+		if (current_user_can('manage_options')) {
+			$mimes['svg'] = 'image/svg+xml';
+		}
+
+		return $mimes;
+	}
+
+	function validateSvgUploads($data, $file, $filename, $mimes, $real_mime) {
+		if (!current_user_can('manage_options')) {
+			return $data;
+		}
+
+		$filetype = wp_check_filetype($filename, $mimes);
+
+		if ($filetype['ext'] === 'svg') {
+			$data['ext'] = 'svg';
+			$data['type'] = 'image/svg+xml';
+		}
+
+		return $data;
 	}
 
 	function acfSaveJson(){

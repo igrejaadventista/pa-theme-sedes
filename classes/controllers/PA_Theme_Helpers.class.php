@@ -86,7 +86,10 @@ class PaThemeHelpers
 
   function registerAssetsAdmin()
   {
-    wp_enqueue_script('scripts-admin', get_template_directory_uri() . '/assets/scripts/script_admin.js', array(), false, true);
+    $script_path = get_template_directory() . '/assets/scripts/script_admin.js';
+    $script_version = file_exists($script_path) ? filemtime($script_path) : false;
+
+    wp_enqueue_script('scripts-admin', get_template_directory_uri() . '/assets/scripts/script_admin.js', array('jquery', 'acf-input'), $script_version, true);
   }
 
   function specialNavClass($classes)

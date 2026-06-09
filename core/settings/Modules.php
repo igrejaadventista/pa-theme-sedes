@@ -110,6 +110,14 @@ class Modules {
           'width' => 50,
         ]),
 
+      TrueFalse::make(__('Language selector', 'iasd'), self::$prefix . 'language_selector')
+        ->instructions(__('Enable/disable IASD language selector', 'iasd'))
+        ->stylisedUi(__('Enabled', 'iasd'), __('Disabled', 'iasd'))
+        ->defaultValue(true)
+        ->wrapper([
+          'width' => 50,
+        ]),
+
       TrueFalse::make(__('Seventh column', 'iasd'), self::$prefix . 'seventhcolumn')
         ->instructions(__('Enable/disable IASD seventh column', 'iasd'))
         ->stylisedUi(__('Enabled', 'iasd'), __('Disabled', 'iasd'))
