@@ -25,23 +25,6 @@ $default_language_icons = [
   'br' => $language_flag_icon_url('br'),
   'es' => $language_flag_icon_url('es'),
 ];
-$default_languages = [
-  [
-    'name' => 'PT',
-    'url' => '/pt',
-    'icon_url' => $default_language_icons['br'],
-    'icon_alt' => 'PT',
-    'path' => '/pt/',
-  ],
-  [
-    'name' => 'ES',
-    'url' => '/es',
-    'icon_url' => $default_language_icons['es'],
-    'icon_alt' => 'ES',
-    'path' => '/es/',
-  ],
-];
-
 if (class_exists('\IASD\Core\Settings\Modules') && \IASD\Core\Settings\Modules::isActiveModule('language_selector')) {
   $language_settings = get_field('ct_languages', 'pa_settings');
   $current_path = wp_parse_url(wp_unslash($_SERVER['REQUEST_URI'] ?? '/'), PHP_URL_PATH) ?: '/';
@@ -70,10 +53,6 @@ if (class_exists('\IASD\Core\Settings\Modules') && \IASD\Core\Settings\Modules::
       'icon_alt' => $icon_alt ?: $language_name,
       'path' => $language_path,
     ];
-  }
-
-  if (empty($languages)) {
-    $languages = $default_languages;
   }
 
   foreach ($languages as $index => $language) {

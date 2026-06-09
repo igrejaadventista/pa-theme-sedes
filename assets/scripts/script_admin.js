@@ -1,10 +1,6 @@
 (function ($) {
   const flagIconsBaseUrl = 'https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.5.0/';
-  const fallbackCountries = [
-    { code: 'br', name: 'Brazil' },
-    { code: 'es', name: 'Spain' },
-  ];
-  let countries = fallbackCountries;
+  let countries = [];
   let countriesRequest = null;
 
   function flagIconUrl(code) {
@@ -35,9 +31,9 @@
   function populateLanguageFlagSelects($el) {
     getLanguageFlagSelects($el).each(function () {
       const $select = $(this);
-      const currentValue = $select.val() || 'br';
+      const currentValue = $select.val() || '';
 
-      if (countries.length > fallbackCountries.length) {
+      if (countries.length) {
         $select.empty();
 
         countries.forEach(function (country) {
@@ -78,23 +74,18 @@
       return countriesRequest;
     }
 
-    countriesRequest = $.getJSON(flagIconsBaseUrl + 'country.json').then(
-      function (data) {
-        countries = data
-          .filter(function (country) {
-            return country.iso && country.code && country.name;
-          })
-          .map(function (country) {
-            return {
-              code: country.code,
-              name: country.name,
-            };
-          });
-      },
-      function () {
-        countries = fallbackCountries;
-      }
-    );
+    countriesRequest = $.getJSON(flagIconsBaseUrl + 'country.json').then(function (data) {
+      countries = data
+        .filter(function (country) {
+          return country.iso && country.code && country.name;
+        })
+        .map(function (country) {
+          return {
+            code: country.code,
+            name: country.name,
+          };
+        });
+    });
 
     return countriesRequest;
   }
